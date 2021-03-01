@@ -3,6 +3,8 @@ package com.turtle.amatda
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.room.Room
+import com.turtle.amatda.data.AppDatabase
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +18,8 @@ class MainActivity : AppCompatActivity() {
             finish()
             return
         }
+
+        val AppDatabase = AppDatabase.getInstance(this)
 
     }
 

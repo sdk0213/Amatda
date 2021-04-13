@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [ToCheck::class], version = 1)
+@Database(entities = [Todo::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun toCheckDao() : ToCheckDao
+    abstract fun toCheckDao() : ToDoDao
 
     companion object {
         fun getInstance(context: Context): AppDatabase {

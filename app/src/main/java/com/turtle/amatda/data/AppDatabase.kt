@@ -7,11 +7,15 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [Todo::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun toCheckDao() : ToDoDao
+    abstract fun toCheckDao(): ToDoDao
 
     companion object {
         fun getInstance(context: Context): AppDatabase {
-            return Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "amatda.db").fallbackToDestructiveMigration().build()
+            return Room.databaseBuilder(
+                context.applicationContext,
+                AppDatabase::class.java,
+                "amatda.db"
+            ).fallbackToDestructiveMigration().build()
         }
     }
 }

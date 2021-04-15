@@ -9,4 +9,5 @@ data class Todo(
     val doId: Int,
     var title: String,
     var description: String,
-    var checked: Boolean)
+    var checked: Boolean
+)

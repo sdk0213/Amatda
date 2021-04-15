@@ -24,10 +24,11 @@ class TodoModule {
     //RecyclerView용 레이아웃 매니저
     @Provides
     @FragmentScope
-    fun provideLinearLayoutManager(@ApplicationContext context: Context): LinearLayoutManager{
+    fun provideLinearLayoutManager(@ApplicationContext context: Context): LinearLayoutManager {
         return object : LinearLayoutManager(context) {
             override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
-                return RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+                return RecyclerView.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
                 )
             }
         }

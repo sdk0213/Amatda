@@ -12,11 +12,15 @@ import dagger.Provides
 @Module
 class AmatdaModule {
 
-    //데이터 바인딩 클래스 제공
     @Provides
     @FragmentScope
     fun provideFragmentAmatdaBinding(activity: MainActivity): FragmentAmatdaBinding {
-        return DataBindingUtil.inflate<FragmentAmatdaBinding>(activity.layoutInflater, R.layout.fragment_amatda, null, false)
+        return DataBindingUtil.inflate<FragmentAmatdaBinding>(
+            activity.layoutInflater,
+            R.layout.fragment_amatda,
+            null,
+            false
+        )
     }
 
     @Provides

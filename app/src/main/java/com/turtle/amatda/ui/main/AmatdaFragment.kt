@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import com.google.android.material.tabs.TabLayoutMediator
-import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentAmatdaBinding
 import com.turtle.amatda.di.AppViewModelFactory
 import dagger.android.support.DaggerFragment
@@ -37,8 +35,7 @@ class AmatdaFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewPager2.adapter = amatdaFragmentStateAdapter
-        TabLayoutMediator(binding.tabLayout, binding.viewPager2) {
-                tab, position ->
+        TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
             tab.text = tabTextList[position]
         }.attach()
     }

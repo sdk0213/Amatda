@@ -9,7 +9,7 @@ import com.turtle.amatda.data.Todo
 import com.turtle.amatda.databinding.ListItemTodoBinding
 import javax.inject.Inject
 
-class TodoAdapter @Inject constructor(): ListAdapter<Todo, RecyclerView.ViewHolder>(
+class TodoAdapter @Inject constructor() : ListAdapter<Todo, RecyclerView.ViewHolder>(
     PlantDiffCallback()
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -53,7 +53,7 @@ class TodoAdapter @Inject constructor(): ListAdapter<Todo, RecyclerView.ViewHold
 class PlantDiffCallback : DiffUtil.ItemCallback<Todo>() {
 
     override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean {
-        return oldItem.doId== newItem.doId
+        return oldItem.doId == newItem.doId
     }
 
     override fun areContentsTheSame(oldItem: Todo, newItem: Todo): Boolean {

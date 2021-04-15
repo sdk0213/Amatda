@@ -12,7 +12,7 @@ import com.turtle.amatda.di.AppViewModelFactory
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class TodoFragment : DaggerFragment(){
+class TodoFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: AppViewModelFactory

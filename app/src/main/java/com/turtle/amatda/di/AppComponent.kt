@@ -13,8 +13,8 @@ import javax.inject.Singleton
         AppModule::class // 애플리케이션 스코프 모듈
     ]
 )
-interface AppComponent : AndroidInjector<App?> {
+interface AppComponent : AndroidInjector<App> {
 
     @Component.Factory
-    abstract class Factory : AndroidInjector.Factory<App?>
+    abstract class Factory : AndroidInjector.Factory<App>
 }

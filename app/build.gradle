@@ -41,12 +41,22 @@ android {
             options.compilerArgs << "-Xmaxerrs" << 500
         }
     }
+
+    configurations.all {
+        resolutionStrategy {
+            force("org.antlr:antlr4-runtime:4.7.1")
+            force("org.antlr:antlr4-tool:4.7.1")
+        }
+    }
 }
 
 dependencies {
     kapt "androidx.room:room-compiler:2.2.6"
 
     // Dagger 2
+
+    implementation 'com.google.dagger:dagger:2.31.2'
+
     implementation 'com.google.dagger:dagger-android:2.27'
     implementation 'com.google.dagger:dagger-android-support:2.27'
     kapt 'com.google.dagger:dagger-android-processor:2.27'

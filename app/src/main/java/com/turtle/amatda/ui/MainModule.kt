@@ -7,6 +7,8 @@ import com.turtle.amatda.databinding.ActivityMainBinding
 import com.turtle.amatda.di.qualifier.ActivityContext
 import com.turtle.amatda.di.scope.ActivityScope
 import com.turtle.amatda.di.scope.FragmentScope
+import com.turtle.amatda.ui.main.AmatdaFragment
+import com.turtle.amatda.ui.main.AmatdaModule
 import com.turtle.amatda.ui.setting.SettingFragment
 import com.turtle.amatda.ui.setting.SettingModule
 import com.turtle.amatda.ui.todo.TodoFragment
@@ -33,6 +35,10 @@ abstract class MainModule {
         }
 
     }
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [AmatdaModule::class])
+    abstract fun getAmatadaFragment(): AmatdaFragment
 
     @FragmentScope
     @ContributesAndroidInjector(modules = [TodoModule::class])

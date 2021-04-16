@@ -15,7 +15,7 @@ class AmatdaFragmentStateAdapter @Inject constructor(fragment: Fragment) :
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            1 -> TodoFragment()
+            0 -> TodoFragment()
             else -> SettingFragment()
         }
     }

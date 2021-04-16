@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">amatda</string>
+
+    <!-- 메뉴 -->
+    <string name="menu_todo">Todo</string>
+    <string name="menu_setting">Setting</string>
+
+    <!-- contentDescription -->
+    <string name="cttdcrp_add_todo">add todo</string>
+
+
 </resources>

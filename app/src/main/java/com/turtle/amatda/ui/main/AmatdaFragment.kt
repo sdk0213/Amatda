@@ -21,7 +21,7 @@ class AmatdaFragment : DaggerFragment() {
     @Inject
     lateinit var amatdaFragmentStateAdapter: AmatdaFragmentStateAdapter
 
-    private val tabTextList = arrayListOf("HOME", "SETTING")
+    private val tabTextList = arrayListOf("Todo", "Setting")
 
     override fun onCreateView(
         inflater: LayoutInflater,

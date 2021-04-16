@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">아마따</string>
+
+    <!-- 메뉴 -->
+    <string name="menu_todo">할일</string>
+    <string name="menu_setting">설정</string>
+
+    <!-- contentDescription -->
+    <string name="cttdcrp_add_todo">할일 추가하기</string>
+
+</resources>

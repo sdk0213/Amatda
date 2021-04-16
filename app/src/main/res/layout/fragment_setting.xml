@@ -3,12 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.turtle.amatda.ui.setting.SettingModule" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:background="@color/white"
             android:id="@+id/setting_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

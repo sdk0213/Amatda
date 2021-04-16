@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="android.view.View" />
-
         <variable
             name="viewModel"
             type="com.turtle.amatda.ui.todo.TodoViewModel" />
@@ -16,7 +15,6 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:background="@color/black"
             android:id="@+id/todo_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -27,6 +25,18 @@
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="-16dp"
             tools:listitem="@layout/list_item_todo" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="30dp"
+            android:contentDescription="@string/cttdcrp_add_todo"
+            android:src="@drawable/ic_todo_add_24"
+            app:fabSize="auto"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2018 Google LLC
+  ~ Copyright 2019 Google LLC
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,18 +15,9 @@
   ~ limitations under the License.
   -->
 
+<!-- Values used for animations -->
 <resources>
 
-    <!-- Per Material Design specs: -->
-    <!-- https://material.io/design/components/buttons-floating-action-button.html#specs -->
-    <dimen name="todo_item_checked_height">90dp</dimen>
-    <dimen name="todo_item_title_height">90dp</dimen>
-
-    <dimen name="list_side_margin">12dp</dimen>
-    <dimen name="list_bottom_margin">10dp</dimen>
-    <dimen name="list_elevation">2dp</dimen>
-    <dimen name="list_corner_radius">12dp</dimen>
-
-    <dimen name="todoList_header_margin">30dp</dimen>
-
+    <!-- Duration (in milliseconds) for slide transition animation -->
+    <integer name="slide">200</integer>
 </resources>

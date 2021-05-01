@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View" />
         <variable
             name="viewModel"
-            type="com.turtle.amatda.ui.todo.TodoViewModel" />
+            type="com.turtle.amatda.presentation.view.todo.TodoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,6 +33,7 @@
             android:layout_margin="30dp"
             android:contentDescription="@string/cttdcrp_add_todo"
             android:src="@drawable/ic_todo_add_24"
+            android:onClick="@{() -> viewModel.insertTodo()}"
             app:fabSize="auto"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

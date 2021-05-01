@@ -3,7 +3,7 @@
     package="com.turtle.amatda">
 
     <application
-        android:name="com.turtle.amatda.App"
+        android:name="com.turtle.amatda.presentation.view.main.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:fullBackupContent="false"
@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Amatda">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".presentation.view.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

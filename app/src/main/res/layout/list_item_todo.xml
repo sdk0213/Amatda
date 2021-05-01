@@ -9,7 +9,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="todo"
-            type="com.turtle.amatda.data.Todo"/>
+            type="com.turtle.amatda.domain.model.Todo"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,52 +18,20 @@
         android:background="@android:color/white"
         android:layout_marginBottom="@dimen/list_bottom_margin">
 
-        <CheckBox
-            android:id="@+id/plant_item_image"
-            android:layout_width="30dp"
-            android:layout_height="@dimen/todo_item_checked_height"
-            android:checked="@{todo.checked}"
-            android:scaleType="centerCrop"
-            android:onClick="@{clickListener}"
-            tools:checked="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/plant_item_title"
-            tools:text="TodoTitle"
             android:layout_width="0dp"
             android:layout_height="@dimen/todo_item_title_height"
             android:gravity="center|start"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
             android:text="@{todo.title}"
-            android:textAppearance="?attr/textAppearanceListItem"
-            app:layout_constraintBottom_toBottomOf="@+id/plant_item_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/plant_item_image"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/plant_item_description"
-            tools:text="TodoDescription"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center|start"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="@{todo.description}"
             android:textAppearance="?attr/textAppearanceListItem"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.50"
-            app:layout_constraintStart_toEndOf="@+id/plant_item_image"
-            app:layout_constraintTop_toBottomOf="@+id/plant_item_title"
-            app:layout_constraintVertical_bias="0.50" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="TodoTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -25,7 +25,7 @@
             android:gravity="center|start"
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
-            android:text="@{todo.title}"
+            android:text="@{Long.toString(todo.id)}"
             android:textAppearance="?attr/textAppearanceListItem"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

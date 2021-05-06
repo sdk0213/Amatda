@@ -3,6 +3,8 @@ package com.turtle.amatda.presentation.di.module
 import android.content.Context
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.turtle.amatda.R
@@ -10,6 +12,7 @@ import com.turtle.amatda.databinding.FragmentTodoBinding
 import com.turtle.amatda.presentation.di.qualifier.ApplicationContext
 import com.turtle.amatda.presentation.di.scope.FragmentScope
 import com.turtle.amatda.presentation.view.main.MainActivity
+import com.turtle.amatda.presentation.view.todo.TodoFragment
 import dagger.Module
 import dagger.Provides
 
@@ -39,6 +42,13 @@ class TodoModule {
                 )
             }
         }
+    }
+
+    //Navigation 컴포넌트에서 목적지 간 이동을 담당하는 NavController
+    @Provides
+    @FragmentScope
+    fun provideNavController(fragment: TodoFragment): NavController {
+        return NavHostFragment.findNavController(fragment)
     }
 
 }

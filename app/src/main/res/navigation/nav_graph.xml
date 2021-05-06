@@ -18,31 +18,26 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/view__fragment">
-
-    <activity
-        android:id="@+id/master_main_activity"
-        android:name="com.turtle.amatda.presentation.view.main.MainActivity"
-        android:label="MasterMainActivity"
-        tools:layout="@layout/activity_main" />
+    app:startDestination="@id/view_fragment">
 
     <fragment
-        android:id="@+id/view__fragment"
+        android:id="@+id/view_fragment"
         android:name="com.turtle.amatda.presentation.view.home.HomeViewPagerFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_view_fragment_to_view_itemselect_fragment"
+            app:destination="@id/view_itemselect_fragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/slide_up"
+            app:popEnterAnim="@anim/slide_down"
+            app:popExitAnim="@anim/slide_down" />
+    </fragment>
 
     <fragment
         android:id="@+id/view_todo_fragment"
         android:name="com.turtle.amatda.presentation.view.todo.TodoFragment"
         tools:layout="@layout/fragment_todo">
 
-<!--        <action-->
-<!--                android:id="@+id/action_view_pager_fragment_to_plant_detail_fragment"-->
-<!--                app:destination="@id/plant_detail_fragment"-->
-<!--                app:enterAnim="@anim/slide_in_right"-->
-<!--                app:exitAnim="@anim/slide_out_left"-->
-<!--                app:popEnterAnim="@anim/slide_in_left"-->
-<!--                app:popExitAnim="@anim/slide_out_right" />-->
     </fragment>
 
     <fragment
@@ -58,6 +53,12 @@
         <!--                app:popEnterAnim="@anim/slide_in_left"-->
         <!--                app:popExitAnim="@anim/slide_out_right" />-->
     </fragment>
+
+    <fragment
+        android:id="@+id/view_itemselect_fragment"
+        android:name="com.turtle.amatda.presentation.view.setting.SettingFragment"
+        tools:layout="@layout/fragment_itemselect">
+    </fragment><action android:id="@+id/action_global_view_fragment" app:destination="@id/view_fragment"/>
 
 
 </navigation>

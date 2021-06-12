@@ -46,7 +46,7 @@ class ItemSelectAdapter @Inject constructor() : ListAdapter<Item, RecyclerView.V
 class PlantDiffCallback : DiffUtil.ItemCallback<Item>() {
 
     override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
-        return oldItem.Id == newItem.Id
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {

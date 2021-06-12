@@ -12,6 +12,9 @@ interface ItemDao {
     fun getAll(): Flowable<List<ItemEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(todo: List<ItemEntity>): Completable
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(todo: ItemEntity): Completable
 
     @Delete

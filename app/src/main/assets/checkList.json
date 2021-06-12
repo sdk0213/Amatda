@@ -1,41 +1,54 @@
 [
   {
-    "checkName": "보일러"
+    "id" : 1,
+    "name": "보일러"
   },
   {
-    "checkName": "가스불"
+    "id" : 2,
+    "name": "가스불"
   },
   {
-    "checkName": "창문"
+    "id" : 3,
+    "name": "창문"
   },
   {
-    "checkName": "지갑"
+    "id" : 4,
+    "name": "지갑"
   },
   {
-    "checkName": "우산"
+    "id" : 5,
+    "name": "우산"
   },
   {
-    "checkName": "열쇠"
+    "id" : 6,
+    "name": "열쇠"
   },
   {
-    "checkName": "교통카드"
+    "id" : 7,
+    "name": "교통카드"
   },
   {
-    "checkName": "영양제"
+    "id" : 8,
+    "name": "영양제"
   },
   {
-    "checkName": "숙제"
+    "id" : 9,
+    "name": "숙제"
   },
   {
-    "checkName": "usb"
+    "id" : 10,
+    "name": "usb"
   },
   {
-    "checkName": "충전기"
+    "id" : 11,
+    "name": "충전기"
   },
   {
-    "checkName": "선크림"
+    "id" : 12,
+    "name": "선크림"
   },
   {
-    "checkName": "물"
+    "id" : 13,
+    "name": "물"
   }
 ]

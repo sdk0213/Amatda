@@ -2,6 +2,7 @@ package com.turtle.amatda.presentation.di.module
 
 import android.content.Context
 import com.turtle.amatda.data.db.AppDatabase
+import com.turtle.amatda.data.db.PreferenceManager
 import com.turtle.amatda.data.db.item.ItemDao
 import com.turtle.amatda.data.db.todo.ToDoDao
 import com.turtle.amatda.presentation.di.qualifier.ApplicationContext
@@ -11,6 +12,12 @@ import javax.inject.Singleton
 
 @Module
 class DatabaseModule {
+
+    @Singleton
+    @Provides
+    fun providePreferenceManager(@ApplicationContext context: Context): PreferenceManager {
+        return PreferenceManager(context)
+    }
 
     @Singleton
     @Provides

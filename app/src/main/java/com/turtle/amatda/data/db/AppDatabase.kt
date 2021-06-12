@@ -5,6 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import com.turtle.amatda.presentation.utilities.DATABASE_NAME
+import com.turtle.amatda.presentation.workers.SeedDatabaseWorker
 import com.turtle.amatda.data.db.item.ItemDao
 import com.turtle.amatda.data.db.todo.ToDoDao
 import com.turtle.amatda.data.model.todo.ItemEntity
@@ -17,8 +21,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun itemDao(): ItemDao
 
     companion object {
-
-        private val DATABASE_NAME = "amatda.db"
 
         // For Singleton instantiation
         @Volatile private var instance: AppDatabase? = null
@@ -34,13 +36,16 @@ abstract class AppDatabase : RoomDatabase() {
                 .addCallback(object : RoomDatabase.Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
-                            // if something needed initialization
+                            WorkManager.getInstance(context).enqueue(
+                                OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
+                            )
                         }
                     }
                 )
                 .fallbackToDestructiveMigration()
                 .build()
         }
+
     }
 
 }

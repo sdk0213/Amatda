@@ -1,3 +1,3 @@
 package com.turtle.amatda.domain.model
 
-data class Item(val Id: Long, val name: String)
+data class Item(val id: Long, val name: String)

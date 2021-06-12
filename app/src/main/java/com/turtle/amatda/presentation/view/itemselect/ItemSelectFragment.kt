@@ -21,28 +21,31 @@ class ItemSelectFragment : DaggerFragment() {
     @Inject
     lateinit var itemSelectAdapter: ItemSelectAdapter
 
-    val itemSelectViewModel: ItemSelectViewModel by viewModels{
+    val itemSelectviewModel: ItemSelectViewModel by viewModels{
         viewModelFactory
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = itemSelectViewModel
+        binding.viewModel = itemSelectviewModel
         binding.itemselectRecyclerView.adapter = itemSelectAdapter
 
+        subscribeItemFromDb()
+    }
+
+    fun subscribeItemFromDb(){
+        itemSelectviewModel.getItem().observe(viewLifecycleOwner){
+            itemSelectAdapter.submitList(it)
+        }
     }
 
 }

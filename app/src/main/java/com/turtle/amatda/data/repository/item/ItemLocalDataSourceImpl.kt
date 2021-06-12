@@ -12,8 +12,12 @@ class ItemLocalDataSourceImpl constructor(private val itemDao: ItemDao): ItemLoc
         return itemDao.getAll()
     }
 
-    override fun insertItem(todo: ItemEntity): Completable {
-        return itemDao.insert(todo)
+    override fun insertItem(itemEntity: ItemEntity): Completable {
+        return itemDao.insert(itemEntity)
+    }
+
+    override fun insertItemAll(itemEntity: List<ItemEntity>): Completable {
+        return itemDao.insertAll(itemEntity)
     }
 
 }

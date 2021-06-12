@@ -56,9 +56,13 @@
 
     <fragment
         android:id="@+id/view_itemselect_fragment"
-        android:name="com.turtle.amatda.presentation.view.setting.SettingFragment"
+        android:name="com.turtle.amatda.presentation.view.itemselect.ItemSelectFragment"
+        android:label="@string/selectItem"
         tools:layout="@layout/fragment_itemselect">
-    </fragment><action android:id="@+id/action_global_view_fragment" app:destination="@id/view_fragment"/>
+    </fragment>
+
+    <action android:id="@+id/action_global_view_fragment"
+        app:destination="@id/view_fragment"/>
 
 
 </navigation>

@@ -15,4 +15,8 @@ class ItemDataSourceFactory @Inject constructor(
     fun insertItem(itemEntity: ItemEntity) : Completable {
         return localDataSource.insertItem(itemEntity)
     }
+
+    fun insertItemAll(itemEntity: List<ItemEntity>) : Completable {
+        return localDataSource.insertItemAll(itemEntity)
+    }
 }

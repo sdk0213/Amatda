@@ -2,19 +2,17 @@ package com.turtle.amatda.domain.usecases
 
 import com.turtle.amatda.domain.model.Todo
 import com.turtle.amatda.domain.repository.TodoRepository
+import com.turtle.amatda.domain.usecases.common.CompletableUseCase
+import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class AddTodoUseCase @Inject constructor(private val repository: TodoRepository) {
+class AddTodoUseCase @Inject constructor(private val repository: TodoRepository) :
+    CompletableUseCase<Todo>(Schedulers.io(), AndroidSchedulers.mainThread()) {
 
-    fun insertTodo(){
-        CompositeDisposable().add(repository.insertTodo(Todo(0,"testTitle", "subTitle"))
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
-        )
+    override fun buildUseCaseCompletable(params: Todo?): Completable {
+        return repository.insertTodo(params!!)
     }
 
 }

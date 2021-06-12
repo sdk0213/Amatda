@@ -4,10 +4,8 @@ import com.turtle.amatda.domain.model.Item
 import com.turtle.amatda.domain.repository.ItemRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import com.turtle.amatda.data.mapper.ItemMapper
 import com.turtle.amatda.data.mapper.Mapper
 import com.turtle.amatda.data.model.todo.ItemEntity
-import javax.inject.Inject
 
 class ItemRepositoryImpl constructor(
     private val mapper: Mapper<ItemEntity, Item>,
@@ -25,6 +23,13 @@ class ItemRepositoryImpl constructor(
     override fun insertItem(item: Item): Completable {
         val itemEntity = mapper.mapToEntity(item)
         return factory.insertItem(itemEntity)
+    }
+
+    override fun insertItemAll(itemList: List<Item>): Completable {
+        val itemEntity = itemList.map { list ->
+            mapper.mapToEntity(list)
+        }
+        return factory.insertItemAll(itemEntity)
     }
 
 }

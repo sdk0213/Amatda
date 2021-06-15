@@ -31,6 +31,10 @@
             app:exitAnim="@anim/slide_up"
             app:popEnterAnim="@anim/slide_down"
             app:popExitAnim="@anim/slide_down" />
+
+        <argument
+            android:name="name"
+            app:argType="string"/>
     </fragment>
 
     <fragment
@@ -59,10 +63,12 @@
         android:name="com.turtle.amatda.presentation.view.itemselect.ItemSelectFragment"
         android:label="@string/selectItem"
         tools:layout="@layout/fragment_itemselect">
-    </fragment>
 
-    <action android:id="@+id/action_global_view_fragment"
-        app:destination="@id/view_fragment"/>
+        <action
+            android:id="@+id/action_view_itemselect_fragment_to_view_fragment"
+            app:destination="@id/view_fragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
 
 </navigation>

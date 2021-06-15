@@ -1,6 +1,5 @@
 package com.turtle.amatda.data.mapper
 
-import com.turtle.amatda.data.mapper.Mapper
 import com.turtle.amatda.data.model.todo.TodoEntity
 import com.turtle.amatda.domain.model.Todo
 import javax.inject.Inject

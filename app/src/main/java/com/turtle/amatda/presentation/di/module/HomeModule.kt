@@ -24,10 +24,4 @@ class HomeModule {
         )
     }
 
-    @Provides
-    @FragmentScope
-    fun provideFragment(fragment: HomeViewPagerFragment): Fragment {
-        return fragment
-    }
-
 }

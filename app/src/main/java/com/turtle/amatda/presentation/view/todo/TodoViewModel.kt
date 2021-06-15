@@ -26,11 +26,4 @@ class TodoViewModel @Inject constructor(
 
     }
 
-    fun insertTodo() {
-        compositeDisposable.add(
-            addTodoUseCase.execute(Todo(0, "testTitle", "subTitle"))
-                .subscribe()
-        )
-    }
-
 }

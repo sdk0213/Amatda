@@ -26,6 +26,8 @@
             android:background="@android:color/white"
             android:textSize="50sp"
             android:text="@{item.name}"
+            android:onClick="@{clickListener}"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

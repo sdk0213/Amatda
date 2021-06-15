@@ -1,38 +1,11 @@
 package com.turtle.amatda.presentation.view.setting
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import com.turtle.amatda.databinding.FragmentSettingBinding
-import com.turtle.amatda.presentation.di.AppViewModelFactory
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
+import com.turtle.amatda.presentation.view.base.BaseFragment
 
-class SettingFragment : DaggerFragment() {
+class SettingFragment : BaseFragment<SettingViewModel, FragmentSettingBinding>() {
 
-    @Inject
-    lateinit var viewModelFactory: AppViewModelFactory
-
-    @Inject
-    lateinit var binding: FragmentSettingBinding
-
-    val settingViewModel: SettingViewModel by viewModels{
-        viewModelFactory
+    override fun init() {
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.lifecycleOwner = viewLifecycleOwner
-    }
 }

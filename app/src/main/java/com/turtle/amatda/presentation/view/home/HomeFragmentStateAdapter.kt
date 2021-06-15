@@ -6,7 +6,7 @@ import com.turtle.amatda.presentation.view.setting.SettingFragment
 import com.turtle.amatda.presentation.view.todo.TodoFragment
 import javax.inject.Inject
 
-class HomeFragmentStateAdapter @Inject constructor(fragment: Fragment) :
+class HomeFragmentStateAdapter constructor(fragment: Fragment) :
     FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int {

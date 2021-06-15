@@ -5,15 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.turtle.amatda.data.model.todo.TodoEntity
 import com.turtle.amatda.databinding.ListItemTodoBinding
 import com.turtle.amatda.domain.model.Todo
-import javax.inject.Inject
 
-class TodoAdapter @Inject constructor() : ListAdapter<Todo, RecyclerView.ViewHolder>(
+class TodoAdapter : ListAdapter<Todo, TodoAdapter.TodoViewHolder>(
     PlantDiffCallback()
 ) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         return TodoViewHolder(
             ListItemTodoBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -23,11 +21,8 @@ class TodoAdapter @Inject constructor() : ListAdapter<Todo, RecyclerView.ViewHol
         )
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val todoData = getItem(position)
-        if (todoData != null) {
-            (holder as TodoViewHolder).bind(todoData)
-        }
+    override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
     class TodoViewHolder(

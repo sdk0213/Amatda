@@ -2,17 +2,17 @@ package com.turtle.amatda.presentation.view.itemselect
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.turtle.amatda.databinding.ListItemItemselectBinding
 import com.turtle.amatda.domain.model.Item
-import javax.inject.Inject
 
-class ItemSelectAdapter @Inject constructor() : ListAdapter<Item, RecyclerView.ViewHolder>(
+class ItemSelectAdapter : ListAdapter<Item, ItemSelectAdapter.ItemViewHolder>(
     PlantDiffCallback()
 ) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
             ListItemItemselectBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -22,11 +22,8 @@ class ItemSelectAdapter @Inject constructor() : ListAdapter<Item, RecyclerView.V
         )
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val itemData = getItem(position)
-        if (itemData != null) {
-            (holder as ItemViewHolder).bind(itemData)
-        }
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
     class ItemViewHolder(
@@ -36,6 +33,11 @@ class ItemSelectAdapter @Inject constructor() : ListAdapter<Item, RecyclerView.V
         fun bind(item: Item) {
             binding.apply {
                 this.item = item
+                setClickListener {
+                    val direction =
+                        ItemSelectFragmentDirections.actionViewItemselectFragmentToViewFragment(item.name)
+                    it.findNavController().navigate(direction)
+                }
                 executePendingBindings()
             }
         }

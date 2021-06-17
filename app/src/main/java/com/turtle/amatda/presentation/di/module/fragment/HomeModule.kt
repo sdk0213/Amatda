@@ -1,4 +1,4 @@
-package com.turtle.amatda.presentation.di.module
+package com.turtle.amatda.presentation.di.module.fragment
 
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -15,7 +15,7 @@ class HomeModule {
 
     @Provides
     @FragmentScope
-    fun provideFragmentAmatdaBinding(activity: MainActivity): FragmentHomeBinding {
+    fun provideFragmentHomeBinding(activity: MainActivity): FragmentHomeBinding {
         return DataBindingUtil.inflate<FragmentHomeBinding>(
             activity.layoutInflater,
             R.layout.fragment_home,

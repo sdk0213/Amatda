@@ -1,4 +1,4 @@
-package com.turtle.amatda.data.db.todo
+package com.turtle.amatda.data.db.dao
 
 import androidx.room.*
 import com.turtle.amatda.data.model.todo.TodoEntity

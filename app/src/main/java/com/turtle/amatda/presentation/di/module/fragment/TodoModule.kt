@@ -1,4 +1,4 @@
-package com.turtle.amatda.presentation.di.module
+package com.turtle.amatda.presentation.di.module.fragment
 
 import android.content.Context
 import android.view.ViewGroup

@@ -1,11 +1,8 @@
-package com.turtle.amatda.presentation.di.module
+package com.turtle.amatda.presentation.di.module.fragment
 
-import android.content.Context
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.GridLayoutManager
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentSettingBinding
-import com.turtle.amatda.presentation.di.qualifier.ApplicationContext
 import com.turtle.amatda.presentation.di.scope.FragmentScope
 import com.turtle.amatda.presentation.view.main.MainActivity
 import dagger.Module

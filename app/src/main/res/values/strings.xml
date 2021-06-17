@@ -2,12 +2,13 @@
     <string name="app_name">amatda</string>
 
     <!-- 메뉴 -->
-    <string name="menu_todo">Todo</string>
+    <string name="menu_checklist">Checklist</string>
+    <string name="menu_date">Time(When)</string>
     <string name="menu_setting">Setting</string>
-    <string name="selectItem">SelectItem</string>
 
     <!-- contentDescription -->
     <string name="cttdcrp_add_todo">add todo</string>
+    <string name="cttdcrp_add_time">add time</string>
 
 
 </resources>

@@ -4,10 +4,12 @@ import android.content.Context
 import androidx.databinding.DataBindingUtil
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.ActivityMainBinding
+import com.turtle.amatda.presentation.di.module.fragment.*
 import com.turtle.amatda.presentation.view.main.MainActivity
 import com.turtle.amatda.presentation.di.qualifier.ActivityContext
 import com.turtle.amatda.presentation.di.scope.ActivityScope
 import com.turtle.amatda.presentation.di.scope.FragmentScope
+import com.turtle.amatda.presentation.view.date.DateFragment
 import com.turtle.amatda.presentation.view.home.HomeViewPagerFragment
 import com.turtle.amatda.presentation.view.itemselect.ItemSelectFragment
 import com.turtle.amatda.presentation.view.setting.SettingFragment
@@ -46,6 +48,10 @@ abstract class MainModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = [SettingModule::class])
     abstract fun getSettingFragment(): SettingFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [DateModule::class])
+    abstract fun getDateFragment(): DateFragment
 
     @FragmentScope
     @ContributesAndroidInjector(modules = [ItemSelectModule::class])

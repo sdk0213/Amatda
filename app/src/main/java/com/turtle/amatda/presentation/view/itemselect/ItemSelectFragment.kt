@@ -8,10 +8,18 @@ class ItemSelectFragment : BaseFragment<ItemSelectViewModel, FragmentItemselectB
     private lateinit var itemSelectAdapter: ItemSelectAdapter
 
     override fun init() {
-        itemSelectAdapter = ItemSelectAdapter()
-        binding.itemselectRecyclerView.adapter = itemSelectAdapter
-
+        initAdapter()
         subscribeItemFromDb()
+    }
+
+    fun initAdapter(){
+        itemSelectAdapter = ItemSelectAdapter(
+            itemClick = {
+                viewModel.insertTodo(it)
+            }
+        )
+
+        binding.itemselectRecyclerView.adapter = itemSelectAdapter
     }
 
     fun subscribeItemFromDb() {

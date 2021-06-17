@@ -1,19 +1,19 @@
-package com.turtle.amatda.presentation.view.todo
+package com.turtle.amatda.presentation.view.date
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.turtle.amatda.databinding.ListItemTodoBinding
+import com.turtle.amatda.databinding.ListItemDateBinding
 import com.turtle.amatda.domain.model.Todo
 
-class TodoAdapter : ListAdapter<Todo, TodoAdapter.TodoViewHolder>(
-    TodoDiffCallback()
+class DateAdapter : ListAdapter<Todo, DateAdapter.DateViewHolder>(
+    DateDiffCallback()
 ) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
-        return TodoViewHolder(
-            ListItemTodoBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DateViewHolder {
+        return DateViewHolder(
+            ListItemDateBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -21,25 +21,22 @@ class TodoAdapter : ListAdapter<Todo, TodoAdapter.TodoViewHolder>(
         )
     }
 
-    override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DateViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class TodoViewHolder(
-        private val binding: ListItemTodoBinding
+    class DateViewHolder(
+        private val binding: ListItemDateBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Todo) {
-            binding.apply {
-                todo = item
-                executePendingBindings()
-            }
+
         }
     }
 
 }
 
-class TodoDiffCallback : DiffUtil.ItemCallback<Todo>() {
+class DateDiffCallback : DiffUtil.ItemCallback<Todo>() {
 
     override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean {
         return oldItem.Id == newItem.Id
@@ -49,3 +46,4 @@ class TodoDiffCallback : DiffUtil.ItemCallback<Todo>() {
         return oldItem == newItem
     }
 }
+

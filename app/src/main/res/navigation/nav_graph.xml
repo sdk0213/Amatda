@@ -45,6 +45,14 @@
     </fragment>
 
     <fragment
+        android:id="@+id/view_date_fragment"
+        android:name="com.turtle.amatda.presentation.view.date.DateFragment"
+        android:label="@string/menu_date"
+        tools:layout="@layout/fragment_date">
+
+    </fragment>
+
+    <fragment
         android:id="@+id/view_setting_fragment"
         android:name="com.turtle.amatda.presentation.view.setting.SettingFragment"
         tools:layout="@layout/fragment_setting">
@@ -61,7 +69,7 @@
     <fragment
         android:id="@+id/view_itemselect_fragment"
         android:name="com.turtle.amatda.presentation.view.itemselect.ItemSelectFragment"
-        android:label="@string/selectItem"
+        android:label="@string/menu_setting"
         tools:layout="@layout/fragment_itemselect">
 
         <action

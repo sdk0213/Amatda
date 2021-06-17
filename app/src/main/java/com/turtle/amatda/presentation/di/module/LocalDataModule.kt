@@ -1,7 +1,7 @@
 package com.turtle.amatda.presentation.di.module
 
-import com.turtle.amatda.data.db.item.ItemDao
-import com.turtle.amatda.data.db.todo.ToDoDao
+import com.turtle.amatda.data.db.dao.ItemDao
+import com.turtle.amatda.data.db.dao.ToDoDao
 import com.turtle.amatda.data.repository.item.ItemLocalDataSource
 import com.turtle.amatda.data.repository.item.ItemLocalDataSourceImpl
 import com.turtle.amatda.data.repository.todo.TodoLocalDataSource

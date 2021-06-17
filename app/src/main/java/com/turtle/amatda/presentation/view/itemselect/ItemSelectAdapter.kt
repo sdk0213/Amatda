@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.turtle.amatda.databinding.ListItemItemselectBinding
 import com.turtle.amatda.domain.model.Item
+import com.turtle.amatda.domain.model.Todo
 
-class ItemSelectAdapter : ListAdapter<Item, ItemSelectAdapter.ItemViewHolder>(
-    PlantDiffCallback()
+class ItemSelectAdapter constructor(
+    private val itemClick: (Todo) -> Unit
+) : ListAdapter<Item, ItemSelectAdapter.ItemViewHolder>(
+    ItemDiffCallback()
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
@@ -26,18 +29,23 @@ class ItemSelectAdapter : ListAdapter<Item, ItemSelectAdapter.ItemViewHolder>(
         holder.bind(getItem(position))
     }
 
-    class ItemViewHolder(
+    inner class ItemViewHolder(
         private val binding: ListItemItemselectBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Item) {
+            binding.item = item
+            binding.setClickListener {
+                itemClick(
+                    Todo(
+                        title = item.name,
+                        subTitle = "${item.name} SubTitle"
+                    )
+                )
+                it.findNavController().navigateUp()
+            }
             binding.apply {
                 this.item = item
-                setClickListener {
-                    val direction =
-                        ItemSelectFragmentDirections.actionViewItemselectFragmentToViewFragment(item.name)
-                    it.findNavController().navigate(direction)
-                }
                 executePendingBindings()
             }
         }
@@ -45,7 +53,7 @@ class ItemSelectAdapter : ListAdapter<Item, ItemSelectAdapter.ItemViewHolder>(
 
 }
 
-class PlantDiffCallback : DiffUtil.ItemCallback<Item>() {
+class ItemDiffCallback : DiffUtil.ItemCallback<Item>() {
 
     override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
         return oldItem.id == newItem.id

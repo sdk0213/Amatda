@@ -9,8 +9,8 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.turtle.amatda.presentation.utilities.DATABASE_NAME
 import com.turtle.amatda.presentation.workers.SeedDatabaseWorker
-import com.turtle.amatda.data.db.item.ItemDao
-import com.turtle.amatda.data.db.todo.ToDoDao
+import com.turtle.amatda.data.db.dao.ItemDao
+import com.turtle.amatda.data.db.dao.ToDoDao
 import com.turtle.amatda.data.model.todo.ItemEntity
 import com.turtle.amatda.data.model.todo.TodoEntity
 

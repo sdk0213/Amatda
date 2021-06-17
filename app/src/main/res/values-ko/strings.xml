@@ -2,11 +2,12 @@
     <string name="app_name">아마따</string>
 
     <!-- 메뉴 -->
-    <string name="menu_todo">할일</string>
+    <string name="menu_checklist">체크리스트</string>
+    <string name="menu_date">시간(언제)</string>
     <string name="menu_setting">설정</string>
-    <string name="selectItem">SelectItem</string>
 
     <!-- contentDescription -->
     <string name="cttdcrp_add_todo">할일 추가하기</string>
+    <string name="cttdcrp_add_time">시간 추가하기</string>
 
 </resources>

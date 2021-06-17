@@ -1,6 +1,6 @@
 package com.turtle.amatda.data.repository.todo
 
-import com.turtle.amatda.data.db.todo.ToDoDao
+import com.turtle.amatda.data.db.dao.ToDoDao
 import com.turtle.amatda.data.model.todo.TodoEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable

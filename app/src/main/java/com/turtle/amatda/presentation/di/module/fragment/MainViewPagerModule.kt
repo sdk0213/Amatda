@@ -2,22 +2,21 @@ package com.turtle.amatda.presentation.di.module.fragment
 
 import androidx.databinding.DataBindingUtil
 import com.turtle.amatda.R
-import com.turtle.amatda.databinding.FragmentDateBinding
-import com.turtle.amatda.databinding.ListItemDateBinding
+import com.turtle.amatda.databinding.FragmentMainViewpagerBinding
 import com.turtle.amatda.presentation.di.scope.FragmentScope
 import com.turtle.amatda.presentation.view.main.MainActivity
 import dagger.Module
 import dagger.Provides
 
 @Module
-class DateModule {
+class MainViewPagerModule {
 
     @Provides
     @FragmentScope
-    fun provideFragmentDateBinding(activity: MainActivity): FragmentDateBinding {
-        return DataBindingUtil.inflate<FragmentDateBinding>(
+    fun provideFragmentMainViewPagerModuleBinding(activity: MainActivity): FragmentMainViewpagerBinding {
+        return DataBindingUtil.inflate<FragmentMainViewpagerBinding>(
             activity.layoutInflater,
-            R.layout.fragment_date,
+            R.layout.fragment_main_viewpager,
             null,
             false
         )

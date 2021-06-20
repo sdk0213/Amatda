@@ -5,15 +5,15 @@ import androidx.databinding.DataBindingUtil
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.ActivityMainBinding
 import com.turtle.amatda.presentation.di.module.fragment.*
-import com.turtle.amatda.presentation.view.main.MainActivity
 import com.turtle.amatda.presentation.di.qualifier.ActivityContext
 import com.turtle.amatda.presentation.di.scope.ActivityScope
 import com.turtle.amatda.presentation.di.scope.FragmentScope
-import com.turtle.amatda.presentation.view.date.DateFragment
-import com.turtle.amatda.presentation.view.home.HomeViewPagerFragment
-import com.turtle.amatda.presentation.view.itemselect.ItemSelectFragment
-import com.turtle.amatda.presentation.view.setting.SettingFragment
-import com.turtle.amatda.presentation.view.todo.TodoFragment
+import com.turtle.amatda.presentation.view.carrier.CarrierFragment
+import com.turtle.amatda.presentation.view.home.HomeFragment
+import com.turtle.amatda.presentation.view.main.MainActivity
+import com.turtle.amatda.presentation.view.main.MainViewPagerFragment
+import com.turtle.amatda.presentation.view.mypage.MyPageFragment
+import com.turtle.amatda.presentation.view.trip.TripFragment
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
@@ -38,22 +38,22 @@ abstract class MainModule {
     }
 
     @FragmentScope
+    @ContributesAndroidInjector(modules = [MainViewPagerModule::class])
+    abstract fun getMainViewPagerFragment(): MainViewPagerFragment
+
+    @FragmentScope
     @ContributesAndroidInjector(modules = [HomeModule::class])
-    abstract fun getAmatadaFragment(): HomeViewPagerFragment
+    abstract fun getHomeFragment(): HomeFragment
 
     @FragmentScope
-    @ContributesAndroidInjector(modules = [TodoModule::class])
-    abstract fun getTodoFragment(): TodoFragment
+    @ContributesAndroidInjector(modules = [CarrierModule::class])
+    abstract fun getCarrierFragment(): CarrierFragment
 
     @FragmentScope
-    @ContributesAndroidInjector(modules = [SettingModule::class])
-    abstract fun getSettingFragment(): SettingFragment
+    @ContributesAndroidInjector(modules = [TripModule::class])
+    abstract fun getSettingFragment(): TripFragment
 
     @FragmentScope
-    @ContributesAndroidInjector(modules = [DateModule::class])
-    abstract fun getDateFragment(): DateFragment
-
-    @FragmentScope
-    @ContributesAndroidInjector(modules = [ItemSelectModule::class])
-    abstract fun getItemSelectFragment(): ItemSelectFragment
+    @ContributesAndroidInjector(modules = [MyPageModule::class])
+    abstract fun getMyPageFragment(): MyPageFragment
 }

@@ -2,9 +2,10 @@
     <string name="app_name">아마따</string>
 
     <!-- 메뉴 -->
-    <string name="menu_checklist">체크리스트</string>
-    <string name="menu_date">시간(언제)</string>
-    <string name="menu_setting">설정</string>
+    <string name="menu_home">홈</string>
+    <string name="menu_my_carrier">나의 가방</string>
+    <string name="menu_my_trip">나의 여행</string>
+    <string name="menu_my_page">마이페이지</string>
 
     <!-- contentDescription -->
     <string name="cttdcrp_add_todo">할일 추가하기</string>

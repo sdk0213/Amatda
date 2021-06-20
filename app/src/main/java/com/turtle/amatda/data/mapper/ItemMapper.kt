@@ -7,11 +7,11 @@ import javax.inject.Inject
 open class ItemMapper @Inject constructor(): Mapper<ItemEntity, Item> {
 
     override fun mapFromEntity(type: ItemEntity): Item {
-        return Item(type.Id, type.name)
+        return Item(id = type.id, name = type.name)
     }
 
     override fun mapToEntity(type: Item): ItemEntity {
-        return ItemEntity(type.id, type.name)
+        return ItemEntity(id = type.id, name = type.name)
     }
 
 }

@@ -3,11 +3,11 @@ package com.turtle.amatda.presentation.di.module
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.turtle.amatda.presentation.di.AppViewModelFactory
-import com.turtle.amatda.presentation.view.date.DateViewModel
-import com.turtle.amatda.presentation.view.home.HomeViewPagerModel
-import com.turtle.amatda.presentation.view.itemselect.ItemSelectViewModel
-import com.turtle.amatda.presentation.view.setting.SettingViewModel
-import com.turtle.amatda.presentation.view.todo.TodoViewModel
+import com.turtle.amatda.presentation.view.carrier.CarrierViewModel
+import com.turtle.amatda.presentation.view.home.HomeViewModel
+import com.turtle.amatda.presentation.view.main.MainViewPagerModel
+import com.turtle.amatda.presentation.view.mypage.MyPageViewModel
+import com.turtle.amatda.presentation.view.trip.TripViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -20,26 +20,26 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(HomeViewPagerModel::class)
-    abstract fun bindsTodoMainViewModel(viewModel: HomeViewPagerModel): ViewModel
+    @ViewModelKey(MainViewPagerModel::class)
+    abstract fun bindsMainViewPagerViewModel(viewModel: MainViewPagerModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(TodoViewModel::class)
-    abstract fun bindsTodoViewModel(viewModel: TodoViewModel): ViewModel
+    @ViewModelKey(HomeViewModel::class)
+    abstract fun bindsHomeViewModel(viewModel: HomeViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(SettingViewModel::class)
-    abstract fun bindsSettingViewModel(viewModel: SettingViewModel): ViewModel
+    @ViewModelKey(CarrierViewModel::class)
+    abstract fun bindsCarrierViewModel(viewModel: CarrierViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(ItemSelectViewModel::class)
-    abstract fun bindsItemSelectViewModel(viewModel: ItemSelectViewModel): ViewModel
+    @ViewModelKey(TripViewModel::class)
+    abstract fun bindsTripViewModel(viewModel: TripViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(DateViewModel::class)
-    abstract fun bindsDateViewModel(viewModel: DateViewModel): ViewModel
+    @ViewModelKey(MyPageViewModel::class)
+    abstract fun bindsMyPageViewModel(viewModel: MyPageViewModel): ViewModel
 }

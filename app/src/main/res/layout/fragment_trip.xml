@@ -7,15 +7,16 @@
         <import type="android.view.View" />
         <variable
             name="viewModel"
-            type="com.turtle.amatda.presentation.view.itemselect.ItemSelectViewModel" />
+            type="com.turtle.amatda.presentation.view.trip.TripViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/itemselect_recycler_view"
+            android:id="@+id/trip_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -28,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:clipToPadding="false"
-            tools:listitem="@layout/list_item_itemselect" />
+            tools:listitem="@layout/list_item_trip" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

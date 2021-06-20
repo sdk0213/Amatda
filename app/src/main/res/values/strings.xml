@@ -2,9 +2,10 @@
     <string name="app_name">amatda</string>
 
     <!-- 메뉴 -->
-    <string name="menu_checklist">Checklist</string>
-    <string name="menu_date">Time(When)</string>
-    <string name="menu_setting">Setting</string>
+    <string name="menu_home">home</string>
+    <string name="menu_my_carrier">my carrier</string>
+    <string name="menu_my_trip">my trip</string>
+    <string name="menu_my_page">my page</string>
 
     <!-- contentDescription -->
     <string name="cttdcrp_add_todo">add todo</string>

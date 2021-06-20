@@ -11,7 +11,7 @@ open class TodoMapper @Inject constructor(): Mapper<TodoEntity, Todo> {
     }
 
     override fun mapToEntity(type: Todo): TodoEntity {
-        return TodoEntity(type.Id, type.title, type.subTitle)
+        return TodoEntity(type.id, type.title, type.subTitle)
     }
 
 }

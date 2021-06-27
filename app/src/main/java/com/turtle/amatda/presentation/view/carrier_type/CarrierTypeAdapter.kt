@@ -42,11 +42,6 @@ class CarrierTypeAdapter constructor(
             }
         }
 
-        // todo:
-        //   1. di 에서 fragment 인지, activity 잘 상속받고 있는것인지
-        //   2. lifecycleowner livedata를 직접 연결하는거랑 binding.lifecycleowner 랑 무슨 차이인지 확인
-        //   3.(O) 대형 소형 중형을 직접 데이터로 넣으려고 하는데 어떻게 할것인지
-        //     대형 소형 중형 데이터를 입력해야한다. --> ViewModel 을 통해서 삽입하였음
     }
 
 }

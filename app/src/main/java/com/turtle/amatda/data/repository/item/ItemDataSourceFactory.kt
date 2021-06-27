@@ -1,6 +1,6 @@
 package com.turtle.amatda.data.repository.item
 
-import com.turtle.amatda.data.model.todo.ItemEntity
+import com.turtle.amatda.data.model.ItemEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import javax.inject.Inject

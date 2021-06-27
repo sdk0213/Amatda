@@ -1,12 +1,12 @@
 package com.turtle.amatda.presentation.di.module
 
+import com.turtle.amatda.data.mapper.CarrierMapper
 import com.turtle.amatda.data.mapper.ItemMapper
 import com.turtle.amatda.data.mapper.Mapper
-import com.turtle.amatda.data.mapper.TodoMapper
-import com.turtle.amatda.data.model.todo.ItemEntity
-import com.turtle.amatda.data.model.todo.TodoEntity
+import com.turtle.amatda.data.model.CarrierEntity
+import com.turtle.amatda.data.model.ItemEntity
+import com.turtle.amatda.domain.model.Carrier
 import com.turtle.amatda.domain.model.Item
-import com.turtle.amatda.domain.model.Todo
 import dagger.Module
 import dagger.Provides
 
@@ -19,7 +19,7 @@ class MapperModule {
     }
 
     @Provides
-    fun provideTodoMapper(): Mapper<TodoEntity, Todo>{
-        return TodoMapper()
+    fun provideTodoMapper(): Mapper<CarrierEntity, Carrier>{
+        return CarrierMapper()
     }
 }

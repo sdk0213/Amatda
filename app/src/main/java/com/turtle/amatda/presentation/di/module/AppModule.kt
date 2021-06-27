@@ -6,6 +6,7 @@ import com.turtle.amatda.presentation.view.main.App
 import com.turtle.amatda.presentation.di.qualifier.ApplicationContext
 import dagger.Module
 import dagger.Provides
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module(includes = [ViewModelModule::class])

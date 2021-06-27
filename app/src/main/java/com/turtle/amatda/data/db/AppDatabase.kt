@@ -4,20 +4,22 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.turtle.amatda.presentation.utilities.DATABASE_NAME
 import com.turtle.amatda.presentation.workers.SeedDatabaseWorker
 import com.turtle.amatda.data.db.dao.ItemDao
-import com.turtle.amatda.data.db.dao.ToDoDao
-import com.turtle.amatda.data.model.todo.ItemEntity
-import com.turtle.amatda.data.model.todo.TodoEntity
+import com.turtle.amatda.data.db.dao.CarrierDao
+import com.turtle.amatda.data.model.ItemEntity
+import com.turtle.amatda.data.model.CarrierEntity
 
-@Database(entities = [TodoEntity::class, ItemEntity::class], version = 1, exportSchema = false)
+@Database(entities = [CarrierEntity::class, ItemEntity::class], version = 1, exportSchema = false)
+@TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun todoDao(): ToDoDao
+    abstract fun todoDao(): CarrierDao
     abstract fun itemDao(): ItemDao
 
     companion object {

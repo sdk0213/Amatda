@@ -1,11 +1,11 @@
 package com.turtle.amatda.presentation.di.module
 
 import com.turtle.amatda.data.db.dao.ItemDao
-import com.turtle.amatda.data.db.dao.ToDoDao
+import com.turtle.amatda.data.db.dao.CarrierDao
 import com.turtle.amatda.data.repository.item.ItemLocalDataSource
 import com.turtle.amatda.data.repository.item.ItemLocalDataSourceImpl
-import com.turtle.amatda.data.repository.todo.TodoLocalDataSource
-import com.turtle.amatda.data.repository.todo.TodoLocalDataSourceImpl
+import com.turtle.amatda.data.repository.carrier.CarrierLocalDataSource
+import com.turtle.amatda.data.repository.carrier.CarrierLocalDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -15,8 +15,8 @@ class LocalDataModule {
 
     @Provides
     @Singleton
-    fun provideTodoLocalDataSourceImpl(todoDao: ToDoDao): TodoLocalDataSource{
-        return TodoLocalDataSourceImpl(todoDao)
+    fun provideTodoLocalDataSourceImpl(todoDao: CarrierDao): CarrierLocalDataSource{
+        return CarrierLocalDataSourceImpl(todoDao)
     }
 
     @Provides

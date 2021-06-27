@@ -7,4 +7,5 @@ data class Item(
     val position_y: Int = 0,
     val priority: Long = 0,
     val checked : Boolean = false,
+    val carrier_id : Long
 )

@@ -5,7 +5,7 @@ import com.turtle.amatda.domain.repository.ItemRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import com.turtle.amatda.data.mapper.Mapper
-import com.turtle.amatda.data.model.todo.ItemEntity
+import com.turtle.amatda.data.model.ItemEntity
 
 class ItemRepositoryImpl constructor(
     private val mapper: Mapper<ItemEntity, Item>,
@@ -15,7 +15,7 @@ class ItemRepositoryImpl constructor(
     override fun getItemAll(): Flowable<List<Item>> {
         return factory.getItemAll().map { list ->
             list.map { item ->
-                mapper.mapFromEntity(item)
+                mapper.entityToMap(item)
             }
         }
     }

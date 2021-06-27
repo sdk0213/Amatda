@@ -4,7 +4,7 @@ import android.content.Context
 import com.turtle.amatda.data.db.AppDatabase
 import com.turtle.amatda.data.db.PreferenceManager
 import com.turtle.amatda.data.db.dao.ItemDao
-import com.turtle.amatda.data.db.dao.ToDoDao
+import com.turtle.amatda.data.db.dao.CarrierDao
 import com.turtle.amatda.presentation.di.qualifier.ApplicationContext
 import dagger.Module
 import dagger.Provides
@@ -26,7 +26,7 @@ class DatabaseModule {
     }
 
     @Provides
-    fun provideTodoDao(appDatabase: AppDatabase): ToDoDao {
+    fun provideTodoDao(appDatabase: AppDatabase): CarrierDao {
         return appDatabase.todoDao()
     }
 

@@ -1,9 +1,9 @@
 package com.turtle.amatda.presentation.di.module
 
 import com.turtle.amatda.domain.repository.ItemRepository
-import com.turtle.amatda.domain.repository.TodoRepository
-import com.turtle.amatda.domain.usecases.AddTodoUseCase
-import com.turtle.amatda.domain.usecases.GetTodoUseCase
+import com.turtle.amatda.domain.repository.CarrierRepository
+import com.turtle.amatda.domain.usecases.AddUserCarrierUseCase
+import com.turtle.amatda.domain.usecases.GetUserCarrierUseCase
 import com.turtle.amatda.domain.usecases.InsertItemFromAssetsUseCase
 import dagger.Module
 import dagger.Provides
@@ -14,14 +14,14 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideAddTodoUseCase(repository: TodoRepository): AddTodoUseCase {
-        return AddTodoUseCase(repository)
+    fun provideAddCarrierUseCase(repository: CarrierRepository): AddUserCarrierUseCase {
+        return AddUserCarrierUseCase(repository)
     }
 
     @Provides
     @Singleton
-    fun provideGetTodoUseCase(repository: TodoRepository): GetTodoUseCase {
-        return GetTodoUseCase(repository)
+    fun provideGetTodoUseCase(repository: CarrierRepository): GetUserCarrierUseCase {
+        return GetUserCarrierUseCase(repository)
     }
 
     @Provides

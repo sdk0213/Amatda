@@ -18,7 +18,7 @@ import javax.inject.Inject
 abstract class BaseFragment<T : BaseViewModel, B : ViewDataBinding> : DaggerFragment() {
 
     companion object {
-        private val TAG = BaseFragment::class.java.simpleName
+        val TAG : String= BaseFragment::class.java.simpleName
     }
 
     private lateinit var mContext: Context

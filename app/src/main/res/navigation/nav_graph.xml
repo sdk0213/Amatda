@@ -18,23 +18,17 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/view_fragment">
+    app:startDestination="@id/view_fragment_main"
+    android:id="@+id/nav_graph">
 
     <fragment
-        android:id="@+id/view_fragment"
+        android:id="@+id/view_fragment_main"
         android:name="com.turtle.amatda.presentation.view.main.MainViewPagerFragment"
         tools:layout="@layout/fragment_main_viewpager" >
-<!--        <action-->
-<!--            android:id="@+id/action_view_fragment_to_view_itemselect_fragment"-->
-<!--            app:destination="@id/view_itemselect_fragment"-->
-<!--            app:enterAnim="@anim/slide_up"-->
-<!--            app:exitAnim="@anim/slide_up"-->
-<!--            app:popEnterAnim="@anim/slide_down"-->
-<!--            app:popExitAnim="@anim/slide_down" />-->
 
-<!--        <argument-->
-<!--            android:name="name"-->
-<!--            app:argType="string"/>-->
+        <argument
+            android:name="name"
+            app:argType="string"/>
     </fragment>
 
     <fragment
@@ -50,7 +44,6 @@
         android:name="com.turtle.amatda.presentation.view.carrier.CarrierFragment"
         android:label="@string/menu_my_carrier"
         tools:layout="@layout/fragment_carrier">
-
     </fragment>
 
     <fragment
@@ -69,31 +62,43 @@
 
     </fragment>
 
-<!--    <fragment-->
-<!--        android:id="@+id/view_setting_fragment"-->
-<!--        android:name="com.turtle.amatda.presentation.view.mypage.SettingFragment"-->
-<!--        tools:layout="@layout/fragment_mypage">-->
+    <fragment
+        android:id="@+id/carrierTypeFragment"
+        android:name="com.turtle.amatda.presentation.view.carrier_type.CarrierTypeFragment"
+        android:label="CarrierTypeFragment"
+        tools:layout="@layout/fragment_carrier_type">
+        <action
+            android:id="@+id/action_carrierTypeFragment_to_carrierSizeFragment"
+            app:destination="@id/carrierSizeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
 
-<!--        &lt;!&ndash;        <action&ndash;&gt;-->
-<!--        &lt;!&ndash;                android:id="@+id/action_view_pager_fragment_to_plant_detail_fragment"&ndash;&gt;-->
-<!--        &lt;!&ndash;                app:destination="@id/plant_detail_fragment"&ndash;&gt;-->
-<!--        &lt;!&ndash;                app:enterAnim="@anim/slide_in_right"&ndash;&gt;-->
-<!--        &lt;!&ndash;                app:exitAnim="@anim/slide_out_left"&ndash;&gt;-->
-<!--        &lt;!&ndash;                app:popEnterAnim="@anim/slide_in_left"&ndash;&gt;-->
-<!--        &lt;!&ndash;                app:popExitAnim="@anim/slide_out_right" />&ndash;&gt;-->
-<!--    </fragment>-->
+    </fragment>
 
-<!--    <fragment-->
-<!--        android:id="@+id/view_itemselect_fragment"-->
-<!--        android:name="com.turtle.amatda.presentation.view.itemselect.ItemSelectFragment"-->
-<!--        android:label="@string/menu_setting"-->
-<!--        tools:layout="@layout/fragment_trip">-->
+    <fragment
+        android:id="@+id/carrierSizeFragment"
+        android:name="com.turtle.amatda.presentation.view.carrier_size.CarrierSizeFragment"
+        android:label="CarrierSizeFragment"
+        tools:layout="@layout/fragment_carrier_size">
+        <argument
+            android:name="carrier"
+            app:argType="com.turtle.amatda.domain.model.Carrier"/>
+    </fragment>
 
-<!--        <action-->
-<!--            android:id="@+id/action_view_itemselect_fragment_to_view_fragment"-->
-<!--            app:destination="@id/view_fragment"-->
-<!--            app:popUpToInclusive="true"/>-->
-<!--    </fragment>-->
+    <action
+        android:id="@+id/action_global_view_fragment"
+        app:destination="@id/view_fragment_main" />
 
+    <action
+        android:id="@+id/action_view_carrier_fragment_to_carrierTypeFragment"
+        app:destination="@id/carrierTypeFragment"
+        app:enterAnim="@anim/slide_up"
+        app:exitAnim="@anim/slide_down"
+        app:popEnterAnim="@anim/slide_up"
+        app:popExitAnim="@anim/slide_down"
+        />
 
 </navigation>

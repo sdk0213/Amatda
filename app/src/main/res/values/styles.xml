@@ -20,8 +20,8 @@
     <style name="Theme.Amatda" parent="Theme.MaterialComponents.Light.DarkActionBar">
 
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/Amatda_green_500</item>
-        <item name="android:colorBackground">@color/Amatda_blue_700</item>
+        <item name="colorPrimary">@color/material_50</item>
+        <item name="android:colorBackground">@color/white</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->

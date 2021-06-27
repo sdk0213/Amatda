@@ -8,8 +8,10 @@
     <string name="menu_my_page">my page</string>
 
     <!-- contentDescription -->
-    <string name="cttdcrp_add_todo">add todo</string>
+    <string name="cttdcrp_add_carrier">add carrier</string>
     <string name="cttdcrp_add_time">add time</string>
 
+    <!-- 날짜 형식 -->
+    <string name="default_date_type">yyyy년-MM월-dd일</string>
 
 </resources>

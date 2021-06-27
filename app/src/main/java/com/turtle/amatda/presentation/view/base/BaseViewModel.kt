@@ -5,6 +5,10 @@ import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel : ViewModel() {
 
+    companion object {
+        val TAG: String = BaseViewModel::class.java.simpleName
+    }
+
     val compositeDisposable = CompositeDisposable()
 
     override fun onCleared() {

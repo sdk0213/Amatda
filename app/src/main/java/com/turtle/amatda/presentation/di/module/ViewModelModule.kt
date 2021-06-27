@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.turtle.amatda.presentation.di.AppViewModelFactory
 import com.turtle.amatda.presentation.view.carrier.CarrierViewModel
+import com.turtle.amatda.presentation.view.carrier_name.CarrierNameViewModel
 import com.turtle.amatda.presentation.view.carrier_size.CarrierSizeViewModel
 import com.turtle.amatda.presentation.view.carrier_type.CarrierTypeViewModel
 import com.turtle.amatda.presentation.view.home.HomeViewModel
@@ -44,6 +45,12 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CarrierSizeViewModel::class)
     abstract fun bindsCarrierSizeViewModel(viewModel: CarrierSizeViewModel): ViewModel
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CarrierNameViewModel::class)
+    abstract fun bindsCarrierNameViewModel(viewModel: CarrierNameViewModel): ViewModel
 
     @Binds
     @IntoMap

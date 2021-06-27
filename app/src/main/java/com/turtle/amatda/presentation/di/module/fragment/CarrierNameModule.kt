@@ -2,21 +2,21 @@ package com.turtle.amatda.presentation.di.module.fragment
 
 import androidx.databinding.DataBindingUtil
 import com.turtle.amatda.R
-import com.turtle.amatda.databinding.FragmentCarrierSizeBinding
+import com.turtle.amatda.databinding.FragmentCarrierNameBinding
 import com.turtle.amatda.presentation.di.scope.FragmentScope
 import com.turtle.amatda.presentation.view.main.MainActivity
 import dagger.Module
 import dagger.Provides
 
 @Module
-class CarrierSizeModule {
+class CarrierNameModule {
 
     @Provides
     @FragmentScope
-    fun provideFragmentCarrierSizeBinding(activity: MainActivity): FragmentCarrierSizeBinding {
-        return DataBindingUtil.inflate<FragmentCarrierSizeBinding>(
+    fun provideFragmentCarrierNameBinding(activity: MainActivity): FragmentCarrierNameBinding {
+        return DataBindingUtil.inflate<FragmentCarrierNameBinding>(
             activity.layoutInflater,
-            R.layout.fragment_carrier_size,
+            R.layout.fragment_carrier_name,
             null,
             false
         )

@@ -29,4 +29,8 @@
 
     <dimen name="todoList_header_margin">30dp</dimen>
 
+    <!-- 가방 만들기-->
+    <dimen name="carrier_name_edittext_length">250dp</dimen>
+    <dimen name="carrier_name_text_size">25sp</dimen>
+
 </resources>

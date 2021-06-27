@@ -24,8 +24,9 @@ class CarrierSizeFragment : BaseFragment<CarrierSizeViewModel, FragmentCarrierSi
     private fun initAdapter() {
         carrierSizeAdapter = CarrierSizeAdapter(
             clickSize = {
-                viewModel.addCarrier(Carrier(name = "first Carrier", date = Date(), type = args.carrier.type, size = it.size))
-                findNavController().navigate(R.id.action_global_view_fragment)
+                findNavController().navigate(CarrierSizeFragmentDirections.actionCarrierSizeFragmentToCarrierNameFragment(
+                    Carrier(name = "first Carrier", date = Date(), type = args.carrier.type, size = it.size)
+                ))
             }
         )
 

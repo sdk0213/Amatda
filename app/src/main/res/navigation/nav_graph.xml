@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 Google LLC
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +17,17 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/view_fragment_main"
-    android:id="@+id/nav_graph">
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/view_fragment_main">
 
     <fragment
         android:id="@+id/view_fragment_main"
         android:name="com.turtle.amatda.presentation.view.main.MainViewPagerFragment"
-        tools:layout="@layout/fragment_main_viewpager" >
+        tools:layout="@layout/fragment_main_viewpager">
 
         <argument
             android:name="name"
-            app:argType="string"/>
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -43,8 +42,7 @@
         android:id="@+id/view_carrier_fragment"
         android:name="com.turtle.amatda.presentation.view.carrier.CarrierFragment"
         android:label="@string/menu_my_carrier"
-        tools:layout="@layout/fragment_carrier">
-    </fragment>
+        tools:layout="@layout/fragment_carrier"/>
 
     <fragment
         android:id="@+id/view_trip_fragment"
@@ -73,8 +71,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            />
+            app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
 
@@ -85,7 +82,10 @@
         tools:layout="@layout/fragment_carrier_size">
         <argument
             android:name="carrier"
-            app:argType="com.turtle.amatda.domain.model.Carrier"/>
+            app:argType="com.turtle.amatda.domain.model.Carrier" />
+        <action
+            android:id="@+id/action_carrierSizeFragment_to_carrierNameFragment"
+            app:destination="@id/carrierNameFragment" />
     </fragment>
 
     <action
@@ -98,7 +98,15 @@
         app:enterAnim="@anim/slide_up"
         app:exitAnim="@anim/slide_down"
         app:popEnterAnim="@anim/slide_up"
-        app:popExitAnim="@anim/slide_down"
-        />
+        app:popExitAnim="@anim/slide_down" />
+    <fragment
+        android:id="@+id/carrierNameFragment"
+        android:name="com.turtle.amatda.presentation.view.carrier_name.CarrierNameFragment"
+        android:label="CarrierNameFragment"
+        tools:layout="@layout/fragment_carrier_name">
+        <argument
+            android:name="carrier"
+            app:argType="com.turtle.amatda.domain.model.Carrier" />
+    </fragment>
 
 </navigation>

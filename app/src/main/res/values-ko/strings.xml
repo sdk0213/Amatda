@@ -5,14 +5,13 @@
     <string name="common_button_checked">확인</string>
 
     <!-- 메뉴 -->
-    <string name="menu_home">home</string>
-    <string name="menu_my_carrier">my carrier</string>
-    <string name="menu_my_trip">my trip</string>
-    <string name="menu_my_page">my page</string>
+    <string name="menu_home">홈</string>
+    <string name="menu_my_carrier">나의 가방</string>
+    <string name="menu_my_trip">나의 여행</string>
+    <string name="menu_my_page">마이페이지</string>
 
     <!-- contentDescription -->
-    <string name="cttdcrp_add_carrier">add carrier</string>
-    <string name="cttdcrp_add_time">add time</string>
+    <string name="cttdcrp_add_carrier">가방 추가</string>
 
     <!-- 날짜 형식 -->
     <string name="default_date_type">yyyy년-MM월-dd일</string>

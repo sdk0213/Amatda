@@ -1,5 +1,6 @@
 package com.turtle.amatda.presentation.view.main
 
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentMainViewpagerBinding
@@ -19,6 +20,7 @@ class MainViewPagerFragment : BaseFragment<MainViewPagerModel, FragmentMainViewp
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = tabTextList[position]
         }.attach()
+        findNavController().navigateUp()
     }
 
     override fun onDestroyView() {

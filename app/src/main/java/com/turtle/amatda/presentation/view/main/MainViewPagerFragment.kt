@@ -6,7 +6,7 @@ import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentMainViewpagerBinding
 import com.turtle.amatda.presentation.view.base.BaseFragment
 
-class MainViewPagerFragment : BaseFragment<MainViewPagerModel, FragmentMainViewpagerBinding>() {
+class MainViewPagerFragment : BaseFragment<MainViewPagerModel, FragmentMainViewpagerBinding>(R.layout.fragment_main_viewpager) {
 
     private val mainFragmentStateAdapter: MainFragmentStateAdapter // DI 사용시에는 다음 stackoverflow 참고 HomeFragmentStateAdapter.get() 형태 , 지금은 사용하지 않음 : https://stackoverflow.com/questions/56646711/expected-the-adapter-to-be-fresh-while-restoring-state
         get() = MainFragmentStateAdapter(this)

@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.turtle.amatda.presentation.di.AppViewModelFactory
@@ -15,7 +17,8 @@ import java.lang.reflect.Type
 import javax.inject.Inject
 
 
-abstract class BaseFragment<T : BaseViewModel, B : ViewDataBinding> : DaggerFragment() {
+abstract class BaseFragment<T : BaseViewModel, B : ViewDataBinding>
+    constructor(@LayoutRes private val layoutId: Int) : DaggerFragment() {
 
     companion object {
         val TAG : String= BaseFragment::class.java.simpleName
@@ -23,7 +26,6 @@ abstract class BaseFragment<T : BaseViewModel, B : ViewDataBinding> : DaggerFrag
 
     private lateinit var mContext: Context
 
-    @Inject
     protected lateinit var binding: B
 
     @Inject
@@ -40,6 +42,7 @@ abstract class BaseFragment<T : BaseViewModel, B : ViewDataBinding> : DaggerFrag
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        binding = DataBindingUtil.inflate(inflater, layoutId, null, false)
         mContext = inflater.context
         return binding.root
     }

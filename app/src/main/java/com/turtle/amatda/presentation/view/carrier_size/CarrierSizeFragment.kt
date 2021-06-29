@@ -11,7 +11,7 @@ import com.turtle.amatda.presentation.view.carrier_type.CarrierTypeFragmentDirec
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CarrierSizeFragment : BaseFragment<CarrierSizeViewModel, FragmentCarrierSizeBinding>() {
+class CarrierSizeFragment : BaseFragment<CarrierSizeViewModel, FragmentCarrierSizeBinding>(R.layout.fragment_carrier_size) {
 
     private lateinit var carrierSizeAdapter: CarrierSizeAdapter
 

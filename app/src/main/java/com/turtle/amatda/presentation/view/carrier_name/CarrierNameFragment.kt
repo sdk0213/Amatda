@@ -8,7 +8,7 @@ import com.turtle.amatda.domain.model.Carrier
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import java.util.*
 
-class CarrierNameFragment : BaseFragment<CarrierNameViewModel, FragmentCarrierNameBinding>() {
+class CarrierNameFragment : BaseFragment<CarrierNameViewModel, FragmentCarrierNameBinding>(R.layout.fragment_carrier_name) {
 
     private val args: CarrierNameFragmentArgs by navArgs()
 

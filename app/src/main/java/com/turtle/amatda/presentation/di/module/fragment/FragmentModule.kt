@@ -15,6 +15,9 @@ class CarrierTypeModule {}
 class CarrierSizeModule {}
 
 @Module
+class CarrierItemModule {}
+
+@Module
 class HomeModule {}
 
 @Module

@@ -88,17 +88,6 @@
             app:destination="@id/carrierNameFragment" />
     </fragment>
 
-    <action
-        android:id="@+id/action_global_view_fragment"
-        app:destination="@id/view_fragment_main" />
-
-    <action
-        android:id="@+id/action_view_carrier_fragment_to_carrierTypeFragment"
-        app:destination="@id/carrierTypeFragment"
-        app:enterAnim="@anim/slide_up"
-        app:exitAnim="@anim/slide_down"
-        app:popEnterAnim="@anim/slide_up"
-        app:popExitAnim="@anim/slide_down" />
     <fragment
         android:id="@+id/carrierNameFragment"
         android:name="com.turtle.amatda.presentation.view.carrier_name.CarrierNameFragment"
@@ -108,5 +97,44 @@
             android:name="carrier"
             app:argType="com.turtle.amatda.domain.model.Carrier" />
     </fragment>
+
+    <fragment
+        android:id="@+id/carrierItemFragment"
+        android:name="com.turtle.amatda.presentation.view.carrier_item.CarrierItemFragment"
+        android:label="CarrierItemFragment">
+
+        <argument
+            android:name="carrier"
+            app:argType="com.turtle.amatda.domain.model.Carrier" />
+    </fragment>
+
+    <!-- Global Action -->
+    <!-- todo : Global 사용하지 않고서 ViewPager2 에서 Fragment를 호출할수 있는 방향을 체-->
+
+    <!-- To Main -->
+    <action
+        android:id="@+id/action_global_view_fragment"
+        app:popUpTo="@id/view_fragment_main"
+        app:popUpToInclusive="false"
+        app:destination="@id/view_fragment_main" />
+
+    <!-- To Carrier Type -->
+    <action
+        android:id="@+id/action_global_carrierTypeFragment"
+        app:destination="@id/carrierTypeFragment"
+        app:enterAnim="@anim/slide_up"
+        app:exitAnim="@anim/slide_down"
+        app:popEnterAnim="@anim/slide_up"
+        app:popExitAnim="@anim/slide_down" />
+
+    <!-- To Carrier Item -->
+    <action
+        android:id="@+id/action_global_carrierItemFragment"
+        app:destination="@id/carrierItemFragment"
+        app:enterAnim="@anim/slide_up"
+        app:exitAnim="@anim/slide_down"
+        app:popEnterAnim="@anim/slide_up"
+        app:popExitAnim="@anim/slide_down" />
+
 
 </navigation>

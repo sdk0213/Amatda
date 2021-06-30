@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.turtle.amatda.databinding.ListItemCarrierBinding
+import com.turtle.amatda.domain.model.Carrier
 import com.turtle.amatda.domain.model.CarrierAndGetHasItemNum
-import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringTimeStamp
 
-class CarrierAdapter : ListAdapter<CarrierAndGetHasItemNum, CarrierAdapter.CarrierViewHolder>(
+class CarrierAdapter constructor(
+    private val clickCarrier : (Carrier) -> (Unit)
+) : ListAdapter<CarrierAndGetHasItemNum, CarrierAdapter.CarrierViewHolder>(
     CarrierDiffCallback()
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarrierViewHolder {
@@ -26,14 +28,16 @@ class CarrierAdapter : ListAdapter<CarrierAndGetHasItemNum, CarrierAdapter.Carri
         holder.bind(getItem(position))
     }
 
-    class CarrierViewHolder(
+    inner class CarrierViewHolder(
         private val binding: ListItemCarrierBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: CarrierAndGetHasItemNum) {
             binding.apply {
                 carrierAndGetHasItemNum = item
-
+                setClickListener { view ->
+                    clickCarrier(item.carrier)
+                }
                 executePendingBindings()
             }
         }

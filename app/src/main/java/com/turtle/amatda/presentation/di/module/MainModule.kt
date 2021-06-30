@@ -9,6 +9,7 @@ import com.turtle.amatda.presentation.di.qualifier.ActivityContext
 import com.turtle.amatda.presentation.di.scope.ActivityScope
 import com.turtle.amatda.presentation.di.scope.FragmentScope
 import com.turtle.amatda.presentation.view.carrier.CarrierFragment
+import com.turtle.amatda.presentation.view.carrier_item.CarrierItemFragment
 import com.turtle.amatda.presentation.view.carrier_name.CarrierNameFragment
 import com.turtle.amatda.presentation.view.carrier_size.CarrierSizeFragment
 import com.turtle.amatda.presentation.view.carrier_type.CarrierTypeFragment
@@ -63,6 +64,10 @@ abstract class MainModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = [CarrierNameModule::class])
     abstract fun getCarrierNameFragment(): CarrierNameFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [CarrierItemModule::class])
+    abstract fun getCarrierItemFragment(): CarrierItemFragment
 
     @FragmentScope
     @ContributesAndroidInjector(modules = [TripModule::class])

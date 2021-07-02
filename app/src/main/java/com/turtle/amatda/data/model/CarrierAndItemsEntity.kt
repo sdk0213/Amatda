@@ -32,9 +32,9 @@ data class ItemEntity(
     @ColumnInfo(name = "item_name")
     val name: String,
     @ColumnInfo(name = "item_position_x")
-    val position_x: Int = 0,
+    val position_x: Float = 0f,
     @ColumnInfo(name = "item_position_y")
-    val position_y: Int = 0,
+    val position_y: Float = 0f,
     @ColumnInfo(name = "item_priority")
     val priority: Long = 0,
     @ColumnInfo(name = "item_checked")

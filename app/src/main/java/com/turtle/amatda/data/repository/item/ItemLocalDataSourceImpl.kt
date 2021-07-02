@@ -11,6 +11,10 @@ class ItemLocalDataSourceImpl constructor(private val itemDao: ItemDao): ItemLoc
         return itemDao.getAll()
     }
 
+    override fun getItemByCarrierId(carrierId: Long): Flowable<List<ItemEntity>> {
+        return itemDao.getItemByCarrierId(carrierId)
+    }
+
     override fun insertItem(itemEntity: ItemEntity): Completable {
         return itemDao.insert(itemEntity)
     }

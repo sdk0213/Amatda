@@ -12,6 +12,10 @@ class ItemDataSourceFactory @Inject constructor(
         return localDataSource.getItemAll()
     }
 
+    fun getItemByCarrierId(carrierId: Long) : Flowable<List<ItemEntity>> {
+        return localDataSource.getItemByCarrierId(carrierId)
+    }
+
     fun insertItem(itemEntity: ItemEntity) : Completable {
         return localDataSource.insertItem(itemEntity)
     }

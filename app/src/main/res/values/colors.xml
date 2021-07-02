@@ -26,5 +26,6 @@
     <color name="Amatda_green_500">#49bb79</color>
     <color name="Amatda_blue_700">#1976D2</color>
     <color name="material_50">#EDE7F6</color>
+    <color name="material_a200">#FF6E40</color>
 
 </resources>

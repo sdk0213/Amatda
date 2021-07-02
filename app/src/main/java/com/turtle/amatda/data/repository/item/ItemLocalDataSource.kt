@@ -7,6 +7,7 @@ import io.reactivex.Flowable
 interface ItemLocalDataSource {
 
     fun getItemAll(): Flowable<List<ItemEntity>>
+    fun getItemByCarrierId(carrierId: Long) : Flowable<List<ItemEntity>>
     fun insertItem(itemEntity: ItemEntity): Completable
     fun insertItemAll(itemEntity: List<ItemEntity>) : Completable
 

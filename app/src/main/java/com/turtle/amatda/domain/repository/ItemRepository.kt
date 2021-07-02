@@ -6,6 +6,7 @@ import io.reactivex.Flowable
 
 interface ItemRepository {
     fun getItemAll() : Flowable<List<Item>>
+    fun getItemsByCarrierId(carrierId: Long) : Flowable<List<Item>>
     fun insertItem(item: Item) : Completable
     fun insertItemAll(itemList: List<Item>) : Completable
 }

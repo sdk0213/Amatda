@@ -22,7 +22,8 @@
     <string name="question_carrier_name">가방의 이름의 이름을 정해주세요</string>
     <string name="question_carrier_name_hint">가방 이름</string>
 
-    <!-- 물건 만들기 -->
-    <string name="question_carrier_item_hint">물건 이름을 입력해주세요</string>
+    <!-- 물품 만들기 -->
+    <string name="add_item_label">물품 추가</string>
+    <string name="save_carrier_and_item">가방 저장</string>
 
 </resources>

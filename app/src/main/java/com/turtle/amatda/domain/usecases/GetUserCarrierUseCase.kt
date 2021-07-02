@@ -1,6 +1,5 @@
 package com.turtle.amatda.domain.usecases
 
-import com.turtle.amatda.domain.model.Carrier
 import com.turtle.amatda.domain.model.CarrierAndItems
 import com.turtle.amatda.domain.repository.CarrierRepository
 import com.turtle.amatda.domain.usecases.common.FlowableUseCase

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
-            name="add_click"
+            name="click_save_carrier"
             type="android.view.View.OnClickListener"/>
         <variable
             name="viewModel"
@@ -15,47 +16,58 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_save"
+            android:text="@string/save_carrier_and_item"
+            android:onClick="@{click_save_carrier}"
+            app:layout_constraintBottom_toTopOf="@id/item_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:id="@+id/item_container"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/item_add">
+            app:layout_constraintTop_toBottomOf="@id/btn_save"
+            app:layout_constraintBottom_toTopOf="@+id/item_name_view">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="@string/cttdcrp_carrier"
-                android:background="@drawable/ic_carrier_carrier_big"/>
+                android:background="@drawable/ic_carrier_carrier_big"
+                android:contentDescription="@string/cttdcrp_carrier" />
 
         </FrameLayout>
 
-        <ImageButton
-            android:id="@+id/item_add"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/item_name_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@drawable/ic_baseline_add_box_48"
-            android:onClick="@{add_click}"
-            android:contentDescription="@string/cttdcrp_add_item"
-            app:layout_constraintDimensionRatio="1:1"
+            android:autofillHints="선크림"
+            app:startIconDrawable="@drawable/ic_baseline_shopping_bag_24"
+            app:startIconContentDescription="물건"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/ic_baseline_add_box_24"
+            app:layout_constraintTop_toBottomOf="@+id/item_container"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/item_name"/>
+            app:layout_constraintStart_toStartOf="parent">
 
-        <EditText
-            android:id="@+id/item_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:gravity="center"
-            android:autofillHints="선크림"
-            android:hint="@string/question_carrier_item_hint"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/item_add"
-            app:layout_constraintStart_toStartOf="parent" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/item_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/material_a200"
+                android:hint="@string/add_item_label"
+                tools:text="물품"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

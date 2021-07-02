@@ -35,7 +35,7 @@ class CarrierAdapter constructor(
         fun bind(item: CarrierAndGetHasItemNum) {
             binding.apply {
                 carrierAndGetHasItemNum = item
-                setClickListener { view ->
+                setClickListener {
                     clickCarrier(item.carrier)
                 }
                 executePendingBindings()

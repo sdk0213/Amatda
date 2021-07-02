@@ -20,6 +20,14 @@ class ItemRepositoryImpl constructor(
         }
     }
 
+    override fun getItemsByCarrierId(carrierId: Long): Flowable<List<Item>> {
+        return factory.getItemByCarrierId(carrierId).map { list ->
+            list.map { item ->
+                mapper.entityToMap(item)
+            }
+        }
+    }
+
     override fun insertItem(item: Item): Completable {
         val itemEntity = mapper.mapToEntity(item)
         return factory.insertItem(itemEntity)

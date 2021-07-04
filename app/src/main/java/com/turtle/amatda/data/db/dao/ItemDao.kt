@@ -23,5 +23,5 @@ interface ItemDao {
     fun delete(item: ItemEntity): Completable
 
     @Update
-    fun update(item: ItemEntity): Completable
+    fun updateItem(item: ItemEntity): Completable
 }

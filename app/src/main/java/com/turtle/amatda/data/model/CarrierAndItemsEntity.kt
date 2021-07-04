@@ -26,9 +26,9 @@ data class CarrierEntity(
         onDelete = ForeignKey.CASCADE
     )])
 data class ItemEntity(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "item_id")
-    val id: Long,
+    val id: Date,
     @ColumnInfo(name = "item_name")
     val name: String,
     @ColumnInfo(name = "item_position_x")

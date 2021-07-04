@@ -1,7 +1,9 @@
 package com.turtle.amatda.domain.model
 
+import java.util.*
+
 data class Item(
-    val id: Long = 0,
+    val id: Date,
     val name: String,
     val position_x: Float = 0f,
     val position_y: Float = 0f,

@@ -40,6 +40,7 @@ class CarrierItemViewModel @Inject constructor(
                 .subscribe(
                     {
                         _itemList.value = it
+
                     },
                     {
                         Log.e(TAG, "getItems is Error ${it.message}")

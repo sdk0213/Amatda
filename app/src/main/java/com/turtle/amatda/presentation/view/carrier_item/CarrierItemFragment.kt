@@ -2,12 +2,11 @@ package com.turtle.amatda.presentation.view.carrier_item
 
 import android.annotation.SuppressLint
 import android.text.TextUtils
-import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.textview.MaterialTextView
 import com.turtle.amatda.R
@@ -17,10 +16,12 @@ import com.turtle.amatda.presentation.view.base.BaseFragment
 import java.util.*
 
 
-class CarrierItemFragment : BaseFragment<CarrierItemViewModel, FragmentCarrierItemBinding>(R.layout.fragment_carrier_item) {
+class CarrierItemFragment :
+    BaseFragment<CarrierItemViewModel, FragmentCarrierItemBinding>(R.layout.fragment_carrier_item) {
 
     private val args: CarrierItemFragmentArgs by navArgs()
     private val arrayOfTextView = arrayListOf<TextView>()
+
     var currentClickedViewId = Date()
 
     private val containerStartY: () -> Int
@@ -38,11 +39,12 @@ class CarrierItemFragment : BaseFragment<CarrierItemViewModel, FragmentCarrierIt
         observeItemList()
         addItemClickListener()
         saveItem()
+        onBackPressOnFragment()
     }
 
     private fun addItemClickListener() =
         binding.itemNameView.setEndIconOnClickListener {
-            if(TextUtils.isEmpty(binding.itemName.text.toString())){
+            if (TextUtils.isEmpty(binding.itemName.text.toString())) {
                 return@setEndIconOnClickListener
             }
             makeItemView(
@@ -55,7 +57,7 @@ class CarrierItemFragment : BaseFragment<CarrierItemViewModel, FragmentCarrierIt
         }
 
     private fun saveItem() {
-        arrayOfTextView.forEach{
+        arrayOfTextView.forEach {
             viewModel.arrayOfItem.add(
                 Item(
                     id = it.tag as Date,
@@ -70,7 +72,7 @@ class CarrierItemFragment : BaseFragment<CarrierItemViewModel, FragmentCarrierIt
     }
 
     private fun observeItemList() =
-        viewModel.itemList.observe(this){
+        viewModel.itemList.observe(this) {
             it.forEach { item ->
                 makeItemView(item)
             }
@@ -78,8 +80,11 @@ class CarrierItemFragment : BaseFragment<CarrierItemViewModel, FragmentCarrierIt
 
     // 아이템 View 생성
     private fun makeItemView(item: Item) =
-        (layoutInflater.inflate(R.layout.carrier_item, null) as MaterialTextView).apply{
-            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        (layoutInflater.inflate(R.layout.carrier_item, null) as MaterialTextView).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
             tag = item.id
             text = item.name
             x = item.position_x
@@ -92,25 +97,31 @@ class CarrierItemFragment : BaseFragment<CarrierItemViewModel, FragmentCarrierIt
 
     @SuppressLint("ClickableViewAccessibility")
     private fun itemTouchListener(textView: TextView) {
-        textView.setOnTouchListener{ view, event ->
+        var firstTouchRelativeX = 0f
+        var firstTouchRelativeY = 0f
+        textView.setOnTouchListener { view, event ->
             when (event.action and MotionEvent.ACTION_MASK) {
                 MotionEvent.ACTION_DOWN -> {
-                    if(currentClickedViewId != view.tag as Date) {
+                    firstTouchRelativeX = event.x
+                    firstTouchRelativeY = event.y
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    if (view.isSelected) {
+                        view.x = event.rawX - firstTouchRelativeX
+                        view.y = event.rawY - firstTouchRelativeY - containerStartY()
+                    }
+                }
+                MotionEvent.ACTION_UP -> {
+                    if (currentClickedViewId != view.tag as Date) {
                         arrayOfTextView
                             .filter { it.tag == currentClickedViewId }
                             .map { it.isSelected = false }
                         currentClickedViewId = view.tag as Date
                     }
-                    view.isSelected = !view.isSelected
-                }
-                MotionEvent.ACTION_MOVE -> {
-                    if(view.isSelected) {
-                        view.x = event.rawX - view.width / 2.0f
-                        view.y = event.rawY - view.height / 2.0f - containerStartY()
-                    }
-                }
-                MotionEvent.ACTION_UP -> {
-                    if(view.isSelected) {
+                    view.isSelected = true
+                    viewModel.itemClicked()
+
+                    if (view.isSelected) {
                         saveItem()
                     }
                 }
@@ -120,7 +131,18 @@ class CarrierItemFragment : BaseFragment<CarrierItemViewModel, FragmentCarrierIt
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+    private fun onBackPressOnFragment() =
+        requireActivity().onBackPressedDispatcher.addCallback(
+            binding.lifecycleOwner!!,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (viewModel.itemClicked.value == true) {
+                        arrayOfTextView
+                            .map { it.isSelected = false }
+                        viewModel.itemUnlicked()
+                    } else {
+                        findNavController().navigateUp()
+                    }
+                }
+            })
 }

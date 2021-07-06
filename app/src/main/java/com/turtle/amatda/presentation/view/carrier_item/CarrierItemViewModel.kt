@@ -18,13 +18,9 @@ class CarrierItemViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val _itemList = MutableLiveData<List<Item>>()
-    private val _itemClicked = MutableLiveData<Boolean>()
-
-    val itemList : LiveData<List<Item>>
-        get() = _itemList
-
-    val itemClicked : LiveData<Boolean>
-        get() = _itemClicked
+    val itemList : LiveData<List<Item>> get() = _itemList
+    private val _itemClicked = MutableLiveData(false)
+    val itemClicked: LiveData<Boolean> get() = _itemClicked
 
     val arrayOfItem = mutableListOf<Item>()
 
@@ -51,6 +47,14 @@ class CarrierItemViewModel @Inject constructor(
                     }
                 )
         )
+    }
+
+    fun itemClicked(){
+        _itemClicked.value = true
+    }
+
+    fun itemUnlicked(){
+        _itemClicked.value = false
     }
 
 }

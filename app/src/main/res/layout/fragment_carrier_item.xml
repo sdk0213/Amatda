@@ -42,18 +42,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="삭제"
+                    android:onClick="@{ () -> viewModel.removeItem(viewModel.itemIdCurrentClicked)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/change_item"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/change_item"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="변경"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/delete_item"
                     app:layout_constraintEnd_toStartOf="@id/change_item_size"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:text="크기 조정"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/change_item"
+                    app:layout_constraintStart_toEndOf="@id/delete_item"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -97,10 +88,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:autofillHints="선크림"
-            app:startIconDrawable="@drawable/ic_baseline_shopping_bag_24"
+            android:hint="@{viewModel.isItemClicked ? @string/edit_item_label : @string/add_item_label}"
+            app:startIconDrawable="@{viewModel.isItemClicked ? @drawable/ic_baseline_drive_file_rename_outline_24 : @drawable/ic_baseline_unarchive_24}"
             app:startIconContentDescription="물건"
             app:endIconMode="custom"
-            app:endIconDrawable="@drawable/ic_baseline_add_box_24"
+            app:endIconDrawable="@{viewModel.isItemClicked ? @drawable/ic_baseline_check_circle_24 : @drawable/ic_baseline_add_box_24}"
             app:layout_constraintTop_toBottomOf="@id/itemContainer"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -110,9 +102,8 @@
                 android:id="@+id/item_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/material_a200"
-                android:hint="@string/add_item_label"
-                tools:text="물품" />
+                android:lines="1"
+                android:textColorHint="@color/material_a200" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

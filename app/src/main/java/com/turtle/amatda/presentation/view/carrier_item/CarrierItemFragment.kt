@@ -8,10 +8,10 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.textview.MaterialTextView
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentCarrierItemBinding
 import com.turtle.amatda.domain.model.Item
+import com.turtle.amatda.presentation.utilities.extensions.toEditable
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import java.util.*
 
@@ -49,46 +49,53 @@ class CarrierItemFragment :
         // viewList : 기존 물품 List (View)
         // itemList : 변경된 물품 List (Item)
         viewModel.itemList.observe(viewLifecycleOwner) { itemList ->
-            when (viewList.size) {
-                itemList.size -> return@observe
-                else -> {
-                    // Item 에 관한 기존 View가 있다면 해당 View는 유지한 상태에서 제거 및 추가
-                    // 즉, 이미 만들어져있는 View 는 굳이 다시 재생성하지 않는다
-                    val keepViewList = arrayListOf<TextView>()
-                    val removeViewList = arrayListOf<TextView>()
-                    removeViewList.addAll(viewList)
-                    for (i in 0 until viewList.size) {
-                        for (j in 0 until itemList.size) {
-                            if (viewList[i].tag as Date == itemList[j].id) {
-                                keepViewList.add(viewList[i])
-                                itemList.remove(itemList[j])
-                                break
-                            }
-                        }
+            // Item 에 관한 기존 View가 있다면 해당 View는 유지한 상태에서 제거 및 추가
+            // 즉, 이미 만들어져있는 View 는 굳이 다시 재생성하지 않는다
+            val keepViewList = arrayListOf<TextView>() // 유지해야하는 View 개수
+            val removeViewList = arrayListOf<TextView>() // 제거해야하는 View 개수
+            val makeItemList = arrayListOf<Item>() // 생성해야 하는 아이템 개수
+            removeViewList.addAll(viewList)
+            makeItemList.addAll(itemList)
+            for (i in 0 until viewList.size) {
+                for (j in 0 until itemList.size) {
+                    if (viewList[i].tag as Date == itemList[j].id && viewList[i].text == itemList[j].name) { // 기존것과 동일하다면 변경을 하지 않음
+                        keepViewList.add(viewList[i])
+                        makeItemList.remove(itemList[j])
+                        break
                     }
-                    // ex) 1. viewList : [1, 2, 3, 4] / itemLIst : [4, 5] ( '[4]'는 유지해야하는 View )
-                    // ex) 2. viewList : [4] / itemLIst : [5]
-                    viewList.retainAll(keepViewList)
-                    // ex) 3. removeList : [1, 2, 3]
-                    removeViewList.removeAll(keepViewList)
-                    // ex) 4. View 에서 removeList 지우기
-                    removeViewList.forEach { binding.itemContainer.removeView(it) }
-                    // ex) 5. viewList : [4] / itemLIst : [5] (View 에 itemList 추가)
-                    itemList.forEach { makeItemView(it) }
                 }
             }
+            // ex) 1. viewList : [1, 2, 3, 4] / itemLIst : [4, 5] ( '[4]'는 유지해야하는 View )
+            // ex) 2. viewList : [4] / itemLIst : [5]
+            viewList.retainAll(keepViewList)
+            // ex) 3. removeList : [1, 2, 3]
+            removeViewList.removeAll(keepViewList)
+            // ex) 4. View 에서 removeList 지우기
+            removeViewList.forEach { binding.itemContainer.removeView(it) }
+            // ex) 5. viewList : [4] / itemLIst : [5] (View 에 itemList 추가)
+            makeItemList.forEach { makeItemView(it) }
         }
 
         // 아이템 클릭 관찰자
-        viewModel.isItemClicked.observe(viewLifecycleOwner){ isItemClicked ->
-            if(!isItemClicked) {
-                viewList.map { it.isSelected = false }
-            }
-            if(viewIdHasBeenClicked != viewIdNewClicked){
+        viewModel.isItemClicked.observe(viewLifecycleOwner) { isItemClicked ->
+            if (viewIdHasBeenClicked != viewIdNewClicked) {
                 viewList
                     .filter { it.tag == viewIdHasBeenClicked }
                     .map { it.isSelected = false }
                 viewIdHasBeenClicked = viewIdNewClicked
+                viewModel.itemIdCurrentClicked = viewIdHasBeenClicked
+            }
+            if (isItemClicked) {
+                viewList
+                    .filter { it.tag == viewIdHasBeenClicked }
+                    .map {
+                        binding.itemName.text = it.text.toEditable()
+                        binding.itemName.setSelection(binding.itemName.text.toString().length)
+                    }
+            } else {
+                viewList.map { it.isSelected = false }
+                binding.itemName.text = "".toEditable()
+                binding.itemName.clearFocus()
             }
         }
     }
@@ -97,15 +104,21 @@ class CarrierItemFragment :
         // Custom Listener 를 View에 바인딩하는 방법을 모르겠다... OnClick 에다가 주기에는 전체 View 에 대한 Listener 이기 때문에 잘못되었다.
         // 그래서 우선은 Fragment 에서 생성
         binding.itemNameView.setEndIconOnClickListener {
-            binding.itemName.text.toString().let {
-                if (!TextUtils.isEmpty(it)) viewModel.addItem(it) //todo : 추가된 코드 : 아이템 추가
+            if (viewModel.isItemClicked.value == true) {
+                binding.itemName.text.toString().let {
+                    if (!TextUtils.isEmpty(it)) viewModel.editItem(it)
+                }
+            } else {
+                binding.itemName.text.toString().let {
+                    if (!TextUtils.isEmpty(it)) viewModel.addItem(it)
+                }
             }
         }
     }
 
     // 아이템 View 동적 생성
     private fun makeItemView(item: Item) =
-        (layoutInflater.inflate(R.layout.carrier_item, null) as MaterialTextView).apply {
+        (layoutInflater.inflate(R.layout.carrier_item, null) as TextView).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -117,6 +130,9 @@ class CarrierItemFragment :
             binding.itemContainer.addView(this) // 뷰에 붙히기
             itemTouchListener(this) // 터치 리스너 받기
             viewList.add(this) // 텍스트뷰 관리 리스트에 추가
+            if(tag as Date == viewIdHasBeenClicked){
+                isSelected = true
+            }
         }
 
     // 아이템 View 터치 리스너

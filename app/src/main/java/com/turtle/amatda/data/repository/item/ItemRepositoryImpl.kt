@@ -40,4 +40,14 @@ class ItemRepositoryImpl constructor(
         return factory.insertItemAll(itemEntity)
     }
 
+    override fun deleteItem(item: Item): Completable {
+        val itemEntity = mapper.mapToEntity(item)
+        return factory.deleteItem(itemEntity)
+    }
+
+    override fun updateItemName(item: Item): Completable {
+        val itemEntity = mapper.mapToEntity(item)
+        return factory.updateItemName(itemEntity)
+    }
+
 }

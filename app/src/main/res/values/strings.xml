@@ -24,6 +24,7 @@
 
     <!-- 물건 만들기 -->
     <string name="add_item_label">물품 추가</string>
+    <string name="edit_item_label">물품 이름 바꾸기</string>
     <string name="save_carrier_and_item">가방 저장</string>
 
 

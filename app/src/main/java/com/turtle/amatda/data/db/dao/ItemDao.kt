@@ -4,6 +4,7 @@ import androidx.room.*
 import com.turtle.amatda.data.model.ItemEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import java.util.*
 
 @Dao
 interface ItemDao {
@@ -24,4 +25,7 @@ interface ItemDao {
 
     @Update
     fun updateItem(item: ItemEntity): Completable
+
+    @Query("UPDATE Item SET item_name = :item_name WHERE item_id = :item_id")
+    fun updateItemName(item_id: Date, item_name: String): Completable
 }

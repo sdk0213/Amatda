@@ -23,4 +23,12 @@ class ItemLocalDataSourceImpl constructor(private val itemDao: ItemDao): ItemLoc
         return itemDao.insertAll(itemEntity)
     }
 
+    override fun deleteItem(itemEntity: ItemEntity): Completable {
+        return itemDao.delete(itemEntity)
+    }
+
+    override fun updateItemName(itemEntity: ItemEntity): Completable {
+        return itemDao.updateItemName(item_id = itemEntity.id, item_name = itemEntity.name)
+    }
+
 }

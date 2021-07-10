@@ -9,4 +9,6 @@ interface ItemRepository {
     fun getItemsByCarrierId(carrierId: Long) : Flowable<List<Item>>
     fun insertItem(item: Item) : Completable
     fun insertItemAll(itemList: List<Item>) : Completable
+    fun deleteItem(item: Item) : Completable
+    fun updateItemName(item: Item) : Completable
 }

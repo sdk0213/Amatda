@@ -10,5 +10,7 @@ interface ItemLocalDataSource {
     fun getItemByCarrierId(carrierId: Long) : Flowable<List<ItemEntity>>
     fun insertItem(itemEntity: ItemEntity): Completable
     fun insertItemAll(itemEntity: List<ItemEntity>) : Completable
+    fun deleteItem(itemEntity: ItemEntity) : Completable
+    fun updateItemName(itemEntity: ItemEntity): Completable
 
 }

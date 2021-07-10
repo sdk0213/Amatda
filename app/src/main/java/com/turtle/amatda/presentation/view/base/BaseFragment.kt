@@ -43,13 +43,13 @@ abstract class BaseFragment<T : BaseViewModel, B : ViewDataBinding>
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, layoutId, null, false)
+        binding.lifecycleOwner = this
         mContext = inflater.context
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.lifecycleOwner = viewLifecycleOwner
         init()
     }
 

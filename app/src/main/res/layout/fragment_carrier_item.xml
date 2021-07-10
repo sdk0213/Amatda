@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.turtle.amatda.presentation.view.carrier_item.CarrierItemViewModel" />
@@ -13,22 +16,81 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:id="@+id/item_container"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/itemContainer"
+            app:layout_constraintBottom_toTopOf="@id/item_name_view"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/item_name_view">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/editItem"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@color/tranparent_material_50"
+                android:visibility="@{viewModel.isItemClicked ? View.VISIBLE : View.GONE}"
+                android:clickable="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/delete_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="삭제"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/change_item"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/change_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="변경"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/delete_item"
+                    app:layout_constraintEnd_toStartOf="@id/change_item_size"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/change_item_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="크기 조정"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/change_item"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:onClick="@{ () -> viewModel.itemIsUnClicked()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editItem"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/carrier"
                 android:background="@drawable/ic_carrier_carrier_big"
-                android:contentDescription="@string/cttdcrp_carrier" />
+                android:contentDescription="@string/cttdcrp_carrier"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-        </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/item_name_view"
@@ -39,7 +101,7 @@
             app:startIconContentDescription="물건"
             app:endIconMode="custom"
             app:endIconDrawable="@drawable/ic_baseline_add_box_24"
-            app:layout_constraintTop_toBottomOf="@+id/item_container"
+            app:layout_constraintTop_toBottomOf="@id/itemContainer"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -50,8 +112,7 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/material_a200"
                 android:hint="@string/add_item_label"
-                tools:text="물품"
-                />
+                tools:text="물품" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

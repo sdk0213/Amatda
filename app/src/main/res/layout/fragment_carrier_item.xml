@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/itemContainer"
+            android:onClick="@{ () -> viewModel.itemIsUnClicked()}"
             app:layout_constraintBottom_toTopOf="@id/item_name_view"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,58 +29,124 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/editItem"
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:background="@color/tranparent_material_50"
-                android:visibility="@{viewModel.isItemClicked ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent_no_color"
+                android:visibility="@{viewModel.isItemClicked ? View.VISIBLE : View.INVISIBLE}"
                 android:clickable="false"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/delete_item"
-                    android:layout_width="wrap_content"
+                    android:layout_width="76dp"
                     android:layout_height="wrap_content"
-                    android:text="삭제"
                     android:onClick="@{ () -> viewModel.removeItem(viewModel.itemIdCurrentClicked)}"
+                    android:text="삭제"
+                    android:textSize="@dimen/carrier_item_edit_text"
+                    android:letterSpacing="0"
+                    app:strokeColor="@color/black"
+                    app:icon="@drawable/ic_baseline_delete_36"
+                    app:iconGravity="top"
+                    app:iconPadding="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/change_item_size"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/change_item_size"
-                    android:layout_width="wrap_content"
+                    android:layout_width="76dp"
                     android:layout_height="wrap_content"
-                    android:text="크기 조정"
+                    android:text="크기조절"
+                    android:textSize="@dimen/carrier_item_edit_text"
+                    android:letterSpacing="0"
+                    app:icon="@drawable/ic_baseline_zoom_out_map_36"
+                    app:iconGravity="top"
+                    app:iconPadding="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/delete_item"
+                    app:layout_constraintEnd_toStartOf="@id/change_item_color"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/change_item_color"
+                    android:layout_width="76dp"
+                    android:layout_height="wrap_content"
+                    android:text="색깔"
+                    android:textSize="@dimen/carrier_item_edit_text"
+                    android:letterSpacing="0"
+                    app:icon="@drawable/ic_baseline_color_lens_36"
+                    app:iconGravity="top"
+                    app:iconPadding="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/change_item_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:onClick="@{ () -> viewModel.itemIsUnClicked()}"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/edit_size_width_down"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.isItemClicked ? View.VISIBLE : View.INVISIBLE}"
+                app:strokeColor="@color/black"
+                app:icon="@drawable/ic_baseline_minus_24"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editItem"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/editItem" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/edit_size_width_up"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.isItemClicked ? View.VISIBLE : View.INVISIBLE}"
+                app:strokeColor="@color/black"
+                app:icon="@drawable/ic_baseline_add_24"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:layout_constraintStart_toEndOf="@id/edit_size_width_down"
+                app:layout_constraintTop_toBottomOf="@id/editItem" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/edit_size_height_down"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.isItemClicked ? View.VISIBLE : View.INVISIBLE}"
+                app:strokeColor="@color/black"
+                app:icon="@drawable/ic_baseline_minus_24"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_size_width_up" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/edit_size_height_up"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.isItemClicked ? View.VISIBLE : View.INVISIBLE}"
+                app:strokeColor="@color/black"
+                app:icon="@drawable/ic_baseline_add_24"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:layout_constraintStart_toEndOf="@id/edit_size_height_down"
+                app:layout_constraintTop_toBottomOf="@id/edit_size_width_up" />
+
+<!--            android:background="@drawable/ic_carrier_carrier_big"-->
             <ImageView
+                android:id="@+id/carrier"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:id="@+id/carrier"
-                android:background="@drawable/ic_carrier_carrier_big"
                 android:contentDescription="@string/cttdcrp_carrier"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -102,7 +169,8 @@
                 android:id="@+id/item_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lines="1"
+                android:inputType="text"
+                android:maxLines="1"
                 android:textColorHint="@color/material_a200" />
 
         </com.google.android.material.textfield.TextInputLayout>

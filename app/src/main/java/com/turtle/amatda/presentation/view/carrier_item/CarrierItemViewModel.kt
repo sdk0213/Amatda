@@ -25,6 +25,7 @@ class CarrierItemViewModel @Inject constructor(
     private val _isItemClicked = MutableLiveData(false)
     val isItemClicked: LiveData<Boolean> get() = _isItemClicked
 
+    // 해당 캐리어에 저장된 아이템리스트 가져오기
     fun getCarrierItems(carrierId: Long){
         compositeDisposable.add(
             getCarrierItemsUseCase.execute(carrierId)

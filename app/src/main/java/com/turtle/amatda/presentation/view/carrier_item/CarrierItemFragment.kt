@@ -2,6 +2,7 @@ package com.turtle.amatda.presentation.view.carrier_item
 
 import android.annotation.SuppressLint
 import android.text.TextUtils
+import android.util.Log
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.TextView
@@ -58,7 +59,8 @@ class CarrierItemFragment :
             makeItemList.addAll(itemList)
             for (i in 0 until viewList.size) {
                 for (j in 0 until itemList.size) {
-                    if (viewList[i].tag as Date == itemList[j].id && viewList[i].text == itemList[j].name) { // 기존것과 동일하다면 변경을 하지 않음
+                    // 기존것과 동일하다면 View를 유지하며 변경되었다면 View 제거후 다시 생성
+                    if (viewList[i].tag as Date == itemList[j].id && viewList[i].text == itemList[j].name) {
                         keepViewList.add(viewList[i])
                         makeItemList.remove(itemList[j])
                         break
@@ -120,8 +122,8 @@ class CarrierItemFragment :
     private fun makeItemView(item: Item) =
         (layoutInflater.inflate(R.layout.carrier_item, null) as TextView).apply {
             layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                250,
+                250
             )
             tag = item.id // tag에 id 를 삽입하여 어떤 아이템인지 구분
             text = item.name
@@ -151,6 +153,24 @@ class CarrierItemFragment :
                         view.x = event.rawX - firstTouchRelativeX
                         view.y = event.rawY - firstTouchRelativeY - containerStartY()
                     }
+                    // todo : view.isSelected 안쪽에 넣고 다른 아이템을 클릭할때 해당아이템으로 이동하기
+                    binding.editItem.x = view.x - (binding.editItem.width/2) + (view.width/2)
+                    binding.editItem.y = view.y - binding.editItem.height - binding.editSizeHeightUp.height - 25.0f
+                    // width down
+                    binding.editSizeWidthDown.x = view.x - 25.0f - binding.editSizeWidthDown.width
+                    binding.editSizeWidthDown.y = view.y + view.height / 2 - binding.editSizeWidthDown.height / 2
+
+                    // width up
+                    binding.editSizeWidthUp.x = view.x + view.width + 25.0f
+                    binding.editSizeWidthUp.y = view.y + view.height / 2 - binding.editSizeWidthUp.height / 2
+
+                    // height up
+                    binding.editSizeHeightUp.x = view.x - (binding.editSizeHeightUp.width/2) + (view.width/2)
+                    binding.editSizeHeightUp.y = view.y - binding.editSizeHeightUp.height - 25.0f
+
+                    // height down
+                    binding.editSizeHeightDown.x = view.x - (binding.editSizeHeightUp.width/2) + (view.width/2)
+                    binding.editSizeHeightDown.y = view.y + view.height + 25.0f
                 }
                 MotionEvent.ACTION_UP -> {
                     viewIdNewClicked = view.tag as Date
@@ -161,6 +181,12 @@ class CarrierItemFragment :
                             item_pos_x = view.x,
                             item_pos_y = view.y
                         )
+
+                        binding.editItem.bringToFront()
+                        binding.editSizeWidthDown.bringToFront()
+                        binding.editSizeWidthUp.bringToFront()
+                        binding.editSizeHeightUp.bringToFront()
+                        binding.editSizeHeightDown.bringToFront()
                     }
                     view.isSelected = true
                     viewModel.itemIsClicked()

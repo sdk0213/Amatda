@@ -2,7 +2,6 @@ package com.turtle.amatda.presentation.view.carrier_item
 
 import android.annotation.SuppressLint
 import android.text.TextUtils
-import android.util.Log
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.TextView
@@ -33,6 +32,8 @@ class CarrierItemFragment :
             location[1]
         }
 
+    private val viewDimenOfToolTip = 25.0f
+
     override fun init() {
         viewModel.apply {
             binding.viewModel = this
@@ -60,7 +61,11 @@ class CarrierItemFragment :
             for (i in 0 until viewList.size) {
                 for (j in 0 until itemList.size) {
                     // 기존것과 동일하다면 View를 유지하며 변경되었다면 View 제거후 다시 생성
-                    if (viewList[i].tag as Date == itemList[j].id && viewList[i].text == itemList[j].name) {
+                    if (viewList[i].tag as Date == itemList[j].id &&
+                        viewList[i].text == itemList[j].name &&
+                        viewList[i].width == itemList[j].width &&
+                        viewList[i].height == itemList[j].height
+                    ) {
                         keepViewList.add(viewList[i])
                         makeItemList.remove(itemList[j])
                         break
@@ -86,6 +91,7 @@ class CarrierItemFragment :
                     .map { it.isSelected = false }
                 viewIdHasBeenClicked = viewIdNewClicked
                 viewModel.itemIdCurrentClicked = viewIdHasBeenClicked
+                viewModel.itemResizeIsUnClicked()
             }
             if (isItemClicked) {
                 viewList
@@ -93,12 +99,27 @@ class CarrierItemFragment :
                     .map {
                         binding.itemName.text = it.text.toEditable()
                         binding.itemName.setSelection(binding.itemName.text.toString().length)
+                        updateToolTipViewPositioning(it.x, it.y, it.width, it.height)
                     }
             } else {
                 viewList.map { it.isSelected = false }
                 binding.itemName.text = "".toEditable()
                 binding.itemName.clearFocus()
             }
+        }
+
+        // 아이템 리사이즈 클릭 관찰자
+        viewModel.isItemResizeClicked.observe(viewLifecycleOwner) { itemResizeClicked ->
+            viewList
+                .filter { it.tag == viewIdHasBeenClicked }
+                .map {
+                    if (itemResizeClicked) {
+                        binding.editItem.y =
+                            it.y - binding.editItem.height - binding.editIncreaseHeight.height - viewDimenOfToolTip
+                    } else {
+                        binding.editItem.y = it.y - binding.editItem.height - viewDimenOfToolTip
+                    }
+                }
         }
     }
 
@@ -121,10 +142,8 @@ class CarrierItemFragment :
     // 아이템 View 동적 생성
     private fun makeItemView(item: Item) =
         (layoutInflater.inflate(R.layout.carrier_item, null) as TextView).apply {
-            layoutParams = ViewGroup.LayoutParams(
-                250,
-                250
-            )
+            width = item.width
+            height = item.height
             tag = item.id // tag에 id 를 삽입하여 어떤 아이템인지 구분
             text = item.name
             x = item.position_x
@@ -132,8 +151,9 @@ class CarrierItemFragment :
             binding.itemContainer.addView(this) // 뷰에 붙히기
             itemTouchListener(this) // 터치 리스너 받기
             viewList.add(this) // 텍스트뷰 관리 리스트에 추가
-            if(tag as Date == viewIdHasBeenClicked){
+            if (tag as Date == viewIdHasBeenClicked) {
                 isSelected = true
+                updateToolTipViewPositioning(item.position_x, item.position_y, item.width, item.height) // 아직 생성되지 않은 뷰를 참조하면 모든 좌표 값이 0 으로 출력되기에 Item 값으로 변경하였음
             }
         }
 
@@ -152,42 +172,24 @@ class CarrierItemFragment :
                     if (view.isSelected) {
                         view.x = event.rawX - firstTouchRelativeX
                         view.y = event.rawY - firstTouchRelativeY - containerStartY()
+                        updateToolTipViewPositioning(textView.x, textView.y, textView.width, textView. height)
                     }
-                    // todo : view.isSelected 안쪽에 넣고 다른 아이템을 클릭할때 해당아이템으로 이동하기
-                    binding.editItem.x = view.x - (binding.editItem.width/2) + (view.width/2)
-                    binding.editItem.y = view.y - binding.editItem.height - binding.editSizeHeightUp.height - 25.0f
-                    // width down
-                    binding.editSizeWidthDown.x = view.x - 25.0f - binding.editSizeWidthDown.width
-                    binding.editSizeWidthDown.y = view.y + view.height / 2 - binding.editSizeWidthDown.height / 2
-
-                    // width up
-                    binding.editSizeWidthUp.x = view.x + view.width + 25.0f
-                    binding.editSizeWidthUp.y = view.y + view.height / 2 - binding.editSizeWidthUp.height / 2
-
-                    // height up
-                    binding.editSizeHeightUp.x = view.x - (binding.editSizeHeightUp.width/2) + (view.width/2)
-                    binding.editSizeHeightUp.y = view.y - binding.editSizeHeightUp.height - 25.0f
-
-                    // height down
-                    binding.editSizeHeightDown.x = view.x - (binding.editSizeHeightUp.width/2) + (view.width/2)
-                    binding.editSizeHeightDown.y = view.y + view.height + 25.0f
                 }
                 MotionEvent.ACTION_UP -> {
                     viewIdNewClicked = view.tag as Date
                     if (view.isSelected) {
-                        viewModel.moveItem(
+                        viewModel.updateMove(
                             item_id = viewIdNewClicked,
-                            itemName = textView.text.toString(),
                             item_pos_x = view.x,
                             item_pos_y = view.y
                         )
-
-                        binding.editItem.bringToFront()
-                        binding.editSizeWidthDown.bringToFront()
-                        binding.editSizeWidthUp.bringToFront()
-                        binding.editSizeHeightUp.bringToFront()
-                        binding.editSizeHeightDown.bringToFront()
                     }
+                    view.bringToFront()
+                    binding.editItem.bringToFront()
+                    binding.editDecreaseWidth.bringToFront()
+                    binding.editIncreaseWidth.bringToFront()
+                    binding.editIncreaseHeight.bringToFront()
+                    binding.editDecreaseHeight.bringToFront()
                     view.isSelected = true
                     viewModel.itemIsClicked()
                 }
@@ -195,6 +197,45 @@ class CarrierItemFragment :
             view.invalidate()
             true
         }
+    }
+
+    // 아이템 툴팁 포지셔닝
+    private fun updateToolTipViewPositioning(
+        x: Float,
+        y: Float,
+        width: Int,
+        height: Int
+    ) {
+
+        binding.editItem.x = x - (binding.editItem.width / 2) + (width / 2)
+        if (viewModel.isItemResizeClicked.value == true) {
+            binding.editItem.y =
+                y - binding.editItem.height - binding.editIncreaseHeight.height - viewDimenOfToolTip
+        } else {
+            binding.editItem.y = y - binding.editItem.height - viewDimenOfToolTip
+        }
+
+        // width down
+        binding.editDecreaseWidth.x = x - viewDimenOfToolTip - binding.editDecreaseWidth.width
+        binding.editDecreaseWidth.y =
+            y + height / 2 - binding.editDecreaseWidth.height / 2
+
+        // width up
+        binding.editIncreaseWidth.x = x + width + viewDimenOfToolTip
+        binding.editIncreaseWidth.y =
+            y + height / 2 - binding.editIncreaseWidth.height / 2
+
+        // height up
+        binding.editIncreaseHeight.x =
+            x - (binding.editIncreaseHeight.width / 2) + (width / 2)
+        binding.editIncreaseHeight.y =
+            y - binding.editIncreaseHeight.height - viewDimenOfToolTip
+
+        // height down
+        binding.editDecreaseHeight.x =
+            x - (binding.editIncreaseHeight.width / 2) + (width / 2)
+        binding.editDecreaseHeight.y = y + height + viewDimenOfToolTip
+
     }
 
     private fun onBackPressed() =

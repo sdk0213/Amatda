@@ -28,4 +28,10 @@ interface ItemDao {
 
     @Query("UPDATE Item SET item_name = :item_name WHERE item_id = :item_id")
     fun updateItemName(item_id: Date, item_name: String): Completable
+
+    @Query("UPDATE Item SET item_width = :width, item_height = :height WHERE item_id = :item_id")
+    fun updateItemSize(item_id: Date, width: Int, height: Int): Completable
+
+    @Query("UPDATE Item SET item_position_x = :pos_x, item_position_y = :pos_y WHERE item_id = :item_id")
+    fun updateItemPos(item_id: Date, pos_x: Float, pos_y: Float): Completable
 }

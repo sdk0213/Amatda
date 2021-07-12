@@ -29,16 +29,27 @@ data class ItemEntity(
     @PrimaryKey
     @ColumnInfo(name = "item_id")
     val id: Date,
+
     @ColumnInfo(name = "item_name")
     val name: String,
+
     @ColumnInfo(name = "item_position_x")
     val position_x: Float = 0f,
+
     @ColumnInfo(name = "item_position_y")
     val position_y: Float = 0f,
+
     @ColumnInfo(name = "item_priority")
     val priority: Long = 0,
+
+    @ColumnInfo(name = "item_width")
+    val item_width: Int = 250,
+    @ColumnInfo(name = "item_height")
+    val item_height: Int = 250,
+
     @ColumnInfo(name = "item_checked")
     val checked : Boolean = false,
+
     @ColumnInfo(name = "carrier_id_foreign", index = true)
     val carrier_id: Long
 )

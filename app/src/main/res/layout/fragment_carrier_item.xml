@@ -61,6 +61,7 @@
                     android:text="크기조절"
                     android:textSize="@dimen/carrier_item_edit_text"
                     android:letterSpacing="0"
+                    android:onClick="@{() -> viewModel.isItemResizeClicked ? viewModel.itemResizeIsUnClicked() : viewModel.itemResizeIsClicked()}"
                     app:icon="@drawable/ic_baseline_zoom_out_map_36"
                     app:iconGravity="top"
                     app:iconPadding="0dp"
@@ -88,10 +89,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/edit_size_width_down"
+                android:id="@+id/edit_decrease_width"
                 android:layout_width="32dp"
                 android:layout_height="wrap_content"
-                android:visibility="@{viewModel.isItemClicked ? View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
+                android:onClick="@{() -> viewModel.decreaseWidth(25)}"
                 app:strokeColor="@color/black"
                 app:icon="@drawable/ic_baseline_minus_24"
                 app:iconGravity="textStart"
@@ -100,40 +102,43 @@
                 app:layout_constraintTop_toBottomOf="@id/editItem" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/edit_size_width_up"
+                android:id="@+id/edit_increase_width"
                 android:layout_width="32dp"
                 android:layout_height="wrap_content"
-                android:visibility="@{viewModel.isItemClicked ? View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
+                android:onClick="@{() -> viewModel.increaseWidth(25)}"
                 app:strokeColor="@color/black"
                 app:icon="@drawable/ic_baseline_add_24"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
-                app:layout_constraintStart_toEndOf="@id/edit_size_width_down"
+                app:layout_constraintStart_toEndOf="@id/edit_decrease_width"
                 app:layout_constraintTop_toBottomOf="@id/editItem" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/edit_size_height_down"
+                android:id="@+id/edit_decrease_height"
                 android:layout_width="32dp"
                 android:layout_height="wrap_content"
-                android:visibility="@{viewModel.isItemClicked ? View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
+                android:onClick="@{() -> viewModel.decreaseHeight(25)}"
                 app:strokeColor="@color/black"
                 app:icon="@drawable/ic_baseline_minus_24"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_size_width_up" />
+                app:layout_constraintTop_toBottomOf="@id/edit_increase_width" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/edit_size_height_up"
+                android:id="@+id/edit_increase_height"
                 android:layout_width="32dp"
                 android:layout_height="wrap_content"
-                android:visibility="@{viewModel.isItemClicked ? View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
+                android:onClick="@{() -> viewModel.increaseHeight(25)}"
                 app:strokeColor="@color/black"
                 app:icon="@drawable/ic_baseline_add_24"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
-                app:layout_constraintStart_toEndOf="@id/edit_size_height_down"
-                app:layout_constraintTop_toBottomOf="@id/edit_size_width_up" />
+                app:layout_constraintStart_toEndOf="@id/edit_decrease_height"
+                app:layout_constraintTop_toBottomOf="@id/edit_increase_width" />
 
 <!--            android:background="@drawable/ic_carrier_carrier_big"-->
             <ImageView

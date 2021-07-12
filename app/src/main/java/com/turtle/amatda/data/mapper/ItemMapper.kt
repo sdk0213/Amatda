@@ -12,6 +12,8 @@ open class ItemMapper @Inject constructor(): Mapper<ItemEntity, Item> {
             name = type.name,
             position_x = type.position_x,
             position_y = type.position_y,
+            width = type.item_width,
+            height = type.item_height,
             priority = type.priority,
             checked = type.checked,
             carrier_id = type.carrier_id
@@ -24,6 +26,8 @@ open class ItemMapper @Inject constructor(): Mapper<ItemEntity, Item> {
             name = type.name,
             position_x = type.position_x,
             position_y = type.position_y,
+            item_width = type.width,
+            item_height = type.height,
             priority = type.priority,
             checked = type.checked,
             carrier_id = type.carrier_id

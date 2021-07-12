@@ -50,4 +50,14 @@ class ItemRepositoryImpl constructor(
         return factory.updateItemName(itemEntity)
     }
 
+    override fun updateItemSize(item: Item): Completable {
+        val itemEntity = mapper.mapToEntity(item)
+        return factory.updateItemSize(itemEntity)
+    }
+
+    override fun updateItemPos(item: Item): Completable {
+        val itemEntity = mapper.mapToEntity(item)
+        return factory.updateItemPos(itemEntity)
+    }
+
 }

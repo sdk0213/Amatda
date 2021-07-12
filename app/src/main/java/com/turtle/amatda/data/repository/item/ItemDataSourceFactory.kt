@@ -31,4 +31,12 @@ class ItemDataSourceFactory @Inject constructor(
     fun updateItemName(itemEntity: ItemEntity) : Completable {
         return localDataSource.updateItemName(itemEntity)
     }
+
+    fun updateItemSize(itemEntity: ItemEntity) : Completable {
+        return localDataSource.updateItemSize(itemEntity)
+    }
+
+    fun updateItemPos(itemEntity: ItemEntity) : Completable {
+        return localDataSource.updateItemPos(itemEntity)
+    }
 }

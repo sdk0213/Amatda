@@ -24,7 +24,7 @@ abstract class BaseFragment<T : BaseViewModel, B : ViewDataBinding>
         val TAG : String= BaseFragment::class.java.simpleName
     }
 
-    private lateinit var mContext: Context
+    lateinit var mContext: Context
 
     protected lateinit var binding: B
 

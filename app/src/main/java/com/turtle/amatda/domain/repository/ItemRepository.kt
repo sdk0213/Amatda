@@ -11,4 +11,6 @@ interface ItemRepository {
     fun insertItemAll(itemList: List<Item>) : Completable
     fun deleteItem(item: Item) : Completable
     fun updateItemName(item: Item) : Completable
+    fun updateItemSize(item: Item) : Completable
+    fun updateItemPos(item: Item): Completable
 }

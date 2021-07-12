@@ -12,5 +12,6 @@ interface ItemLocalDataSource {
     fun insertItemAll(itemEntity: List<ItemEntity>) : Completable
     fun deleteItem(itemEntity: ItemEntity) : Completable
     fun updateItemName(itemEntity: ItemEntity): Completable
-
+    fun updateItemSize(itemEntity: ItemEntity): Completable
+    fun updateItemPos(itemEntity: ItemEntity): Completable
 }

@@ -11,7 +11,19 @@ import javax.inject.Inject
 class UpdateCarrierItemUseCase @Inject constructor(private val repository: ItemRepository) :
     CompletableUseCase<Item>(Schedulers.io(), AndroidSchedulers.mainThread()) {
 
+    val typeItemMove = "ITEM_MOVE"
+    val typeItemName = "ITEM_NAME"
+    val typeItemSize = "ITEM_SIZE"
+    val typeItemColor = "ITEM_COLOR"
+
+    lateinit var updateType: String
+
     override fun buildUseCaseCompletable(params: Item?): Completable {
-        return repository.updateItemName(params!!)
+        return when(updateType){
+            typeItemMove -> repository.updateItemPos(params!!)
+            typeItemName -> repository.updateItemName(params!!)
+            typeItemSize -> repository.updateItemSize(params!!)
+            else -> repository.updateItemName(params!!)
+        }
     }
 }

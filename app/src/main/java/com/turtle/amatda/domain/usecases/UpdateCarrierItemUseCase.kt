@@ -14,6 +14,7 @@ class UpdateCarrierItemUseCase @Inject constructor(private val repository: ItemR
     val typeItemMove = "ITEM_MOVE"
     val typeItemName = "ITEM_NAME"
     val typeItemSize = "ITEM_SIZE"
+    val typeItemCount = "ITEM_COUNT"
     val typeItemColor = "ITEM_COLOR"
 
     lateinit var updateType: String
@@ -23,6 +24,7 @@ class UpdateCarrierItemUseCase @Inject constructor(private val repository: ItemR
             typeItemMove -> repository.updateItemPos(params!!)
             typeItemName -> repository.updateItemName(params!!)
             typeItemSize -> repository.updateItemSize(params!!)
+            typeItemCount -> repository.updateItemCount(params!!)
             else -> repository.updateItemName(params!!)
         }
     }

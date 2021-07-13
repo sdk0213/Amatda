@@ -13,4 +13,5 @@ interface ItemRepository {
     fun updateItemName(item: Item) : Completable
     fun updateItemSize(item: Item) : Completable
     fun updateItemPos(item: Item): Completable
+    fun updateItemCount(item: Item): Completable
 }

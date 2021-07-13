@@ -30,30 +30,33 @@ class CarrierItemViewModel @Inject constructor(
     val isItemClicked: LiveData<Boolean> get() = _isItemClicked
     private val _isItemResizeClicked = MutableLiveData(false)
     val isItemResizeClicked: LiveData<Boolean> get() = _isItemResizeClicked
+    private val _isItemRecountClicked = MutableLiveData(false)
+    val isItemRecountClicked: LiveData<Boolean> get() = _isItemRecountClicked
 
     // 해당 캐리어에 저장된 아이템리스트 가져오기
     fun getCarrierItems(carrierId: Long) {
         compositeDisposable.add(
             getCarrierItemsUseCase.execute(carrierId)
                 .subscribe(
-                    {
+                    {   itemListFromDb ->
                         val keepViewList = arrayListOf<Item>() // 유지해야하는 아이템
                         val removeViewList = arrayListOf<Item>() // 제거해야하는 아이템
                         val makeItemList = arrayListOf<Item>() // 생성해야 하는 아이템
                         val beforeItemList = mutableListOf<Item>() // 원래 아이템 리스트
                         _itemList.value?.let { list -> beforeItemList.addAll(list) } // 원래 아이템 리스트 가져오기
                         removeViewList.addAll(beforeItemList)
-                        makeItemList.addAll(it)
+                        makeItemList.addAll(itemListFromDb)
                         for (i in 0 until beforeItemList.size) {
-                            for (j in 0 until it.size) {
-                                // 기존것과 동일하다면 Item을 유지하며 변경되었다면 Item 제거후 다시 생성
-                                if (beforeItemList[i].id == it[j].id &&
-                                    beforeItemList[i].name == it[j].name &&
-                                    beforeItemList[i].width == it[j].width &&
-                                    beforeItemList[i].height == it[j].height
+                            for (j in 0 until itemListFromDb.size) {
+                                // 기존것과 동일하다면 Item 을 유지하며 변경되었다면 Item 제거후 다시 생성
+                                if (beforeItemList[i].id == itemListFromDb[j].id &&
+                                    beforeItemList[i].name == itemListFromDb[j].name &&
+                                    beforeItemList[i].width == itemListFromDb[j].width &&
+                                    beforeItemList[i].height == itemListFromDb[j].height &&
+                                    beforeItemList[i].count == itemListFromDb[j].count
                                 ) {
                                     keepViewList.add(beforeItemList[i])
-                                    makeItemList.remove(it[j])
+                                    makeItemList.remove(itemListFromDb[j])
                                     break
                                 }
                             }
@@ -132,6 +135,31 @@ class CarrierItemViewModel @Inject constructor(
                 )
         )
 
+    }
+
+    fun recountItem(isCountUp: Boolean){
+        updateCarrierItemUseCase.updateType = updateCarrierItemUseCase.typeItemCount
+        _itemList.value?.find {
+            it.id == itemIdCurrentClicked
+        }?.let {
+            if(it.count + (if(isCountUp) 1 else -1) < 1) return
+            compositeDisposable.add(
+                updateCarrierItemUseCase.execute(
+                    Item(
+                        id = it.id,
+                        count = it.count + (if(isCountUp) 1 else -1),
+                        carrier_id = it.carrier_id
+                    )
+                )
+                    .subscribe(
+                        {
+                        },
+                        {
+                            Log.e(TAG, "insertItem is Error ${it.message}")
+                        }
+                    )
+            )
+        }
     }
 
     fun decreaseWidth(updateSize: Int) {
@@ -216,14 +244,25 @@ class CarrierItemViewModel @Inject constructor(
     fun itemIsUnClicked() {
         _isItemClicked.value = false
         _isItemResizeClicked.value = false
+        _isItemRecountClicked.value = false
     }
 
     fun itemResizeIsClicked() {
         _isItemResizeClicked.value = true
+        _isItemRecountClicked.value = false
     }
 
     fun itemResizeIsUnClicked() {
         _isItemResizeClicked.value = false
+    }
+
+    fun itemRecountIsClicked(){
+        _isItemRecountClicked.value = true
+        _isItemResizeClicked.value = false
+    }
+
+    fun itemRecountIsUnClicked(){
+        _isItemRecountClicked.value = false
     }
 
 }

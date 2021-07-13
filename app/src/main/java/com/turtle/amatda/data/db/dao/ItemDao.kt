@@ -34,4 +34,7 @@ interface ItemDao {
 
     @Query("UPDATE Item SET item_position_x = :pos_x, item_position_y = :pos_y WHERE item_id = :item_id")
     fun updateItemPos(item_id: Date, pos_x: Float, pos_y: Float): Completable
+
+    @Query("UPDATE Item SET item_count = :count WHERE item_id = :item_id")
+    fun updateItemCount(item_id: Date, count: Int): Completable
 }

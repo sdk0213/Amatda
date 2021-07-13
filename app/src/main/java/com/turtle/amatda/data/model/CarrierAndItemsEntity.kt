@@ -33,6 +33,9 @@ data class ItemEntity(
     @ColumnInfo(name = "item_name")
     val name: String,
 
+    @ColumnInfo(name = "item_count")
+    val count: Int = 1,
+
     @ColumnInfo(name = "item_position_x")
     val position_x: Float = 0f,
 

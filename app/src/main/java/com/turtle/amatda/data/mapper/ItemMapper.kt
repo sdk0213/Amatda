@@ -10,6 +10,7 @@ open class ItemMapper @Inject constructor(): Mapper<ItemEntity, Item> {
         return Item(
             id = type.id,
             name = type.name,
+            count = type.count,
             position_x = type.position_x,
             position_y = type.position_y,
             width = type.item_width,
@@ -24,6 +25,7 @@ open class ItemMapper @Inject constructor(): Mapper<ItemEntity, Item> {
         return ItemEntity(
             id = type.id,
             name = type.name,
+            count = type.count,
             position_x = type.position_x,
             position_y = type.position_y,
             item_width = type.width,

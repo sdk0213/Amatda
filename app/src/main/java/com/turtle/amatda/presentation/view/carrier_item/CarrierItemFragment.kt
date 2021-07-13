@@ -2,8 +2,8 @@ package com.turtle.amatda.presentation.view.carrier_item
 
 import android.annotation.SuppressLint
 import android.text.TextUtils
+import android.util.Log
 import android.view.MotionEvent
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
@@ -21,9 +21,9 @@ class CarrierItemFragment :
 
     private val args: CarrierItemFragmentArgs by navArgs()
 
-    val viewList = arrayListOf<TextView>() // 현재 생성된 아이템 View 에 관한 List
-    var viewIdNewClicked = Date()     // 유저가 새롭게 선택한 View Id (Tag)
-    var viewIdHasBeenClicked = Date() // 이미 선택되어있는 View Id (Tag)
+    private val viewItemList = arrayListOf<TextView>() // 현재 생성된 아이템 View 에 관한 List
+    private var viewIdNewClicked = Date()     // 유저가 새롭게 선택한 View Id (Tag)
+    private var viewIdHasBeenClicked = Date() // 이미 선택되어있는 View Id (Tag)
 
     private val containerStartY: () -> Int
         get() = {
@@ -47,46 +47,28 @@ class CarrierItemFragment :
 
     private fun observer() {
 
-        // 아이템 변경 관찰자
-        // viewList : 기존 물품 List (View)
-        // itemList : 변경된 물품 List (Item)
-        viewModel.itemList.observe(viewLifecycleOwner) { itemList ->
-            // Item 에 관한 기존 View가 있다면 해당 View는 유지한 상태에서 제거 및 추가
-            // 즉, 이미 만들어져있는 View 는 굳이 다시 재생성하지 않는다
-            val keepViewList = arrayListOf<TextView>() // 유지해야하는 View 개수
-            val removeViewList = arrayListOf<TextView>() // 제거해야하는 View 개수
-            val makeItemList = arrayListOf<Item>() // 생성해야 하는 아이템 개수
-            removeViewList.addAll(viewList)
-            makeItemList.addAll(itemList)
-            for (i in 0 until viewList.size) {
-                for (j in 0 until itemList.size) {
-                    // 기존것과 동일하다면 View를 유지하며 변경되었다면 View 제거후 다시 생성
-                    if (viewList[i].tag as Date == itemList[j].id &&
-                        viewList[i].text == itemList[j].name &&
-                        viewList[i].width == itemList[j].width &&
-                        viewList[i].height == itemList[j].height
-                    ) {
-                        keepViewList.add(viewList[i])
-                        makeItemList.remove(itemList[j])
+        viewModel.removeItemList.observe(viewLifecycleOwner) { removeItemList ->
+            val removeTextViewList = arrayListOf<TextView>()
+            for (i in 0 until viewItemList.size) {
+                for (j in 0 until removeItemList.size) {
+                    if(viewItemList[i].tag as Date == removeItemList[j].id) {
+                        removeTextViewList.add(viewItemList[i])
+                        binding.itemContainer.removeView(viewItemList[i])
                         break
                     }
                 }
             }
-            // ex) 1. viewList : [1, 2, 3, 4] / itemLIst : [4, 5] ( '[4]'는 유지해야하는 View )
-            // ex) 2. viewList : [4] / itemLIst : [5]
-            viewList.retainAll(keepViewList)
-            // ex) 3. removeList : [1, 2, 3]
-            removeViewList.removeAll(keepViewList)
-            // ex) 4. View 에서 removeList 지우기
-            removeViewList.forEach { binding.itemContainer.removeView(it) }
-            // ex) 5. viewList : [4] / itemLIst : [5] (View 에 itemList 추가)
+            viewItemList.removeAll(removeTextViewList)
+        }
+
+        viewModel.makeItemList.observe(viewLifecycleOwner) { makeItemList ->
             makeItemList.forEach { makeItemView(it) }
         }
 
         // 아이템 클릭 관찰자
         viewModel.isItemClicked.observe(viewLifecycleOwner) { isItemClicked ->
             if (viewIdHasBeenClicked != viewIdNewClicked) {
-                viewList
+                viewItemList
                     .filter { it.tag == viewIdHasBeenClicked }
                     .map { it.isSelected = false }
                 viewIdHasBeenClicked = viewIdNewClicked
@@ -94,7 +76,7 @@ class CarrierItemFragment :
                 viewModel.itemResizeIsUnClicked()
             }
             if (isItemClicked) {
-                viewList
+                viewItemList
                     .filter { it.tag == viewIdHasBeenClicked }
                     .map {
                         binding.itemName.text = it.text.toEditable()
@@ -102,7 +84,7 @@ class CarrierItemFragment :
                         updateToolTipViewPositioning(it.x, it.y, it.width, it.height)
                     }
             } else {
-                viewList.map { it.isSelected = false }
+                viewItemList.map { it.isSelected = false }
                 binding.itemName.text = "".toEditable()
                 binding.itemName.clearFocus()
             }
@@ -110,7 +92,7 @@ class CarrierItemFragment :
 
         // 아이템 리사이즈 클릭 관찰자
         viewModel.isItemResizeClicked.observe(viewLifecycleOwner) { itemResizeClicked ->
-            viewList
+            viewItemList
                 .filter { it.tag == viewIdHasBeenClicked }
                 .map {
                     if (itemResizeClicked) {
@@ -140,7 +122,7 @@ class CarrierItemFragment :
     }
 
     // 아이템 View 동적 생성
-    private fun makeItemView(item: Item) =
+    private fun makeItemView(item: Item) : TextView =
         (layoutInflater.inflate(R.layout.carrier_item, null) as TextView).apply {
             width = item.width
             height = item.height
@@ -150,7 +132,7 @@ class CarrierItemFragment :
             y = item.position_y
             binding.itemContainer.addView(this) // 뷰에 붙히기
             itemTouchListener(this) // 터치 리스너 받기
-            viewList.add(this) // 텍스트뷰 관리 리스트에 추가
+            viewItemList.add(this) // 텍스트뷰 관리 리스트에 추가
             if (tag as Date == viewIdHasBeenClicked) {
                 isSelected = true
                 updateToolTipViewPositioning(item.position_x, item.position_y, item.width, item.height) // 아직 생성되지 않은 뷰를 참조하면 모든 좌표 값이 0 으로 출력되기에 Item 값으로 변경하였음
@@ -244,7 +226,7 @@ class CarrierItemFragment :
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (viewModel.isItemClicked.value == true) {
-                        viewList
+                        viewItemList
                             .map { it.isSelected = false }
                         viewModel.itemIsUnClicked()
                     } else {

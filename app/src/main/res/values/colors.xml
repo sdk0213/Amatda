@@ -27,8 +27,19 @@
     <color name="Amatda_blue_700">#1976D2</color>
     <color name="material_50">#EDE7F6</color>
     <color name="material_a200">#FF6E40</color>
+    <color name="material_a700">#DD2C00</color>
     <color name="transparent_material_a200">#CCFF6E40</color> <!-- 80% -->
     <color name="transparent_material_50">#D9EDE7F6</color>
     <color name="transparent_no_color">#00FFFFFF</color>
+
+    <color name="rainbow_white">#FFFFFFFF</color>
+    <color name="rainbow_red">#FFFF0000</color>
+    <color name="rainbow_orange">#FFFF7F00</color>
+    <color name="rainbow_yellow">#FFFFFF00</color>
+    <color name="rainbow_green">#FF00FF00</color>
+    <color name="rainbow_blue">#FF0000FF</color>
+    <color name="rainbow_dark_blue">#FF4B0082</color>
+    <color name="rainbow_purple">#FF8F00FF</color>
+    <color name="rainbow_black">#FF000000</color>
 
 </resources>

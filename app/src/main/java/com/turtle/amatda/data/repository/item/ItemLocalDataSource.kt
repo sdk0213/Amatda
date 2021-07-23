@@ -1,6 +1,7 @@
 package com.turtle.amatda.data.repository.item
 
 import com.turtle.amatda.data.model.ItemEntity
+import com.turtle.amatda.domain.model.Item
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
@@ -15,4 +16,5 @@ interface ItemLocalDataSource {
     fun updateItemSize(itemEntity: ItemEntity): Completable
     fun updateItemPos(itemEntity: ItemEntity): Completable
     fun updateItemCount(itemEntity: ItemEntity): Completable
+    fun updateItemColor(itemEntity: ItemEntity) : Completable
 }

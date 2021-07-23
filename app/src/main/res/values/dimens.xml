@@ -35,5 +35,7 @@
 
     <!-- 아이템 수정 -->
     <dimen name="carrier_item_edit_text">12sp</dimen>
+    <dimen name="carrier_item_color">30dp</dimen>
+    <dimen name="carrier_item_color_margin">5dp</dimen>
 
 </resources>

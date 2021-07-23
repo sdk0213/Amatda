@@ -57,10 +57,11 @@
                     android:id="@+id/change_item_size"
                     android:layout_width="76dp"
                     android:layout_height="wrap_content"
-                    android:text="크기조절"
+                    android:text="@string/item_edit_tooltip_resize"
                     android:textSize="@dimen/carrier_item_edit_text"
                     android:letterSpacing="0"
                     android:onClick="@{() -> viewModel.isItemResizeClicked ? viewModel.itemResizeIsUnClicked() : viewModel.itemResizeIsClicked()}"
+                    android:backgroundTint="@{viewModel.isItemResizeClicked ? @color/material_a700 : @color/material_a200}"
                     app:icon="@drawable/ic_baseline_zoom_out_map_36"
                     app:iconGravity="top"
                     app:iconPadding="0dp"
@@ -77,6 +78,7 @@
                     android:textSize="@dimen/carrier_item_edit_text"
                     android:letterSpacing="0"
                     android:onClick="@{() -> viewModel.isItemRecountClicked ? viewModel.itemRecountIsUnClicked() : viewModel.itemRecountIsClicked()}"
+                    android:backgroundTint="@{viewModel.isItemRecountClicked ? @color/material_a700 : @color/material_a200}"
                     app:icon="@drawable/ic_baseline_all_inbox_24"
                     app:iconGravity="top"
                     app:iconPadding="0dp"
@@ -92,6 +94,8 @@
                     android:text="색깔"
                     android:textSize="@dimen/carrier_item_edit_text"
                     android:letterSpacing="0"
+                    android:onClick="@{() -> viewModel.isItemRecolorClicked() ? viewModel.itemRecolorIsUnClicked() : viewModel.itemRecolorIsClicked()}"
+                    android:backgroundTint="@{viewModel.isItemRecolorClicked ? @color/material_a700 : @color/material_a200}"
                     app:icon="@drawable/ic_baseline_color_lens_24"
                     app:iconGravity="top"
                     app:iconPadding="0dp"
@@ -109,6 +113,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
                 android:onClick="@{() -> viewModel.decreaseWidth(25)}"
+                android:backgroundTint="@color/material_a700"
                 app:icon="@drawable/ic_baseline_minus_24"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
@@ -121,6 +126,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
                 android:onClick="@{() -> viewModel.increaseWidth(25)}"
+                android:backgroundTint="@color/material_a700"
                 app:icon="@drawable/ic_baseline_add_24"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
@@ -133,6 +139,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
                 android:onClick="@{() -> viewModel.decreaseHeight(25)}"
+                android:backgroundTint="@color/material_a700"
                 app:icon="@drawable/ic_baseline_minus_24"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
@@ -145,6 +152,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
                 android:onClick="@{() -> viewModel.increaseHeight(25)}"
+                android:backgroundTint="@color/material_a700"
                 app:icon="@drawable/ic_baseline_add_24"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
@@ -173,7 +181,8 @@
                 android:visibility="@{viewModel.isItemRecountClicked ? View.VISIBLE : View.INVISIBLE}"
                 android:clickable="false"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_decrease_height">
+                app:layout_constraintTop_toBottomOf="@id/edit_decrease_height"
+                app:layout_constraintBottom_toTopOf="@id/edit_item_color_view">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/item_count_increase"
@@ -181,6 +190,7 @@
                     android:layout_height="wrap_content"
                     android:onClick="@{ () -> viewModel.recountItem(false)}"
                     android:layout_marginEnd="10dp"
+                    android:backgroundTint="@color/material_a700"
                     app:icon="@drawable/ic_baseline_arrow_left_24"
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
@@ -194,7 +204,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/oval"
+                    android:background="@drawable/item_count_oval"
                     android:gravity="center"
                     android:textSize="18sp"
                     android:includeFontPadding="false"
@@ -210,6 +220,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:onClick="@{ () -> viewModel.recountItem(true)}"
+                    android:backgroundTint="@color/material_a700"
                     app:icon="@drawable/ic_baseline_arrow_right_24"
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
@@ -219,6 +230,133 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/edit_item_color_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent_no_color"
+                android:visibility="@{viewModel.isItemRecolorClicked ? View.VISIBLE : View.INVISIBLE}"
+                android:clickable="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_item_count_view">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/item_color_white"
+                    android:layout_width="@dimen/carrier_item_color"
+                    android:layout_height="@dimen/carrier_item_color"
+                    android:background="@drawable/item_color_white"
+                    android:onClick="@{() -> viewModel.updateColor(@color/rainbow_white)}"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/item_color_red"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/item_color_red"
+                    android:layout_width="@dimen/carrier_item_color"
+                    android:layout_height="@dimen/carrier_item_color"
+                    android:background="@drawable/item_color_red"
+                    android:layout_marginStart="@dimen/carrier_item_color_margin"
+                    android:onClick="@{() -> viewModel.updateColor(@color/rainbow_red)}"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/item_color_white"
+                    app:layout_constraintEnd_toStartOf="@id/item_color_orange"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/item_color_orange"
+                    android:layout_width="@dimen/carrier_item_color"
+                    android:layout_height="@dimen/carrier_item_color"
+                    android:background="@drawable/item_color_orange"
+                    android:layout_marginStart="@dimen/carrier_item_color_margin"
+                    android:onClick="@{() -> viewModel.updateColor(@color/rainbow_orange)}"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/item_color_red"
+                    app:layout_constraintEnd_toStartOf="@id/item_color_yellow"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/item_color_yellow"
+                    android:layout_width="@dimen/carrier_item_color"
+                    android:layout_height="@dimen/carrier_item_color"
+                    android:layout_marginStart="@dimen/carrier_item_color_margin"
+                    android:background="@drawable/item_color_yellow"
+                    android:onClick="@{() -> viewModel.updateColor(@color/rainbow_yellow)}"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/item_color_orange"
+                    app:layout_constraintEnd_toStartOf="@id/item_color_green"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/item_color_green"
+                    android:layout_width="@dimen/carrier_item_color"
+                    android:layout_height="@dimen/carrier_item_color"
+                    android:layout_marginStart="@dimen/carrier_item_color_margin"
+                    android:background="@drawable/item_color_green"
+                    android:onClick="@{() -> viewModel.updateColor(@color/rainbow_green)}"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/item_color_yellow"
+                    app:layout_constraintEnd_toStartOf="@id/item_color_blue"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/item_color_blue"
+                    android:layout_width="@dimen/carrier_item_color"
+                    android:layout_height="@dimen/carrier_item_color"
+                    android:layout_marginStart="@dimen/carrier_item_color_margin"
+                    android:background="@drawable/item_color_blue"
+                    android:onClick="@{() -> viewModel.updateColor(@color/rainbow_blue)}"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/item_color_green"
+                    app:layout_constraintEnd_toStartOf="@id/item_color_dark_blue"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/item_color_dark_blue"
+                    android:layout_width="@dimen/carrier_item_color"
+                    android:layout_height="@dimen/carrier_item_color"
+                    android:layout_marginStart="@dimen/carrier_item_color_margin"
+                    android:background="@drawable/item_color_dark_blue"
+                    android:onClick="@{() -> viewModel.updateColor(@color/rainbow_dark_blue)}"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/item_color_blue"
+                    app:layout_constraintEnd_toStartOf="@id/item_color_yellow"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/item_color_purple"
+                    android:layout_width="@dimen/carrier_item_color"
+                    android:layout_height="@dimen/carrier_item_color"
+                    android:layout_marginStart="@dimen/carrier_item_color_margin"
+                    android:background="@drawable/item_color_purple"
+                    android:onClick="@{() -> viewModel.updateColor(@color/rainbow_purple)}"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/item_color_dark_blue"
+                    app:layout_constraintEnd_toStartOf="@id/item_color_black"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/item_color_black"
+                    android:layout_width="@dimen/carrier_item_color"
+                    android:layout_height="@dimen/carrier_item_color"
+                    android:background="@drawable/item_color_black"
+                    android:layout_marginStart="@dimen/carrier_item_color_margin"
+                    android:onClick="@{() -> viewModel.updateColor(@color/rainbow_black)}"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/item_color_purple"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

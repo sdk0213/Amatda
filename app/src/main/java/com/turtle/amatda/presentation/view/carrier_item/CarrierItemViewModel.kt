@@ -32,6 +32,8 @@ class CarrierItemViewModel @Inject constructor(
     val isItemResizeClicked: LiveData<Boolean> get() = _isItemResizeClicked
     private val _isItemRecountClicked = MutableLiveData(false)
     val isItemRecountClicked: LiveData<Boolean> get() = _isItemRecountClicked
+    private val _isItemRecolorClicked = MutableLiveData(false)
+    val isItemRecolorClicked: LiveData<Boolean> get() = _isItemRecolorClicked
 
     // 해당 캐리어에 저장된 아이템리스트 가져오기
     fun getCarrierItems(carrierId: Long) {
@@ -53,7 +55,8 @@ class CarrierItemViewModel @Inject constructor(
                                     beforeItemList[i].name == itemListFromDb[j].name &&
                                     beforeItemList[i].width == itemListFromDb[j].width &&
                                     beforeItemList[i].height == itemListFromDb[j].height &&
-                                    beforeItemList[i].count == itemListFromDb[j].count
+                                    beforeItemList[i].count == itemListFromDb[j].count &&
+                                    beforeItemList[i].color == itemListFromDb[j].color
                                 ) {
                                     keepViewList.add(beforeItemList[i])
                                     makeItemList.remove(itemListFromDb[j])
@@ -111,6 +114,26 @@ class CarrierItemViewModel @Inject constructor(
                     },
                     {
                         Log.e(TAG, "insertItem is Error ${it.message}")
+                    }
+                )
+        )
+    }
+
+    fun updateColor(){
+        updateCarrierItemUseCase.updateType = updateCarrierItemUseCase.typeItemColor
+        compositeDisposable.add(
+            updateCarrierItemUseCase.execute(
+                Item(
+                    id = itemIdCurrentClicked,
+                    color = 0xFFFFFFFF,
+                    carrier_id = carrier.id
+                )
+            )
+                .subscribe(
+                    {
+                    },
+                    {
+                        Log.e(TAG, "updateColor is Error ${it.message}")
                     }
                 )
         )
@@ -189,6 +212,31 @@ class CarrierItemViewModel @Inject constructor(
         }?.let { updateSize(it.width, it.height + updateSize) }
     }
 
+    fun updateColor(color: Long){
+        _itemList.value?.find {
+            it.id == itemIdCurrentClicked
+        }?.let {
+            updateCarrierItemUseCase.updateType = updateCarrierItemUseCase.typeItemColor
+            compositeDisposable.add(
+                updateCarrierItemUseCase.execute(
+                    Item(
+                        id = it.id,
+                        color = color,
+                        carrier_id = it.carrier_id
+                    )
+                )
+                    .subscribe(
+                        {
+                        },
+                        {
+                            Log.e(TAG, "insert Color is Error ${it.message}")
+                        }
+                    )
+            )
+
+        }
+    }
+
     private fun updateSize(width: Int, height: Int) {
         updateCarrierItemUseCase.updateType = updateCarrierItemUseCase.typeItemSize
         compositeDisposable.add(
@@ -245,11 +293,13 @@ class CarrierItemViewModel @Inject constructor(
         _isItemClicked.value = false
         _isItemResizeClicked.value = false
         _isItemRecountClicked.value = false
+        _isItemRecolorClicked.value = false
     }
 
     fun itemResizeIsClicked() {
         _isItemResizeClicked.value = true
         _isItemRecountClicked.value = false
+        _isItemRecolorClicked.value = false
     }
 
     fun itemResizeIsUnClicked() {
@@ -259,10 +309,20 @@ class CarrierItemViewModel @Inject constructor(
     fun itemRecountIsClicked(){
         _isItemRecountClicked.value = true
         _isItemResizeClicked.value = false
+        _isItemRecolorClicked.value = false
     }
 
     fun itemRecountIsUnClicked(){
         _isItemRecountClicked.value = false
     }
 
+    fun itemRecolorIsClicked(){
+        _isItemRecolorClicked.value = true
+        _isItemRecountClicked.value = false
+        _isItemResizeClicked.value = false
+    }
+
+    fun itemRecolorIsUnClicked(){
+        _isItemRecolorClicked.value = false
+    }
 }

@@ -65,4 +65,9 @@ class ItemRepositoryImpl constructor(
         return factory.updateItemCount(itemEntity)
     }
 
+    override fun updateItemColor(item: Item): Completable {
+        val itemEntity = mapper.mapToEntity(item)
+        return factory.updateItemColor(itemEntity)
+    }
+
 }

@@ -43,4 +43,8 @@ class ItemLocalDataSourceImpl constructor(private val itemDao: ItemDao): ItemLoc
         return itemDao.updateItemCount(item_id = itemEntity.id, count = itemEntity.count)
     }
 
+    override fun updateItemColor(itemEntity: ItemEntity): Completable {
+        return itemDao.updateItemColor(item_id = itemEntity.id, color = itemEntity.color)
+    }
+
 }

@@ -37,4 +37,7 @@ interface ItemDao {
 
     @Query("UPDATE Item SET item_count = :count WHERE item_id = :item_id")
     fun updateItemCount(item_id: Date, count: Int): Completable
+
+    @Query("UPDATE Item SET item_color = :color WHERE item_id = :item_id")
+    fun updateItemColor(item_id: Date, color: Long): Completable
 }

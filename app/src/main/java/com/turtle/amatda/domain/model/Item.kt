@@ -6,6 +6,7 @@ data class Item(
     val id: Date,
     val name: String = "",
     val count: Int = 1,
+    val color: Long = 0xFFFFFFFF,
     val position_x: Float = 0f,
     val position_y: Float = 0f,
     val width : Int = 250,

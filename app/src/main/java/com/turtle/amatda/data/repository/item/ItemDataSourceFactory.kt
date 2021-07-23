@@ -43,4 +43,8 @@ class ItemDataSourceFactory @Inject constructor(
     fun updateItemCount(itemEntity: ItemEntity) : Completable {
         return localDataSource.updateItemCount(itemEntity)
     }
+
+    fun updateItemColor(itemEntity: ItemEntity) : Completable {
+        return localDataSource.updateItemColor(itemEntity)
+    }
 }

@@ -25,7 +25,7 @@ class UpdateCarrierItemUseCase @Inject constructor(private val repository: ItemR
             typeItemName -> repository.updateItemName(params!!)
             typeItemSize -> repository.updateItemSize(params!!)
             typeItemCount -> repository.updateItemCount(params!!)
-            else -> repository.updateItemName(params!!)
+            else -> repository.updateItemColor(params!!)
         }
     }
 }

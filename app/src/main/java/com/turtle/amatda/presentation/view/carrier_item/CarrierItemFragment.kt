@@ -1,13 +1,17 @@
 package com.turtle.amatda.presentation.view.carrier_item
 
+import android.R.color
 import android.annotation.SuppressLint
+import android.graphics.drawable.GradientDrawable
 import android.text.TextUtils
-import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.collection.arrayMapOf
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.turtle.amatda.R
@@ -24,6 +28,7 @@ class CarrierItemFragment :
 
     private val viewItemList = arrayListOf<TextView>() // 현재 생성된 아이템 View 에 관한 List
     private val viewItemCountMap = arrayMapOf<TextView, TextView>() // 현재 생성된 아이템 View 에 관한 List
+    private val viewItemColortMap = arrayMapOf<TextView, Long>() // 현재 생성된 아이템 View 에 관한 Color
     private var viewIdNewClicked = Date()     // 유저가 새롭게 선택한 View Id (Tag)
     private var viewIdHasBeenClicked = Date() // 이미 선택되어있는 View Id (Tag)
 
@@ -64,23 +69,35 @@ class CarrierItemFragment :
             }
             viewItemList.removeAll(removeTextViewList)
             viewItemCountMap.removeAll(removeTextViewList)
+            viewItemColortMap.removeAll(removeTextViewList)
         }
 
         // 생성해야할 아이템 이름 View 목록
         viewModel.makeItemList.observe(viewLifecycleOwner) { makeItemList ->
             makeItemList.forEach { item ->
                 (layoutInflater.inflate(R.layout.carrier_item, null) as TextView).apply {
+                    viewItemColortMap[this] = item.color
                     width = item.width
                     height = item.height
                     tag = item.id // tag에 id 를 삽입하여 어떤 아이템인지 구분
+                    // 파란색, 남색, 보라색, 검은색은 글씨색 흰색으로 변경
+                    if(item.color.toInt() == -16777216 ||
+                        item.color.toInt() == -16776961 ||
+                        item.color.toInt() == -11861886 ||
+                        item.color.toInt() == -7405313) this.setTextColor(0xFFFFFFFF.toInt())
                     text = item.name
+                    background = GradientDrawable().apply {
+                        setColor(item.color.toInt())
+                        setStroke(1, 0xFF000000.toInt())
+                        cornerRadius = 25f
+                    }
                     x = item.position_x
                     y = item.position_y
                     binding.itemContainer.addView(this) // 뷰에 붙히기
                     itemTouchListener(this) // 터치 리스너 받기
                     viewItemList.add(this) // 텍스트뷰 관리 리스트에 추가
                     if (tag as Date == viewIdHasBeenClicked) {
-                        isSelected = true
+                        selectItem(this)
                         updateToolTipViewPositioning(
                             item.position_x,
                             item.position_y,
@@ -95,7 +112,10 @@ class CarrierItemFragment :
                             R.layout.carrier_item_count,
                             null
                         ) as TextView).apply {
-                            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                            layoutParams = ViewGroup.LayoutParams(
+                                ViewGroup.LayoutParams.WRAP_CONTENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT
+                            )
                             text = item.count.toString()
                             tag = item.id // tag에 id 를 삽입하여 어떤 아이템인지 구분
                             x = item.position_x + item.width - 60
@@ -108,27 +128,21 @@ class CarrierItemFragment :
 
         // 아이템 클릭 관찰자
         viewModel.isItemClicked.observe(viewLifecycleOwner) { isItemClicked ->
-            // 기존에 선택된 것과 다르다면 이전것 선택 해제
+            // 기존에 선택된 것과 다르다면 이전 것은 선택 해제
             if (viewIdHasBeenClicked != viewIdNewClicked) {
-                viewItemList
-                    .filter { it.tag == viewIdHasBeenClicked }
-                    .map { it.isSelected = false }
+                unSelectItem()
                 viewIdHasBeenClicked = viewIdNewClicked
                 viewModel.itemIdCurrentClicked = viewIdHasBeenClicked
-                viewModel.itemResizeIsUnClicked()
-                viewModel.itemRecountIsUnClicked()
             }
             if (isItemClicked) {
-                viewItemList
-                    .filter { it.tag == viewIdHasBeenClicked }
-                    .map {
-                        binding.itemName.text = it.text.toEditable()
-                        binding.itemName.setSelection(binding.itemName.text.toString().length)
-                        binding.itemCount.text = viewItemCountMap[it]?.text
-                        updateToolTipViewPositioning(it.x, it.y, it.width, it.height)
-                    }
+                viewItemList.find { it.tag == viewIdHasBeenClicked }?.apply {
+                    binding.itemName.text = text.toEditable()
+                    binding.itemName.setSelection(binding.itemName.text.toString().length)
+                    binding.itemCount.text = viewItemCountMap[this]?.text
+                    updateToolTipViewPositioning(x, y, width, height)
+                }
             } else {
-                viewItemList.map { it.isSelected = false }
+                unSelectItem()
                 binding.itemName.text = "".toEditable()
                 binding.itemName.clearFocus()
             }
@@ -136,21 +150,16 @@ class CarrierItemFragment :
 
         // 아이템 리사이즈 클릭 관찰자
         viewModel.isItemResizeClicked.observe(viewLifecycleOwner) {
-            viewItemList
-                .filter { it.tag == viewIdHasBeenClicked }
-                .map {
-                    updateToolTipViewPositioning(it.x, it.y, it.width, it.height)
-                }
+            viewItemList.find { it.tag == viewIdHasBeenClicked }?.apply {
+                updateToolTipViewPositioning(x, y, width, height)
+            }
         }
 
         // 아이템 개수 조정 클릭 관찰자
         viewModel.isItemRecountClicked.observe(viewLifecycleOwner) {
-            viewItemList
-                .filter { it.tag == viewIdHasBeenClicked }
-                .map {
-                    updateToolTipViewPositioning(it.x, it.y, it.width, it.height)
-                }
-
+            viewItemList.find { it.tag == viewIdHasBeenClicked }?.apply {
+                updateToolTipViewPositioning(x, y, width, height)
+            }
         }
     }
 
@@ -207,18 +216,46 @@ class CarrierItemFragment :
                     view.bringToFront()
                     viewItemCountMap[view]?.bringToFront()
                     binding.editItemCountView.bringToFront()
+                    binding.editItemColorView.bringToFront()
                     binding.editItemView.bringToFront()
                     binding.editDecreaseWidth.bringToFront()
                     binding.editIncreaseWidth.bringToFront()
                     binding.editIncreaseHeight.bringToFront()
                     binding.editDecreaseHeight.bringToFront()
-                    view.isSelected = true
+                    selectItem(view)
                     viewModel.itemIsClicked()
                 }
             }
             view.invalidate()
             true
         }
+    }
+
+    private fun unSelectItem() {
+
+        viewItemList.find { it.tag == viewIdHasBeenClicked }?.apply {
+            val color = viewItemColortMap[this]
+            background = GradientDrawable().apply {
+                setColor(color!!.toInt())
+                setStroke(1, 0xFF000000.toInt())
+                cornerRadius = 25f
+            }
+            isSelected = false
+        }
+        viewModel.itemResizeIsUnClicked()
+        viewModel.itemRecountIsUnClicked()
+        viewModel.itemRecolorIsUnClicked()
+    }
+
+    private fun selectItem(view: View) {
+        val color = viewItemColortMap[view]
+        view.background = GradientDrawable().apply {
+            setColor(color!!.toInt())
+            setStroke(10, 0xFFFF6E40.toInt())
+            cornerRadius = 25f
+        }
+
+        view.isSelected = true
     }
 
     // 아이템 툴팁 포지셔닝
@@ -231,12 +268,20 @@ class CarrierItemFragment :
 
         binding.editItemView.x = x - (binding.editItemView.width / 2) + (width / 2)
         if (viewModel.isItemResizeClicked.value == true) {
-            binding.editItemView.y = y - binding.editItemView.height - binding.editIncreaseHeight.height - viewDimenOfToolTip
-        } else if(viewModel.isItemRecountClicked.value == true) {
-            binding.editItemView.y = y - binding.editItemView.height - binding.editItemCountView.height - viewDimenOfToolTip
+            binding.editItemView.y =
+                y - binding.editItemView.height - binding.editIncreaseHeight.height - viewDimenOfToolTip
+        } else if (viewModel.isItemRecountClicked.value == true) {
+            binding.editItemView.y =
+                y - binding.editItemView.height - binding.editItemCountView.height - viewDimenOfToolTip
+        } else if (viewModel.isItemRecolorClicked.value == true){
+            binding.editItemView.y =
+                y - binding.editItemView.height - binding.editItemColorView.height - viewDimenOfToolTip
         } else {
             binding.editItemView.y = y - binding.editItemView.height - viewDimenOfToolTip
         }
+
+        binding.editItemColorView.x = x - (binding.editItemColorView.width / 2) + (width / 2)
+        binding.editItemColorView.y = y - binding.editItemColorView.height - viewDimenOfToolTip
 
         binding.editItemCountView.x = x - (binding.editItemCountView.width / 2) + (width / 2)
         binding.editItemCountView.y = y - binding.editItemCountView.height - viewDimenOfToolTip
@@ -270,12 +315,12 @@ class CarrierItemFragment :
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (viewModel.isItemClicked.value == true) {
-                        viewItemList
-                            .map { it.isSelected = false }
+                        unSelectItem()
                         viewModel.itemIsUnClicked()
                     } else {
                         findNavController().navigateUp()
                     }
                 }
             })
+
 }

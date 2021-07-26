@@ -32,14 +32,14 @@
     <color name="transparent_material_50">#D9EDE7F6</color>
     <color name="transparent_no_color">#00FFFFFF</color>
 
-    <color name="rainbow_white">#FFFFFFFF</color>
-    <color name="rainbow_red">#FFFF0000</color>
-    <color name="rainbow_orange">#FFFF7F00</color>
-    <color name="rainbow_yellow">#FFFFFF00</color>
-    <color name="rainbow_green">#FF00FF00</color>
-    <color name="rainbow_blue">#FF0000FF</color>
-    <color name="rainbow_dark_blue">#FF4B0082</color>
-    <color name="rainbow_purple">#FF8F00FF</color>
-    <color name="rainbow_black">#FF000000</color>
+    <color name="rainbow_white">#99FFFFFF</color>
+    <color name="rainbow_red">#99FF0000</color>
+    <color name="rainbow_orange">#99FF7F00</color>
+    <color name="rainbow_yellow">#99FFFF00</color>
+    <color name="rainbow_green">#9900FF00</color>
+    <color name="rainbow_blue">#990000FF</color>
+    <color name="rainbow_dark_blue">#994B0082</color>
+    <color name="rainbow_purple">#998F00FF</color>
+    <color name="rainbow_black">#99000000</color>
 
 </resources>

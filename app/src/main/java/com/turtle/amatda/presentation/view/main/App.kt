@@ -39,7 +39,8 @@ class App : DaggerApplication(), Configuration.Provider {
      *
      *
      * TODO: 할일은 여기다 적으시오!!
-     *      1. ItemColorView layout 작성하고 뿔자누초파남보 만드시와요 알았어와요~~
+     *      1. 말풍선 그냥 Constraint 안에다가 떄려막기 ㅆ1빠빠 ... 어짜피 visibility는 패치한대로 가야됨
+     *         근데 지금 문제가 엘리베이션을 못쳐넣는다는것..
      *
      */
 

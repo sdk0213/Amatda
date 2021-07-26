@@ -1,6 +1,5 @@
 package com.turtle.amatda.presentation.view.carrier_item
 
-import android.R.color
 import android.annotation.SuppressLint
 import android.graphics.drawable.GradientDrawable
 import android.text.TextUtils
@@ -10,8 +9,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.collection.arrayMapOf
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.turtle.amatda.R
@@ -81,10 +78,11 @@ class CarrierItemFragment :
                     height = item.height
                     tag = item.id // tag에 id 를 삽입하여 어떤 아이템인지 구분
                     // 파란색, 남색, 보라색, 검은색은 글씨색 흰색으로 변경
-                    if(item.color.toInt() == -16777216 ||
-                        item.color.toInt() == -16776961 ||
-                        item.color.toInt() == -11861886 ||
-                        item.color.toInt() == -7405313) this.setTextColor(0xFFFFFFFF.toInt())
+                    if (item.color.toInt() == -1728052993 ||
+                        item.color.toInt() == -1723137918 ||
+                        item.color.toInt() == -1718681345 ||
+                        item.color.toInt() == -1728053248
+                    ) this.setTextColor(0xFFFFFFFF.toInt())
                     text = item.name
                     background = GradientDrawable().apply {
                         setColor(item.color.toInt())
@@ -161,6 +159,13 @@ class CarrierItemFragment :
                 updateToolTipViewPositioning(x, y, width, height)
             }
         }
+
+        // 아이템 컬러 수정 클릭 관찰자
+        viewModel.isItemRecolorClicked.observe(viewLifecycleOwner) {
+            viewItemList.find { it.tag == viewIdHasBeenClicked }?.apply {
+                updateToolTipViewPositioning(x, y, width, height)
+            }
+        }
     }
 
     private fun listener() {
@@ -222,6 +227,7 @@ class CarrierItemFragment :
                     binding.editIncreaseWidth.bringToFront()
                     binding.editIncreaseHeight.bringToFront()
                     binding.editDecreaseHeight.bringToFront()
+                    binding.editSpeechBubble.bringToFront()
                     selectItem(view)
                     viewModel.itemIsClicked()
                 }
@@ -267,18 +273,21 @@ class CarrierItemFragment :
     ) {
 
         binding.editItemView.x = x - (binding.editItemView.width / 2) + (width / 2)
+        binding.editSpeechBubble.x = x - (binding.editSpeechBubble.width / 3) + (width / 2)
         if (viewModel.isItemResizeClicked.value == true) {
             binding.editItemView.y =
                 y - binding.editItemView.height - binding.editIncreaseHeight.height - viewDimenOfToolTip
         } else if (viewModel.isItemRecountClicked.value == true) {
             binding.editItemView.y =
                 y - binding.editItemView.height - binding.editItemCountView.height - viewDimenOfToolTip
-        } else if (viewModel.isItemRecolorClicked.value == true){
+        } else if (viewModel.isItemRecolorClicked.value == true) {
             binding.editItemView.y =
                 y - binding.editItemView.height - binding.editItemColorView.height - viewDimenOfToolTip
         } else {
             binding.editItemView.y = y - binding.editItemView.height - viewDimenOfToolTip
         }
+
+        binding.editSpeechBubble.y = y - binding.editSpeechBubble.height
 
         binding.editItemColorView.x = x - (binding.editItemColorView.width / 2) + (width / 2)
         binding.editItemColorView.y = y - binding.editItemColorView.height - viewDimenOfToolTip

@@ -6,5 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:gravity="center"
-    android:textSize="50sp"
-    tools:text="my name" />
+    android:includeFontPadding="false"
+    android:textSize="12sp"
+    android:textStyle="bold"
+    tools:text="기타" />

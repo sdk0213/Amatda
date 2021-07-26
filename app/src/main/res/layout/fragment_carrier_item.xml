@@ -35,6 +35,7 @@
                 android:visibility="@{viewModel.isItemClicked ? View.VISIBLE : View.INVISIBLE}"
                 android:clickable="false"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/edit_speech_bubble"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.button.MaterialButton
@@ -45,6 +46,7 @@
                     android:text="삭제"
                     android:textSize="@dimen/carrier_item_edit_text"
                     android:letterSpacing="0"
+                    app:cornerRadius="0dp"
                     app:icon="@drawable/ic_baseline_delete_24"
                     app:iconGravity="top"
                     app:iconPadding="0dp"
@@ -62,6 +64,7 @@
                     android:letterSpacing="0"
                     android:onClick="@{() -> viewModel.isItemResizeClicked ? viewModel.itemResizeIsUnClicked() : viewModel.itemResizeIsClicked()}"
                     android:backgroundTint="@{viewModel.isItemResizeClicked ? @color/material_a700 : @color/material_a200}"
+                    app:cornerRadius="0dp"
                     app:icon="@drawable/ic_baseline_zoom_out_map_36"
                     app:iconGravity="top"
                     app:iconPadding="0dp"
@@ -79,6 +82,7 @@
                     android:letterSpacing="0"
                     android:onClick="@{() -> viewModel.isItemRecountClicked ? viewModel.itemRecountIsUnClicked() : viewModel.itemRecountIsClicked()}"
                     android:backgroundTint="@{viewModel.isItemRecountClicked ? @color/material_a700 : @color/material_a200}"
+                    app:cornerRadius="0dp"
                     app:icon="@drawable/ic_baseline_all_inbox_24"
                     app:iconGravity="top"
                     app:iconPadding="0dp"
@@ -94,8 +98,9 @@
                     android:text="색깔"
                     android:textSize="@dimen/carrier_item_edit_text"
                     android:letterSpacing="0"
-                    android:onClick="@{() -> viewModel.isItemRecolorClicked() ? viewModel.itemRecolorIsUnClicked() : viewModel.itemRecolorIsClicked()}"
+                    android:onClick="@{() -> viewModel.isItemRecolorClicked ? viewModel.itemRecolorIsUnClicked() : viewModel.itemRecolorIsClicked()}"
                     android:backgroundTint="@{viewModel.isItemRecolorClicked ? @color/material_a700 : @color/material_a200}"
+                    app:cornerRadius="0dp"
                     app:icon="@drawable/ic_baseline_color_lens_24"
                     app:iconGravity="top"
                     app:iconPadding="0dp"
@@ -106,6 +111,17 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/edit_speech_bubble"
+                android:layout_width="50dp"
+                android:layout_height="15dp"
+                android:background="@drawable/triangle"
+                android:visibility="@{viewModel.isItemSpeechBubbleVisible ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_item_view"
+                app:layout_constraintBottom_toTopOf="@id/edit_decrease_width"
+                />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/edit_decrease_width"
@@ -118,7 +134,7 @@
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_item_view" />
+                app:layout_constraintTop_toBottomOf="@id/edit_speech_bubble" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/edit_increase_width"
@@ -131,7 +147,7 @@
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
                 app:layout_constraintStart_toEndOf="@id/edit_decrease_width"
-                app:layout_constraintTop_toBottomOf="@id/edit_item_view" />
+                app:layout_constraintTop_toBottomOf="@id/edit_speech_bubble" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/edit_decrease_height"
@@ -159,7 +175,6 @@
                 app:layout_constraintStart_toEndOf="@id/edit_decrease_height"
                 app:layout_constraintTop_toBottomOf="@id/edit_increase_width" />
 
-<!--            android:background="@drawable/ic_carrier_carrier_big"-->
             <ImageView
                 android:id="@+id/carrier"
                 android:layout_width="match_parent"

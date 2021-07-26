@@ -7,5 +7,6 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:includeFontPadding="false"
-    android:textSize="20sp"
+    android:textSize="15sp"
+    android:textStyle="bold"
     tools:text="기타" />

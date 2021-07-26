@@ -28,6 +28,8 @@ class CarrierItemViewModel @Inject constructor(
 
     private val _isItemClicked = MutableLiveData(false)
     val isItemClicked: LiveData<Boolean> get() = _isItemClicked
+    private val _isItemSpeechBubbleVisible = MutableLiveData(false)
+    val isItemSpeechBubbleVisible: LiveData<Boolean> get() = _isItemSpeechBubbleVisible
     private val _isItemResizeClicked = MutableLiveData(false)
     val isItemResizeClicked: LiveData<Boolean> get() = _isItemResizeClicked
     private val _isItemRecountClicked = MutableLiveData(false)
@@ -40,7 +42,7 @@ class CarrierItemViewModel @Inject constructor(
         compositeDisposable.add(
             getCarrierItemsUseCase.execute(carrierId)
                 .subscribe(
-                    {   itemListFromDb ->
+                    { itemListFromDb ->
                         val keepViewList = arrayListOf<Item>() // 유지해야하는 아이템
                         val removeViewList = arrayListOf<Item>() // 제거해야하는 아이템
                         val makeItemList = arrayListOf<Item>() // 생성해야 하는 아이템
@@ -119,26 +121,6 @@ class CarrierItemViewModel @Inject constructor(
         )
     }
 
-    fun updateColor(){
-        updateCarrierItemUseCase.updateType = updateCarrierItemUseCase.typeItemColor
-        compositeDisposable.add(
-            updateCarrierItemUseCase.execute(
-                Item(
-                    id = itemIdCurrentClicked,
-                    color = 0xFFFFFFFF,
-                    carrier_id = carrier.id
-                )
-            )
-                .subscribe(
-                    {
-                    },
-                    {
-                        Log.e(TAG, "updateColor is Error ${it.message}")
-                    }
-                )
-        )
-    }
-
     fun editItem(item_name: String) {
         updateCarrierItemUseCase.updateType = updateCarrierItemUseCase.typeItemName
         compositeDisposable.add(
@@ -160,17 +142,17 @@ class CarrierItemViewModel @Inject constructor(
 
     }
 
-    fun recountItem(isCountUp: Boolean){
+    fun recountItem(isCountUp: Boolean) {
         updateCarrierItemUseCase.updateType = updateCarrierItemUseCase.typeItemCount
         _itemList.value?.find {
             it.id == itemIdCurrentClicked
         }?.let {
-            if(it.count + (if(isCountUp) 1 else -1) < 1) return
+            if (it.count + (if (isCountUp) 1 else -1) < 1) return
             compositeDisposable.add(
                 updateCarrierItemUseCase.execute(
                     Item(
                         id = it.id,
-                        count = it.count + (if(isCountUp) 1 else -1),
+                        count = it.count + (if (isCountUp) 1 else -1),
                         carrier_id = it.carrier_id
                     )
                 )
@@ -212,7 +194,7 @@ class CarrierItemViewModel @Inject constructor(
         }?.let { updateSize(it.width, it.height + updateSize) }
     }
 
-    fun updateColor(color: Long){
+    fun updateColor(color: Long) {
         _itemList.value?.find {
             it.id == itemIdCurrentClicked
         }?.let {
@@ -287,6 +269,12 @@ class CarrierItemViewModel @Inject constructor(
 
     fun itemIsClicked() {
         _isItemClicked.value = true
+        if (_isItemResizeClicked.value == false &&
+            _isItemRecountClicked.value == false &&
+            _isItemRecolorClicked.value == false
+        ) {
+            _isItemSpeechBubbleVisible.value = true
+        }
     }
 
     fun itemIsUnClicked() {
@@ -294,35 +282,42 @@ class CarrierItemViewModel @Inject constructor(
         _isItemResizeClicked.value = false
         _isItemRecountClicked.value = false
         _isItemRecolorClicked.value = false
+        _isItemSpeechBubbleVisible.value = false
     }
 
     fun itemResizeIsClicked() {
         _isItemResizeClicked.value = true
         _isItemRecountClicked.value = false
         _isItemRecolorClicked.value = false
+        _isItemSpeechBubbleVisible.value = false
     }
 
     fun itemResizeIsUnClicked() {
         _isItemResizeClicked.value = false
+        if(_isItemClicked.value == true) _isItemSpeechBubbleVisible.value = true
     }
 
-    fun itemRecountIsClicked(){
+    fun itemRecountIsClicked() {
         _isItemRecountClicked.value = true
         _isItemResizeClicked.value = false
         _isItemRecolorClicked.value = false
+        _isItemSpeechBubbleVisible.value = false
     }
 
-    fun itemRecountIsUnClicked(){
+    fun itemRecountIsUnClicked() {
         _isItemRecountClicked.value = false
+        if(_isItemClicked.value == true) _isItemSpeechBubbleVisible.value = true
     }
 
-    fun itemRecolorIsClicked(){
+    fun itemRecolorIsClicked() {
         _isItemRecolorClicked.value = true
         _isItemRecountClicked.value = false
         _isItemResizeClicked.value = false
+        _isItemSpeechBubbleVisible.value = false
     }
 
-    fun itemRecolorIsUnClicked(){
+    fun itemRecolorIsUnClicked() {
         _isItemRecolorClicked.value = false
+        if(_isItemClicked.value == true) _isItemSpeechBubbleVisible.value = true
     }
 }

@@ -26,20 +26,21 @@
     <color name="Amatda_green_500">#49bb79</color>
     <color name="Amatda_blue_700">#1976D2</color>
     <color name="material_50">#EDE7F6</color>
-    <color name="material_a200">#FF6E40</color>
+    <color name="amatda_main">#FF6E40</color> <!-- material_200 -->
+    <color name="amatda_toolbar">#80FF6E40</color>
     <color name="material_a700">#DD2C00</color>
     <color name="transparent_material_a200">#CCFF6E40</color> <!-- 80% -->
     <color name="transparent_material_50">#D9EDE7F6</color>
     <color name="transparent_no_color">#00FFFFFF</color>
 
-    <color name="rainbow_white">#99FFFFFF</color>
-    <color name="rainbow_red">#99FF0000</color>
-    <color name="rainbow_orange">#99FF7F00</color>
-    <color name="rainbow_yellow">#99FFFF00</color>
-    <color name="rainbow_green">#9900FF00</color>
-    <color name="rainbow_blue">#990000FF</color>
-    <color name="rainbow_dark_blue">#994B0082</color>
-    <color name="rainbow_purple">#998F00FF</color>
-    <color name="rainbow_black">#99000000</color>
+    <color name="rainbow_white">#1AFFFFFF</color>
+    <color name="rainbow_red">#1AFF0000</color>
+    <color name="rainbow_orange">#1AFF7F00</color>
+    <color name="rainbow_yellow">#1AFFFF00</color>
+    <color name="rainbow_green">#1A00FF00</color>
+    <color name="rainbow_blue">#1A0000FF</color>
+    <color name="rainbow_dark_blue">#1A4B0082</color>
+    <color name="rainbow_purple">#1A8F00FF</color>
+    <color name="rainbow_black">#1A000000</color>
 
 </resources>

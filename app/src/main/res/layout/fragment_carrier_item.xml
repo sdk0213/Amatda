@@ -16,13 +16,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/itemContainer">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_baseline_menu_24"
+                app:menu="@menu/app_bar_carrier_item"
+                app:title="@string/menu_my_carrier"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/itemContainer"
             android:onClick="@{ () -> viewModel.itemIsUnClicked()}"
             app:layout_constraintBottom_toTopOf="@id/item_name_view"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -63,7 +84,7 @@
                     android:textSize="@dimen/carrier_item_edit_text"
                     android:letterSpacing="0"
                     android:onClick="@{() -> viewModel.isItemResizeClicked ? viewModel.itemResizeIsUnClicked() : viewModel.itemResizeIsClicked()}"
-                    android:backgroundTint="@{viewModel.isItemResizeClicked ? @color/material_a700 : @color/material_a200}"
+                    android:backgroundTint="@{viewModel.isItemResizeClicked ? @color/material_a700 : @color/amatda_main}"
                     app:cornerRadius="0dp"
                     app:icon="@drawable/ic_baseline_zoom_out_map_36"
                     app:iconGravity="top"
@@ -81,7 +102,7 @@
                     android:textSize="@dimen/carrier_item_edit_text"
                     android:letterSpacing="0"
                     android:onClick="@{() -> viewModel.isItemRecountClicked ? viewModel.itemRecountIsUnClicked() : viewModel.itemRecountIsClicked()}"
-                    android:backgroundTint="@{viewModel.isItemRecountClicked ? @color/material_a700 : @color/material_a200}"
+                    android:backgroundTint="@{viewModel.isItemRecountClicked ? @color/material_a700 : @color/amatda_main}"
                     app:cornerRadius="0dp"
                     app:icon="@drawable/ic_baseline_all_inbox_24"
                     app:iconGravity="top"
@@ -99,7 +120,7 @@
                     android:textSize="@dimen/carrier_item_edit_text"
                     android:letterSpacing="0"
                     android:onClick="@{() -> viewModel.isItemRecolorClicked ? viewModel.itemRecolorIsUnClicked() : viewModel.itemRecolorIsClicked()}"
-                    android:backgroundTint="@{viewModel.isItemRecolorClicked ? @color/material_a700 : @color/material_a200}"
+                    android:backgroundTint="@{viewModel.isItemRecolorClicked ? @color/material_a700 : @color/amatda_main}"
                     app:cornerRadius="0dp"
                     app:icon="@drawable/ic_baseline_color_lens_24"
                     app:iconGravity="top"
@@ -398,7 +419,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:maxLines="1"
-                android:textColorHint="@color/material_a200" />
+                android:textColorHint="@color/amatda_main" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

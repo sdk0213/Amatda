@@ -20,9 +20,9 @@
     <style name="Theme.Amatda" parent="Theme.MaterialComponents.Light.NoActionBar">
 
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/material_a200</item>
         <item name="android:colorBackground">@color/white</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/amatda_main</item>
+        <item name="colorPrimaryVariant">@color/amatda_main</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -39,6 +39,14 @@
 
     <style name="TextAppearance.Sunflower.Toolbar.Text" parent="TextAppearance.MaterialComponents.Headline5" >
         <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance.App.CollapsingToolbar.Expanded" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="TextAppearance.App.CollapsingToolbar.Collapsed" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
 </resources>

@@ -10,6 +10,11 @@
     <string name="menu_my_trip">나의 여행</string>
     <string name="menu_my_page">마이페이지</string>
 
+    <!-- 앱 바 메뉴 -->
+    <string name="app_bar_search">검색</string>
+    <string name="app_bar_item_add">물품 추가</string>
+    <string name="app_bar_more">더 보기</string>
+
     <!-- contentDescription -->
     <string name="cttdcrp_add_carrier">가방 추가</string>
     <string name="cttdcrp_carrier">아이템을 추가할 가방</string>

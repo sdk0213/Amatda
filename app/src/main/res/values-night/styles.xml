@@ -18,6 +18,7 @@
 
     <!-- To see how these attributes are used, please visit https://material.io/develop/android/theming/color/ -->
     <style name="Theme.Amatda" parent="Theme.MaterialComponents.Light.DarkActionBar">
+
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>

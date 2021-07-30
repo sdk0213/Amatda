@@ -4,6 +4,6 @@
     android:height="24dp"
     android:viewportWidth="16.0"
     android:viewportHeight="24.0">
-    <path android:fillColor="@color/material_a200"
+    <path android:fillColor="@color/amatda_main"
         android:pathData="M0 0 h16 l-12 24 Z"/>
 </vector>

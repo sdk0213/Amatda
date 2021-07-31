@@ -36,6 +36,8 @@ class CarrierItemViewModel @Inject constructor(
     val isItemRecountClicked: LiveData<Boolean> get() = _isItemRecountClicked
     private val _isItemRecolorClicked = MutableLiveData(false)
     val isItemRecolorClicked: LiveData<Boolean> get() = _isItemRecolorClicked
+    private val _isItemRenameClicked = MutableLiveData(false)
+    val isItemRenameClicked: LiveData<Boolean> get() = _isItemRenameClicked
 
     // 해당 캐리어에 저장된 아이템리스트 가져오기
     fun getCarrierItems(carrierId: Long) {
@@ -283,6 +285,7 @@ class CarrierItemViewModel @Inject constructor(
         _isItemRecountClicked.value = false
         _isItemRecolorClicked.value = false
         _isItemSpeechBubbleVisible.value = false
+        _isItemRenameClicked.value = false
     }
 
     fun itemResizeIsClicked() {
@@ -290,6 +293,7 @@ class CarrierItemViewModel @Inject constructor(
         _isItemRecountClicked.value = false
         _isItemRecolorClicked.value = false
         _isItemSpeechBubbleVisible.value = false
+        _isItemRenameClicked.value = false
     }
 
     fun itemResizeIsUnClicked() {
@@ -302,6 +306,7 @@ class CarrierItemViewModel @Inject constructor(
         _isItemResizeClicked.value = false
         _isItemRecolorClicked.value = false
         _isItemSpeechBubbleVisible.value = false
+        _isItemRenameClicked.value = false
     }
 
     fun itemRecountIsUnClicked() {
@@ -314,10 +319,24 @@ class CarrierItemViewModel @Inject constructor(
         _isItemRecountClicked.value = false
         _isItemResizeClicked.value = false
         _isItemSpeechBubbleVisible.value = false
+        _isItemRenameClicked.value = false
     }
 
     fun itemRecolorIsUnClicked() {
         _isItemRecolorClicked.value = false
+        if(_isItemClicked.value == true) _isItemSpeechBubbleVisible.value = true
+    }
+
+    fun itemRenameIsClicked() {
+        _isItemRenameClicked.value = true
+        _isItemSpeechBubbleVisible.value = true
+        _isItemRecolorClicked.value = false
+        _isItemRecountClicked.value = false
+        _isItemResizeClicked.value = false
+    }
+
+    fun itemRenameIsUnClicked() {
+        _isItemRenameClicked.value = false
         if(_isItemClicked.value == true) _isItemSpeechBubbleVisible.value = true
     }
 }

@@ -1,11 +1,14 @@
 package com.turtle.amatda.presentation.view.carrier_item
 
 import android.annotation.SuppressLint
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.graphics.drawable.GradientDrawable
 import android.text.TextUtils
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.collection.arrayMapOf
@@ -25,7 +28,7 @@ class CarrierItemFragment :
 
     private val viewItemList = arrayListOf<TextView>() // 현재 생성된 아이템 View 에 관한 List
     private val viewItemCountMap = arrayMapOf<TextView, TextView>() // 현재 생성된 아이템 View 에 관한 List
-    private val viewItemColortMap = arrayMapOf<TextView, Long>() // 현재 생성된 아이템 View 에 관한 Color
+    private val viewItemColorMap = arrayMapOf<TextView, Long>() // 현재 생성된 아이템 View 에 관한 Color
     private var viewIdNewClicked = Date()     // 유저가 새롭게 선택한 View Id (Tag)
     private var viewIdHasBeenClicked = Date() // 이미 선택되어있는 View Id (Tag)
 
@@ -66,14 +69,14 @@ class CarrierItemFragment :
             }
             viewItemList.removeAll(removeTextViewList)
             viewItemCountMap.removeAll(removeTextViewList)
-            viewItemColortMap.removeAll(removeTextViewList)
+            viewItemColorMap.removeAll(removeTextViewList)
         }
 
         // 생성해야할 아이템 이름 View 목록
         viewModel.makeItemList.observe(viewLifecycleOwner) { makeItemList ->
             makeItemList.forEach { item ->
                 (layoutInflater.inflate(R.layout.carrier_item, null) as TextView).apply {
-                    viewItemColortMap[this] = item.color
+                    viewItemColorMap[this] = item.color
                     width = item.width
                     height = item.height
                     tag = item.id // tag에 id 를 삽입하여 어떤 아이템인지 구분
@@ -166,19 +169,57 @@ class CarrierItemFragment :
                 updateToolTipViewPositioning(x, y, width, height)
             }
         }
+
+        // 아이템 이름 수정 클릭 관찰자
+        viewModel.isItemRenameClicked.observe(viewLifecycleOwner) {
+            if(viewModel.isItemRenameClicked.value == true){
+                binding.itemNameView.visibility = VISIBLE
+                binding.itemName.requestFocus()
+                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(binding.itemName, 0)
+            } else {
+                binding.itemNameView.visibility = GONE
+                binding.itemName.clearFocus()
+                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(binding.itemName.windowToken, 0);
+            }
+        }
+
     }
 
     private fun listener() {
         // Custom Listener 를 View에 바인딩하는 방법을 모르겠다... OnClick 에다가 주기에는 전체 View 에 대한 Listener 이기 때문에 잘못되었다.
         // 그래서 우선은 Fragment 에서 생성
         binding.itemNameView.setEndIconOnClickListener {
-            if (viewModel.isItemClicked.value == true) {
+            binding.itemName.text.toString().let {
+                if (!TextUtils.isEmpty(it)) viewModel.editItem(it)
+                binding.itemNameView.visibility = GONE
+                binding.itemName.clearFocus()
+                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(binding.itemName.windowToken, 0);
+                viewModel.itemRenameIsUnClicked()
+            }
+        }
+
+        binding.itemName.setOnEditorActionListener { v, actionId, event ->
+            if(actionId == EditorInfo.IME_ACTION_DONE)
+            {
                 binding.itemName.text.toString().let {
                     if (!TextUtils.isEmpty(it)) viewModel.editItem(it)
+                    binding.itemNameView.visibility = GONE
+                    binding.itemName.clearFocus()
+                    (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(binding.itemName.windowToken, 0);
+                    viewModel.itemRenameIsUnClicked()
                 }
-            } else {
-                binding.itemName.text.toString().let {
-                    if (!TextUtils.isEmpty(it)) viewModel.addItem(it)
+            }
+            false
+        }
+
+        binding.topAppBar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.item_add_item -> {
+                    viewModel.addItem("새 물품")
+                    true
+                }
+                else -> {
+                    true
                 }
             }
         }
@@ -239,8 +280,10 @@ class CarrierItemFragment :
 
     private fun unSelectItem() {
 
+        (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(binding.itemName.windowToken, 0);
+        binding.itemNameView.visibility = GONE
         viewItemList.find { it.tag == viewIdHasBeenClicked }?.apply {
-            val color = viewItemColortMap[this]
+            val color = viewItemColorMap[this]
             background = GradientDrawable().apply {
                 setColor(color!!.toInt())
                 setStroke(1, 0xFF000000.toInt())
@@ -251,10 +294,11 @@ class CarrierItemFragment :
         viewModel.itemResizeIsUnClicked()
         viewModel.itemRecountIsUnClicked()
         viewModel.itemRecolorIsUnClicked()
+        viewModel.itemRenameIsUnClicked()
     }
 
     private fun selectItem(view: View) {
-        val color = viewItemColortMap[view]
+        val color = viewItemColorMap[view]
         view.background = GradientDrawable().apply {
             setColor(color!!.toInt())
             setStroke(10, 0xFFFF6E40.toInt())

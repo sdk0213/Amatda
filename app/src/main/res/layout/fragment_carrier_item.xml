@@ -59,26 +59,26 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/ic_baseline_position_all_24"
+                android:icon="@drawable/flaticon_com_ic_linenumber_all"
                 android:text="전체 보기" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="안 쪽"
-                android:icon="@drawable/ic_baseline_position_1_24"/>
+                android:icon="@drawable/flaticon_com_ic_linenumber_1"/>
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="가운데 쪽"
-                android:icon="@drawable/ic_baseline_position_2_24"/>
+                android:icon="@drawable/flaticon_com_ic_linenumber_2"/>
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="바깥 쪽"
-                android:icon="@drawable/ic_baseline_position_3_24"/>
+                android:icon="@drawable/flaticon_com_ic_linenumber_3"/>
 
         </com.google.android.material.tabs.TabLayout>
 
@@ -106,7 +106,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/delete_item"
-                    android:layout_width="76dp"
+                    android:layout_width="@dimen/carrier_item_width"
                     android:layout_height="wrap_content"
                     android:onClick="@{ () -> viewModel.removeItem(viewModel.itemIdCurrentClicked)}"
                     android:text="삭제"
@@ -123,7 +123,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/rename_item"
-                    android:layout_width="76dp"
+                    android:layout_width="@dimen/carrier_item_width"
                     android:layout_height="wrap_content"
                     android:text="이름"
                     android:textSize="@dimen/carrier_item_edit_text"
@@ -141,7 +141,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/change_item_size"
-                    android:layout_width="76dp"
+                    android:layout_width="@dimen/carrier_item_width"
                     android:layout_height="wrap_content"
                     android:text="@string/item_edit_tooltip_resize"
                     android:textSize="@dimen/carrier_item_edit_text"
@@ -159,7 +159,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/change_item_count"
-                    android:layout_width="76dp"
+                    android:layout_width="@dimen/carrier_item_width"
                     android:layout_height="wrap_content"
                     android:text="개수"
                     android:textSize="@dimen/carrier_item_edit_text"
@@ -177,7 +177,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/change_item_color"
-                    android:layout_width="76dp"
+                    android:layout_width="@dimen/carrier_item_width"
                     android:layout_height="wrap_content"
                     android:text="색깔"
                     android:textSize="@dimen/carrier_item_edit_text"
@@ -468,10 +468,10 @@
             android:layout_height="wrap_content"
             android:autofillHints="선크림"
             android:hint="@{@string/edit_item_label}"
-            app:startIconDrawable="@{@drawable/ic_baseline_drive_file_rename_outline_24}"
+            app:startIconDrawable="@{@drawable/ic_baseline_format_shapes_24}"
             app:startIconContentDescription="물건"
             app:endIconMode="custom"
-            app:endIconDrawable="@{@drawable/ic_baseline_check_circle_24}"
+            app:endIconDrawable="@{@drawable/ic_baseline_drive_file_rename_outline_24}"
             app:layout_constraintTop_toBottomOf="@id/itemContainer"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

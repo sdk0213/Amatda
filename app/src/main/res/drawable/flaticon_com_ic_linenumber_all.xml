@@ -1,0 +1,20 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:tint="#FFFFFF"
+    android:width="490dp"
+    android:height="490dp"
+    android:viewportWidth="490.66666"
+    android:viewportHeight="490">
+
+  <!-- 3번 줄-->
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="m474.668,151h-330.668c-8.832,0 -16,-7.168 -16,-16s7.168,-16 16,-16h330.668c8.832,0 16,7.168 16,16s-7.168,16 -16,16zM474.668,101"/>
+  <!-- 2번 줄-->
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="m474.668,271.668h-380.668c-8.832,0 -16,-7.168 -16,-16s7.168,-16 16,-16h330.668c8.832,0 16,7.168 16,16s-7.168,16 -16,16zM474.668,271.668"/>
+  <!-- 1번 줄-->
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="m474.668,392.332h-430.668c-8.832,0 -16,-7.168 -16,-16s7.168,-16 16,-16h330.668c8.832,0 16,7.168 16,16s-7.168,16 -16,16zM474.668,442.332"/>
+</vector>

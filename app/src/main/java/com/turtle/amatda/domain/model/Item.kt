@@ -13,5 +13,6 @@ data class Item(
     val height : Int = 250,
     val priority: Long = 0,
     val checked : Boolean = false,
+    val item_place: Int = 1,
     val carrier_id : Long
 )

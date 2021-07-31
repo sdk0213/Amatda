@@ -50,11 +50,15 @@ data class ItemEntity(
 
     @ColumnInfo(name = "item_width")
     val item_width: Int = 250,
+
     @ColumnInfo(name = "item_height")
     val item_height: Int = 250,
 
     @ColumnInfo(name = "item_checked")
     val checked : Boolean = false,
+
+    @ColumnInfo(name = "item_place")
+    val item_place: Int = 1,
 
     @ColumnInfo(name = "carrier_id_foreign", index = true)
     val carrier_id: Long

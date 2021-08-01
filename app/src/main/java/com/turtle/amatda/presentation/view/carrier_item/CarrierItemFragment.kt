@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.graphics.drawable.GradientDrawable
 import android.text.TextUtils
-import android.view.*
+import android.view.MotionEvent
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
@@ -14,6 +16,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.collection.arrayMapOf
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.tabs.TabLayout
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentCarrierItemBinding
 import com.turtle.amatda.presentation.utilities.extensions.toEditable
@@ -172,14 +175,20 @@ class CarrierItemFragment :
 
         // 아이템 이름 수정 클릭 관찰자
         viewModel.isItemRenameClicked.observe(viewLifecycleOwner) {
-            if(viewModel.isItemRenameClicked.value == true){
+            if (viewModel.isItemRenameClicked.value == true) {
                 binding.itemNameView.visibility = VISIBLE
                 binding.itemName.requestFocus()
-                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(binding.itemName, 0)
+                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(
+                    binding.itemName,
+                    0
+                )
             } else {
                 binding.itemNameView.visibility = GONE
                 binding.itemName.clearFocus()
-                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(binding.itemName.windowToken, 0);
+                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                    binding.itemName.windowToken,
+                    0
+                );
             }
         }
 
@@ -193,19 +202,24 @@ class CarrierItemFragment :
                 if (!TextUtils.isEmpty(it)) viewModel.editItem(it)
                 binding.itemNameView.visibility = GONE
                 binding.itemName.clearFocus()
-                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(binding.itemName.windowToken, 0);
+                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                    binding.itemName.windowToken,
+                    0
+                );
                 viewModel.itemRenameIsUnClicked()
             }
         }
 
         binding.itemName.setOnEditorActionListener { v, actionId, event ->
-            if(actionId == EditorInfo.IME_ACTION_DONE)
-            {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
                 binding.itemName.text.toString().let {
                     if (!TextUtils.isEmpty(it)) viewModel.editItem(it)
                     binding.itemNameView.visibility = GONE
                     binding.itemName.clearFocus()
-                    (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(binding.itemName.windowToken, 0);
+                    (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                        binding.itemName.windowToken,
+                        0
+                    );
                     viewModel.itemRenameIsUnClicked()
                 }
             }
@@ -223,6 +237,34 @@ class CarrierItemFragment :
                 }
             }
         }
+
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab?.position) {
+                    0 -> {
+                        binding.guideText2.text = getString(R.string.item_guide_text_all)
+                        viewItemList.forEach { it.visibility = VISIBLE }
+                    }
+                    1 -> {
+                        binding.guideText2.text = getString(R.string.item_guide_text_1)
+                    }
+                    2 -> {
+                        binding.guideText2.text = getString(R.string.item_guide_text_2)
+                    }
+                    3 -> {
+                        binding.guideText2.text = getString(R.string.item_guide_text_3)
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+        }
+        )
     }
 
     // 아이템 View 터치 리스너
@@ -280,7 +322,10 @@ class CarrierItemFragment :
 
     private fun unSelectItem() {
 
-        (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(binding.itemName.windowToken, 0);
+        (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+            binding.itemName.windowToken,
+            0
+        );
         binding.itemNameView.visibility = GONE
         viewItemList.find { it.tag == viewIdHasBeenClicked }?.apply {
             val color = viewItemColorMap[this]

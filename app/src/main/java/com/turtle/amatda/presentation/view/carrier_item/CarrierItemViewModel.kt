@@ -5,7 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.domain.model.Carrier
 import com.turtle.amatda.domain.model.Item
-import com.turtle.amatda.domain.usecases.*
+import com.turtle.amatda.domain.usecases.DeleteCarrierItemUseCase
+import com.turtle.amatda.domain.usecases.GetCarrierItemsUseCase
+import com.turtle.amatda.domain.usecases.SaveCarrierItemUseCase
+import com.turtle.amatda.domain.usecases.UpdateCarrierItemUseCase
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import java.util.*
 import javax.inject.Inject
@@ -298,7 +301,7 @@ class CarrierItemViewModel @Inject constructor(
 
     fun itemResizeIsUnClicked() {
         _isItemResizeClicked.value = false
-        if(_isItemClicked.value == true) _isItemSpeechBubbleVisible.value = true
+        if (_isItemClicked.value == true) _isItemSpeechBubbleVisible.value = true
     }
 
     fun itemRecountIsClicked() {
@@ -311,7 +314,7 @@ class CarrierItemViewModel @Inject constructor(
 
     fun itemRecountIsUnClicked() {
         _isItemRecountClicked.value = false
-        if(_isItemClicked.value == true) _isItemSpeechBubbleVisible.value = true
+        if (_isItemClicked.value == true) _isItemSpeechBubbleVisible.value = true
     }
 
     fun itemRecolorIsClicked() {
@@ -324,7 +327,7 @@ class CarrierItemViewModel @Inject constructor(
 
     fun itemRecolorIsUnClicked() {
         _isItemRecolorClicked.value = false
-        if(_isItemClicked.value == true) _isItemSpeechBubbleVisible.value = true
+        if (_isItemClicked.value == true) _isItemSpeechBubbleVisible.value = true
     }
 
     fun itemRenameIsClicked() {
@@ -337,6 +340,6 @@ class CarrierItemViewModel @Inject constructor(
 
     fun itemRenameIsUnClicked() {
         _isItemRenameClicked.value = false
-        if(_isItemClicked.value == true) _isItemSpeechBubbleVisible.value = true
+        if (_isItemClicked.value == true) _isItemSpeechBubbleVisible.value = true
     }
 }

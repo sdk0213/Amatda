@@ -21,20 +21,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:elevation="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tabLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/tabLayout">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topAppBar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:navigationIcon="@drawable/ic_baseline_menu_24"
                 app:menu="@menu/app_bar_carrier_item"
-                app:title="@string/menu_my_carrier"
-                style="@style/Widget.MaterialComponents.Toolbar.Primary"
-                />
+                app:navigationIcon="@drawable/ic_baseline_menu_24"
+                app:title="@string/menu_my_carrier" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -43,54 +42,58 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="?attr/colorPrimary"
-            app:tabIndicatorColor="@color/white"
-            app:tabRippleColor="@color/white"
-            app:tabIconTint="@color/selector_tab_item"
-            app:tabSelectedTextColor="@color/white"
-            app:tabPaddingStart="0dp"
-            app:tabPaddingEnd="10dp"
-            app:tabInlineLabel="true"
-            app:tabTextAppearance="@style/tab_text"
-            app:layout_constraintTop_toBottomOf="@id/appbar"
             app:layout_constraintBottom_toTopOf="@id/itemContainer"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar"
+            app:tabIconTint="@color/selector_tab_item"
+            app:tabIndicatorColor="@color/white"
+            app:tabInlineLabel="true"
+            app:tabPaddingEnd="10dp"
+            app:tabPaddingStart="0dp"
+            app:tabRippleColor="@color/white"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextAppearance="@style/tab_text">
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/flaticon_com_ic_linenumber_all"
                 android:text="전체 보기" />
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem_layer_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="안 쪽"
-                android:icon="@drawable/flaticon_com_ic_linenumber_1"/>
+                android:icon="@drawable/flaticon_com_ic_linenumber_1"
+                android:text="안 쪽" />
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem_layer_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="가운데 쪽"
-                android:icon="@drawable/flaticon_com_ic_linenumber_2"/>
+                android:icon="@drawable/flaticon_com_ic_linenumber_2"
+                android:text="가운데 쪽" />
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem_layer_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="바깥 쪽"
-                android:icon="@drawable/flaticon_com_ic_linenumber_3"/>
+                android:icon="@drawable/flaticon_com_ic_linenumber_3"
+                android:text="바깥 쪽" />
 
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/itemContainer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:id="@+id/itemContainer"
             android:onClick="@{ () -> viewModel.itemIsUnClicked()}"
             app:layout_constraintBottom_toTopOf="@id/item_name_view"
-            app:layout_constraintTop_toBottomOf="@id/tabLayout"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/tabLayout">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -98,20 +101,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent_no_color"
-                android:visibility="@{viewModel.isItemClicked ? View.VISIBLE : View.INVISIBLE}"
                 android:clickable="false"
-                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="@{viewModel.isItemClicked ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintBottom_toTopOf="@id/edit_speech_bubble"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/delete_item"
                     android:layout_width="@dimen/carrier_item_width"
                     android:layout_height="wrap_content"
+                    android:letterSpacing="-0.1"
                     android:onClick="@{ () -> viewModel.removeItem(viewModel.itemIdCurrentClicked)}"
                     android:text="삭제"
                     android:textSize="@dimen/carrier_item_edit_text"
-                    android:letterSpacing="-0.1"
                     app:cornerRadius="0dp"
                     app:icon="@drawable/ic_baseline_delete_24"
                     app:iconGravity="top"
@@ -125,11 +128,11 @@
                     android:id="@+id/rename_item"
                     android:layout_width="@dimen/carrier_item_width"
                     android:layout_height="wrap_content"
-                    android:text="이름"
-                    android:textSize="@dimen/carrier_item_edit_text"
+                    android:backgroundTint="@{viewModel.isItemRenameClicked ? @color/material_a700 : @color/amatda_main}"
                     android:letterSpacing="-0.1"
                     android:onClick="@{() -> viewModel.isItemRenameClicked ? viewModel.itemRenameIsUnClicked() : viewModel.itemRenameIsClicked()}"
-                    android:backgroundTint="@{viewModel.isItemRenameClicked ? @color/material_a700 : @color/amatda_main}"
+                    android:text="이름"
+                    android:textSize="@dimen/carrier_item_edit_text"
                     app:cornerRadius="0dp"
                     app:icon="@drawable/ic_baseline_drive_file_rename_outline_24"
                     app:iconGravity="top"
@@ -143,54 +146,54 @@
                     android:id="@+id/change_item_size"
                     android:layout_width="@dimen/carrier_item_width"
                     android:layout_height="wrap_content"
-                    android:text="@string/item_edit_tooltip_resize"
-                    android:textSize="@dimen/carrier_item_edit_text"
+                    android:backgroundTint="@{viewModel.isItemResizeClicked ? @color/material_a700 : @color/amatda_main}"
                     android:letterSpacing="-0.1"
                     android:onClick="@{() -> viewModel.isItemResizeClicked ? viewModel.itemResizeIsUnClicked() : viewModel.itemResizeIsClicked()}"
-                    android:backgroundTint="@{viewModel.isItemResizeClicked ? @color/material_a700 : @color/amatda_main}"
+                    android:text="@string/item_edit_tooltip_resize"
+                    android:textSize="@dimen/carrier_item_edit_text"
                     app:cornerRadius="0dp"
                     app:icon="@drawable/ic_baseline_zoom_out_map_36"
                     app:iconGravity="top"
                     app:iconPadding="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/rename_item"
                     app:layout_constraintEnd_toStartOf="@id/change_item_count"
+                    app:layout_constraintStart_toEndOf="@id/rename_item"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/change_item_count"
                     android:layout_width="@dimen/carrier_item_width"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@{viewModel.isItemRecountClicked ? @color/material_a700 : @color/amatda_main}"
+                    android:letterSpacing="-0.1"
+                    android:onClick="@{() -> viewModel.isItemRecountClicked ? viewModel.itemRecountIsUnClicked() : viewModel.itemRecountIsClicked()}"
                     android:text="개수"
                     android:textSize="@dimen/carrier_item_edit_text"
-                    android:onClick="@{() -> viewModel.isItemRecountClicked ? viewModel.itemRecountIsUnClicked() : viewModel.itemRecountIsClicked()}"
-                    android:letterSpacing="-0.1"
-                    android:backgroundTint="@{viewModel.isItemRecountClicked ? @color/material_a700 : @color/amatda_main}"
                     app:cornerRadius="0dp"
                     app:icon="@drawable/ic_baseline_all_inbox_24"
                     app:iconGravity="top"
                     app:iconPadding="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/change_item_size"
                     app:layout_constraintEnd_toStartOf="@id/change_item_color"
+                    app:layout_constraintStart_toEndOf="@id/change_item_size"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/change_item_color"
                     android:layout_width="@dimen/carrier_item_width"
                     android:layout_height="wrap_content"
-                    android:text="색깔"
-                    android:textSize="@dimen/carrier_item_edit_text"
+                    android:backgroundTint="@{viewModel.isItemRecolorClicked ? @color/material_a700 : @color/amatda_main}"
                     android:letterSpacing="-0.1"
                     android:onClick="@{() -> viewModel.isItemRecolorClicked ? viewModel.itemRecolorIsUnClicked() : viewModel.itemRecolorIsClicked()}"
-                    android:backgroundTint="@{viewModel.isItemRecolorClicked ? @color/material_a700 : @color/amatda_main}"
+                    android:text="색깔"
+                    android:textSize="@dimen/carrier_item_edit_text"
                     app:cornerRadius="0dp"
                     app:icon="@drawable/ic_baseline_color_lens_24"
                     app:iconGravity="top"
                     app:iconPadding="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/change_item_count"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/change_item_count"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -202,18 +205,17 @@
                 android:layout_height="15dp"
                 android:background="@drawable/triangle"
                 android:visibility="@{viewModel.isItemSpeechBubbleVisible ? View.VISIBLE : View.INVISIBLE}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_item_view"
                 app:layout_constraintBottom_toTopOf="@id/edit_decrease_width"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_item_view" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/edit_decrease_width"
                 android:layout_width="32dp"
                 android:layout_height="wrap_content"
-                android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
-                android:onClick="@{() -> viewModel.decreaseWidth(25)}"
                 android:backgroundTint="@color/material_a700"
+                android:onClick="@{() -> viewModel.decreaseWidth(25)}"
+                android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
                 app:icon="@drawable/ic_baseline_minus_24"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
@@ -224,9 +226,9 @@
                 android:id="@+id/edit_increase_width"
                 android:layout_width="32dp"
                 android:layout_height="wrap_content"
-                android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
-                android:onClick="@{() -> viewModel.increaseWidth(25)}"
                 android:backgroundTint="@color/material_a700"
+                android:onClick="@{() -> viewModel.increaseWidth(25)}"
+                android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
                 app:icon="@drawable/ic_baseline_add_24"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
@@ -237,9 +239,9 @@
                 android:id="@+id/edit_decrease_height"
                 android:layout_width="32dp"
                 android:layout_height="wrap_content"
-                android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
-                android:onClick="@{() -> viewModel.decreaseHeight(25)}"
                 android:backgroundTint="@color/material_a700"
+                android:onClick="@{() -> viewModel.decreaseHeight(25)}"
+                android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
                 app:icon="@drawable/ic_baseline_minus_24"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
@@ -250,53 +252,40 @@
                 android:id="@+id/edit_increase_height"
                 android:layout_width="32dp"
                 android:layout_height="wrap_content"
-                android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
-                android:onClick="@{() -> viewModel.increaseHeight(25)}"
                 android:backgroundTint="@color/material_a700"
+                android:onClick="@{() -> viewModel.increaseHeight(25)}"
+                android:visibility="@{viewModel.isItemResizeClicked ? View.VISIBLE : View.INVISIBLE}"
                 app:icon="@drawable/ic_baseline_add_24"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
                 app:layout_constraintStart_toEndOf="@id/edit_decrease_height"
                 app:layout_constraintTop_toBottomOf="@id/edit_increase_width" />
 
-            <ImageView
-                android:id="@+id/carrier"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:contentDescription="@string/cttdcrp_carrier"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/edit_item_count_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent_no_color"
-                android:visibility="@{viewModel.isItemRecountClicked ? View.VISIBLE : View.INVISIBLE}"
                 android:clickable="false"
+                android:visibility="@{viewModel.isItemRecountClicked ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintBottom_toTopOf="@id/edit_item_color_view"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_decrease_height"
-                app:layout_constraintBottom_toTopOf="@id/edit_item_color_view">
+                app:layout_constraintTop_toBottomOf="@id/edit_decrease_height">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/item_count_increase"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
-                    android:onClick="@{ () -> viewModel.recountItem(false)}"
                     android:layout_marginEnd="10dp"
                     android:backgroundTint="@color/material_a700"
+                    android:onClick="@{ () -> viewModel.recountItem(false)}"
                     app:icon="@drawable/ic_baseline_arrow_left_24"
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/item_count"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/item_count" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/item_count"
@@ -305,29 +294,28 @@
                     android:layout_gravity="center"
                     android:background="@drawable/item_count_oval"
                     android:gravity="center"
-                    android:textSize="18sp"
                     android:includeFontPadding="false"
-                    tools:text="1"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/item_count_increase"
                     app:layout_constraintEnd_toStartOf="@id/item_count_decrease"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toEndOf="@id/item_count_increase"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/item_count_decrease"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:onClick="@{ () -> viewModel.recountItem(true)}"
                     android:backgroundTint="@color/material_a700"
+                    android:onClick="@{ () -> viewModel.recountItem(true)}"
                     app:icon="@drawable/ic_baseline_arrow_right_24"
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/item_count"
                     app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/item_count"
                     app:layout_constraintTop_toTopOf="parent" />
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -337,8 +325,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent_no_color"
-                android:visibility="@{viewModel.isItemRecolorClicked ? View.VISIBLE : View.INVISIBLE}"
                 android:clickable="false"
+                android:visibility="@{viewModel.isItemRecolorClicked ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_item_count_view">
 
@@ -350,34 +338,34 @@
                     android:onClick="@{() -> viewModel.updateColor(@color/rainbow_white)}"
                     app:backgroundTint="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/item_color_red"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/item_color_red"
                     android:layout_width="@dimen/carrier_item_color"
                     android:layout_height="@dimen/carrier_item_color"
-                    android:background="@drawable/item_color_red"
                     android:layout_marginStart="@dimen/carrier_item_color_margin"
+                    android:background="@drawable/item_color_red"
                     android:onClick="@{() -> viewModel.updateColor(@color/rainbow_red)}"
                     app:backgroundTint="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/item_color_white"
                     app:layout_constraintEnd_toStartOf="@id/item_color_orange"
+                    app:layout_constraintStart_toEndOf="@id/item_color_white"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/item_color_orange"
                     android:layout_width="@dimen/carrier_item_color"
                     android:layout_height="@dimen/carrier_item_color"
-                    android:background="@drawable/item_color_orange"
                     android:layout_marginStart="@dimen/carrier_item_color_margin"
+                    android:background="@drawable/item_color_orange"
                     android:onClick="@{() -> viewModel.updateColor(@color/rainbow_orange)}"
                     app:backgroundTint="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/item_color_red"
                     app:layout_constraintEnd_toStartOf="@id/item_color_yellow"
+                    app:layout_constraintStart_toEndOf="@id/item_color_red"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
@@ -389,8 +377,8 @@
                     android:onClick="@{() -> viewModel.updateColor(@color/rainbow_yellow)}"
                     app:backgroundTint="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/item_color_orange"
                     app:layout_constraintEnd_toStartOf="@id/item_color_green"
+                    app:layout_constraintStart_toEndOf="@id/item_color_orange"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
@@ -402,8 +390,8 @@
                     android:onClick="@{() -> viewModel.updateColor(@color/rainbow_green)}"
                     app:backgroundTint="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/item_color_yellow"
                     app:layout_constraintEnd_toStartOf="@id/item_color_blue"
+                    app:layout_constraintStart_toEndOf="@id/item_color_yellow"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
@@ -415,8 +403,8 @@
                     android:onClick="@{() -> viewModel.updateColor(@color/rainbow_blue)}"
                     app:backgroundTint="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/item_color_green"
                     app:layout_constraintEnd_toStartOf="@id/item_color_dark_blue"
+                    app:layout_constraintStart_toEndOf="@id/item_color_green"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
@@ -428,8 +416,8 @@
                     android:onClick="@{() -> viewModel.updateColor(@color/rainbow_dark_blue)}"
                     app:backgroundTint="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/item_color_blue"
                     app:layout_constraintEnd_toStartOf="@id/item_color_yellow"
+                    app:layout_constraintStart_toEndOf="@id/item_color_blue"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
@@ -441,16 +429,16 @@
                     android:onClick="@{() -> viewModel.updateColor(@color/rainbow_purple)}"
                     app:backgroundTint="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/item_color_dark_blue"
                     app:layout_constraintEnd_toStartOf="@id/item_color_black"
+                    app:layout_constraintStart_toEndOf="@id/item_color_dark_blue"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/item_color_black"
                     android:layout_width="@dimen/carrier_item_color"
                     android:layout_height="@dimen/carrier_item_color"
-                    android:background="@drawable/item_color_black"
                     android:layout_marginStart="@dimen/carrier_item_color_margin"
+                    android:background="@drawable/item_color_black"
                     android:onClick="@{() -> viewModel.updateColor(@color/rainbow_black)}"
                     app:backgroundTint="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -459,23 +447,162 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!-- 수직 라인 1 번 -->
+            <View
+                android:id="@+id/view_line_vertical_1"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/guide_line"
+                app:flow_horizontalBias="0.5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/view_line_vertical_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 수직 라인 2 번 -->
+            <View
+                android:id="@+id/view_line_vertical_2"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/guide_line"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/view_line_vertical_3"
+                app:layout_constraintStart_toEndOf="@id/view_line_vertical_1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 수직 라인 3 번 -->
+            <View
+                android:id="@+id/view_line_vertical_3"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/guide_line"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/view_line_vertical_2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 수평 라인 1 번 -->
+            <View
+                android:id="@+id/view_line_horizontal_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/guide_line"
+                app:layout_constraintBottom_toTopOf="@id/view_line_horizontal_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 수평 라인 2 번 -->
+            <View
+                android:id="@+id/view_line_horizontal_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/guide_line"
+                app:layout_constraintBottom_toTopOf="@id/view_line_horizontal_3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_line_horizontal_1" />
+
+            <!-- 수평 라인 3 번 -->
+            <View
+                android:id="@+id/view_line_horizontal_3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/guide_line"
+                app:layout_constraintBottom_toTopOf="@id/view_line_horizontal_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_line_horizontal_2" />
+
+            <!-- 수평 라인 4 번 -->
+            <View
+                android:id="@+id/view_line_horizontal_4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/guide_line"
+                app:layout_constraintBottom_toTopOf="@id/view_line_horizontal_5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_line_horizontal_3" />
+
+            <!-- 수평 라인 5 번 -->
+            <View
+                android:id="@+id/view_line_horizontal_5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/guide_line"
+                app:layout_constraintBottom_toTopOf="@id/view_line_horizontal_6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_line_horizontal_4" />
+
+            <!-- 수평 라인 6 번 -->
+            <View
+                android:id="@+id/view_line_horizontal_6"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/guide_line"
+                app:layout_constraintBottom_toTopOf="@id/view_line_horizontal_7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_line_horizontal_5" />
+
+            <!-- 수평 라인 7 번 -->
+            <View
+                android:id="@+id/view_line_horizontal_7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/guide_line"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_line_horizontal_6" />
+
+            <TextView
+                android:id="@+id/guide_text"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="bottom|center"
+                android:text="가방을 눕혔을때"
+                android:textColor="@color/guide_line"
+                android:textSize="40dp"
+                app:layout_constraintBottom_toTopOf="@id/guide_text_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/guide_text_2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="top|center"
+                android:lineSpacingMultiplier="1"
+                android:text="@string/item_guide_text_all"
+                android:textColor="@color/guide_line"
+                android:textSize="120dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/guide_text" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:visibility="gone"
             android:id="@+id/item_name_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:autofillHints="선크림"
             android:hint="@{@string/edit_item_label}"
-            app:startIconDrawable="@{@drawable/ic_baseline_format_shapes_24}"
-            app:startIconContentDescription="물건"
-            app:endIconMode="custom"
+            android:visibility="gone"
             app:endIconDrawable="@{@drawable/ic_baseline_drive_file_rename_outline_24}"
-            app:layout_constraintTop_toBottomOf="@id/itemContainer"
+            app:endIconMode="custom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/itemContainer"
+            app:startIconContentDescription="물건"
+            app:startIconDrawable="@{@drawable/ic_baseline_format_shapes_24}">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/item_name"

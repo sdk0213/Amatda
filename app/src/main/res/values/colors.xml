@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 Google LLC
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,6 +31,8 @@
     <color name="transparent_material_a200">#CCFF6E40</color> <!-- 80% -->
     <color name="transparent_material_50">#D9EDE7F6</color>
     <color name="transparent_no_color">#00FFFFFF</color>
+
+    <color name="guide_line">#26999999</color> <!-- 가이드 라인 색상-->
 
     <color name="rainbow_white">#1AFFFFFF</color>
     <color name="rainbow_red">#1AFF0000</color>

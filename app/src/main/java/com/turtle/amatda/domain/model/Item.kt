@@ -9,10 +9,10 @@ data class Item(
     val color: Long = 0xFFFFFFFF,
     val position_x: Float = 0f,
     val position_y: Float = 0f,
-    val width : Int = 270,
-    val height : Int = 240,
+    val width: Int = 270,
+    val height: Int = 240,
     val priority: Long = 0,
-    val checked : Boolean = false,
-    val item_place: Int = 1,
-    val carrier_id : Long
+    val checked: Boolean = false,
+    val item_place: Int = 0,
+    val carrier_id: Long
 )

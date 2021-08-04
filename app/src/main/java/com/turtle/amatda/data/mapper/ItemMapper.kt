@@ -4,7 +4,7 @@ import com.turtle.amatda.data.model.ItemEntity
 import com.turtle.amatda.domain.model.Item
 import javax.inject.Inject
 
-open class ItemMapper @Inject constructor(): Mapper<ItemEntity, Item> {
+open class ItemMapper @Inject constructor() : Mapper<ItemEntity, Item> {
 
     override fun entityToMap(type: ItemEntity): Item {
         return Item(
@@ -18,6 +18,7 @@ open class ItemMapper @Inject constructor(): Mapper<ItemEntity, Item> {
             height = type.item_height,
             priority = type.priority,
             checked = type.checked,
+            item_place = type.item_place,
             carrier_id = type.carrier_id
         )
     }
@@ -34,6 +35,7 @@ open class ItemMapper @Inject constructor(): Mapper<ItemEntity, Item> {
             item_height = type.height,
             priority = type.priority,
             checked = type.checked,
+            item_place = type.item_place,
             carrier_id = type.carrier_id
         )
     }

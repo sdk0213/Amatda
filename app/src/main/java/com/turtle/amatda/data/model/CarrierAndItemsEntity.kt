@@ -18,13 +18,15 @@ data class CarrierEntity(
     val size: String,
 )
 
-@Entity(tableName = "Item", foreignKeys = [
-    ForeignKey(
-        entity = CarrierEntity::class,
-        parentColumns = ["carrier_id"],
-        childColumns = ["carrier_id_foreign"],
-        onDelete = ForeignKey.CASCADE
-    )])
+@Entity(
+    tableName = "Item", foreignKeys = [
+        ForeignKey(
+            entity = CarrierEntity::class,
+            parentColumns = ["carrier_id"],
+            childColumns = ["carrier_id_foreign"],
+            onDelete = ForeignKey.CASCADE
+        )]
+)
 data class ItemEntity(
     @PrimaryKey
     @ColumnInfo(name = "item_id")
@@ -55,10 +57,10 @@ data class ItemEntity(
     val item_height: Int = 250,
 
     @ColumnInfo(name = "item_checked")
-    val checked : Boolean = false,
+    val checked: Boolean = false,
 
     @ColumnInfo(name = "item_place")
-    val item_place: Int = 1,
+    val item_place: Int = 0,
 
     @ColumnInfo(name = "carrier_id_foreign", index = true)
     val carrier_id: Long

@@ -56,13 +56,6 @@
             app:tabTextAppearance="@style/tab_text">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem_all"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/flaticon_com_ic_linenumber_all"
-                android:text="전체 보기" />
-
-            <com.google.android.material.tabs.TabItem
                 android:id="@+id/tabItem_layer_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -174,27 +167,28 @@
                     app:iconGravity="top"
                     app:iconPadding="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/change_item_color"
+                    app:layout_constraintEnd_toStartOf="parent"
                     app:layout_constraintStart_toEndOf="@id/change_item_size"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/change_item_color"
-                    android:layout_width="@dimen/carrier_item_width"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@{viewModel.isItemRecolorClicked ? @color/material_a700 : @color/amatda_main}"
-                    android:letterSpacing="-0.1"
-                    android:onClick="@{() -> viewModel.isItemRecolorClicked ? viewModel.itemRecolorIsUnClicked() : viewModel.itemRecolorIsClicked()}"
-                    android:text="색깔"
-                    android:textSize="@dimen/carrier_item_edit_text"
-                    app:cornerRadius="0dp"
-                    app:icon="@drawable/ic_baseline_color_lens_24"
-                    app:iconGravity="top"
-                    app:iconPadding="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/change_item_count"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <!-- @deprecated 사용자의 색깔 선택 불가능 하도록 변경 사용하지 않음-->
+                <!--                <com.google.android.material.button.MaterialButton-->
+                <!--                    android:id="@+id/change_item_color"-->
+                <!--                    android:layout_width="@dimen/carrier_item_width"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:backgroundTint="@{viewModel.isItemRecolorClicked ? @color/material_a700 : @color/amatda_main}"-->
+                <!--                    android:letterSpacing="-0.1"-->
+                <!--                    android:onClick="@{() -> viewModel.isItemRecolorClicked ? viewModel.itemRecolorIsUnClicked() : viewModel.itemRecolorIsClicked()}"-->
+                <!--                    android:text="색깔"-->
+                <!--                    android:textSize="@dimen/carrier_item_edit_text"-->
+                <!--                    app:cornerRadius="0dp"-->
+                <!--                    app:icon="@drawable/ic_baseline_color_lens_24"-->
+                <!--                    app:iconGravity="top"-->
+                <!--                    app:iconPadding="0dp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toEndOf="@id/change_item_count"-->
+                <!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -320,6 +314,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!-- @deprecated 사용자의 색깔 선택 불가능 하도록 변경 사용하지 않음-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/edit_item_color_view"
                 android:layout_width="wrap_content"
@@ -577,7 +572,7 @@
                 android:layout_height="0dp"
                 android:gravity="top|center"
                 android:lineSpacingMultiplier="1"
-                android:text="@string/item_guide_text_all"
+                android:text="@string/item_guide_text_1"
                 android:textColor="@color/guide_line"
                 android:textSize="120dp"
                 android:textStyle="bold"

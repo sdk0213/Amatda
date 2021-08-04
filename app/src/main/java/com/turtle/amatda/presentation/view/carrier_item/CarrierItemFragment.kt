@@ -2,15 +2,17 @@ package com.turtle.amatda.presentation.view.carrier_item
 
 import android.annotation.SuppressLint
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.text.TextUtils
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.collection.arrayMapOf
@@ -19,6 +21,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayout
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentCarrierItemBinding
+import com.turtle.amatda.domain.model.Item
 import com.turtle.amatda.presentation.utilities.extensions.toEditable
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import java.util.*
@@ -30,7 +33,9 @@ class CarrierItemFragment :
     private val args: CarrierItemFragmentArgs by navArgs()
 
     private val viewItemList = arrayListOf<TextView>() // 현재 생성된 아이템 View 에 관한 List
+    private val viewItemMap = arrayMapOf<TextView, Item>()
     private val viewItemCountMap = arrayMapOf<TextView, TextView>() // 현재 생성된 아이템 View 에 관한 List
+    private val viewItemPositionMap = arrayMapOf<TextView, ImageView>() // 현재 생성된 아이템 View 에 관한 List
     private val viewItemColorMap = arrayMapOf<TextView, Long>() // 현재 생성된 아이템 View 에 관한 Color
     private var viewIdNewClicked = Date()     // 유저가 새롭게 선택한 View Id (Tag)
     private var viewIdHasBeenClicked = Date() // 이미 선택되어있는 View Id (Tag)
@@ -66,12 +71,15 @@ class CarrierItemFragment :
                         removeTextViewList.add(viewItemList[i])
                         binding.itemContainer.removeView(viewItemList[i])
                         binding.itemContainer.removeView(viewItemCountMap[viewItemList[i]])
+                        binding.itemContainer.removeView(viewItemPositionMap[viewItemList[i]])
                         break
                     }
                 }
             }
+            viewItemMap.removeAll(removeTextViewList)
             viewItemList.removeAll(removeTextViewList)
             viewItemCountMap.removeAll(removeTextViewList)
+            viewItemPositionMap.removeAll(removeTextViewList)
             viewItemColorMap.removeAll(removeTextViewList)
         }
 
@@ -79,22 +87,12 @@ class CarrierItemFragment :
         viewModel.makeItemList.observe(viewLifecycleOwner) { makeItemList ->
             makeItemList.forEach { item ->
                 (layoutInflater.inflate(R.layout.carrier_item, null) as TextView).apply {
+                    viewItemMap[this] = item
                     viewItemColorMap[this] = item.color
                     width = item.width
                     height = item.height
                     tag = item.id // tag에 id 를 삽입하여 어떤 아이템인지 구분
-                    // 파란색, 남색, 보라색, 검은색은 글씨색 흰색으로 변경
-                    if (item.color.toInt() == -1728052993 ||
-                        item.color.toInt() == -1723137918 ||
-                        item.color.toInt() == -1718681345 ||
-                        item.color.toInt() == -1728053248
-                    ) this.setTextColor(0xFFFFFFFF.toInt())
                     text = item.name
-                    background = GradientDrawable().apply {
-                        setColor(item.color.toInt())
-                        setStroke(1, 0xFF000000.toInt())
-                        cornerRadius = 25f
-                    }
                     x = item.position_x
                     y = item.position_y
                     binding.itemContainer.addView(this) // 뷰에 붙히기
@@ -126,8 +124,33 @@ class CarrierItemFragment :
                             y = item.position_y + item.height - 60
                             binding.itemContainer.addView(this) // 뷰에 붙히기
                         }
+                    // 아이템 위치 표시 View 목록
+                    viewItemPositionMap[this] =
+                        (layoutInflater.inflate(
+                            R.layout.carrier_item_position,
+                            null
+                        ) as ImageView).apply {
+                            layoutParams = ViewGroup.LayoutParams(
+                                60,
+                                60
+                            )
+                            when (item.item_place) {
+                                0 -> {
+                                    backgroundTintList = ColorStateList.valueOf(0xFFFFFFFF.toInt())
+                                    setBackgroundResource(R.drawable.flaticon_com_ic_pos_linenumber_1)
+                                }
+                                1 -> setBackgroundResource(R.drawable.flaticon_com_ic_pos_linenumber_2)
+                                2 -> setBackgroundResource(R.drawable.flaticon_com_ic_pos_linenumber_3)
+                            }
+                            x = item.position_x + 20
+                            y = item.position_y + 20
+                            binding.itemContainer.addView(this) // 뷰에 붙히기
+                        }
+
+                    setItemBackgroundColorByPlace(this, item)
                 }
             }
+            updateViewBringToFrontOrderByPlace()
         }
 
         // 아이템 클릭 관찰자
@@ -166,6 +189,7 @@ class CarrierItemFragment :
             }
         }
 
+        // @deprecated 사용하지 않음
         // 아이템 컬러 수정 클릭 관찰자
         viewModel.isItemRecolorClicked.observe(viewLifecycleOwner) {
             viewItemList.find { it.tag == viewIdHasBeenClicked }?.apply {
@@ -229,7 +253,7 @@ class CarrierItemFragment :
         binding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.item_add_item -> {
-                    viewModel.addItem("새 물품")
+                    viewModel.addItem("새 물품", binding.tabLayout.selectedTabPosition)
                     true
                 }
                 else -> {
@@ -240,21 +264,16 @@ class CarrierItemFragment :
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab?.position) {
-                    0 -> {
-                        binding.guideText2.text = getString(R.string.item_guide_text_all)
-                        viewItemList.forEach { it.visibility = VISIBLE }
-                    }
-                    1 -> {
-                        binding.guideText2.text = getString(R.string.item_guide_text_1)
-                    }
-                    2 -> {
-                        binding.guideText2.text = getString(R.string.item_guide_text_2)
-                    }
-                    3 -> {
-                        binding.guideText2.text = getString(R.string.item_guide_text_3)
-                    }
+                viewModel.itemIsUnClicked()
+                viewItemMap.forEach {
+                    setItemBackgroundColorByPlace(it.key, it.value)
                 }
+                when (tab?.position) {
+                    0 -> binding.guideText2.text = getString(R.string.item_guide_text_1)
+                    1 -> binding.guideText2.text = getString(R.string.item_guide_text_2)
+                    2 -> binding.guideText2.text = getString(R.string.item_guide_text_3)
+                }
+                updateViewBringToFrontOrderByPlace()
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -282,6 +301,8 @@ class CarrierItemFragment :
                     if (view.isSelected) {
                         view.x = event.rawX - firstTouchRelativeX
                         view.y = event.rawY - firstTouchRelativeY - containerStartY()
+                        viewItemPositionMap[view]?.x = view.x + 20
+                        viewItemPositionMap[view]?.y = view.y + 20
                         viewItemCountMap[view]?.x = view.x + view.width - 60
                         viewItemCountMap[view]?.y = view.y + view.height - 60
                         updateToolTipViewPositioning(
@@ -301,16 +322,7 @@ class CarrierItemFragment :
                             item_pos_y = view.y
                         )
                     }
-                    view.bringToFront()
-                    viewItemCountMap[view]?.bringToFront()
-                    binding.editItemCountView.bringToFront()
-                    binding.editItemColorView.bringToFront()
-                    binding.editItemView.bringToFront()
-                    binding.editDecreaseWidth.bringToFront()
-                    binding.editIncreaseWidth.bringToFront()
-                    binding.editIncreaseHeight.bringToFront()
-                    binding.editDecreaseHeight.bringToFront()
-                    binding.editSpeechBubble.bringToFront()
+                    updateViewBringToFrontOrderByPlace()
                     selectItem(view)
                     viewModel.itemIsClicked()
                 }
@@ -327,15 +339,7 @@ class CarrierItemFragment :
             0
         );
         binding.itemNameView.visibility = GONE
-        viewItemList.find { it.tag == viewIdHasBeenClicked }?.apply {
-            val color = viewItemColorMap[this]
-            background = GradientDrawable().apply {
-                setColor(color!!.toInt())
-                setStroke(1, 0xFF000000.toInt())
-                cornerRadius = 25f
-            }
-            isSelected = false
-        }
+        viewItemList.find { it.tag == viewIdHasBeenClicked }?.isSelected = false
         viewModel.itemResizeIsUnClicked()
         viewModel.itemRecountIsUnClicked()
         viewModel.itemRecolorIsUnClicked()
@@ -343,14 +347,64 @@ class CarrierItemFragment :
     }
 
     private fun selectItem(view: View) {
-        val color = viewItemColorMap[view]
-        view.background = GradientDrawable().apply {
-            setColor(color!!.toInt())
-            setStroke(10, 0xFFFF6E40.toInt())
+        view.isSelected = true
+    }
+
+    // 탭에 따라 설정 아이템 테두리, 위치, 색깔 등 설정
+    private fun setItemBackgroundColorByPlace(textView: TextView, item: Item) {
+        val colorList = arrayListOf(0xFF000000, 0xFF888888, 0xFFFFFFFF) // Black, Grey, White
+        textView.background = GradientDrawable().apply {
+            setColor(colorList[item.item_place].toInt())
+            if (binding.tabLayout.selectedTabPosition == item.item_place) {
+                setStroke(10, 0xFFFF6E40.toInt())
+            } else {
+                setStroke(1, 0xFF000000.toInt())
+            }
             cornerRadius = 25f
         }
+        when (item.item_place) {
+            0 -> textView.setTextColor(0xFFFFFFFF.toInt())
+            else -> textView.setTextColor(0xFF000000.toInt())
+        }
 
-        view.isSelected = true
+        textView.isEnabled = binding.tabLayout.selectedTabPosition == item.item_place
+
+        Log.d("sudeky", "item.item_place : ${item.item_place}")
+        Log.d(
+            "sudeky",
+            "binding.tabLayout.selectedTabPosition : ${binding.tabLayout.selectedTabPosition}"
+        )
+        if (item.item_place <= binding.tabLayout.selectedTabPosition) {
+            textView.visibility = VISIBLE
+            viewItemPositionMap[textView]?.visibility = VISIBLE
+            viewItemCountMap[textView]?.visibility = VISIBLE
+        } else {
+            textView.visibility = INVISIBLE
+            viewItemPositionMap[textView]?.visibility = INVISIBLE
+            viewItemCountMap[textView]?.visibility = INVISIBLE
+        }
+    }
+
+    // 아이템 View 보이는 순서 위치에 따라 설정
+    private fun updateViewBringToFrontOrderByPlace() {
+        for (i: Int in 1..3) {
+            viewItemMap.filter { it.value.item_place == i }
+                .map {
+                    it.key.bringToFront()
+                    viewItemCountMap[it.key]?.bringToFront()
+                    viewItemPositionMap[it.key]?.bringToFront()
+                }
+        }
+
+        binding.editItemCountView.bringToFront()
+        binding.editItemColorView.bringToFront()
+        binding.editItemView.bringToFront()
+        binding.editDecreaseWidth.bringToFront()
+        binding.editIncreaseWidth.bringToFront()
+        binding.editIncreaseHeight.bringToFront()
+        binding.editDecreaseHeight.bringToFront()
+        binding.editSpeechBubble.bringToFront()
+
     }
 
     // 아이템 툴팁 포지셔닝

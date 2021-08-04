@@ -37,6 +37,8 @@ class CarrierItemViewModel @Inject constructor(
     val isItemResizeClicked: LiveData<Boolean> get() = _isItemResizeClicked
     private val _isItemRecountClicked = MutableLiveData(false)
     val isItemRecountClicked: LiveData<Boolean> get() = _isItemRecountClicked
+
+    // @deprecated 사용하지 않음
     private val _isItemRecolorClicked = MutableLiveData(false)
     val isItemRecolorClicked: LiveData<Boolean> get() = _isItemRecolorClicked
     private val _isItemRenameClicked = MutableLiveData(false)
@@ -94,8 +96,8 @@ class CarrierItemViewModel @Inject constructor(
         )
     }
 
-    fun addItem(itemName: String) {
-        saveItem(Item(id = Date(), name = itemName, carrier_id = carrier.id))
+    fun addItem(itemName: String, place: Int) {
+        saveItem(Item(id = Date(), name = itemName, item_place = place, carrier_id = carrier.id))
     }
 
     // todo: 기존에 선택된 아이템들의 정보가 필요한데 지금 이게 Fragment 에서 처리하고 있는데 이거를 Observer 형태로 변경을 해야하나 고민인된다.

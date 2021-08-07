@@ -29,10 +29,12 @@
     <color name="amatda_toolbar">#80FF6E40</color>
     <color name="material_a700">#DD2C00</color>
     <color name="transparent_material_a200">#CCFF6E40</color> <!-- 80% -->
+    <color name="amatda_main_nav">#33FF6E40</color> <!-- 80% -->
     <color name="transparent_material_50">#D9EDE7F6</color>
     <color name="transparent_no_color">#00FFFFFF</color>
 
-    <color name="guide_line">#26999999</color> <!-- 가이드 라인 색상-->
+    <color name="guide_line">#33999999</color> <!-- 가이드 라인 색상-->
+    <color name="guide_text">#B3999999</color> <!-- 가이드 라인 색상-->
     <color name="item_position">#E6999999</color> <!-- 위치 색상-->
 
     <color name="rainbow_white">#FFFFFFFF</color>

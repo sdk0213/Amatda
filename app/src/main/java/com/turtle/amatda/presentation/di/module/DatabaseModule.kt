@@ -5,6 +5,7 @@ import com.turtle.amatda.data.db.AppDatabase
 import com.turtle.amatda.data.db.PreferenceManager
 import com.turtle.amatda.data.db.dao.ItemDao
 import com.turtle.amatda.data.db.dao.CarrierDao
+import com.turtle.amatda.data.db.dao.PocketDao
 import com.turtle.amatda.presentation.di.qualifier.ApplicationContext
 import dagger.Module
 import dagger.Provides
@@ -35,5 +36,9 @@ class DatabaseModule {
         return appDatabase.itemDao()
     }
 
+    @Provides
+    fun providePocketDao(appDatabase: AppDatabase): PocketDao {
+        return appDatabase.pocketDao()
+    }
 
 }

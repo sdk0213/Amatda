@@ -6,13 +6,14 @@ import com.turtle.amatda.domain.usecases.common.FlowableUseCase
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 import javax.inject.Inject
 
-class GetCarrierItemsUseCase @Inject constructor(private val repository: ItemRepository) :
-    FlowableUseCase<List<Item>, Long>(Schedulers.io(), AndroidSchedulers.mainThread()) {
+class GetPocketItemUseCase @Inject constructor(private val repository: ItemRepository) :
+    FlowableUseCase<List<Item>, Date>(Schedulers.io(), AndroidSchedulers.mainThread()) {
 
-    override fun buildUseCaseCompletable(params: Long?): Flowable<List<Item>> {
-        return repository.getItemsByCarrierId(params!!)
+    override fun buildUseCaseCompletable(params: Date?): Flowable<List<Item>> {
+        return repository.getItemsByPocketId(params!!)
     }
 
 }

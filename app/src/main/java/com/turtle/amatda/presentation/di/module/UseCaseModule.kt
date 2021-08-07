@@ -20,7 +20,7 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetTodoUseCase(repository: CarrierRepository): GetUserCarrierUseCase {
+    fun provideGetCarrierUseCase(repository: CarrierRepository): GetUserCarrierUseCase {
         return GetUserCarrierUseCase(repository)
     }
 

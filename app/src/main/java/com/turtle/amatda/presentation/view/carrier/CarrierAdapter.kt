@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.turtle.amatda.databinding.ListItemCarrierBinding
 import com.turtle.amatda.domain.model.Carrier
-import com.turtle.amatda.domain.model.CarrierAndGetHasItemNum
+import com.turtle.amatda.domain.model.CarrierAndGetHasPocketNum
 
 class CarrierAdapter constructor(
     private val clickCarrier : (Carrier) -> (Unit)
-) : ListAdapter<CarrierAndGetHasItemNum, CarrierAdapter.CarrierViewHolder>(
+) : ListAdapter<CarrierAndGetHasPocketNum, CarrierAdapter.CarrierViewHolder>(
     CarrierDiffCallback()
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarrierViewHolder {
@@ -32,11 +32,11 @@ class CarrierAdapter constructor(
         private val binding: ListItemCarrierBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: CarrierAndGetHasItemNum) {
+        fun bind(pocket: CarrierAndGetHasPocketNum) {
             binding.apply {
-                carrierAndGetHasItemNum = item
+                carrierAndGetHasPocketNum = pocket
                 setClickListener {
-                    clickCarrier(item.carrier)
+                    clickCarrier(pocket.carrier)
                 }
                 executePendingBindings()
             }
@@ -45,13 +45,13 @@ class CarrierAdapter constructor(
 
 }
 
-class CarrierDiffCallback : DiffUtil.ItemCallback<CarrierAndGetHasItemNum>() {
+class CarrierDiffCallback : DiffUtil.ItemCallback<CarrierAndGetHasPocketNum>() {
 
-    override fun areItemsTheSame(oldItem: CarrierAndGetHasItemNum, newItem: CarrierAndGetHasItemNum): Boolean {
-        return oldItem.carrier.id == newItem.carrier.id
+    override fun areItemsTheSame(oldPocket: CarrierAndGetHasPocketNum, newPocket: CarrierAndGetHasPocketNum): Boolean {
+        return oldPocket.carrier.id == newPocket.carrier.id
     }
 
-    override fun areContentsTheSame(oldItem: CarrierAndGetHasItemNum, newItem: CarrierAndGetHasItemNum): Boolean {
-        return oldItem.carrier == newItem.carrier
+    override fun areContentsTheSame(oldPocket: CarrierAndGetHasPocketNum, newPocket: CarrierAndGetHasPocketNum): Boolean {
+        return oldPocket.carrier == newPocket.carrier
     }
 }

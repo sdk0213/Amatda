@@ -19,7 +19,7 @@ open class ItemMapper @Inject constructor() : Mapper<ItemEntity, Item> {
             priority = type.priority,
             checked = type.checked,
             item_place = type.item_place,
-            carrier_id = type.carrier_id
+            pocket_id = type.pocket_id
         )
     }
 
@@ -36,7 +36,7 @@ open class ItemMapper @Inject constructor() : Mapper<ItemEntity, Item> {
             priority = type.priority,
             checked = type.checked,
             item_place = type.item_place,
-            carrier_id = type.carrier_id
+            pocket_id = type.pocket_id
         )
     }
 

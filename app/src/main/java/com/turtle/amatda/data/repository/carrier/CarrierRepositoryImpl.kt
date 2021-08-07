@@ -2,10 +2,10 @@ package com.turtle.amatda.data.repository.carrier
 
 import com.turtle.amatda.data.mapper.Mapper
 import com.turtle.amatda.data.model.CarrierEntity
-import com.turtle.amatda.data.model.ItemEntity
+import com.turtle.amatda.data.model.PocketEntity
 import com.turtle.amatda.domain.model.Carrier
-import com.turtle.amatda.domain.model.CarrierAndItems
-import com.turtle.amatda.domain.model.Item
+import com.turtle.amatda.domain.model.CarrierAndPocket
+import com.turtle.amatda.domain.model.Pocket
 import com.turtle.amatda.domain.repository.CarrierRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class CarrierRepositoryImpl @Inject constructor(
     private val carrierMapper: Mapper<CarrierEntity, Carrier>,
-    private val itemMapper: Mapper<ItemEntity, Item>,
+    private val pocketMapper: Mapper<PocketEntity, Pocket>,
     private val factory: CarrierDataSourceFactory
 ) : CarrierRepository {
 
@@ -30,13 +30,13 @@ class CarrierRepositoryImpl @Inject constructor(
         return factory.insertCarrier(carrierEntity)
     }
 
-    override fun getCarrierAndItems(): Flowable<List<CarrierAndItems>> {
-        return factory.getCarrierAndItems().map { list ->
-            list.map { carrierAndItemsEntity ->
-                CarrierAndItems(
-                    carrierMapper.entityToMap(carrierAndItemsEntity.carrier),
-                    carrierAndItemsEntity.items.map { itemEntity ->
-                        itemMapper.entityToMap(itemEntity)
+    override fun getCarrierAndPocket(): Flowable<List<CarrierAndPocket>> {
+        return factory.getCarrierAndPocket().map { list ->
+            list.map { carrierAndPocketEntity ->
+                CarrierAndPocket(
+                    carrierMapper.entityToMap(carrierAndPocketEntity.carrier),
+                    carrierAndPocketEntity.pockets.map { pocketEntity ->
+                        pocketMapper.entityToMap(pocketEntity)
                     }
                 )
             }

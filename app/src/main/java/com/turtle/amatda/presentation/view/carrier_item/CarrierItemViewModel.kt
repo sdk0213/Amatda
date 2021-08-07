@@ -5,23 +5,32 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.domain.model.Carrier
 import com.turtle.amatda.domain.model.Item
-import com.turtle.amatda.domain.usecases.DeleteCarrierItemUseCase
-import com.turtle.amatda.domain.usecases.GetCarrierItemsUseCase
-import com.turtle.amatda.domain.usecases.SaveCarrierItemUseCase
-import com.turtle.amatda.domain.usecases.UpdateCarrierItemUseCase
+import com.turtle.amatda.domain.model.Pocket
+import com.turtle.amatda.domain.usecases.*
+import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringHMSTimeStamp
 import com.turtle.amatda.presentation.view.base.BaseViewModel
+import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 import javax.inject.Inject
 
 class CarrierItemViewModel @Inject constructor(
+    private val getUserCarrierUseCase: GetUserCarrierUseCase,
+    private val saveCarrierPocketUseCase: SaveCarrierPocketUseCase,
     private val saveCarrierItemUseCase: SaveCarrierItemUseCase,
-    private val getCarrierItemsUseCase: GetCarrierItemsUseCase,
+    private val getPocketItemUseCase: GetPocketItemUseCase,
     private val deleteCarrierItemUseCase: DeleteCarrierItemUseCase,
     private val updateCarrierItemUseCase: UpdateCarrierItemUseCase
 ) : BaseViewModel() {
 
-    lateinit var carrier: Carrier
+    lateinit var currentCarrier: Carrier
+    var currentPocket: Pocket = Pocket(id = Date(), carrier_id = 999999999)
     lateinit var itemIdCurrentClicked: Date
+
+    private val _isPocketExist = MutableLiveData(false)
+    val isPocketExist: LiveData<Boolean> get() = _isPocketExist
+
+    private val _pocketList = MutableLiveData<List<Pocket>>()
+    val pocketList: LiveData<List<Pocket>> get() = _pocketList
 
     private val _itemList = MutableLiveData<MutableList<Item>>()
     private val _removeItemList = MutableLiveData<MutableList<Item>>()
@@ -44,10 +53,65 @@ class CarrierItemViewModel @Inject constructor(
     private val _isItemRenameClicked = MutableLiveData(false)
     val isItemRenameClicked: LiveData<Boolean> get() = _isItemRenameClicked
 
-    // 해당 캐리어에 저장된 아이템리스트 가져오기
-    fun getCarrierItems(carrierId: Long) {
+    // 주머니를 변경할경우 기존 데이터의 Observer 를 전부 취소하고 다시 새로운 주머니를 Observable 한다.
+    fun pocketIsChanged(){
+        compositeDisposable.dispose()
+        compositeDisposable = CompositeDisposable()
+        itemIsUnClicked()
+        getCarrierPocket()
+    }
+
+    fun getCarrierPocket() {
+        // todo : 아이템 목록 전부 다 가져오지 말고 carrierId 의 id 값과 동일한것 목록만 가져오기
         compositeDisposable.add(
-            getCarrierItemsUseCase.execute(carrierId)
+            getUserCarrierUseCase.execute()
+                .map { list ->
+                    list.find {
+                        it.carrier.id == currentCarrier.id
+                    }
+                }
+                .subscribe(
+                    { pocketList ->
+                        // 현재 지정된 포켓 주머니가 삭제되었다면 가장 최상위에 있는것으로 가져오기
+                        if (pocketList?.pockets?.any { it.id == currentPocket.id } == false) {
+                            pocketList.pockets.minByOrNull { it.id.time }?.let {
+                                currentPocket = it
+                            }
+                        }
+                        // 주머니 1개 이상 존재 여부
+                        _isPocketExist.value = pocketList?.pockets?.isEmpty() != true
+                        _pocketList.value = pocketList?.pockets
+                        getPocketItems()
+                    },
+                    {
+                        Log.e(TAG, "getCarrierList is Error ${it.message}")
+                    }
+                )
+        )
+    }
+
+    fun addCarrierPocket() {
+        compositeDisposable.add(
+            saveCarrierPocketUseCase.execute(
+                Pocket(
+                    id = Date(),
+                    name = Date().convertDateToStringHMSTimeStamp(),
+                    carrier_id = currentCarrier.id
+                )
+            )
+                .subscribe(
+                    {},
+                    {
+                        Log.e(TAG, "addCarrierPocket is Error ${it.message}")
+                    }
+                )
+        )
+    }
+
+    // 해당 주머니에 저장된 아이템리스트 가져오기
+    fun getPocketItems() {
+        compositeDisposable.add(
+            getPocketItemUseCase.execute(currentPocket.id)
                 .subscribe(
                     { itemListFromDb ->
                         val keepViewList = arrayListOf<Item>() // 유지해야하는 아이템
@@ -60,7 +124,8 @@ class CarrierItemViewModel @Inject constructor(
                         for (i in 0 until beforeItemList.size) {
                             for (j in 0 until itemListFromDb.size) {
                                 // 기존것과 동일하다면 Item 을 유지하며 변경되었다면 Item 제거후 다시 생성
-                                if (beforeItemList[i].id == itemListFromDb[j].id &&
+                                if (beforeItemList[i].pocket_id == itemListFromDb[j].pocket_id &&
+                                    beforeItemList[i].id == itemListFromDb[j].id &&
                                     beforeItemList[i].name == itemListFromDb[j].name &&
                                     beforeItemList[i].width == itemListFromDb[j].width &&
                                     beforeItemList[i].height == itemListFromDb[j].height &&
@@ -84,6 +149,7 @@ class CarrierItemViewModel @Inject constructor(
                         removeViewList.removeAll(keepViewList)
                         beforeItemList.addAll(makeItemList)
 
+                        Log.d("asdjl","makeItemList = ${makeItemList}")
                         _itemList.value = beforeItemList
                         _removeItemList.value = removeViewList
                         _makeItemList.value = makeItemList
@@ -97,7 +163,14 @@ class CarrierItemViewModel @Inject constructor(
     }
 
     fun addItem(itemName: String, place: Int) {
-        saveItem(Item(id = Date(), name = itemName, item_place = place, carrier_id = carrier.id))
+        saveItem(
+            Item(
+                id = Date(),
+                name = itemName,
+                item_place = place,
+                pocket_id = currentPocket.id
+            )
+        )
     }
 
     // todo: 기존에 선택된 아이템들의 정보가 필요한데 지금 이게 Fragment 에서 처리하고 있는데 이거를 Observer 형태로 변경을 해야하나 고민인된다.
@@ -115,7 +188,7 @@ class CarrierItemViewModel @Inject constructor(
                     id = item_id,
                     position_x = item_pos_x,
                     position_y = item_pos_y,
-                    carrier_id = carrier.id
+                    pocket_id = currentPocket.id
                 )
             )
                 .subscribe(
@@ -135,7 +208,7 @@ class CarrierItemViewModel @Inject constructor(
                 Item(
                     id = itemIdCurrentClicked,
                     name = item_name,
-                    carrier_id = carrier.id
+                    pocket_id = currentPocket.id
                 )
             )
                 .subscribe(
@@ -160,7 +233,7 @@ class CarrierItemViewModel @Inject constructor(
                     Item(
                         id = it.id,
                         count = it.count + (if (isCountUp) 1 else -1),
-                        carrier_id = it.carrier_id
+                        pocket_id = it.pocket_id
                     )
                 )
                     .subscribe(
@@ -211,7 +284,7 @@ class CarrierItemViewModel @Inject constructor(
                     Item(
                         id = it.id,
                         color = color,
-                        carrier_id = it.carrier_id
+                        pocket_id = it.pocket_id
                     )
                 )
                     .subscribe(
@@ -234,7 +307,7 @@ class CarrierItemViewModel @Inject constructor(
                     id = itemIdCurrentClicked,
                     width = width,
                     height = height,
-                    carrier_id = carrier.id
+                    pocket_id = currentPocket.id
                 )
             )
                 .subscribe(
@@ -319,6 +392,7 @@ class CarrierItemViewModel @Inject constructor(
         if (_isItemClicked.value == true) _isItemSpeechBubbleVisible.value = true
     }
 
+    // @deprecated 컬러 색 변경 사용하지 않음 (2021/08/05 sdk0213)
     fun itemRecolorIsClicked() {
         _isItemRecolorClicked.value = true
         _isItemRecountClicked.value = false

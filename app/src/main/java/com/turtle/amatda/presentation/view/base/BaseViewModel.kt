@@ -9,7 +9,7 @@ abstract class BaseViewModel : ViewModel() {
         val TAG: String = BaseViewModel::class.java.simpleName
     }
 
-    val compositeDisposable = CompositeDisposable()
+    var compositeDisposable = CompositeDisposable()
 
     override fun onCleared() {
         compositeDisposable.dispose()

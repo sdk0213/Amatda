@@ -1,11 +1,12 @@
 package com.turtle.amatda.data.repository.item
 
+import com.turtle.amatda.data.mapper.Mapper
+import com.turtle.amatda.data.model.ItemEntity
 import com.turtle.amatda.domain.model.Item
 import com.turtle.amatda.domain.repository.ItemRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import com.turtle.amatda.data.mapper.Mapper
-import com.turtle.amatda.data.model.ItemEntity
+import java.util.*
 
 class ItemRepositoryImpl constructor(
     private val mapper: Mapper<ItemEntity, Item>,
@@ -20,8 +21,8 @@ class ItemRepositoryImpl constructor(
         }
     }
 
-    override fun getItemsByCarrierId(carrierId: Long): Flowable<List<Item>> {
-        return factory.getItemByCarrierId(carrierId).map { list ->
+    override fun getItemsByPocketId(pocketId: Date): Flowable<List<Item>> {
+        return factory.getItemByPocketId(pocketId).map { list ->
             list.map { item ->
                 mapper.entityToMap(item)
             }

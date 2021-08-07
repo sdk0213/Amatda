@@ -1,7 +1,7 @@
 package com.turtle.amatda.data.repository.carrier
 
 import com.turtle.amatda.data.db.dao.CarrierDao
-import com.turtle.amatda.data.model.CarrierAndItemsEntity
+import com.turtle.amatda.data.model.CarrierAndPocketEntity
 import com.turtle.amatda.data.model.CarrierEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -17,8 +17,8 @@ class CarrierLocalDataSourceImpl @Inject constructor(private val carrierDao: Car
         return carrierDao.insert(carrier)
     }
 
-    override fun getCarrierAndItems(): Flowable<List<CarrierAndItemsEntity>> {
-        return carrierDao.getCarrierAndItemsData()
+    override fun getCarrierAndPocket(): Flowable<List<CarrierAndPocketEntity>> {
+        return carrierDao.getCarrierAndPocketData()
     }
 
 

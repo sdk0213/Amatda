@@ -11,8 +11,8 @@ interface ItemDao {
     @Query("SELECT * FROM Item")
     fun getAll(): Flowable<List<ItemEntity>>
 
-    @Query("SELECT * FROM Item WHERE carrier_id_foreign == :carrierId")
-    fun getItemByCarrierId(carrierId: Long) : Flowable<List<ItemEntity>>
+    @Query("SELECT * FROM Item WHERE pocket_id_foreign == :pocket_id")
+    fun getItemByPocketId(pocket_id: Date) : Flowable<List<ItemEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(item: List<ItemEntity>): Completable

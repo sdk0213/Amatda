@@ -12,20 +12,29 @@ import com.turtle.amatda.presentation.utilities.DATABASE_NAME
 import com.turtle.amatda.presentation.workers.SeedDatabaseWorker
 import com.turtle.amatda.data.db.dao.ItemDao
 import com.turtle.amatda.data.db.dao.CarrierDao
+import com.turtle.amatda.data.db.dao.PocketDao
 import com.turtle.amatda.data.model.ItemEntity
 import com.turtle.amatda.data.model.CarrierEntity
+import com.turtle.amatda.data.model.PocketEntity
 
-@Database(entities = [CarrierEntity::class, ItemEntity::class], version = 1, exportSchema = false)
+@Database(
+    entities = [
+        CarrierEntity::class,
+        ItemEntity::class,
+        PocketEntity::class], version = 1, exportSchema = false
+)
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun todoDao(): CarrierDao
     abstract fun itemDao(): ItemDao
+    abstract fun pocketDao(): PocketDao
 
     companion object {
 
         // For Singleton instantiation
-        @Volatile private var instance: AppDatabase? = null
+        @Volatile
+        private var instance: AppDatabase? = null
 
         fun getInstance(context: Context): AppDatabase {
             return instance ?: synchronized(this) {
@@ -36,13 +45,13 @@ abstract class AppDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
                 .addCallback(object : RoomDatabase.Callback() {
-                        override fun onCreate(db: SupportSQLiteDatabase) {
-                            super.onCreate(db)
-                            WorkManager.getInstance(context).enqueue(
-                                OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
-                            )
-                        }
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        WorkManager.getInstance(context).enqueue(
+                            OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
+                        )
                     }
+                }
                 )
                 .fallbackToDestructiveMigration()
                 .build()

@@ -1,7 +1,7 @@
 package com.turtle.amatda.data.db.dao
 
 import androidx.room.*
-import com.turtle.amatda.data.model.CarrierAndItemsEntity
+import com.turtle.amatda.data.model.CarrierAndPocketEntity
 import com.turtle.amatda.data.model.CarrierEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -21,9 +21,9 @@ interface CarrierDao {
     fun update(carrier: CarrierEntity): Completable
 
     /**
-     * Carrier With Items
+     * Carrier With Pocket
      */
     @Transaction
     @Query("SELECT * FROM Carrier")
-    fun getCarrierAndItemsData(): Flowable<List<CarrierAndItemsEntity>>
+    fun getCarrierAndPocketData(): Flowable<List<CarrierAndPocketEntity>>
 }

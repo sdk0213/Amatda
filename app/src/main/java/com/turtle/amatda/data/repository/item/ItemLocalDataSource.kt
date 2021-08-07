@@ -1,14 +1,14 @@
 package com.turtle.amatda.data.repository.item
 
 import com.turtle.amatda.data.model.ItemEntity
-import com.turtle.amatda.domain.model.Item
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import java.util.*
 
 interface ItemLocalDataSource {
 
     fun getItemAll(): Flowable<List<ItemEntity>>
-    fun getItemByCarrierId(carrierId: Long) : Flowable<List<ItemEntity>>
+    fun getItemByPocketId(pocketId: Date) : Flowable<List<ItemEntity>>
     fun insertItem(itemEntity: ItemEntity): Completable
     fun insertItemAll(itemEntity: List<ItemEntity>) : Completable
     fun deleteItem(itemEntity: ItemEntity) : Completable

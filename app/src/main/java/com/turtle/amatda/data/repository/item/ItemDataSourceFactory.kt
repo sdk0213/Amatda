@@ -3,6 +3,7 @@ package com.turtle.amatda.data.repository.item
 import com.turtle.amatda.data.model.ItemEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import java.util.*
 import javax.inject.Inject
 
 class ItemDataSourceFactory @Inject constructor(
@@ -12,8 +13,8 @@ class ItemDataSourceFactory @Inject constructor(
         return localDataSource.getItemAll()
     }
 
-    fun getItemByCarrierId(carrierId: Long) : Flowable<List<ItemEntity>> {
-        return localDataSource.getItemByCarrierId(carrierId)
+    fun getItemByPocketId(pocketId: Date) : Flowable<List<ItemEntity>> {
+        return localDataSource.getItemByPocketId(pocketId)
     }
 
     fun insertItem(itemEntity: ItemEntity) : Completable {

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:id="@+id/nav_pocket_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_pocket_submenu"
+            android:title="주머니">
+
+            <menu>
+
+                <item
+                    android:id="@+id/pocket"
+                    android:title="안 주머니(TEST)"
+                    android:icon="@drawable/flaticon_com_ic_book_bag_with_pockets"
+                    app:actionLayout="@layout/menu_nav_pocket_item_count"
+                    app:showAsAction="always" />
+
+                <item
+                    android:id="@+id/pocket2"
+                    android:title="사이드 주머니(TEST)"
+                    android:icon="@drawable/flaticon_com_ic_book_bag_with_pockets"
+                    app:actionLayout="@layout/menu_nav_pocket_item_count"
+                    app:showAsAction="always" />
+
+                <item
+                    android:id="@+id/pocket3"
+                    android:title="뒷 주머니(TEST)"
+                    android:enabled="true"
+                    android:checked="true"
+                    android:checkable="true"
+                    android:icon="@drawable/flaticon_com_ic_book_bag_with_pockets"
+                    app:actionLayout="@layout/menu_nav_pocket_item_count"
+                    app:showAsAction="always" />
+
+            </menu>
+
+        </item>
+    </group>
+
+    <group
+        android:id="@+id/nav_bar_group_2"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/subtitle2"
+            android:title="주머니 관리">
+
+            <menu>
+                <item
+                    android:id="@+id/pocket_add"
+                    android:icon="@drawable/ic_baseline_add_box_24"
+                    android:title="주머니 추가하기" />
+                <item
+                    android:id="@+id/pocket_rename"
+                    android:icon="@drawable/ic_baseline_drive_file_rename_outline_24"
+                    android:title="주머니 이름바꾸기" />
+                <item
+                    android:id="@+id/pocket_delete"
+                    android:icon="@drawable/ic_baseline_minus_24"
+                    android:title="주머니 삭제하기" />
+            </menu>
+
+        </item>
+
+    </group>
+
+    <group
+        android:id="@+id/nav_bar_group_3"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/subtitle3"
+            android:title="종료">
+
+            <menu>
+                <item
+                    android:id="@+id/back_to_home"
+                    android:icon="@drawable/ic_baseline_home_24"
+                    android:title="홈으로" />
+            </menu>
+
+        </item>
+
+    </group>
+
+</menu>

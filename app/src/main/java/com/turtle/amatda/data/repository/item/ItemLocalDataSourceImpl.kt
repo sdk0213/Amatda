@@ -4,6 +4,7 @@ import com.turtle.amatda.data.db.dao.ItemDao
 import com.turtle.amatda.data.model.ItemEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import java.util.*
 
 class ItemLocalDataSourceImpl constructor(private val itemDao: ItemDao): ItemLocalDataSource{
 
@@ -11,8 +12,8 @@ class ItemLocalDataSourceImpl constructor(private val itemDao: ItemDao): ItemLoc
         return itemDao.getAll()
     }
 
-    override fun getItemByCarrierId(carrierId: Long): Flowable<List<ItemEntity>> {
-        return itemDao.getItemByCarrierId(carrierId)
+    override fun getItemByPocketId(pocketId: Date): Flowable<List<ItemEntity>> {
+        return itemDao.getItemByPocketId(pocketId)
     }
 
     override fun insertItem(itemEntity: ItemEntity): Completable {

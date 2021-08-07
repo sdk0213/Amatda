@@ -14,5 +14,5 @@ data class Item(
     val priority: Long = 0,
     val checked: Boolean = false,
     val item_place: Int = 0,
-    val carrier_id: Long
+    val pocket_id: Date
 )

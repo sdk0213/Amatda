@@ -18,7 +18,7 @@ class CarrierFragment : BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R
         }
 
         viewModel.getCarrierList()
-        viewModel.mCarrierAndGetHasItemNum.observe(this){
+        viewModel.mCarrierAndGetHasPocketNum.observe(this){
             carrierAdapter.submitList(it)
         }
     }

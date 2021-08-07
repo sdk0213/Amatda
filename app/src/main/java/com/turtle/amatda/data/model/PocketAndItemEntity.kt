@@ -3,27 +3,12 @@ package com.turtle.amatda.data.model
 import androidx.room.*
 import java.util.*
 
-@Entity(tableName = "Carrier")
-data class CarrierEntity(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "carrier_id")
-    val id: Long,
-    @ColumnInfo(name = "carrier_name")
-    val name: String,
-    @ColumnInfo(name = "carrier_date")
-    val date: Date,
-    @ColumnInfo(name = "carrier_type")
-    val type: String,
-    @ColumnInfo(name = "carrier_size")
-    val size: String,
-)
-
 @Entity(
     tableName = "Item", foreignKeys = [
         ForeignKey(
-            entity = CarrierEntity::class,
-            parentColumns = ["carrier_id"],
-            childColumns = ["carrier_id_foreign"],
+            entity = PocketEntity::class,
+            parentColumns = ["pocket_id"],
+            childColumns = ["pocket_id_foreign"],
             onDelete = ForeignKey.CASCADE
         )]
 )
@@ -62,17 +47,17 @@ data class ItemEntity(
     @ColumnInfo(name = "item_place")
     val item_place: Int = 0,
 
-    @ColumnInfo(name = "carrier_id_foreign", index = true)
-    val carrier_id: Long
+    @ColumnInfo(name = "pocket_id_foreign", index = true)
+    val pocket_id: Date,
 )
 
-data class CarrierAndItemsEntity(
+data class PocketAndItemsEntity(
     @Embedded
-    val carrier: CarrierEntity,
+    val pocket: PocketEntity,
 
     @Relation(
-        parentColumn = "carrier_id",
-        entityColumn = "carrier_id_foreign"
+        parentColumn = "pocket_id",
+        entityColumn = "pocket_id_foreign"
     )
     val items: List<ItemEntity>
 )

@@ -6,6 +6,7 @@ import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.text.TextUtils
 import android.util.Log
+import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.*
@@ -18,10 +19,12 @@ import androidx.activity.OnBackPressedCallback
 import androidx.collection.arrayMapOf
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.tabs.TabLayout
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentCarrierItemBinding
 import com.turtle.amatda.domain.model.Item
+import com.turtle.amatda.domain.model.Pocket
 import com.turtle.amatda.presentation.utilities.extensions.toEditable
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import java.util.*
@@ -37,6 +40,8 @@ class CarrierItemFragment :
     private val viewItemCountMap = arrayMapOf<TextView, TextView>() // 현재 생성된 아이템 View 에 관한 List
     private val viewItemPositionMap = arrayMapOf<TextView, ImageView>() // 현재 생성된 아이템 View 에 관한 List
     private val viewItemColorMap = arrayMapOf<TextView, Long>() // 현재 생성된 아이템 View 에 관한 Color
+    private val viewPocketAndMenuItemViewIdMap =
+        arrayMapOf<Int, Pocket>() // MenuItemViewId 과 Pocket Map
     private var viewIdNewClicked = Date()     // 유저가 새롭게 선택한 View Id (Tag)
     private var viewIdHasBeenClicked = Date() // 이미 선택되어있는 View Id (Tag)
 
@@ -52,8 +57,8 @@ class CarrierItemFragment :
     override fun init() {
         viewModel.apply {
             binding.viewModel = this
-            carrier = args.carrier
-            getCarrierItems(viewModel.carrier.id)
+            currentCarrier = args.carrier
+            getCarrierPocket()
         }
         observer()
         listener()
@@ -61,6 +66,48 @@ class CarrierItemFragment :
     }
 
     private fun observer() {
+
+        // 주머니가 존재한다면 해당 메뉴 생성
+        viewModel.isPocketExist.observe(viewLifecycleOwner) { isPocketExist ->
+            binding.guideViewContainer.visibility = if (isPocketExist) GONE else VISIBLE
+            binding.tabLayout.visibility = if (isPocketExist) VISIBLE else GONE
+            binding.itemContainer.visibility = if (isPocketExist) VISIBLE else GONE
+            binding.topAppBar.menu.setGroupVisible(0, isPocketExist)
+        }
+
+        // 주머니 정보를 받아서 MenuItem View 그리기
+        viewModel.pocketList.observe(viewLifecycleOwner) { pocketList ->
+            binding.navigationView.menu.findItem(R.id.nav_pocket_submenu).subMenu.clear()
+            viewPocketAndMenuItemViewIdMap.clear()
+            pocketList.map {
+                val menuItemViewId = generateViewId()
+                viewPocketAndMenuItemViewIdMap[menuItemViewId] = it
+                binding.navigationView.menu.findItem(R.id.nav_pocket_submenu).subMenu
+                    .add(
+                        R.id.nav_pocket_group,
+                        menuItemViewId,
+                        MenuItem.SHOW_AS_ACTION_ALWAYS,
+                        it.name
+                    )
+                    .apply {
+                        setActionView(R.layout.menu_nav_pocket_delete)
+                        setIcon(R.drawable.flaticon_com_ic_book_bag_with_pockets)
+                        if (it.id == viewModel.currentPocket.id) {
+                            isChecked = true
+                            isCheckable = true
+                        }
+                    }
+                    .actionView.apply {
+                        this.findViewById<MaterialButton>(R.id.button_pocket_delete)
+                            .setOnClickListener {
+                                Log.d(
+                                    "sudeky",
+                                    "actionView Clicked menuItemViewId = ${menuItemViewId}"
+                                )
+                            }
+                    }
+            }
+        }
 
         // 제거해야할 아이템 이름 View 목록
         viewModel.removeItemList.observe(viewLifecycleOwner) { removeItemList ->
@@ -243,7 +290,7 @@ class CarrierItemFragment :
                     (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
                         binding.itemName.windowToken,
                         0
-                    );
+                    )
                     viewModel.itemRenameIsUnClicked()
                 }
             }
@@ -260,6 +307,14 @@ class CarrierItemFragment :
                     true
                 }
             }
+        }
+
+        binding.topAppBar.setNavigationOnClickListener {
+            binding.drawerLayout.open()
+        }
+
+        binding.buttonClickGuideNavigationview.setOnClickListener {
+            binding.drawerLayout.open()
         }
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -284,6 +339,42 @@ class CarrierItemFragment :
 
         }
         )
+
+        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.back_to_home -> {
+                    findNavController().navigateUp()
+                }
+                R.id.pocket_add -> {
+                    viewModel.addCarrierPocket()
+                    true
+                }
+                R.id.pocket_delete -> {
+                    true
+                }
+                R.id.pocket_rename -> {
+                    true
+                }
+                else -> {
+                    viewPocketAndMenuItemViewIdMap[menuItem.itemId]?.let { pocket ->
+                        // 모든 menuItem isCheckable, isChecked =  false 처리하여 View 진행
+                        viewPocketAndMenuItemViewIdMap.forEach {
+                            binding.navigationView.menu.findItem(it.key).apply {
+                                isCheckable = false
+                                isChecked = false
+                            }
+                        }
+                        menuItem.isChecked = true
+                        menuItem.isCheckable = true
+                        viewModel.currentPocket = pocket
+                        viewModel.pocketIsChanged()
+                        viewModel.getPocketItems()
+                    }
+                    binding.drawerLayout.close()
+                    true
+                }
+            }
+        }
     }
 
     // 아이템 View 터치 리스너
@@ -369,11 +460,6 @@ class CarrierItemFragment :
 
         textView.isEnabled = binding.tabLayout.selectedTabPosition == item.item_place
 
-        Log.d("sudeky", "item.item_place : ${item.item_place}")
-        Log.d(
-            "sudeky",
-            "binding.tabLayout.selectedTabPosition : ${binding.tabLayout.selectedTabPosition}"
-        )
         if (item.item_place <= binding.tabLayout.selectedTabPosition) {
             textView.visibility = VISIBLE
             viewItemPositionMap[textView]?.visibility = VISIBLE
@@ -466,7 +552,9 @@ class CarrierItemFragment :
             binding.lifecycleOwner!!,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (viewModel.isItemClicked.value == true) {
+                    if (binding.drawerLayout.isOpen) {
+                        binding.drawerLayout.close()
+                    } else if (viewModel.isItemClicked.value == true) {
                         unSelectItem()
                         viewModel.itemIsUnClicked()
                     } else {

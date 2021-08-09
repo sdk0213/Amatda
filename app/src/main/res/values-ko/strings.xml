@@ -3,6 +3,7 @@
 
     <!-- 공통 -->
     <string name="common_button_checked">확인</string>
+    <string name="common_button_cancel">취소</string>
 
     <!-- 메뉴 -->
     <string name="menu_home">홈</string>
@@ -27,8 +28,13 @@
     <string name="question_carrier_name">가방의 이름의 이름을 정해주세요</string>
     <string name="question_carrier_name_hint">가방 이름</string>
 
-    <!-- 주머니 만들기 -->
+    <!-- 주머니 관련 (Drawer Naviagation 포함)-->
     <string name="add_pocket_guide_text">주머니가 없어요\n새로운 주머니 생성이 필요합니다.</string>
+    <string name="edit_pocket_add">주머니 추가히기</string>
+    <string name="edit_pocket_rename">주머니 이름바꾸기</string>
+    <string name="edit_pocket_delete">주머니 삭제하기</string>
+    <string name="edit_pocket_rename_cancel">취소 (주머니 이름바꾸기)</string>
+    <string name="edit_pocket_delete_cancel">취소 (주머니 삭제하기)</string>
 
     <!-- 물품 만들기 -->
     <string name="add_item_label">물품 추가</string>

@@ -14,3 +14,8 @@ data class PocketAndItem (
     val pocket: Pocket,
     val items: List<Item>
 )
+
+data class PocketAndItemSize (
+    val pocket: Pocket,
+    val itemSize : Int = 0
+)

@@ -4,6 +4,6 @@ import java.util.*
 
 data class Pocket (
     val id: Date,
-    val name: String = "큰 주머니",
+    val name: String = "새 주머니",
     val carrier_id: Long
 )

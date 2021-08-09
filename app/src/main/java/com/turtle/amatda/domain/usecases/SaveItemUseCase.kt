@@ -8,10 +8,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class DeleteCarrierItemUseCase @Inject constructor(private val repository: ItemRepository) :
+class SaveItemUseCase @Inject constructor(private val repository: ItemRepository) :
     CompletableUseCase<Item>(Schedulers.io(), AndroidSchedulers.mainThread()) {
 
     override fun buildUseCaseCompletable(params: Item?): Completable {
-        return repository.deleteItem(params!!)
+        return repository.insertItem(params!!)
     }
 }

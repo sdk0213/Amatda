@@ -3,7 +3,7 @@ package com.turtle.amatda.presentation.di.module
 import com.turtle.amatda.domain.repository.ItemRepository
 import com.turtle.amatda.domain.repository.CarrierRepository
 import com.turtle.amatda.domain.usecases.AddUserCarrierUseCase
-import com.turtle.amatda.domain.usecases.GetUserCarrierUseCase
+import com.turtle.amatda.domain.usecases.GetPocketUseCase
 import com.turtle.amatda.domain.usecases.InsertItemFromAssetsUseCase
 import dagger.Module
 import dagger.Provides
@@ -20,8 +20,8 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetCarrierUseCase(repository: CarrierRepository): GetUserCarrierUseCase {
-        return GetUserCarrierUseCase(repository)
+    fun provideGetCarrierUseCase(repository: CarrierRepository): GetPocketUseCase {
+        return GetPocketUseCase(repository)
     }
 
     @Provides

@@ -8,5 +8,7 @@ import io.reactivex.Flowable
 interface PocketRepository {
     fun getUserPocketAll() : Flowable<List<Pocket>>
     fun insertPocket(pocket: Pocket) : Completable
-    fun getPocketAndItem() : Flowable<List<PocketAndItem>>
+    fun deletePocket(pocket: Pocket) : Completable
+    fun updatePocketName(pocket: Pocket) : Completable
+    fun getPocketAndItem(carrierId: Long) : Flowable<List<PocketAndItem>>
 }

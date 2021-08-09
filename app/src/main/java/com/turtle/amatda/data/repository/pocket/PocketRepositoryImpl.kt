@@ -30,8 +30,18 @@ class PocketRepositoryImpl @Inject constructor(
         return factory.insertPocket(pocketEntity)
     }
 
-    override fun getPocketAndItem(): Flowable<List<PocketAndItem>> {
-        return factory.getPocketAndItems().map { list ->
+    override fun deletePocket(pocket: Pocket): Completable {
+        val pocketEntity = pocketMapper.mapToEntity(pocket)
+        return factory.deletePocket(pocketEntity)
+    }
+
+    override fun updatePocketName(pocket: Pocket): Completable {
+        val pocketEntity = pocketMapper.mapToEntity(pocket)
+        return factory.updatePocketName(pocketEntity)
+    }
+
+    override fun getPocketAndItem(carrierId: Long): Flowable<List<PocketAndItem>> {
+        return factory.getPocketAndItems(carrierId).map { list ->
             list.map { pocketAndItemsEntity ->
                 PocketAndItem(
                     pocketMapper.entityToMap(pocketAndItemsEntity.pocket),

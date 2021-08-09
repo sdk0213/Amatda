@@ -59,7 +59,7 @@
                     android:title="주머니 이름바꾸기" />
                 <item
                     android:id="@+id/pocket_delete"
-                    android:icon="@drawable/ic_baseline_minus_24"
+                    android:icon="@drawable/ic_baseline_delete_24"
                     android:title="주머니 삭제하기" />
             </menu>
 

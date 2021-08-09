@@ -8,7 +8,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class SaveCarrierPocketUseCase @Inject constructor(private val repository: PocketRepository) :
+class SavePocketUseCase @Inject constructor(private val repository: PocketRepository) :
     CompletableUseCase<Pocket>(Schedulers.io(), AndroidSchedulers.mainThread()) {
 
     override fun buildUseCaseCompletable(params: Pocket?): Completable {

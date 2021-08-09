@@ -17,7 +17,15 @@ class PocketDataSourceFactory @Inject constructor(
         return localDataSource.insertPocket(pocketEntity)
     }
 
-    fun getPocketAndItems() : Flowable<List<PocketAndItemsEntity>> {
-        return localDataSource.getPocketAndItems()
+    fun deletePocket(pocketEntity: PocketEntity) : Completable {
+        return localDataSource.deletePocket(pocketEntity)
+    }
+
+    fun updatePocketName(pocketEntity: PocketEntity) : Completable {
+        return localDataSource.updatePocketName(pocketEntity)
+    }
+
+    fun getPocketAndItems(carrierId: Long) : Flowable<List<PocketAndItemsEntity>> {
+        return localDataSource.getPocketAndItems(carrierId)
     }
 }

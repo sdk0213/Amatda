@@ -9,6 +9,8 @@ interface PocketLocalDataSource {
 
     fun getPocketAll(): Flowable<List<PocketEntity>>
     fun insertPocket(pocketEntity: PocketEntity): Completable
-    fun getPocketAndItems() : Flowable<List<PocketAndItemsEntity>>
+    fun deletePocket(pocketEntity: PocketEntity) : Completable
+    fun updatePocketName(pocketEntity: PocketEntity) : Completable
+    fun getPocketAndItems(carrierId: Long) : Flowable<List<PocketAndItemsEntity>>
 
 }

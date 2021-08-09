@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.button.MaterialButton
+    <TextView
         android:id="@+id/button_pocket_add"
         android:layout_width="28dp"
         android:layout_height="28dp"
-        android:background="@drawable/ic_baseline_add_box_24"
+        android:background="@drawable/ic_baseline_drive_file_rename_outline_24"
+        android:backgroundTint="@color/black"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

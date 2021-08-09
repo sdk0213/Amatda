@@ -4,12 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.domain.model.CarrierAndGetHasPocketNum
-import com.turtle.amatda.domain.usecases.GetUserCarrierUseCase
+import com.turtle.amatda.domain.usecases.GetPocketUseCase
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import javax.inject.Inject
 
 class CarrierViewModel @Inject constructor(
-    private val getUserCarrierUseCase: GetUserCarrierUseCase,
+    private val getPocketUseCase: GetPocketUseCase,
 ) : BaseViewModel() {
 
     private val _mCarrierAndGetHasItemNum = MutableLiveData<List<CarrierAndGetHasPocketNum>>()
@@ -19,7 +19,7 @@ class CarrierViewModel @Inject constructor(
 
     fun getCarrierList() {
         compositeDisposable.add(
-            getUserCarrierUseCase.execute()
+            getPocketUseCase.execute()
                 .map { list ->
                     list.map { carrierAndPocketEntity ->
                         CarrierAndGetHasPocketNum(

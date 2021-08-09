@@ -5,21 +5,15 @@ import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.text.TextUtils
-import android.util.Log
-import android.view.MenuItem
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.view.View.*
-import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
-import androidx.collection.arrayMapOf
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.tabs.TabLayout
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentCarrierItemBinding
@@ -36,14 +30,18 @@ class CarrierItemFragment :
     private val args: CarrierItemFragmentArgs by navArgs()
 
     private val viewItemList = arrayListOf<TextView>() // 현재 생성된 아이템 View 에 관한 List
-    private val viewItemMap = arrayMapOf<TextView, Item>()
-    private val viewItemCountMap = arrayMapOf<TextView, TextView>() // 현재 생성된 아이템 View 에 관한 List
-    private val viewItemPositionMap = arrayMapOf<TextView, ImageView>() // 현재 생성된 아이템 View 에 관한 List
-    private val viewItemColorMap = arrayMapOf<TextView, Long>() // 현재 생성된 아이템 View 에 관한 Color
+    private val viewItemMap = mutableMapOf<TextView, Item>() // 현재 생성된 View와 해당 Item의 Map
+    private val viewItemCountMap = mutableMapOf<TextView, TextView>() // 현재 생성된 아이템 View 에 관한 Map
+    private val viewItemPositionMap =
+        mutableMapOf<TextView, ImageView>() // 현재 생성된 아이템 View 에 관한 Map
+    private val viewItemColorMap = mutableMapOf<TextView, Long>() // 현재 생성된 아이템 View 에 관한 Color Map
     private val viewPocketAndMenuItemViewIdMap =
-        arrayMapOf<Int, Pocket>() // MenuItemViewId 과 Pocket Map
+        mutableMapOf<Int, Pocket>() // MenuItemViewId 과 Pocket Map , ViewId를 사용하여 View의 정보를 얻고 이랑 대칭한 Pocket 정보를 얻기위함
     private var viewIdNewClicked = Date()     // 유저가 새롭게 선택한 View Id (Tag)
     private var viewIdHasBeenClicked = Date() // 이미 선택되어있는 View Id (Tag)
+    private val mapOfPocketAndItemSize = mutableMapOf<Pocket, Int>() // 주머니와 주머니의 아이템개수에 관한 Map
+
+    private var viewCurrentClickedMenuItem = 0
 
     private val containerStartY: () -> Int
         get() = {
@@ -58,7 +56,7 @@ class CarrierItemFragment :
         viewModel.apply {
             binding.viewModel = this
             currentCarrier = args.carrier
-            getCarrierPocket()
+            getPocketItems()
         }
         observer()
         listener()
@@ -77,8 +75,8 @@ class CarrierItemFragment :
 
         // 주머니 정보를 받아서 MenuItem View 그리기
         viewModel.pocketList.observe(viewLifecycleOwner) { pocketList ->
-            binding.navigationView.menu.findItem(R.id.nav_pocket_submenu).subMenu.clear()
-            viewPocketAndMenuItemViewIdMap.clear()
+            binding.navigationView.menu.findItem(R.id.nav_pocket_submenu).subMenu.clear() // navigation Item 초기화
+            viewPocketAndMenuItemViewIdMap.clear() // 주머니 정보 Map 초기화
             pocketList.map {
                 val menuItemViewId = generateViewId()
                 viewPocketAndMenuItemViewIdMap[menuItemViewId] = it
@@ -90,23 +88,14 @@ class CarrierItemFragment :
                         it.name
                     )
                     .apply {
-                        setActionView(R.layout.menu_nav_pocket_delete)
                         setIcon(R.drawable.flaticon_com_ic_book_bag_with_pockets)
                         if (it.id == viewModel.currentPocket.id) {
                             isChecked = true
                             isCheckable = true
                         }
                     }
-                    .actionView.apply {
-                        this.findViewById<MaterialButton>(R.id.button_pocket_delete)
-                            .setOnClickListener {
-                                Log.d(
-                                    "sudeky",
-                                    "actionView Clicked menuItemViewId = ${menuItemViewId}"
-                                )
-                            }
-                    }
             }
+            updateViewMenuItemActionView()
         }
 
         // 제거해야할 아이템 이름 View 목록
@@ -123,11 +112,13 @@ class CarrierItemFragment :
                     }
                 }
             }
-            viewItemMap.removeAll(removeTextViewList)
+            removeTextViewList.map {
+                viewItemMap[it]
+                viewItemCountMap[it]
+                viewItemPositionMap[it]
+                viewItemColorMap[it]
+            }
             viewItemList.removeAll(removeTextViewList)
-            viewItemCountMap.removeAll(removeTextViewList)
-            viewItemPositionMap.removeAll(removeTextViewList)
-            viewItemColorMap.removeAll(removeTextViewList)
         }
 
         // 생성해야할 아이템 이름 View 목록
@@ -259,15 +250,59 @@ class CarrierItemFragment :
                 (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
                     binding.itemName.windowToken,
                     0
-                );
+                )
+            }
+        }
+
+        // 주머니 삭제 클릭 관찰자
+        viewModel.isPocketDeleteClicked.observe(viewLifecycleOwner) { pocketDeleteClicked ->
+            updateViewMenuItemActionView()
+            binding.navigationView.menu.findItem(R.id.pocket_delete)
+                .setTitle(
+                    if (pocketDeleteClicked) getString(R.string.edit_pocket_delete_cancel) else getString(
+                        R.string.edit_pocket_delete
+                    )
+                )
+                .setIcon(if (pocketDeleteClicked) R.drawable.ic_baseline_cancel_24 else R.drawable.ic_baseline_delete_24)
+                .setChecked(pocketDeleteClicked)
+                .setCheckable(pocketDeleteClicked)
+        }
+
+        // 주머니 이름 변경 클릭 관찰자
+        viewModel.isPocketRenameClicked.observe(viewLifecycleOwner) { pocketRenameClicked ->
+            if (pocketRenameClicked == false) {
+                binding.pocketNameView.visibility = GONE
+                binding.pocketName.clearFocus()
+                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                    binding.pocketName.windowToken,
+                    0
+                )
+            }
+            updateViewMenuItemActionView()
+            binding.navigationView.menu.findItem(R.id.pocket_rename)
+                .setTitle(
+                    if (pocketRenameClicked) getString(R.string.edit_pocket_rename_cancel) else getString(
+                        R.string.edit_pocket_rename
+                    )
+                )
+                .setIcon(if (pocketRenameClicked) R.drawable.ic_baseline_cancel_24 else R.drawable.ic_baseline_drive_file_rename_outline_24)
+                .setChecked(pocketRenameClicked)
+                .setCheckable(pocketRenameClicked)
+        }
+
+        viewModel.pocketAndItemSize.observe(viewLifecycleOwner) { listOfPocketAndItemSize ->
+            mapOfPocketAndItemSize.clear()
+            listOfPocketAndItemSize.map {
+                mapOfPocketAndItemSize[it.pocket] = it.itemSize
             }
         }
 
     }
 
     private fun listener() {
-        // Custom Listener 를 View에 바인딩하는 방법을 모르겠다... OnClick 에다가 주기에는 전체 View 에 대한 Listener 이기 때문에 잘못되었다.
+        // Custom Listener 를 View 에 바인딩하는 방법을 모르겠다... OnClick 에다가 주기에는 전체 View 에 대한 Listener 이기 때문에 잘못되었다.
         // 그래서 우선은 Fragment 에서 생성
+        // 물품 이름 변경
         binding.itemNameView.setEndIconOnClickListener {
             binding.itemName.text.toString().let {
                 if (!TextUtils.isEmpty(it)) viewModel.editItem(it)
@@ -276,25 +311,69 @@ class CarrierItemFragment :
                 (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
                     binding.itemName.windowToken,
                     0
-                );
-                viewModel.itemRenameIsUnClicked()
+                )
             }
         }
 
-        binding.itemName.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                binding.itemName.text.toString().let {
-                    if (!TextUtils.isEmpty(it)) viewModel.editItem(it)
-                    binding.itemNameView.visibility = GONE
-                    binding.itemName.clearFocus()
-                    (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                        binding.itemName.windowToken,
-                        0
-                    )
-                    viewModel.itemRenameIsUnClicked()
+        // 물품 이름 변경 - [키보드 확인]
+        binding.itemName.setOnKeyListener { v, keyCode, event ->
+            when (keyCode) {
+                KeyEvent.KEYCODE_ENTER -> {
+                    binding.itemName.text.toString().let {
+                        if (!TextUtils.isEmpty(it)) viewModel.editItem(it)
+                        binding.itemNameView.visibility = GONE
+                        binding.itemName.clearFocus()
+                        (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                            binding.itemName.windowToken,
+                            0
+                        )
+                        viewModel.itemRenameIsUnClicked()
+                    }
+                    true
+                }
+                else -> {
+                    false
                 }
             }
-            false
+        }
+
+        // 주머니 이름 변경 리스너
+        binding.pocketNameView.setEndIconOnClickListener {
+            binding.pocketName.text.toString().let {
+                if (!TextUtils.isEmpty(it)) viewModel.editPocket(
+                    viewPocketAndMenuItemViewIdMap[viewCurrentClickedMenuItem]?.id ?: Date(), it
+                )
+                binding.pocketNameView.visibility = GONE
+                binding.pocketName.clearFocus()
+                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                    binding.pocketName.windowToken,
+                    0
+                )
+            }
+        }
+
+        // 주머니 이름 변경 리스너 - [키보드 확인]
+        binding.pocketName.setOnKeyListener { v, keyCode, event ->
+            when (keyCode) {
+                KeyEvent.KEYCODE_ENTER -> {
+                    binding.pocketName.text.toString().let {
+                        if (!TextUtils.isEmpty(it)) viewModel.editPocket(
+                            viewPocketAndMenuItemViewIdMap[viewCurrentClickedMenuItem]?.id
+                                ?: Date(), it
+                        )
+                        binding.pocketNameView.visibility = GONE
+                        binding.pocketName.clearFocus()
+                        (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                            binding.pocketName.windowToken,
+                            0
+                        )
+                    }
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
         }
 
         binding.topAppBar.setOnMenuItemClickListener {
@@ -308,6 +387,22 @@ class CarrierItemFragment :
                 }
             }
         }
+
+        binding.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                viewModel.pocketAllUnClicked()
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {
+            }
+
+        })
 
         binding.topAppBar.setNavigationOnClickListener {
             binding.drawerLayout.open()
@@ -350,9 +445,11 @@ class CarrierItemFragment :
                     true
                 }
                 R.id.pocket_delete -> {
+                    viewModel.pocketDeleteClicked()
                     true
                 }
                 R.id.pocket_rename -> {
+                    viewModel.pocketRenameClicked()
                     true
                 }
                 else -> {
@@ -368,7 +465,6 @@ class CarrierItemFragment :
                         menuItem.isCheckable = true
                         viewModel.currentPocket = pocket
                         viewModel.pocketIsChanged()
-                        viewModel.getPocketItems()
                     }
                     binding.drawerLayout.close()
                     true
@@ -428,7 +524,7 @@ class CarrierItemFragment :
         (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
             binding.itemName.windowToken,
             0
-        );
+        )
         binding.itemNameView.visibility = GONE
         viewItemList.find { it.tag == viewIdHasBeenClicked }?.isSelected = false
         viewModel.itemResizeIsUnClicked()
@@ -491,6 +587,48 @@ class CarrierItemFragment :
         binding.editDecreaseHeight.bringToFront()
         binding.editSpeechBubble.bringToFront()
 
+    }
+
+    // 현재 사용자가 선택한 주머니 관리에 따라서 설정하기
+    private fun updateViewMenuItemActionView() {
+        viewPocketAndMenuItemViewIdMap.forEach {
+            binding.navigationView.menu.findItem(R.id.nav_pocket_submenu).subMenu
+                .findItem(it.key)
+                .setActionView(
+                    if (viewModel.isPocketDeleteClicked.value == true) {
+                        R.layout.menu_nav_pocket_delete
+                    } else if (viewModel.isPocketRenameClicked.value == true) {
+                        R.layout.menu_nav_pocket_rename
+                    } else {
+                        R.layout.menu_nav_pocket_item_count
+                    }
+                )
+                .actionView.apply {
+                    this.setOnClickListener { view ->
+                        viewCurrentClickedMenuItem = view.id
+                        if (viewModel.isPocketDeleteClicked.value == true) {
+                            viewModel.deletePocket(
+                                viewPocketAndMenuItemViewIdMap[view.id]?.id ?: Date()
+                            )
+                        } else if (viewModel.isPocketRenameClicked.value == true) {
+                            binding.pocketNameView.visibility = VISIBLE
+                            binding.pocketName.requestFocus()
+                            (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(
+                                binding.pocketName,
+                                0
+                            )
+                            binding.pocketName.text =
+                                viewPocketAndMenuItemViewIdMap[view.id]?.name?.toEditable()
+                                    ?: "해당 주머니 이름을 모르겠습니다.".toEditable()
+                            binding.pocketName.setSelection(binding.pocketName.text.toString().length)
+                        }
+                    }
+                    if (viewModel.isPocketDeleteClicked.value == false && viewModel.isPocketRenameClicked.value == false) {
+                        this.findViewById<TextView>(R.id.pocket_item_count).text =
+                            mapOfPocketAndItemSize[it.value].toString()
+                    }
+                }
+        }
     }
 
     // 아이템 툴팁 포지셔닝

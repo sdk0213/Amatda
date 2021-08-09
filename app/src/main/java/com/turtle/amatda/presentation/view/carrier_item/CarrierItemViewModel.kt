@@ -6,20 +6,20 @@ import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.domain.model.Carrier
 import com.turtle.amatda.domain.model.Item
 import com.turtle.amatda.domain.model.Pocket
+import com.turtle.amatda.domain.model.PocketAndItemSize
 import com.turtle.amatda.domain.usecases.*
-import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringHMSTimeStamp
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 import javax.inject.Inject
 
 class CarrierItemViewModel @Inject constructor(
-    private val getUserCarrierUseCase: GetUserCarrierUseCase,
-    private val saveCarrierPocketUseCase: SaveCarrierPocketUseCase,
-    private val saveCarrierItemUseCase: SaveCarrierItemUseCase,
-    private val getPocketItemUseCase: GetPocketItemUseCase,
-    private val deleteCarrierItemUseCase: DeleteCarrierItemUseCase,
-    private val updateCarrierItemUseCase: UpdateCarrierItemUseCase
+    private val savePocketUseCase: SavePocketUseCase,
+    private val updatePocketUseCase: UpdatePocketUseCase,
+    private val saveItemUseCase: SaveItemUseCase,
+    private val getAllPcoketAndItemUseCase: GetAllPcoketAndItemUseCase,
+    private val deleteItemUseCase: DeleteItemUseCase,
+    private val updateItemUseCase: UpdateItemUseCase
 ) : BaseViewModel() {
 
     lateinit var currentCarrier: Carrier
@@ -31,6 +31,9 @@ class CarrierItemViewModel @Inject constructor(
 
     private val _pocketList = MutableLiveData<List<Pocket>>()
     val pocketList: LiveData<List<Pocket>> get() = _pocketList
+
+    private val _pocketAndItemSize = MutableLiveData<List<PocketAndItemSize>>()
+    val pocketAndItemSize: LiveData<List<PocketAndItemSize>> get() = _pocketAndItemSize
 
     private val _itemList = MutableLiveData<MutableList<Item>>()
     private val _removeItemList = MutableLiveData<MutableList<Item>>()
@@ -52,50 +55,26 @@ class CarrierItemViewModel @Inject constructor(
     val isItemRecolorClicked: LiveData<Boolean> get() = _isItemRecolorClicked
     private val _isItemRenameClicked = MutableLiveData(false)
     val isItemRenameClicked: LiveData<Boolean> get() = _isItemRenameClicked
+    private val _isPocketAddClicked = MutableLiveData(false)
+    val isPocketAddClicked: LiveData<Boolean> get() = _isPocketAddClicked
+    private val _isPocketDeleteClicked = MutableLiveData(false)
+    val isPocketDeleteClicked: LiveData<Boolean> get() = _isPocketDeleteClicked
+    private val _isPocketRenameClicked = MutableLiveData(false)
+    val isPocketRenameClicked: LiveData<Boolean> get() = _isPocketRenameClicked
 
     // 주머니를 변경할경우 기존 데이터의 Observer 를 전부 취소하고 다시 새로운 주머니를 Observable 한다.
-    fun pocketIsChanged(){
+    fun pocketIsChanged() {
         compositeDisposable.dispose()
         compositeDisposable = CompositeDisposable()
         itemIsUnClicked()
-        getCarrierPocket()
-    }
-
-    fun getCarrierPocket() {
-        // todo : 아이템 목록 전부 다 가져오지 말고 carrierId 의 id 값과 동일한것 목록만 가져오기
-        compositeDisposable.add(
-            getUserCarrierUseCase.execute()
-                .map { list ->
-                    list.find {
-                        it.carrier.id == currentCarrier.id
-                    }
-                }
-                .subscribe(
-                    { pocketList ->
-                        // 현재 지정된 포켓 주머니가 삭제되었다면 가장 최상위에 있는것으로 가져오기
-                        if (pocketList?.pockets?.any { it.id == currentPocket.id } == false) {
-                            pocketList.pockets.minByOrNull { it.id.time }?.let {
-                                currentPocket = it
-                            }
-                        }
-                        // 주머니 1개 이상 존재 여부
-                        _isPocketExist.value = pocketList?.pockets?.isEmpty() != true
-                        _pocketList.value = pocketList?.pockets
-                        getPocketItems()
-                    },
-                    {
-                        Log.e(TAG, "getCarrierList is Error ${it.message}")
-                    }
-                )
-        )
+        getPocketItems()
     }
 
     fun addCarrierPocket() {
         compositeDisposable.add(
-            saveCarrierPocketUseCase.execute(
+            savePocketUseCase.execute(
                 Pocket(
                     id = Date(),
-                    name = Date().convertDateToStringHMSTimeStamp(),
                     carrier_id = currentCarrier.id
                 )
             )
@@ -111,29 +90,50 @@ class CarrierItemViewModel @Inject constructor(
     // 해당 주머니에 저장된 아이템리스트 가져오기
     fun getPocketItems() {
         compositeDisposable.add(
-            getPocketItemUseCase.execute(currentPocket.id)
+            getAllPcoketAndItemUseCase.execute(currentCarrier.id)
                 .subscribe(
-                    { itemListFromDb ->
+                    { pocketAndItem ->
+                        val currentPocketAndItem = arrayListOf<PocketAndItemSize>()
+                        pocketAndItem.map {
+                            currentPocketAndItem.add(PocketAndItemSize(it.pocket, it.items.size))
+                        }
+                        _pocketAndItemSize.value = currentPocketAndItem
+
+                        if (pocketAndItem?.any { it.pocket.id == currentPocket.id } == false) {
+                            pocketAndItem.minByOrNull { it.pocket.id.time }?.let {
+                                currentPocket = it.pocket
+                            }
+                        }
+                        // 주머니 1개 이상 존재 여부
+                        _isPocketExist.value = pocketAndItem?.isEmpty() != true
+                        val pocketListByCarrierId = arrayListOf<Pocket>()
+                        pocketAndItem.map { pocketListByCarrierId.add(it.pocket) }
+                        _pocketList.value = pocketListByCarrierId
+
+                        val itemListByCurrentPocket =
+                            pocketAndItem.find { it.pocket.id == currentPocket.id }?.items
+                                ?: arrayListOf(Item(id = Date(), pocket_id = Date()))
+
                         val keepViewList = arrayListOf<Item>() // 유지해야하는 아이템
                         val removeViewList = arrayListOf<Item>() // 제거해야하는 아이템
                         val makeItemList = arrayListOf<Item>() // 생성해야 하는 아이템
                         val beforeItemList = mutableListOf<Item>() // 원래 아이템 리스트
                         _itemList.value?.let { list -> beforeItemList.addAll(list) } // 원래 아이템 리스트 가져오기
                         removeViewList.addAll(beforeItemList)
-                        makeItemList.addAll(itemListFromDb)
+                        makeItemList.addAll(itemListByCurrentPocket)
                         for (i in 0 until beforeItemList.size) {
-                            for (j in 0 until itemListFromDb.size) {
+                            for (j in 0 until itemListByCurrentPocket.size) {
                                 // 기존것과 동일하다면 Item 을 유지하며 변경되었다면 Item 제거후 다시 생성
-                                if (beforeItemList[i].pocket_id == itemListFromDb[j].pocket_id &&
-                                    beforeItemList[i].id == itemListFromDb[j].id &&
-                                    beforeItemList[i].name == itemListFromDb[j].name &&
-                                    beforeItemList[i].width == itemListFromDb[j].width &&
-                                    beforeItemList[i].height == itemListFromDb[j].height &&
-                                    beforeItemList[i].count == itemListFromDb[j].count &&
-                                    beforeItemList[i].color == itemListFromDb[j].color
+                                if (beforeItemList[i].pocket_id == itemListByCurrentPocket[j].pocket_id &&
+                                    beforeItemList[i].id == itemListByCurrentPocket[j].id &&
+                                    beforeItemList[i].name == itemListByCurrentPocket[j].name &&
+                                    beforeItemList[i].width == itemListByCurrentPocket[j].width &&
+                                    beforeItemList[i].height == itemListByCurrentPocket[j].height &&
+                                    beforeItemList[i].count == itemListByCurrentPocket[j].count &&
+                                    beforeItemList[i].color == itemListByCurrentPocket[j].color
                                 ) {
                                     keepViewList.add(beforeItemList[i])
-                                    makeItemList.remove(itemListFromDb[j])
+                                    makeItemList.remove(itemListByCurrentPocket[j])
                                     break
                                 }
                             }
@@ -149,7 +149,7 @@ class CarrierItemViewModel @Inject constructor(
                         removeViewList.removeAll(keepViewList)
                         beforeItemList.addAll(makeItemList)
 
-                        Log.d("asdjl","makeItemList = ${makeItemList}")
+                        Log.d("asdjl", "_makeItemList.value = ${_makeItemList.value}")
                         _itemList.value = beforeItemList
                         _removeItemList.value = removeViewList
                         _makeItemList.value = makeItemList
@@ -157,6 +157,43 @@ class CarrierItemViewModel @Inject constructor(
                     },
                     {
                         Log.e(TAG, "getItems is Error ${it.message}")
+                    }
+                )
+        )
+    }
+
+    fun deletePocket(pocketId: Date) {
+        updatePocketUseCase.updateType = updatePocketUseCase.typePocketDelete
+        compositeDisposable.add(
+            updatePocketUseCase.execute(
+                Pocket(
+                    id = pocketId,
+                    carrier_id = currentCarrier.id
+                )
+            )
+                .subscribe(
+                    {},
+                    {
+                        Log.e(TAG, "deletePocket is Error ${it.message}")
+                    }
+                )
+        )
+    }
+
+    fun editPocket(pocketId: Date, pocketName: String) {
+        updatePocketUseCase.updateType = updatePocketUseCase.typePocketRename
+        compositeDisposable.add(
+            updatePocketUseCase.execute(
+                Pocket(
+                    id = pocketId,
+                    name = pocketName,
+                    carrier_id = currentCarrier.id
+                )
+            )
+                .subscribe(
+                    {},
+                    {
+                        Log.e(TAG, "editPocket Name to ${pocketName} is Error ${it.message}")
                     }
                 )
         )
@@ -181,9 +218,9 @@ class CarrierItemViewModel @Inject constructor(
     }
 
     fun updateMove(item_id: Date, item_pos_x: Float, item_pos_y: Float) {
-        updateCarrierItemUseCase.updateType = updateCarrierItemUseCase.typeItemMove
+        updateItemUseCase.updateType = updateItemUseCase.typeItemMove
         compositeDisposable.add(
-            updateCarrierItemUseCase.execute(
+            updateItemUseCase.execute(
                 Item(
                     id = item_id,
                     position_x = item_pos_x,
@@ -202,9 +239,9 @@ class CarrierItemViewModel @Inject constructor(
     }
 
     fun editItem(item_name: String) {
-        updateCarrierItemUseCase.updateType = updateCarrierItemUseCase.typeItemName
+        updateItemUseCase.updateType = updateItemUseCase.typeItemName
         compositeDisposable.add(
-            updateCarrierItemUseCase.execute(
+            updateItemUseCase.execute(
                 Item(
                     id = itemIdCurrentClicked,
                     name = item_name,
@@ -223,13 +260,13 @@ class CarrierItemViewModel @Inject constructor(
     }
 
     fun recountItem(isCountUp: Boolean) {
-        updateCarrierItemUseCase.updateType = updateCarrierItemUseCase.typeItemCount
+        updateItemUseCase.updateType = updateItemUseCase.typeItemCount
         _itemList.value?.find {
             it.id == itemIdCurrentClicked
         }?.let {
             if (it.count + (if (isCountUp) 1 else -1) < 1) return
             compositeDisposable.add(
-                updateCarrierItemUseCase.execute(
+                updateItemUseCase.execute(
                     Item(
                         id = it.id,
                         count = it.count + (if (isCountUp) 1 else -1),
@@ -278,9 +315,9 @@ class CarrierItemViewModel @Inject constructor(
         _itemList.value?.find {
             it.id == itemIdCurrentClicked
         }?.let {
-            updateCarrierItemUseCase.updateType = updateCarrierItemUseCase.typeItemColor
+            updateItemUseCase.updateType = updateItemUseCase.typeItemColor
             compositeDisposable.add(
-                updateCarrierItemUseCase.execute(
+                updateItemUseCase.execute(
                     Item(
                         id = it.id,
                         color = color,
@@ -300,9 +337,9 @@ class CarrierItemViewModel @Inject constructor(
     }
 
     private fun updateSize(width: Int, height: Int) {
-        updateCarrierItemUseCase.updateType = updateCarrierItemUseCase.typeItemSize
+        updateItemUseCase.updateType = updateItemUseCase.typeItemSize
         compositeDisposable.add(
-            updateCarrierItemUseCase.execute(
+            updateItemUseCase.execute(
                 Item(
                     id = itemIdCurrentClicked,
                     width = width,
@@ -322,7 +359,7 @@ class CarrierItemViewModel @Inject constructor(
 
     private fun saveItem(item: Item) {
         compositeDisposable.add(
-            saveCarrierItemUseCase.execute(item)
+            saveItemUseCase.execute(item)
                 .subscribe(
                     {},
                     {
@@ -334,7 +371,7 @@ class CarrierItemViewModel @Inject constructor(
 
     private fun deleteItem(item: Item) {
         compositeDisposable.add(
-            deleteCarrierItemUseCase.execute(item)
+            deleteItemUseCase.execute(item)
                 .subscribe(
                     {
                         itemIsUnClicked()
@@ -418,4 +455,20 @@ class CarrierItemViewModel @Inject constructor(
         _isItemRenameClicked.value = false
         if (_isItemClicked.value == true) _isItemSpeechBubbleVisible.value = true
     }
+
+    fun pocketAllUnClicked() {
+        _isPocketRenameClicked.value = false
+        _isPocketDeleteClicked.value = false
+    }
+
+    fun pocketDeleteClicked() {
+        _isPocketRenameClicked.value = false
+        _isPocketDeleteClicked.value = _isPocketDeleteClicked.value == false
+    }
+
+    fun pocketRenameClicked() {
+        _isPocketDeleteClicked.value = false
+        _isPocketRenameClicked.value = _isPocketRenameClicked.value == false
+    }
+
 }

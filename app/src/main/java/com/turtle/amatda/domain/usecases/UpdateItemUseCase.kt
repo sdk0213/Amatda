@@ -8,7 +8,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class UpdateCarrierItemUseCase @Inject constructor(private val repository: ItemRepository) :
+class UpdateItemUseCase @Inject constructor(private val repository: ItemRepository) :
     CompletableUseCase<Item>(Schedulers.io(), AndroidSchedulers.mainThread()) {
 
     val typeItemMove = "ITEM_MOVE"

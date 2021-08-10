@@ -36,3 +36,12 @@
  
 * ![중간기획](https://user-images.githubusercontent.com/51182964/127456396-e77f8dc8-6718-4980-8f4f-ae06b984ebcc.png)
 #### 디자인 기획을 하고나니까 기능과 방향성이 더욱 구체적으로 눈 앞에 보여 아주 좋다. 기획이 얼만큼 중요한것인지 몸소 깨닫는다.
+---
+### 개발_현황 (21_08_10)
+* 주머니와 물건 층개념 도입에 생각보다 시간이 오래걸렸다.
+* ![구현결과](https://user-images.githubusercontent.com/51182964/128870399-61a1a26f-bb72-40ed-afb3-b18d8d66858e.png)
+
+* 검색기능 개발에 시간이 많이 소요될것으로 예상되어 디자인과 ui는 Material SearchView 라이브러리를 사용하기로 결정
+##### 검색 기능 예상 UI
+* <img src="https://user-images.githubusercontent.com/51182964/128870443-06fe76d7-ee38-4ffc-ab68-bcd70fe21b69.png" width="40%" height="40%">
+

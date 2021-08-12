@@ -14,6 +14,7 @@
     <!-- 앱 바 메뉴 -->
     <string name="app_bar_search">검색</string>
     <string name="app_bar_item_add">물품 추가</string>
+    <string name="app_bar_carrier_add">가방 추가</string>
     <string name="app_bar_more">더 보기</string>
 
     <!-- contentDescription -->
@@ -52,5 +53,8 @@
     <string name="item_guide_text_1">안\n쪽\n(1 층)</string>
     <string name="item_guide_text_2">가운데\n쪽\n(2 층)</string>
     <string name="item_guide_text_3">바 깥\n쪽\n(3 층)</string>
+
+    <!-- 검색 -->
+    <string name="item_search_hint">물품 검색...</string>
 
 </resources>

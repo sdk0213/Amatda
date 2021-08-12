@@ -3,10 +3,7 @@ package com.turtle.amatda.presentation.view.carrier_item
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.turtle.amatda.domain.model.Carrier
-import com.turtle.amatda.domain.model.Item
-import com.turtle.amatda.domain.model.Pocket
-import com.turtle.amatda.domain.model.PocketAndItemSize
+import com.turtle.amatda.domain.model.*
 import com.turtle.amatda.domain.usecases.*
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -14,6 +11,8 @@ import java.util.*
 import javax.inject.Inject
 
 class CarrierItemViewModel @Inject constructor(
+    private val getAllItemUseCase: GetAllItemUseCase,
+    private val getPocketUseCase: GetPocketUseCase,
     private val savePocketUseCase: SavePocketUseCase,
     private val updatePocketUseCase: UpdatePocketUseCase,
     private val saveItemUseCase: SaveItemUseCase,
@@ -28,6 +27,11 @@ class CarrierItemViewModel @Inject constructor(
 
     private val _isPocketExist = MutableLiveData(false)
     val isPocketExist: LiveData<Boolean> get() = _isPocketExist
+
+    private val _allCarrierPocketList = MutableLiveData<List<CarrierAndPocket>>()
+    val allCarrierPocketList: LiveData<List<CarrierAndPocket>> get() = _allCarrierPocketList
+    private val _allItemList = MutableLiveData<List<Item>>()
+    val allItemList: LiveData<List<Item>> get() = _allItemList
 
     private val _pocketList = MutableLiveData<List<Pocket>>()
     val pocketList: LiveData<List<Pocket>> get() = _pocketList
@@ -61,6 +65,28 @@ class CarrierItemViewModel @Inject constructor(
     val isPocketDeleteClicked: LiveData<Boolean> get() = _isPocketDeleteClicked
     private val _isPocketRenameClicked = MutableLiveData(false)
     val isPocketRenameClicked: LiveData<Boolean> get() = _isPocketRenameClicked
+
+    // 모든 아이템 가져오기
+    fun getAllItem(){
+        compositeDisposable.add(
+            getPocketUseCase.execute()
+                .subscribe(
+                    {
+                        _allCarrierPocketList.value = it
+                        compositeDisposable.add(
+                            getAllItemUseCase.execute()
+                                .subscribe(
+                                    {
+                                        _allItemList.value = it
+                                    },
+                                    {}
+                                )
+                        )
+                    },
+                    {}
+                )
+        )
+    }
 
     // 주머니를 변경할경우 기존 데이터의 Observer 를 전부 취소하고 다시 새로운 주머니를 Observable 한다.
     fun pocketIsChanged() {
@@ -103,6 +129,8 @@ class CarrierItemViewModel @Inject constructor(
                             pocketAndItem.minByOrNull { it.pocket.id.time }?.let {
                                 currentPocket = it.pocket
                             }
+                        } else {
+                            currentPocket = pocketAndItem?.find { it.pocket.id == currentPocket.id }?.pocket!!
                         }
                         // 주머니 1개 이상 존재 여부
                         _isPocketExist.value = pocketAndItem?.isEmpty() != true

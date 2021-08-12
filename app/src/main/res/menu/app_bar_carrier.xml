@@ -3,9 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/more"
-        android:title="@string/app_bar_more"
-        android:contentDescription="@string/app_bar_more"
-        app:showAsAction="never" />
+        android:id="@+id/item_search"
+        android:title="@string/app_bar_search"
+        android:contentDescription="@string/app_bar_search"
+        android:icon="@drawable/ic_baseline_search_24"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/item_add_carrier"
+        android:title="@string/app_bar_carrier_add"
+        android:contentDescription="@string/app_bar_carrier_add"
+        android:icon="@drawable/ic_add_24"
+        app:showAsAction="always" />
 
 </menu>

@@ -5,15 +5,18 @@ import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.text.TextUtils
+import android.util.Log
 import android.view.*
 import android.view.View.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import br.com.mauker.materialsearchview.MaterialSearchView
 import com.google.android.material.tabs.TabLayout
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentCarrierItemBinding
@@ -41,6 +44,10 @@ class CarrierItemFragment :
     private var viewIdHasBeenClicked = Date() // 이미 선택되어있는 View Id (Tag)
     private val mapOfPocketAndItemSize = mutableMapOf<Pocket, Int>() // 주머니와 주머니의 아이템개수에 관한 Map
 
+    private val arrayOfAllItem = arrayListOf<String>()
+    private val mapOfPocketIdAndPocketName = mutableMapOf<Date,String>()
+    private val mapOfPocketIdAndCarrierName = mutableMapOf<Date,String>()
+
     private var viewCurrentClickedMenuItem = 0
 
     private val containerStartY: () -> Int
@@ -56,8 +63,11 @@ class CarrierItemFragment :
         viewModel.apply {
             binding.viewModel = this
             currentCarrier = args.carrier
+            getAllItem()
             getPocketItems()
         }
+
+        binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.nav_header_title).text = " - ${viewModel.currentCarrier.name}"
         observer()
         listener()
         onBackPressed()
@@ -95,6 +105,7 @@ class CarrierItemFragment :
                         }
                     }
             }
+            binding.topAppBar.title = viewModel.currentPocket.name
             updateViewMenuItemActionView()
         }
 
@@ -297,6 +308,31 @@ class CarrierItemFragment :
             }
         }
 
+        viewModel.allCarrierPocketList.observe(viewLifecycleOwner) { allCarrierAndPocket ->
+            mapOfPocketIdAndCarrierName.clear()
+            mapOfPocketIdAndPocketName.clear()
+            allCarrierAndPocket.forEach{ carrierAndPocket ->
+                carrierAndPocket.pockets.forEach { pocket ->
+                    mapOfPocketIdAndCarrierName[pocket.id] = carrierAndPocket.carrier.name
+                    mapOfPocketIdAndPocketName[pocket.id] = pocket.name
+                }
+            }
+        }
+
+        viewModel.allItemList.observe(viewLifecycleOwner) { listOfAllItem ->
+            arrayOfAllItem.clear()
+            listOfAllItem.forEach{ item ->
+                // "새 물품 (캐리어가방 - 큰주머니 - 바깥쪽)",
+                arrayOfAllItem.add("${item.name} (${mapOfPocketIdAndCarrierName[item.pocket_id]} - ${mapOfPocketIdAndPocketName[item.pocket_id]} - ${
+                    when(item.item_place){
+                        0 -> "안쪽"
+                        1 -> "가운데 쪽"
+                        else ->"바깥 쪽"
+                    }
+                })")
+            }
+        }
+
     }
 
     private fun listener() {
@@ -382,9 +418,53 @@ class CarrierItemFragment :
                     viewModel.addItem("새 물품", binding.tabLayout.selectedTabPosition)
                     true
                 }
+                R.id.item_search -> {
+                    binding.searchView.openSearch()
+                    true
+                }
                 else -> {
                     true
                 }
+            }
+        }
+
+        binding.searchView.apply {
+            adjustTintAlpha(0.85f)
+            setShouldKeepHistory(false)
+            setShouldAnimate(true)
+
+            setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    if(!arrayOfAllItem.any { it.contains(query) }){
+                        showToast("검색된 물품이 없습니다.")
+                    }
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    Log.d("sudeky","onQueryTextChange is worked")
+                    return false
+                }
+            })
+
+            setSearchViewListener(object : MaterialSearchView.SearchViewListener {
+                override fun onSearchViewOpened() {
+                    activity?.window?.statusBarColor =
+                        ContextCompat.getColor(mContext, R.color.white_ish)
+
+                    binding.searchView.clearSuggestions()
+                    binding.searchView.addSuggestions(arrayOfAllItem)
+                }
+
+                override fun onSearchViewClosed() {
+                    activity?.window?.statusBarColor =
+                        ContextCompat.getColor(mContext, R.color.amatda_main)
+                }
+            })
+
+            setOnItemClickListener { _, _, position, _ ->
+                // 아무것도 하지 않는다.
+                // todo : 아이템 클릭시 해당 아이템으로 이동은 추후에 개발
             }
         }
 
@@ -464,6 +544,7 @@ class CarrierItemFragment :
                         menuItem.isChecked = true
                         menuItem.isCheckable = true
                         viewModel.currentPocket = pocket
+                        binding.topAppBar.title = viewModel.currentPocket.name
                         viewModel.pocketIsChanged()
                     }
                     binding.drawerLayout.close()
@@ -695,6 +776,8 @@ class CarrierItemFragment :
                     } else if (viewModel.isItemClicked.value == true) {
                         unSelectItem()
                         viewModel.itemIsUnClicked()
+                    } else if (binding.searchView.isOpen) {
+                        binding.searchView.closeSearch()
                     } else {
                         findNavController().navigateUp()
                     }

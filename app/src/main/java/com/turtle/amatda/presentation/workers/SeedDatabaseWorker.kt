@@ -61,6 +61,6 @@ class SeedDatabaseWorker @AssistedInject constructor(
     interface Factory : ChildWorkerFactory
 
     companion object {
-        private const val TAG = "SeedDatabaseWorker"
+        const val TAG = "SeedDatabaseWorker"
     }
 }

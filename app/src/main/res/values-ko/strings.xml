@@ -4,6 +4,10 @@
     <!-- 공통 -->
     <string name="common_button_checked">확인</string>
     <string name="common_button_cancel">취소</string>
+    <string name="common_delete">삭제</string>
+    <string name="common_name">이름</string>
+    <string name="common_type">타입</string>
+    <string name="common_edit">수정</string>
 
     <!-- 메뉴 -->
     <string name="menu_home">홈</string>
@@ -28,14 +32,19 @@
     <!-- 가방 만들기 -->
     <string name="question_carrier_name">가방의 이름의 이름을 정해주세요</string>
     <string name="question_carrier_name_hint">가방 이름</string>
+    <string name="carrier_pocket_is_empty">현재 주머니가 없어요</string>
 
     <!-- 주머니 관련 (Drawer Naviagation 포함)-->
     <string name="add_pocket_guide_text">주머니가 없어요\n새로운 주머니 생성이 필요합니다.</string>
+    <string name="add_pocket_guide_button">주머니 추가</string>
     <string name="edit_pocket_add">주머니 추가히기</string>
     <string name="edit_pocket_rename">주머니 이름바꾸기</string>
     <string name="edit_pocket_delete">주머니 삭제하기</string>
     <string name="edit_pocket_rename_cancel">취소 (주머니 이름바꾸기)</string>
     <string name="edit_pocket_delete_cancel">취소 (주머니 삭제하기)</string>
+    <string name="item_position_inner">안 쪽</string>
+    <string name="item_position_middle">가운데 쪽</string>
+    <string name="item_position_outer">바깥 쪽</string>
 
     <!-- 물품 만들기 -->
     <string name="add_item_label">물품 추가</string>
@@ -50,6 +59,7 @@
     <string name="item_edit_tooltip_color">색깔</string>
 
     <!-- 물건 만들기 - 가이드 설명 -->
+    <string name="item_guide_text_0">가방을 눕혔을때</string>
     <string name="item_guide_text_1">안\n쪽\n(1 층)</string>
     <string name="item_guide_text_2">가운데\n쪽\n(2 층)</string>
     <string name="item_guide_text_3">바 깥\n쪽\n(3 층)</string>

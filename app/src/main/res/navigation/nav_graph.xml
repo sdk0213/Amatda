@@ -65,6 +65,9 @@
         android:name="com.turtle.amatda.presentation.view.carrier_type.CarrierTypeFragment"
         android:label="CarrierTypeFragment"
         tools:layout="@layout/fragment_carrier_type">
+        <argument
+            android:name="carrier"
+            app:argType="com.turtle.amatda.domain.model.Carrier" />
         <action
             android:id="@+id/action_carrierTypeFragment_to_carrierSizeFragment"
             app:destination="@id/carrierSizeFragment"

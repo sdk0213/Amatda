@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import br.com.mauker.materialsearchview.MaterialSearchView
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentCarrierBinding
+import com.turtle.amatda.domain.model.Carrier
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import java.util.*
 
@@ -36,7 +37,7 @@ class CarrierFragment : BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R
                 findNavController().navigate(CarrierFragmentDirections.actionGlobalCarrierItemFragment(it))
             },
             editCarrier = {
-                findNavController().navigate(CarrierFragmentDirections.actionGlobalCarrierTypeFragment())
+                findNavController().navigate(CarrierFragmentDirections.actionGlobalCarrierTypeFragment(it))
             },
             deleteCarrier = {
                 viewModel.deleteCarrier(it)
@@ -83,7 +84,9 @@ class CarrierFragment : BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R
         binding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.item_add_carrier -> {
-                    findNavController().navigate(CarrierFragmentDirections.actionGlobalCarrierTypeFragment())
+                    findNavController().navigate(CarrierFragmentDirections.actionGlobalCarrierTypeFragment(
+                        Carrier()
+                    ))
                     true
                 }
                 R.id.item_search -> {

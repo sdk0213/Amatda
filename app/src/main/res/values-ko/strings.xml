@@ -66,5 +66,6 @@
 
     <!-- 검색 -->
     <string name="item_search_hint">물품 검색...</string>
+    <string name="item_search_nothing">검색된 물품이 없습니다.</string>
 
 </resources>

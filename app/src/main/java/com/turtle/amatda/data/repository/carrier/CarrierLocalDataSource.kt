@@ -8,7 +8,8 @@ import io.reactivex.Flowable
 interface CarrierLocalDataSource {
 
     fun getCarrierAll(): Flowable<List<CarrierEntity>>
-    fun insertCarrier(carrier: CarrierEntity): Completable
+    fun insertCarrier(carrierEntity: CarrierEntity): Completable
     fun getCarrierAndPocket() : Flowable<List<CarrierAndPocketEntity>>
+    fun deleteCarrier(carrierEntity: CarrierEntity): Completable
 
 }

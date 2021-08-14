@@ -20,4 +20,8 @@ class CarrierDataSourceFactory @Inject constructor(
     fun getCarrierAndPocket() : Flowable<List<CarrierAndPocketEntity>> {
         return localDataSource.getCarrierAndPocket()
     }
+
+    fun deleteCarrier(carrierEntity: CarrierEntity) : Completable {
+        return localDataSource.deleteCarrier(carrierEntity)
+    }
 }

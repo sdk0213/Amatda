@@ -3,9 +3,11 @@ package com.turtle.amatda.presentation.view.carrier
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.turtle.amatda.domain.model.Carrier
 import com.turtle.amatda.domain.model.CarrierAndGetHasPocketNum
 import com.turtle.amatda.domain.model.CarrierAndPocket
 import com.turtle.amatda.domain.model.Item
+import com.turtle.amatda.domain.usecases.DeleteCarrierUseCase
 import com.turtle.amatda.domain.usecases.GetAllItemUseCase
 import com.turtle.amatda.domain.usecases.GetPocketUseCase
 import com.turtle.amatda.presentation.view.base.BaseViewModel
@@ -13,7 +15,8 @@ import javax.inject.Inject
 
 class CarrierViewModel @Inject constructor(
     private val getAllItemUseCase: GetAllItemUseCase,
-    private val getPocketUseCase: GetPocketUseCase
+    private val getPocketUseCase: GetPocketUseCase,
+    private val deleteCarrierUseCase: DeleteCarrierUseCase
 ) : BaseViewModel() {
 
     private val _mCarrierAndGetHasItemNum = MutableLiveData<List<CarrierAndGetHasPocketNum>>()
@@ -65,7 +68,22 @@ class CarrierViewModel @Inject constructor(
                     },
                     {
                         Log.e(TAG, "getCarrierList is Error ${it.message}")
-                    })
+                    }
+                )
+        )
+    }
+
+    fun deleteCarrier(carrier: Carrier) {
+        compositeDisposable.add(
+            deleteCarrierUseCase.execute(carrier)
+                .subscribe(
+                    {
+
+                    },
+                    {
+                        Log.e(TAG, "deleteCarrier is Error ${it.message}")
+                    }
+                )
         )
     }
 

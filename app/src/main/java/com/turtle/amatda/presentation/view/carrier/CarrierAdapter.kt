@@ -10,7 +10,9 @@ import com.turtle.amatda.domain.model.Carrier
 import com.turtle.amatda.domain.model.CarrierAndGetHasPocketNum
 
 class CarrierAdapter constructor(
-    private val clickCarrier : (Carrier) -> (Unit)
+    private val clickCarrier : (Carrier) -> (Unit),
+    private val editCarrier : (Carrier) -> (Unit),
+    private val deleteCarrier : (Carrier) -> (Unit)
 ) : ListAdapter<CarrierAndGetHasPocketNum, CarrierAdapter.CarrierViewHolder>(
     CarrierDiffCallback()
 ) {
@@ -32,11 +34,17 @@ class CarrierAdapter constructor(
         private val binding: ListItemCarrierBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(pocket: CarrierAndGetHasPocketNum) {
+        fun bind(carrierAndPocket: CarrierAndGetHasPocketNum) {
             binding.apply {
-                carrierAndGetHasPocketNum = pocket
+                carrierAndGetHasPocketNum = carrierAndPocket
                 setClickListener {
-                    clickCarrier(pocket.carrier)
+                    clickCarrier(carrierAndPocket.carrier)
+                }
+                setEditClickListener {
+                    editCarrier(carrierAndPocket.carrier)
+                }
+                setDeleteClickListener {
+                    deleteCarrier(carrierAndPocket.carrier)
                 }
                 executePendingBindings()
             }

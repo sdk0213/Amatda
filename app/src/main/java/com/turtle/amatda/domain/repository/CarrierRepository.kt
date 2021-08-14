@@ -9,4 +9,5 @@ interface CarrierRepository {
     fun getUserCarrierAll() : Flowable<List<Carrier>>
     fun insertCarrier(carrier: Carrier) : Completable
     fun getCarrierAndPocket() : Flowable<List<CarrierAndPocket>>
+    fun deleteCarrier(carrier: Carrier) : Completable
 }

@@ -1,7 +1,6 @@
 package com.turtle.amatda.presentation.view.carrier
 
 import android.util.Log
-import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
@@ -35,6 +34,12 @@ class CarrierFragment : BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R
         carrierAdapter = CarrierAdapter(
             clickCarrier = {
                 findNavController().navigate(CarrierFragmentDirections.actionGlobalCarrierItemFragment(it))
+            },
+            editCarrier = {
+                findNavController().navigate(CarrierFragmentDirections.actionGlobalCarrierTypeFragment())
+            },
+            deleteCarrier = {
+                viewModel.deleteCarrier(it)
             }
         )
         binding.carrierRecyclerView.adapter = carrierAdapter
@@ -63,9 +68,9 @@ class CarrierFragment : BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R
                 // "새 물품 (캐리어가방 - 큰주머니 - 바깥쪽)",
                 arrayOfAllItem.add("${item.name} (${mapOfPocketIdAndCarrierName[item.pocket_id]} - ${mapOfPocketIdAndPocketName[item.pocket_id]} - ${
                     when(item.item_place){
-                        0 -> "안쪽"
-                        1 -> "가운데 쪽"
-                        else ->"바깥 쪽"
+                        0 -> getString(R.string.item_position_inner)
+                        1 -> getString(R.string.item_position_middle)
+                        else ->getString(R.string.item_position_outer)
                     }
                 })")
             }
@@ -100,7 +105,7 @@ class CarrierFragment : BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R
             setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
                     if(!arrayOfAllItem.any { it.contains(query) }){
-                        showToast("검색된 물품이 없습니다.")
+                        showToast(getString(R.string.item_search_nothing))
                     }
                     return true
                 }

@@ -59,11 +59,13 @@
     <string name="item_edit_tooltip_color">색깔</string>
 
     <!-- 물건 만들기 - 가이드 설명 -->
-    <string name="item_guide_text_0">가방을 눕혔을때</string>
+    <string name="item_guide_text_0">가방을 눕혔을</string>
     <string name="item_guide_text_1">안\n쪽\n(1 층)</string>
     <string name="item_guide_text_2">가운데\n쪽\n(2 층)</string>
     <string name="item_guide_text_3">바 깥\n쪽\n(3 층)</string>
 
+    <!-- 검색 -->
     <string name="item_search_hint">Search...</string>
+    <string name="item_search_nothing">No Items</string>
 
 </resources>

@@ -13,12 +13,16 @@ class CarrierLocalDataSourceImpl @Inject constructor(private val carrierDao: Car
         return carrierDao.getAll()
     }
 
-    override fun insertCarrier(carrier: CarrierEntity): Completable {
-        return carrierDao.insert(carrier)
+    override fun insertCarrier(carrierEntity: CarrierEntity): Completable {
+        return carrierDao.insert(carrierEntity)
     }
 
     override fun getCarrierAndPocket(): Flowable<List<CarrierAndPocketEntity>> {
         return carrierDao.getCarrierAndPocketData()
+    }
+
+    override fun deleteCarrier(carrierEntity: CarrierEntity): Completable {
+        return carrierDao.delete(carrierEntity)
     }
 
 

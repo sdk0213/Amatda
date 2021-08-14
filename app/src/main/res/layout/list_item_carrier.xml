@@ -14,7 +14,7 @@
             name="editClickListener"
             type="android.view.View.OnClickListener"/>
         <variable
-            name="removeClickListener"
+            name="deleteClickListener"
             type="android.view.View.OnClickListener"/>
         <variable
             name="carrierAndGetHasPocketNum"
@@ -36,7 +36,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/amatda_main_transparent_3">
+            android:background="@color/amatda_main_transparent_4">
 
             <TextView
                 android:id="@+id/tv_carrier_name"
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/common_delete"
                 android:layout_marginEnd="5dp"
-                android:onClick="@{removeClickListener}"
+                android:onClick="@{deleteClickListener}"
                 app:cornerRadius="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

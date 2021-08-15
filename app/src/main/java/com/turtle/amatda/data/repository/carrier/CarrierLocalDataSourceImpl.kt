@@ -25,5 +25,8 @@ class CarrierLocalDataSourceImpl @Inject constructor(private val carrierDao: Car
         return carrierDao.delete(carrierEntity)
     }
 
+    override fun updateCarrier(carrierEntity: CarrierEntity): Completable {
+        return carrierDao.update(carrierEntity)
+    }
 
 }

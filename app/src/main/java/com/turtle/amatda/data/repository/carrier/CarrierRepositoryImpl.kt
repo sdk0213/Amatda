@@ -47,4 +47,9 @@ class CarrierRepositoryImpl @Inject constructor(
         val carrierEntity = carrierMapper.mapToEntity(carrier)
         return factory.deleteCarrier(carrierEntity)
     }
+
+    override fun updateCarrier(carrier: Carrier): Completable {
+        val carrierEntity = carrierMapper.mapToEntity(carrier)
+        return factory.updateCarrier(carrierEntity)
+    }
 }

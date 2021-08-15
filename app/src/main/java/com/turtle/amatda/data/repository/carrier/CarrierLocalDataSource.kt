@@ -11,5 +11,6 @@ interface CarrierLocalDataSource {
     fun insertCarrier(carrierEntity: CarrierEntity): Completable
     fun getCarrierAndPocket() : Flowable<List<CarrierAndPocketEntity>>
     fun deleteCarrier(carrierEntity: CarrierEntity): Completable
+    fun updateCarrier(carrierEntity: CarrierEntity): Completable
 
 }

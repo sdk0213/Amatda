@@ -24,4 +24,8 @@ class CarrierDataSourceFactory @Inject constructor(
     fun deleteCarrier(carrierEntity: CarrierEntity) : Completable {
         return localDataSource.deleteCarrier(carrierEntity)
     }
+
+    fun updateCarrier(carrierEntity: CarrierEntity) : Completable {
+        return localDataSource.updateCarrier(carrierEntity)
+    }
 }

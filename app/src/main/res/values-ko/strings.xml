@@ -30,7 +30,7 @@
     <string name="default_date_type">yyyy년-MM월-dd일</string>
 
     <!-- 가방 만들기 -->
-    <string name="question_carrier_name">가방의 이름의 이름을 정해주세요</string>
+    <string name="question_carrier_name">가방의 이름을 정해주세요</string>
     <string name="question_carrier_name_hint">가방 이름</string>
     <string name="carrier_pocket_is_empty">현재 주머니가 없어요</string>
 

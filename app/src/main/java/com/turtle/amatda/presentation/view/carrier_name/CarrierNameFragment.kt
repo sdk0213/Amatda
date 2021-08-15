@@ -31,15 +31,29 @@ class CarrierNameFragment : BaseFragment<CarrierNameViewModel, FragmentCarrierNa
         )
 
         binding.setClickListener { view ->
-            viewModel.addCarrier(
-                Carrier(
-                    id = if(editCarrier) args.carrier.id else 0,
-                    name = binding.carrierName.text.toString(),
-                    date = Date(),
-                    type = args.carrier.type,
-                    size = args.carrier.size
-                )
-            )
+            when(editCarrier){
+                true -> {
+                    viewModel.updateCarrier(
+                        Carrier(
+                            id = args.carrier.id,
+                            name = binding.carrierName.text.toString(),
+                            date = Date(),
+                            type = args.carrier.type,
+                            size = args.carrier.size
+                        )
+                    )
+                }
+                false -> {
+                    viewModel.addCarrier(
+                        Carrier(
+                            name = binding.carrierName.text.toString(),
+                            date = Date(),
+                            type = args.carrier.type,
+                            size = args.carrier.size
+                        )
+                    )
+                }
+            }
             findNavController().navigate(R.id.action_global_view_fragment)
         }
     }

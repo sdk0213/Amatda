@@ -19,30 +19,4 @@ class App : DaggerApplication(), Configuration.Provider {
     override fun getWorkManagerConfiguration(): Configuration {
         return Configuration.Builder().setWorkerFactory(workerFactory).build()
     }
-
-    /************************************* 칠판 *********************************************/
-    /**
-     * TODO: 개념 체크리스트
-     *     1. di 에서 fragment 인지, activity 잘 상속받고 있는것인지
-     *     2. lifecycleowner livedata를 직접 연결하는거랑 binding.lifecycleowner 랑 무슨 차이인지 확인
-     */
-
-    /**
-     * TODO: 개발 체크리스트
-     *     1. 네비게이션 컴포넌트 사용하여 원래 main 으로 돌아오게 하기
-     *       - 현재 새로 앱을 켰을때랑 동일하게 앱이 홈화면으로 이동함
-     *       - carrier 에서 시작했으면 carrier 에서 끝나야함
-     *       - carrier 에서 값을 추가하고 종료했으면 백스텍으로 남기면 안됨
-     *     2. 가방 추가
-     *       - 캐리어 가방 이름 추가하기
-     *       - 가방 추가 방식 한 화면으로 변경(추후에)
-     *
-     *
-     * TODO: 할일은 여기다 적으시오!!
-     *      1. 말풍선 그냥 Constraint 안에다가 떄려막기 ㅆ1빠빠 ... 어짜피 visibility는 패치한대로 가야됨
-     *         근데 지금 문제가 엘리베이션을 못쳐넣는다는것..
-     *
-     */
-
-    /**************************************************************************************/
 }

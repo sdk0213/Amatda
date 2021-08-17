@@ -2,7 +2,6 @@ package com.turtle.amatda.presentation.di
 
 import com.turtle.amatda.presentation.di.module.*
 import com.turtle.amatda.presentation.view.main.App
-import com.turtle.amatda.presentation.workers.WorkerFactory
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
@@ -16,7 +15,7 @@ import javax.inject.Singleton
         AppModule::class, // 애플리케이션 스코프 모듈
         DatabaseModule::class,
         LocalDataModule::class,
-        NetDataModule::class,
+        NetModule::class,
         MapperModule::class,
         RepositoryModule::class,
         UseCaseModule::class,

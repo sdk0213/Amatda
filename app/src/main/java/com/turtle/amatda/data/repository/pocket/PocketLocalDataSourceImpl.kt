@@ -7,8 +7,9 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import javax.inject.Inject
 
-class PocketLocalDataSourceImpl @Inject constructor(private val pocketDao: PocketDao) :
-    PocketLocalDataSource {
+class PocketLocalDataSourceImpl @Inject constructor(
+    private val pocketDao: PocketDao
+) : PocketLocalDataSource {
 
     override fun getPocketAll(): Flowable<List<PocketEntity>> {
         return pocketDao.getAll()

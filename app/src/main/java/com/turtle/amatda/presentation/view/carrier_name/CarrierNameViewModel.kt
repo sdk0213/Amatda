@@ -5,7 +5,6 @@ import com.turtle.amatda.domain.model.Carrier
 import com.turtle.amatda.domain.usecases.AddUserCarrierUseCase
 import com.turtle.amatda.domain.usecases.UpdateCarrierUseCase
 import com.turtle.amatda.presentation.view.base.BaseViewModel
-import java.util.*
 import javax.inject.Inject
 
 class CarrierNameViewModel @Inject constructor(
@@ -30,7 +29,7 @@ class CarrierNameViewModel @Inject constructor(
                 .subscribe({
 
                 }, {
-                    Log.e(TAG, "addUserCarrierUseCase is Error ${it.message}")
+                    Log.e(TAG, "updateCarrier is Error ${it.message}")
                 })
         )
     }

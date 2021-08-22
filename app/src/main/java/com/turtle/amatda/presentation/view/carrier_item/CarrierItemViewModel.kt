@@ -16,7 +16,7 @@ class CarrierItemViewModel @Inject constructor(
     private val savePocketUseCase: SavePocketUseCase,
     private val updatePocketUseCase: UpdatePocketUseCase,
     private val saveItemUseCase: SaveItemUseCase,
-    private val getAllPcoketAndItemUseCase: GetAllPcoketAndItemUseCase,
+    private val getAllPocketAndItemUseCase: GetAllPocketAndItemUseCase,
     private val deleteItemUseCase: DeleteItemUseCase,
     private val updateItemUseCase: UpdateItemUseCase
 ) : BaseViewModel() {
@@ -116,7 +116,7 @@ class CarrierItemViewModel @Inject constructor(
     // 해당 주머니에 저장된 아이템리스트 가져오기
     fun getPocketItems() {
         compositeDisposable.add(
-            getAllPcoketAndItemUseCase.execute(currentCarrier.id)
+            getAllPocketAndItemUseCase.execute(currentCarrier.id)
                 .subscribe(
                     { pocketAndItem ->
                         val currentPocketAndItem = arrayListOf<PocketAndItemSize>()

@@ -7,7 +7,9 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import javax.inject.Inject
 
-class CarrierLocalDataSourceImpl @Inject constructor(private val carrierDao: CarrierDao) : CarrierLocalDataSource{
+class CarrierLocalDataSourceImpl @Inject constructor(
+    private val carrierDao: CarrierDao
+) : CarrierLocalDataSource {
 
     override fun getCarrierAll(): Flowable<List<CarrierEntity>> {
         return carrierDao.getAll()

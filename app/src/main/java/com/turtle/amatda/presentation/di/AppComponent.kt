@@ -15,6 +15,7 @@ import javax.inject.Singleton
         AppModule::class, // 애플리케이션 스코프 모듈
         DatabaseModule::class,
         LocalDataModule::class,
+        RemoteDataModule::class,
         NetModule::class,
         MapperModule::class,
         RepositoryModule::class,

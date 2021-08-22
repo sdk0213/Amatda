@@ -8,7 +8,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class GetAllPcoketAndItemUseCase @Inject constructor(private val repository: PocketRepository) :
+class GetAllPocketAndItemUseCase @Inject constructor(private val repository: PocketRepository) :
     FlowableUseCase<List<PocketAndItem>, Long>(Schedulers.io(), AndroidSchedulers.mainThread()) {
 
     override fun buildUseCaseCompletable(params: Long?): Flowable<List<PocketAndItem>> {

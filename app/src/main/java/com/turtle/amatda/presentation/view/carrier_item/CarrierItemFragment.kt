@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
-import android.text.TextUtils
 import android.util.Log
 import android.view.*
 import android.view.View.*
@@ -341,7 +340,7 @@ class CarrierItemFragment :
         // 물품 이름 변경
         binding.itemNameView.setEndIconOnClickListener {
             binding.itemName.text.toString().let {
-                if (!TextUtils.isEmpty(it)) viewModel.editItem(it)
+                if (!it.isNullOrEmpty()) viewModel.editItem(it)
                 binding.itemNameView.visibility = GONE
                 binding.itemName.clearFocus()
                 (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
@@ -356,7 +355,7 @@ class CarrierItemFragment :
             when (keyCode) {
                 KeyEvent.KEYCODE_ENTER -> {
                     binding.itemName.text.toString().let {
-                        if (!TextUtils.isEmpty(it)) viewModel.editItem(it)
+                        if (!it.isNullOrEmpty()) viewModel.editItem(it)
                         binding.itemNameView.visibility = GONE
                         binding.itemName.clearFocus()
                         (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
@@ -376,7 +375,7 @@ class CarrierItemFragment :
         // 주머니 이름 변경 리스너
         binding.pocketNameView.setEndIconOnClickListener {
             binding.pocketName.text.toString().let {
-                if (!TextUtils.isEmpty(it)) viewModel.editPocket(
+                if (!it.isNullOrEmpty()) viewModel.editPocket(
                     viewPocketAndMenuItemViewIdMap[viewCurrentClickedMenuItem]?.id ?: Date(), it
                 )
                 binding.pocketNameView.visibility = GONE
@@ -393,7 +392,7 @@ class CarrierItemFragment :
             when (keyCode) {
                 KeyEvent.KEYCODE_ENTER -> {
                     binding.pocketName.text.toString().let {
-                        if (!TextUtils.isEmpty(it)) viewModel.editPocket(
+                        if (!it.isNullOrEmpty()) viewModel.editPocket(
                             viewPocketAndMenuItemViewIdMap[viewCurrentClickedMenuItem]?.id
                                 ?: Date(), it
                         )
@@ -442,7 +441,7 @@ class CarrierItemFragment :
                 }
 
                 override fun onQueryTextChange(newText: String): Boolean {
-                    Log.d("sudeky","onQueryTextChange is worked")
+                    Log.d(TAG,"onQueryTextChange is worked")
                     return false
                 }
             })

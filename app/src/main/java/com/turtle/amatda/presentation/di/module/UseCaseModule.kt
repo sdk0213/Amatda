@@ -2,9 +2,9 @@ package com.turtle.amatda.presentation.di.module
 
 import com.turtle.amatda.domain.repository.ItemRepository
 import com.turtle.amatda.domain.repository.CarrierRepository
-import com.turtle.amatda.domain.usecases.AddUserCarrierUseCase
-import com.turtle.amatda.domain.usecases.GetPocketUseCase
-import com.turtle.amatda.domain.usecases.InsertItemFromAssetsUseCase
+import com.turtle.amatda.domain.repository.PocketRepository
+import com.turtle.amatda.domain.repository.WeatherRepository
+import com.turtle.amatda.domain.usecases.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -14,20 +14,86 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideAddCarrierUseCase(repository: CarrierRepository): AddUserCarrierUseCase {
+    fun provideAddUserCarrierUseCase(repository: CarrierRepository): AddUserCarrierUseCase {
         return AddUserCarrierUseCase(repository)
     }
 
     @Provides
     @Singleton
-    fun provideGetCarrierUseCase(repository: CarrierRepository): GetPocketUseCase {
+    fun provideDeleteCarrierUseCase(repository: CarrierRepository): DeleteCarrierUseCase {
+        return DeleteCarrierUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteItemUseCase(repository: ItemRepository): DeleteItemUseCase {
+        return DeleteItemUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetAllItemUseCase(repository: ItemRepository): GetAllItemUseCase {
+        return GetAllItemUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetAllPocketAndItemUseCase(repository: PocketRepository): GetAllPocketAndItemUseCase {
+        return GetAllPocketAndItemUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetPocketUseCase(repository: CarrierRepository): GetPocketUseCase {
         return GetPocketUseCase(repository)
     }
 
     @Provides
     @Singleton
-    fun provideInsertItemUseCase(repository: ItemRepository): InsertItemFromAssetsUseCase {
+    fun provideInsertItemFromAssetsUseCase(repository: ItemRepository): InsertItemFromAssetsUseCase {
         return InsertItemFromAssetsUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSaveCarrierItemsUseCase(repository: ItemRepository): SaveCarrierItemsUseCase {
+        return SaveCarrierItemsUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSaveItemUseCase(repository: ItemRepository): SaveItemUseCase {
+        return SaveItemUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSavePocketUseCase(repository: PocketRepository): SavePocketUseCase {
+        return SavePocketUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUpdateCarrierUseCase(repository: CarrierRepository): UpdateCarrierUseCase {
+        return UpdateCarrierUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUpdateItemUseCase(repository: ItemRepository): UpdateItemUseCase {
+        return UpdateItemUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUpdatePocketUseCase(repository: PocketRepository): UpdatePocketUseCase {
+        return UpdatePocketUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetWeatherUseCase(repository: WeatherRepository): GetWeatherUseCase {
+        return GetWeatherUseCase(repository)
     }
 
 }

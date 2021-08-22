@@ -5,8 +5,11 @@ import com.turtle.amatda.data.model.ItemEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import java.util.*
+import javax.inject.Inject
 
-class ItemLocalDataSourceImpl constructor(private val itemDao: ItemDao): ItemLocalDataSource{
+class ItemLocalDataSourceImpl @Inject constructor(
+    private val itemDao: ItemDao
+) : ItemLocalDataSource {
 
     override fun getItemAll(): Flowable<List<ItemEntity>> {
         return itemDao.getAll()
@@ -33,11 +36,19 @@ class ItemLocalDataSourceImpl constructor(private val itemDao: ItemDao): ItemLoc
     }
 
     override fun updateItemSize(itemEntity: ItemEntity): Completable {
-        return itemDao.updateItemSize(item_id = itemEntity.id, width = itemEntity.item_width, height = itemEntity.item_height )
+        return itemDao.updateItemSize(
+            item_id = itemEntity.id,
+            width = itemEntity.item_width,
+            height = itemEntity.item_height
+        )
     }
 
     override fun updateItemPos(itemEntity: ItemEntity): Completable {
-        return itemDao.updateItemPos(item_id = itemEntity.id, pos_x = itemEntity.position_x, pos_y = itemEntity.position_y)
+        return itemDao.updateItemPos(
+            item_id = itemEntity.id,
+            pos_x = itemEntity.position_x,
+            pos_y = itemEntity.position_y
+        )
     }
 
     override fun updateItemCount(itemEntity: ItemEntity): Completable {

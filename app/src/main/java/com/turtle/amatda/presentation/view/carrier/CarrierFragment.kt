@@ -114,7 +114,7 @@ class CarrierFragment : BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R
                 }
 
                 override fun onQueryTextChange(newText: String): Boolean {
-                    Log.d("sudeky","onQueryTextChange is worked")
+                    Log.d(TAG,"onQueryTextChange is worked")
                     return false
                 }
             })

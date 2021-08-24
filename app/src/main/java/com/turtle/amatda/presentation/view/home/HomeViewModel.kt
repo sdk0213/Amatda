@@ -1,12 +1,10 @@
 package com.turtle.amatda.presentation.view.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.data.util.Resource
 import com.turtle.amatda.domain.model.Weather
 import com.turtle.amatda.domain.usecases.GetWeatherUseCase
-import com.turtle.amatda.presentation.utilities.NORMAL_SERVICE
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -35,26 +33,19 @@ class HomeViewModel @Inject constructor(
                     {   response ->
                         when(response) {
                             is Resource.Success -> {
-                                when(response.data?.response?.header?.resultCode) {
-                                    NORMAL_SERVICE -> {
-                                        _weatherList.value = response.data.response.body.items.item
-                                    }
-                                    else -> {
-                                        _errorMessage.value = "${response.data?.response?.header?.resultCode} + ${response.data?.response?.header?.resultMsg}"
-                                    }
-                                }
+                                _weatherList.value = response.data ?: arrayListOf()
                             }
                             is Resource.Loading -> {
 
                             }
                             is Resource.Error -> {
-                                response.message
+                                _errorMessage.value = "Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}"
                             }
                         }
                         _isLoading.value = false
                     },
                     {
-                        Log.d(TAG,"get Weather Subscribe is on Error : Exception --> ${it.message}")
+                        _errorMessage.value = "Api call failed in subscribe.onError\nCode : ${it.message}"
                     }
                 )
         )

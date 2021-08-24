@@ -17,6 +17,9 @@ fun String.toEditable(): Editable =
 fun CharSequence.toEditable(): Editable =
     Editable.Factory.getInstance().newEditable(this)
 
+fun String.convertToDateyyyyMMddHHmm() : Date =
+    SimpleDateFormat("yyyyMMddHHmm", Locale.getDefault()).parse(this)!!
+
 fun String.convertYYYYMMDD() : String =
     SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault()).format(
         SimpleDateFormat("yyyyMMdd", Locale.getDefault()).parse(this)!!

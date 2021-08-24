@@ -17,6 +17,7 @@ import com.turtle.amatda.data.repository.weather.WeatherRepositoryImpl
 import com.turtle.amatda.domain.model.Carrier
 import com.turtle.amatda.domain.model.Item
 import com.turtle.amatda.domain.model.Pocket
+import com.turtle.amatda.domain.model.Weather
 import com.turtle.amatda.domain.repository.CarrierRepository
 import com.turtle.amatda.domain.repository.ItemRepository
 import com.turtle.amatda.domain.repository.PocketRepository
@@ -60,7 +61,7 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideWeatherRepositoryImpl(
-        mapper: ResponseMapper<WeatherResponse>,
+        mapper: ResponseMapper<WeatherResponse, List<Weather>>,
         factory: WeatherDataSourceFactory
     ): WeatherRepository {
         return WeatherRepositoryImpl(mapper, factory)

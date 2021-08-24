@@ -1,7 +1,5 @@
 package com.turtle.amatda.data.model
 
-import com.turtle.amatda.domain.model.Weather
-
 data class WeatherResponse(
     val response: Response
 )
@@ -25,5 +23,5 @@ data class Body(
 )
 
 data class Items(
-    val item: List<Weather>
+    val item: List<WeatherEntity>
 )

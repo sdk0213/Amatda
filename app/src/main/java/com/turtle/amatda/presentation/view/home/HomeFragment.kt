@@ -4,9 +4,7 @@ import android.util.Log
 import android.widget.Toast
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentHomeBinding
-import com.turtle.amatda.domain.model.FcstType
-import com.turtle.amatda.presentation.utilities.extensions.convertHHmm
-import com.turtle.amatda.presentation.utilities.extensions.convertYYYYMMDD
+import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringTimeStamp
 import com.turtle.amatda.presentation.view.base.BaseFragment
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.fragment_home) {
@@ -18,29 +16,20 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
 
     private fun observer() {
         viewModel.weatherList.observe(this) {
-            var str = ""
-            it.filter { weather ->
-                weather.category == "POP" ||
-                        weather.category == "TMP"
+            it.forEach { weather ->
+                Log.d(TAG, "날짜 : ${weather.date.convertDateToStringTimeStamp()}")
+                Log.d(TAG, "온도 : ${weather.tmp}")
+                Log.d(TAG, "강수량 : ${weather.pop}")
+                Log.d(TAG, "하늘상태 : ${weather.sky.sky}")
+                Log.d(TAG, "강수형태 : ${weather.pty.pty}")
+                Log.d(TAG, "---------------------------------")
             }
-                .map { weather ->
-//                    Log.d(TAG, "observer: it.baseDate  : ${it.baseDate}")
-//                    Log.d(TAG, "observer: it.baseTime  : ${it.baseTime}")
-
-                    if(weather.category ==  "TMP"){
-                        str += "${weather.fcstDate.convertYYYYMMDD()} ${weather.fcstTime.convertHHmm()}, 온도 : ${weather.fcstValue},"
-                    } else {
-                        str += " 강수확률 : ${weather.fcstValue}"
-                        Log.d("sudeky",str)
-                        str = ""
-                    }
-                }
         }
 
         viewModel.errorMessage.observe(this) { errorMessage ->
             if (!errorMessage.isNullOrEmpty()) {
                 errorMessage.let {
-                    Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, errorMessage, Toast.LENGTH_LONG).show()
                 }
             }
         }

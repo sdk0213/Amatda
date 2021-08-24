@@ -24,7 +24,6 @@ class NetModule {
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .baseUrl(ApiClient.WEATHER_BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
-            .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
     }

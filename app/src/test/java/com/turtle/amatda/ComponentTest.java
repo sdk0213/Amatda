@@ -1,16 +1,23 @@
 package com.turtle.amatda;
 
+import com.turtle.amatda.data.api.WeatherAPIService;
+
 import org.junit.Test;
+
+import javax.inject.Inject;
 
 public class ComponentTest {
 
+    @Inject WeatherAPIService WeatherAPIService;
+
     @Test
     public void testSingletonComponent() {
-        Component_A component = DaggerComponent_A.factory()
-                .create(19,"sung dae kyoung");
 
-        System.out.println("person.name: " + component.callPerson().name + " / person.age: " + component.callPerson().age);
-
+        WeatherAPIService.getWeather()
+                .subscribe(
+                        {},
+                        {}
+                )
 
     }
 

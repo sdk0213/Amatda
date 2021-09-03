@@ -51,7 +51,7 @@ class NetModule {
     @Provides
     fun provideHttpLogginInterceptor(): HttpLoggingInterceptor {
         val loggingInterceptor = HttpLoggingInterceptor { message ->
-            Log.d("amatda_api_call : ", message.toString())
+            Log.d("Amatda NetModule", "request/received data to/from Server : ${message}")
         }
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return loggingInterceptor

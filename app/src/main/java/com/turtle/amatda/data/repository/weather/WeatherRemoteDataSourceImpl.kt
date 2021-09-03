@@ -10,8 +10,21 @@ class WeatherRemoteDataSourceImpl @Inject constructor(
     private val api: WeatherAPIService
 ) : WeatherRemoteDataSource {
 
-    override fun getWeather(): Single<Response<WeatherResponse>> {
-        return api.getWeather()
+    override fun getWeather(
+        nx : String,
+        ny : String,
+        base_date : String,
+        base_time : String
+    ): Single<Response<WeatherResponse>> {
+        return api.getWeather(
+            numOfRows = "1000",
+            pageNo = "1",
+            dataType = "JSON",
+            nx = nx,
+            ny = ny,
+            base_date = base_date,
+            base_time = base_time
+        )
     }
 
 }

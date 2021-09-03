@@ -20,8 +20,13 @@ class WeatherRepositoryImpl @Inject constructor(
     private val factory: WeatherDataSourceFactory
 ) : WeatherRepository {
 
-    override fun getWeather(): Single<Resource<List<Weather>>> {
-        return factory.getWeather()
+    override fun getWeather(
+        nx : String,
+        ny : String,
+        base_date : String,
+        base_time : String
+    ): Single<Resource<List<Weather>>> {
+        return factory.getWeather(nx = nx, ny = ny, base_date = base_date, base_time = base_time)
             .onErrorReturn {
                 var code = 1000
                 var message = it.message

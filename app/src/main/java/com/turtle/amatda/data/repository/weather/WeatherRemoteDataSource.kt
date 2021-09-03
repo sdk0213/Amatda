@@ -5,5 +5,9 @@ import io.reactivex.Single
 import retrofit2.Response
 
 interface WeatherRemoteDataSource {
-    fun getWeather(): Single<Response<WeatherResponse>>
+    fun getWeather(nx : String,
+                   ny : String,
+                   base_date : String,
+                   base_time : String
+    ): Single<Response<WeatherResponse>>
 }

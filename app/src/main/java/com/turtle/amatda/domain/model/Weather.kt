@@ -17,7 +17,7 @@ enum class Sky (val sky: String){
 }
 
 enum class Pty (val pty: String){
-    None("없음"), // 0
+    None("강수없음"), // 0
     Rain("비"), // 1
     RainOrSnow("비/눈"), // 2
     Snow("눈"), // 3

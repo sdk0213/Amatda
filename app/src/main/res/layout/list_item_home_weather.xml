@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/amatda_main_transparent_4">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_list_item_home_weather_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:autoSizeMaxTextSize="100sp"
+                app:autoSizeMinTextSize="1sp"
+                app:autoSizeTextType="uniform"
+                app:autoSizeStepGranularity="1sp"
+                app:layout_constraintBottom_toTopOf="@id/tv_list_item_home_weather_tmp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="날짜 : "/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_list_item_home_weather_tmp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:autoSizeMaxTextSize="100sp"
+                app:autoSizeMinTextSize="1sp"
+                app:autoSizeTextType="uniform"
+                app:autoSizeStepGranularity="1sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_list_item_home_weather_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_list_item_home_weather_pop"
+                tools:text="온도 : "/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_list_item_home_weather_pop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:autoSizeMaxTextSize="100sp"
+                app:autoSizeMinTextSize="1sp"
+                app:autoSizeTextType="uniform"
+                app:autoSizeStepGranularity="1sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_list_item_home_weather_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_list_item_home_weather_sky"
+                tools:text="비올활률 : "/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_list_item_home_weather_sky"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:autoSizeMaxTextSize="100sp"
+                app:autoSizeMinTextSize="1sp"
+                app:autoSizeTextType="uniform"
+                app:autoSizeStepGranularity="1sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_list_item_home_weather_pop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_list_item_home_weather_pty"
+                tools:text="하늘상태 : "/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_list_item_home_weather_pty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:autoSizeMaxTextSize="100sp"
+                app:autoSizeMinTextSize="1sp"
+                app:autoSizeTextType="uniform"
+                app:autoSizeStepGranularity="1sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_list_item_home_weather_sky"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="강수형태 : "/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

@@ -14,8 +14,8 @@ fun Date.convertDateToStringHMSTimeStamp(): String =
 fun Date.convertDateToStringyyyyMMddTimeStamp(): String =
     SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(this)
 
-fun Date.convertDateToStringHHmmTimeStamp(): String =
-    SimpleDateFormat("HHmm", Locale.getDefault()).format(this)
+fun Date.convertDateToStringMMddHHmmTimeStamp(): String =
+    SimpleDateFormat("MM/dd HH:mm", Locale.getDefault()).format(this)
 
 fun String.toEditable(): Editable =
     Editable.Factory.getInstance().newEditable(this)

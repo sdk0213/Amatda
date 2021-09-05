@@ -6,24 +6,26 @@ import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentHomeBinding
 import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringTimeStamp
 import com.turtle.amatda.presentation.view.base.BaseFragment
+import com.turtle.amatda.presentation.view.carrier_type.CarrierTypeAdapter
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.fragment_home) {
 
+    private lateinit var homeWeatherAdapter: HomeWeatherAdapter
+
     override fun init() {
         viewModel.getWeather()
+        view()
         observer()
+    }
+
+    private fun view(){
+        homeWeatherAdapter = HomeWeatherAdapter()
+        binding.recyclerviewHomeWeather.adapter = homeWeatherAdapter
     }
 
     private fun observer() {
         viewModel.weatherList.observe(this) {
-            it.forEach { weather ->
-                Log.d(TAG, "날짜 : ${weather.date.convertDateToStringTimeStamp()}")
-                Log.d(TAG, "온도 : ${weather.tmp}")
-                Log.d(TAG, "강수량 : ${weather.pop}")
-                Log.d(TAG, "하늘상태 : ${weather.sky.sky}")
-                Log.d(TAG, "강수형태 : ${weather.pty.pty}")
-                Log.d(TAG, "---------------------------------")
-            }
+            homeWeatherAdapter.submitList(it)
         }
 
         viewModel.errorMessage.observe(this) { errorMessage ->

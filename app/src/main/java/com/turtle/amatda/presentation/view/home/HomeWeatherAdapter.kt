@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.turtle.amatda.databinding.ListItemHomeWeatherBinding
-import com.turtle.amatda.domain.model.Sky
 import com.turtle.amatda.domain.model.Weather
 import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringMMddHHmmTimeStamp
 
-class HomeWeatherAdapter constructor(): ListAdapter<Weather, HomeWeatherAdapter.HomeWeatherViewHolder>(
-    HomeWeatherDiffCallback()
-) {
+class HomeWeatherAdapter constructor() :
+    ListAdapter<Weather, HomeWeatherAdapter.HomeWeatherViewHolder>(
+        HomeWeatherDiffCallback()
+    ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeWeatherViewHolder {
         return HomeWeatherViewHolder(
             ListItemHomeWeatherBinding.inflate(

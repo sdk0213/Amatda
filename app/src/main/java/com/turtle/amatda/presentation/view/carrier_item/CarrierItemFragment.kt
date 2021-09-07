@@ -59,23 +59,30 @@ class CarrierItemFragment :
     private val viewDimenOfToolTip = 25.0f
 
     override fun init() {
+        viewModel()
+        view()
+        observer()
+        listener()
+        onBackPressed()
+    }
+
+    private fun view(){
+        binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.nav_header_title).text = " - ${viewModel.currentCarrier.name}"
+    }
+
+    private fun viewModel(){
         viewModel.apply {
             binding.viewModel = this
             currentCarrier = args.carrier
             getAllItem()
             getPocketItems()
         }
-
-        binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.nav_header_title).text = " - ${viewModel.currentCarrier.name}"
-        observer()
-        listener()
-        onBackPressed()
     }
 
     private fun observer() {
 
         // 주머니가 존재한다면 해당 메뉴 생성
-        viewModel.isPocketExist.observe(viewLifecycleOwner) { isPocketExist ->
+        viewModel.isPocketExist.observe(this@CarrierItemFragment) { isPocketExist ->
             binding.guideViewContainer.visibility = if (isPocketExist) GONE else VISIBLE
             binding.tabLayout.visibility = if (isPocketExist) VISIBLE else GONE
             binding.itemContainer.visibility = if (isPocketExist) VISIBLE else GONE
@@ -83,7 +90,7 @@ class CarrierItemFragment :
         }
 
         // 주머니 정보를 받아서 MenuItem View 그리기
-        viewModel.pocketList.observe(viewLifecycleOwner) { pocketList ->
+        viewModel.pocketList.observe(this@CarrierItemFragment) { pocketList ->
             binding.navigationView.menu.findItem(R.id.nav_pocket_submenu).subMenu.clear() // navigation Item 초기화
             viewPocketAndMenuItemViewIdMap.clear() // 주머니 정보 Map 초기화
             pocketList.map {
@@ -109,7 +116,7 @@ class CarrierItemFragment :
         }
 
         // 제거해야할 아이템 이름 View 목록
-        viewModel.removeItemList.observe(viewLifecycleOwner) { removeItemList ->
+        viewModel.removeItemList.observe(this@CarrierItemFragment) { removeItemList ->
             val removeTextViewList = arrayListOf<TextView>()
             for (i in 0 until viewItemList.size) {
                 for (j in 0 until removeItemList.size) {
@@ -132,7 +139,7 @@ class CarrierItemFragment :
         }
 
         // 생성해야할 아이템 이름 View 목록
-        viewModel.makeItemList.observe(viewLifecycleOwner) { makeItemList ->
+        viewModel.makeItemList.observe(this@CarrierItemFragment) { makeItemList ->
             makeItemList.forEach { item ->
                 (layoutInflater.inflate(R.layout.carrier_item, null) as TextView).apply {
                     viewItemMap[this] = item
@@ -202,7 +209,7 @@ class CarrierItemFragment :
         }
 
         // 아이템 클릭 관찰자
-        viewModel.isItemClicked.observe(viewLifecycleOwner) { isItemClicked ->
+        viewModel.isItemClicked.observe(this@CarrierItemFragment) { isItemClicked ->
             // 기존에 선택된 것과 다르다면 이전 것은 선택 해제
             if (viewIdHasBeenClicked != viewIdNewClicked) {
                 unSelectItem()
@@ -224,14 +231,14 @@ class CarrierItemFragment :
         }
 
         // 아이템 리사이즈 클릭 관찰자
-        viewModel.isItemResizeClicked.observe(viewLifecycleOwner) {
+        viewModel.isItemResizeClicked.observe(this@CarrierItemFragment) {
             viewItemList.find { it.tag == viewIdHasBeenClicked }?.apply {
                 updateToolTipViewPositioning(x, y, width, height)
             }
         }
 
         // 아이템 개수 조정 클릭 관찰자
-        viewModel.isItemRecountClicked.observe(viewLifecycleOwner) {
+        viewModel.isItemRecountClicked.observe(this@CarrierItemFragment) {
             viewItemList.find { it.tag == viewIdHasBeenClicked }?.apply {
                 updateToolTipViewPositioning(x, y, width, height)
             }
@@ -239,14 +246,14 @@ class CarrierItemFragment :
 
         // @deprecated 사용하지 않음
         // 아이템 컬러 수정 클릭 관찰자
-        viewModel.isItemRecolorClicked.observe(viewLifecycleOwner) {
+        viewModel.isItemRecolorClicked.observe(this@CarrierItemFragment) {
             viewItemList.find { it.tag == viewIdHasBeenClicked }?.apply {
                 updateToolTipViewPositioning(x, y, width, height)
             }
         }
 
         // 아이템 이름 수정 클릭 관찰자
-        viewModel.isItemRenameClicked.observe(viewLifecycleOwner) {
+        viewModel.isItemRenameClicked.observe(this@CarrierItemFragment) {
             if (viewModel.isItemRenameClicked.value == true) {
                 binding.itemNameView.visibility = VISIBLE
                 binding.itemName.requestFocus()
@@ -265,7 +272,7 @@ class CarrierItemFragment :
         }
 
         // 주머니 삭제 클릭 관찰자
-        viewModel.isPocketDeleteClicked.observe(viewLifecycleOwner) { pocketDeleteClicked ->
+        viewModel.isPocketDeleteClicked.observe(this@CarrierItemFragment) { pocketDeleteClicked ->
             updateViewMenuItemActionView()
             binding.navigationView.menu.findItem(R.id.pocket_delete)
                 .setTitle(
@@ -279,7 +286,7 @@ class CarrierItemFragment :
         }
 
         // 주머니 이름 변경 클릭 관찰자
-        viewModel.isPocketRenameClicked.observe(viewLifecycleOwner) { pocketRenameClicked ->
+        viewModel.isPocketRenameClicked.observe(this@CarrierItemFragment) { pocketRenameClicked ->
             if (pocketRenameClicked == false) {
                 binding.pocketNameView.visibility = GONE
                 binding.pocketName.clearFocus()
@@ -300,14 +307,14 @@ class CarrierItemFragment :
                 .setCheckable(pocketRenameClicked)
         }
 
-        viewModel.pocketAndItemSize.observe(viewLifecycleOwner) { listOfPocketAndItemSize ->
+        viewModel.pocketAndItemSize.observe(this@CarrierItemFragment) { listOfPocketAndItemSize ->
             mapOfPocketAndItemSize.clear()
             listOfPocketAndItemSize.map {
                 mapOfPocketAndItemSize[it.pocket] = it.itemSize
             }
         }
 
-        viewModel.allCarrierPocketList.observe(viewLifecycleOwner) { allCarrierAndPocket ->
+        viewModel.allCarrierPocketList.observe(this@CarrierItemFragment) { allCarrierAndPocket ->
             mapOfPocketIdAndCarrierName.clear()
             mapOfPocketIdAndPocketName.clear()
             allCarrierAndPocket.forEach{ carrierAndPocket ->
@@ -318,7 +325,7 @@ class CarrierItemFragment :
             }
         }
 
-        viewModel.allItemList.observe(viewLifecycleOwner) { listOfAllItem ->
+        viewModel.allItemList.observe(this@CarrierItemFragment) { listOfAllItem ->
             arrayOfAllItem.clear()
             listOfAllItem.forEach{ item ->
                 // "새 물품 (캐리어가방 - 큰주머니 - 바깥쪽)",

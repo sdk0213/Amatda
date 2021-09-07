@@ -20,15 +20,15 @@ class CarrierFragment : BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R
     private val mapOfPocketIdAndCarrierName = mutableMapOf<Date,String>()
 
     override fun init() {
-
-        initAdapter()
-
-        viewModel.getCarrierList()
-        viewModel.getAllItem()
-
+        view()
+        viewModel()
         observer()
         listener()
         onBackPressed()
+    }
+
+    private fun view(){
+        initAdapter()
     }
 
     private fun initAdapter() {
@@ -46,13 +46,18 @@ class CarrierFragment : BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R
         binding.carrierRecyclerView.adapter = carrierAdapter
     }
 
+    private fun viewModel(){
+        viewModel.getCarrierList()
+        viewModel.getAllItem()
+    }
+
     private fun observer(){
 
-        viewModel.mCarrierAndGetHasPocketNum.observe(this){
+        viewModel.mCarrierAndGetHasPocketNum.observe(this@CarrierFragment){
             carrierAdapter.submitList(it)
         }
 
-        viewModel.allCarrierPocketList.observe(viewLifecycleOwner) { allCarrierAndPokcet ->
+        viewModel.allCarrierPocketList.observe(this@CarrierFragment) { allCarrierAndPokcet ->
             mapOfPocketIdAndCarrierName.clear()
             mapOfPocketIdAndPocketName.clear()
             allCarrierAndPokcet.forEach{ carrierAndPocket ->
@@ -63,7 +68,7 @@ class CarrierFragment : BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R
             }
         }
 
-        viewModel.allItemList.observe(viewLifecycleOwner) { listOfAllItem ->
+        viewModel.allItemList.observe(this@CarrierFragment) { listOfAllItem ->
             arrayOfAllItem.clear()
             listOfAllItem.forEach{ item ->
                 // "새 물품 (캐리어가방 - 큰주머니 - 바깥쪽)",

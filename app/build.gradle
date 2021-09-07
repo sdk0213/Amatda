@@ -124,4 +124,7 @@ dependencies {
 
     // OkHttp 통신 라이브러리
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.5'
+
+    // TedPermission 쉬운 권한 요청 라이브러리
+    implementation 'io.github.ParkSangGwon:tedpermission-rx2:3.0.0'
 }

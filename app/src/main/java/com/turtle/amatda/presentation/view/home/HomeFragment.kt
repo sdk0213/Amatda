@@ -1,10 +1,12 @@
 package com.turtle.amatda.presentation.view.home
 
 import android.Manifest
+import android.util.Log
 import android.widget.Toast
 import com.tedpark.tedpermission.rx2.TedRxPermission
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentHomeBinding
+import com.turtle.amatda.presentation.utilities.convertGRID_GPS
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import io.reactivex.disposables.Disposable
 import java.util.*
@@ -34,7 +36,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
             .subscribe(
                 { tedPermissionResult ->
                     if (tedPermissionResult.isGranted) {
-                        viewModel.getWeather()
                     } else {
                         showToast("위치 권한이 없어서 날씨 정보와 여행 정보를 가져올수없습니다.")
                     }
@@ -51,7 +52,9 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
     }
 
     private fun viewModel() {
-
+        val xy = convertGRID_GPS(0, 36.3417660356751, 127.38276442361327)
+        Log.d("sudeky","x : ${xy.x} / y : ${xy.y}")
+        viewModel.getWeather()
     }
 
     private fun observer() {

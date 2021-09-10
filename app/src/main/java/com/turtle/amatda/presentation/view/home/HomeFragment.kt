@@ -23,6 +23,8 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
         observer()
     }
 
+    // todo : 권한 요청 받아오는거 ViewModel 로 빼기
+    //         google-location-rx TrackerFragment, TrackerViewModel 보고 참고
     private fun requestPermission() {
         permissionRx = TedRxPermission.create()
             .setRationaleTitle("권한 요청")
@@ -36,6 +38,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
             .subscribe(
                 { tedPermissionResult ->
                     if (tedPermissionResult.isGranted) {
+                        viewModel.getWeather()
                     } else {
                         showToast("위치 권한이 없어서 날씨 정보와 여행 정보를 가져올수없습니다.")
                     }
@@ -54,7 +57,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
     private fun viewModel() {
         val xy = convertGRID_GPS(0, 36.3417660356751, 127.38276442361327)
         Log.d("sudeky","x : ${xy.x} / y : ${xy.y}")
-        viewModel.getWeather()
     }
 
     private fun observer() {

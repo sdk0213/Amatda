@@ -358,7 +358,7 @@ class CarrierItemFragment :
         }
 
         // 물품 이름 변경 - [키보드 확인]
-        binding.itemName.setOnKeyListener { v, keyCode, event ->
+        binding.itemName.setOnKeyListener { _, keyCode, _ ->
             when (keyCode) {
                 KeyEvent.KEYCODE_ENTER -> {
                     binding.itemName.text.toString().let {

@@ -1,9 +1,6 @@
 package com.turtle.amatda.presentation.di.module
 
-import com.turtle.amatda.domain.repository.ItemRepository
-import com.turtle.amatda.domain.repository.CarrierRepository
-import com.turtle.amatda.domain.repository.PocketRepository
-import com.turtle.amatda.domain.repository.WeatherRepository
+import com.turtle.amatda.domain.repository.*
 import com.turtle.amatda.domain.usecases.*
 import dagger.Module
 import dagger.Provides
@@ -94,6 +91,12 @@ class UseCaseModule {
     @Singleton
     fun provideGetWeatherUseCase(repository: WeatherRepository): GetWeatherUseCase {
         return GetWeatherUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetLocationUseCase(repository: LocationRepository): GetLocationUseCase {
+        return GetLocationUseCase(repository)
     }
 
 }

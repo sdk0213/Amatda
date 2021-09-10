@@ -10,6 +10,8 @@ import com.turtle.amatda.data.repository.carrier.CarrierDataSourceFactory
 import com.turtle.amatda.data.repository.carrier.CarrierRepositoryImpl
 import com.turtle.amatda.data.repository.item.ItemDataSourceFactory
 import com.turtle.amatda.data.repository.item.ItemRepositoryImpl
+import com.turtle.amatda.data.repository.location.LocationRemoteDataSourceImpl
+import com.turtle.amatda.data.repository.location.LocationRepositoryImpl
 import com.turtle.amatda.data.repository.pocket.PocketDataSourceFactory
 import com.turtle.amatda.data.repository.pocket.PocketRepositoryImpl
 import com.turtle.amatda.data.repository.weather.WeatherDataSourceFactory
@@ -18,10 +20,7 @@ import com.turtle.amatda.domain.model.Carrier
 import com.turtle.amatda.domain.model.Item
 import com.turtle.amatda.domain.model.Pocket
 import com.turtle.amatda.domain.model.Weather
-import com.turtle.amatda.domain.repository.CarrierRepository
-import com.turtle.amatda.domain.repository.ItemRepository
-import com.turtle.amatda.domain.repository.PocketRepository
-import com.turtle.amatda.domain.repository.WeatherRepository
+import com.turtle.amatda.domain.repository.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -65,6 +64,14 @@ class RepositoryModule {
         factory: WeatherDataSourceFactory
     ): WeatherRepository {
         return WeatherRepositoryImpl(mapper, factory)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationRepositoryImpl(
+        locationRemoteDataSourceImpl: LocationRemoteDataSourceImpl
+    ): LocationRepository {
+        return LocationRepositoryImpl(locationRemoteDataSourceImpl)
     }
 
 }

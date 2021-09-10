@@ -127,4 +127,7 @@ dependencies {
 
     // TedPermission 쉬운 권한 요청 라이브러리
     implementation 'io.github.ParkSangGwon:tedpermission-rx2:3.0.0'
+
+    // 구글 위치
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 }

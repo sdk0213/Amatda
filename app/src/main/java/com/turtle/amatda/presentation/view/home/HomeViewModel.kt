@@ -1,11 +1,14 @@
 package com.turtle.amatda.presentation.view.home
 
+import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.data.util.Resource
 import com.turtle.amatda.domain.model.ApiCallBaseTime
 import com.turtle.amatda.domain.model.ApiCallWeather
 import com.turtle.amatda.domain.model.Weather
+import com.turtle.amatda.domain.usecases.GetLocationUseCase
 import com.turtle.amatda.domain.usecases.GetWeatherUseCase
 import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringyyyyMMddTimeStamp
 import com.turtle.amatda.presentation.view.base.BaseViewModel
@@ -16,7 +19,8 @@ import java.util.*
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
-    private val getWeatherUseCase: GetWeatherUseCase
+    private val getWeatherUseCase: GetWeatherUseCase,
+    private val getLocationUseCase: GetLocationUseCase
 ) : BaseViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>(false)
@@ -28,8 +32,19 @@ class HomeViewModel @Inject constructor(
     private val _weatherList = MutableLiveData<List<Weather>>()
     val weatherList: LiveData<List<Weather>> get() = _weatherList
 
+    @SuppressLint("MissingPermission")
     fun getWeather() {
         _isLoading.value = true
+        // todo : 위도랑 경도 받아서 만약 값이 있다면 이어서 ApiCallWeather 호출하기
+        compositeDisposable.add(
+            getLocationUseCase.execute()
+            .subscribe(
+                {
+                    Log.d(TAG,"it.latitude : ${it.latitude} / it.longitude : ${it.longitude} / it.accuracy : ${it.accuracy}")
+                },
+                {}
+            )
+        )
         compositeDisposable.add(
             getWeatherUseCase.execute(
                 ApiCallWeather(

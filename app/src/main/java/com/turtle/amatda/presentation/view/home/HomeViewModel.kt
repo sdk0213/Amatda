@@ -10,10 +10,11 @@ import com.turtle.amatda.domain.model.ApiCallWeather
 import com.turtle.amatda.domain.model.Weather
 import com.turtle.amatda.domain.usecases.GetLocationUseCase
 import com.turtle.amatda.domain.usecases.GetWeatherUseCase
+import com.turtle.amatda.presentation.utilities.convertGridToGps
 import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringyyyyMMddTimeStamp
 import com.turtle.amatda.presentation.view.base.BaseViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import java.io.PrintWriter
+import java.io.StringWriter
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -33,35 +34,36 @@ class HomeViewModel @Inject constructor(
     val weatherList: LiveData<List<Weather>> get() = _weatherList
 
     @SuppressLint("MissingPermission")
+    // 현재 위치를 받아서 공공데이터 포털 API 의 날씨를 현재 위치를 기준으로 요청 하는 기능
     fun getWeather() {
         _isLoading.value = true
-        // todo : 위도랑 경도 받아서 만약 값이 있다면 이어서 ApiCallWeather 호출하기
         compositeDisposable.add(
             getLocationUseCase.execute()
-            .subscribe(
-                {
-                    Log.d(TAG,"it.latitude : ${it.latitude} / it.longitude : ${it.longitude} / it.accuracy : ${it.accuracy}")
-                },
-                {}
-            )
-        )
-        compositeDisposable.add(
-            getWeatherUseCase.execute(
-                ApiCallWeather(
-                    nx = "55",
-                    ny = "127",
-                    base_date = chooseApiCallBaseDate(
-                        SimpleDateFormat("HH", Locale.KOREA).format(Date()).toInt(),
-                        SimpleDateFormat("mm", Locale.KOREA).format(Date()).toInt()
-                    ),
-                    base_time = compareNowWithApiStandard(
-                        SimpleDateFormat("HH", Locale.KOREA).format(Date()).toInt(),
-                        SimpleDateFormat("mm", Locale.KOREA).format(Date()).toInt()
+                .take(1)
+                .flatMapSingle { location ->
+                    getWeatherUseCase.execute(
+                        ApiCallWeather(
+                            nx = convertGridToGps(
+                                0,
+                                location.latitude,
+                                location.longitude
+                            ).x.toInt().toString(),
+                            ny = convertGridToGps(
+                                0,
+                                location.latitude,
+                                location.longitude
+                            ).y.toInt().toString(),
+                            base_date = chooseApiCallBaseDate(
+                                SimpleDateFormat("HH", Locale.KOREA).format(Date()).toInt(),
+                                SimpleDateFormat("mm", Locale.KOREA).format(Date()).toInt()
+                            ),
+                            base_time = compareNowWithApiStandard(
+                                SimpleDateFormat("HH", Locale.KOREA).format(Date()).toInt(),
+                                SimpleDateFormat("mm", Locale.KOREA).format(Date()).toInt()
+                            )
+                        )
                     )
-                )
-            )
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                }
                 .subscribe(
                     { response ->
                         when (response) {
@@ -79,17 +81,20 @@ class HomeViewModel @Inject constructor(
                         _isLoading.value = false
                     },
                     {
+                        val sw = StringWriter()
+                        it.printStackTrace(PrintWriter(sw))
+                        val exceptionAsString: String = sw.toString()
                         _errorMessage.value =
-                            "Api call failed in subscribe.onError\nCode : ${it.message}"
+                            "Api call failed in subscribe.onError\nCode : stacktrace : \n$exceptionAsString"
                     }
                 )
         )
     }
 
     // 만약 00:00 ~ 02:10 사이라면 전날으로 api 요청
-    private fun chooseApiCallBaseDate(nowHour: Int, nowMinute: Int) : String{
+    private fun chooseApiCallBaseDate(nowHour: Int, nowMinute: Int): String {
         val now = nowHour * 60 + nowMinute
-        if(now >= 0 && now < ApiCallBaseTime.BaseTime1.standardTimeApiUpdate){
+        if (now >= 0 && now < ApiCallBaseTime.BaseTime1.standardTimeApiUpdate) {
             Calendar.getInstance().apply {
                 time = Date()
                 add(Calendar.DATE, -1)

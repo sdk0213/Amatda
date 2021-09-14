@@ -12,7 +12,7 @@ import javax.inject.Singleton
 @Module
 class UtilModule {
 
-    // 위치 가져오기 관련 -FusedLocation
+    // 위치 가져오기 관련 - FusedLocation
     @Singleton
     @Provides
     fun provideFusedLocation(@ApplicationContext context: Context): FusedLocationProviderClient {
@@ -25,7 +25,7 @@ class UtilModule {
     fun provideLocationRequest() : LocationRequest{
         return LocationRequest
             .create().apply {
-                priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+                priority = LocationRequest.PRIORITY_LOW_POWER
                 interval = 0
             }
     }

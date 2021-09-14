@@ -1,6 +1,6 @@
 package com.turtle.amatda.presentation.utilities
 
-fun convertGRID_GPS(mode: Int, lat_X: Double, lng_Y: Double): LatXLngY {
+fun convertGridToGps(mode: Int, lat_X: Double, lng_Y: Double): LatXLngY {
     val RE = 6371.00877 // 지구 반경(km)
     val GRID = 5.0 // 격자 간격(km)
     val SLAT1 = 30.0 // 투영 위도1(degree)

@@ -15,10 +15,17 @@ import javax.inject.Inject
 
 class LocationRemoteDataSourceImpl @Inject constructor(
     private val fusedLocationProviderClient: FusedLocationProviderClient,
-    private val locationRequest : LocationRequest
+    private val locationRequest: LocationRequest
 ) {
 
     private val locationSubject = PublishSubject.create<DomainLocation>()
+
+    val locationObservable: Flowable<DomainLocation> = locationSubject
+        .toFlowable(BackpressureStrategy.MISSING)
+        .doOnSubscribe { startLocationUpdates() }
+        .doOnCancel { stopLocationUpdates() }
+        .doOnComplete { stopLocationUpdates() }
+        .doOnError { stopLocationUpdates() }
 
     private val locationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult?) {
@@ -26,15 +33,14 @@ class LocationRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    val locationObservable: Flowable<DomainLocation> = locationSubject.toFlowable(BackpressureStrategy.MISSING)
-        .doOnSubscribe { startLocationUpdates() }
-        .doOnCancel { stopLocationUpdates() }
-        .doOnError { stopLocationUpdates() }
-
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
         fusedLocationProviderClient.lastLocation.addOnSuccessListener(::setLocation)
-        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
+        fusedLocationProviderClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            Looper.getMainLooper()
+        )
     }
 
     private fun stopLocationUpdates() {

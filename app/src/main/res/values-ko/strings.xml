@@ -9,6 +9,12 @@
     <string name="common_type">타입</string>
     <string name="common_edit">수정</string>
 
+    <!-- 권한 -->
+    <string name="toast_cannot_get_location_no_permission">위치 권한이 없어서 날씨 정보와 여행 정보를 가져올수없습니다.</string>
+    <string name="permission_request_rationale_title">권한 요청</string>
+    <string name="permission_request_rationale_message">날씨 정보와 여행 기록을 위해서는 받아오기 위해서는 위치 권한이 필요해요.</string>
+    <string name="permission_request_denied_message">날씨 정보와 여행 기록을 위해서는\n위치 권한이 필요해요.\n[설정] > [권한] > [위치] 에서 위치 권한을 허용할 수 있어요</string>
+
     <!-- 메뉴 -->
     <string name="menu_home">홈</string>
     <string name="menu_my_carrier">나의 가방</string>

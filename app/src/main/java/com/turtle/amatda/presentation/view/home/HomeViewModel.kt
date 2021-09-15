@@ -1,6 +1,7 @@
 package com.turtle.amatda.presentation.view.home
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.data.util.Resource
@@ -10,6 +11,8 @@ import com.turtle.amatda.domain.model.Weather
 import com.turtle.amatda.domain.usecases.GetLocationUseCase
 import com.turtle.amatda.domain.usecases.GetWeatherUseCase
 import com.turtle.amatda.presentation.utilities.convertGridToGps
+import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringHHmmTimeStamp
+import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringMMddHHmmTimeStamp
 import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringyyyyMMddTimeStamp
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import java.io.PrintWriter
@@ -71,7 +74,12 @@ class HomeViewModel @Inject constructor(
                     { response ->
                         when (response) {
                             is Resource.Success -> {
-                                _weatherList.value = response.data ?: arrayListOf()
+                                val weather = response.data ?: arrayListOf()
+                                _weatherList.value = weather.filter { weather ->
+                                    val date = weather.date.convertDateToStringHHmmTimeStamp()
+                                    // 0,3,6,9,12,15,18,21시만 출력
+                                    date == "00:00" || date == "03:00" || date == "06:00" || date == "09:00" || date == "12:00" || date == "15:00" || date == "18:00" || date == "21:00"
+                                }
                             }
                             is Resource.Loading -> {
 
@@ -87,8 +95,9 @@ class HomeViewModel @Inject constructor(
                         val sw = StringWriter()
                         it.printStackTrace(PrintWriter(sw))
                         val exceptionAsString: String = sw.toString()
+                        Log.e(TAG,"getWeather on Error stacktrace : $exceptionAsString")
                         _errorMessage.value =
-                            "Api call failed in subscribe.onError\nCode : stacktrace : \n$exceptionAsString"
+                            "Api call failed in subscribe.onError\nmessage : ${it.message}"
                     }
                 )
         )

@@ -9,6 +9,12 @@
     <string name="common_type">Type</string>
     <string name="common_edit">Edit</string>
 
+    <!-- 권한 -->
+    <string name="toast_cannot_get_location_no_permission">We can\'t get weather information and travel information because we don\'t have location permission.</string>
+    <string name="permission_request_rationale_title">request permission</string>
+    <string name="permission_request_rationale_message">Location permission is required to get weather information and travel logs.</string>
+    <string name="permission_request_denied_message">Location permission is required for weather information and travel history. You can allow location permission in [Settings] > [Permissions] > [Location]</string>
+
     <!-- 메뉴 -->
     <string name="menu_home">home</string>
     <string name="menu_my_carrier">my carrier</string>

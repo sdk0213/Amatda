@@ -1,7 +1,6 @@
 package com.turtle.amatda.presentation.view.home
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.data.util.Resource
@@ -33,6 +32,9 @@ class HomeViewModel @Inject constructor(
     private val _weatherList = MutableLiveData<List<Weather>>()
     val weatherList: LiveData<List<Weather>> get() = _weatherList
 
+    private val _weatherAddress = MutableLiveData<String>()
+    val weatherAddress: LiveData<String> get() = _weatherAddress
+
     @SuppressLint("MissingPermission")
     // 현재 위치를 받아서 공공데이터 포털 API 의 날씨를 현재 위치를 기준으로 요청 하는 기능
     fun getWeather() {
@@ -41,6 +43,7 @@ class HomeViewModel @Inject constructor(
             getLocationUseCase.execute()
                 .take(1)
                 .flatMapSingle { location ->
+                    _weatherAddress.value = location.address
                     getWeatherUseCase.execute(
                         ApiCallWeather(
                             nx = convertGridToGps(

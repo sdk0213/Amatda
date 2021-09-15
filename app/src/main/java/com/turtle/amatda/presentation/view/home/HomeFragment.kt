@@ -50,6 +50,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
     private fun view() {
         homeWeatherAdapter = HomeWeatherAdapter()
         binding.recyclerviewHomeWeather.adapter = homeWeatherAdapter
+        binding.viewModel = viewModel
     }
 
     private fun viewModel() {

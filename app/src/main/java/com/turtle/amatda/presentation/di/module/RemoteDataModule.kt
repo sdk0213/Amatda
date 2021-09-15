@@ -1,5 +1,6 @@
 package com.turtle.amatda.presentation.di.module
 
+import android.location.Geocoder
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.turtle.amatda.data.api.WeatherAPIService
@@ -23,9 +24,10 @@ class RemoteDataModule {
     @Singleton
     fun provideLocationRemoteDataSource(
         fusedLocationProviderClient: FusedLocationProviderClient,
-        locationRequest : LocationRequest
+        locationRequest : LocationRequest,
+        geocoder: Geocoder
     ): LocationRemoteDataSourceImpl {
-        return LocationRemoteDataSourceImpl(fusedLocationProviderClient, locationRequest)
+        return LocationRemoteDataSourceImpl(fusedLocationProviderClient, locationRequest, geocoder)
     }
 
 }

@@ -1,8 +1,10 @@
 package com.turtle.amatda.data.repository.location
 
 import android.annotation.SuppressLint
+import android.location.Geocoder
 import android.location.Location
 import android.os.Looper
+import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -15,7 +17,8 @@ import javax.inject.Inject
 
 class LocationRemoteDataSourceImpl @Inject constructor(
     private val fusedLocationProviderClient: FusedLocationProviderClient,
-    private val locationRequest: LocationRequest
+    private val locationRequest: LocationRequest,
+    private val geocoder: Geocoder
 ) {
 
     private val locationSubject = PublishSubject.create<DomainLocation>()
@@ -48,11 +51,15 @@ class LocationRemoteDataSourceImpl @Inject constructor(
     }
 
     private fun setLocation(location: Location) {
+        val address = geocoder.getFromLocation(location.latitude,
+            location.longitude, 1)
         locationSubject.onNext(
             DomainLocation(
                 location.latitude,
                 location.longitude,
-                location.accuracy
+                location.accuracy,
+                address = geocoder.getFromLocation(location.latitude,
+                    location.longitude, 1)[0]?.getAddressLine(0).toString() ?: "현재 위치 알수 없음"
             )
         )
     }

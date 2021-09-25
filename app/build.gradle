@@ -119,8 +119,16 @@ dependencies {
 
     // Retrofit 통신 라이브러리
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // Retrfoit RxJava
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    // Retrofit Json Parser
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // Retrofit Xml parser
+    // todo : (수정필요) 알수 없는 이유로 0.8.1.15 버젼이 resolve 에러가 발생한다.
+    implementation 'com.tickaroo.tikxml:annotation:0.8.13'
+    implementation 'com.tickaroo.tikxml:core:0.8.13'
+    implementation 'com.tickaroo.tikxml:retrofit-converter:0.8.13'
+    kapt 'com.tickaroo.tikxml:processor:0.8.13'
 
     // OkHttp 통신 라이브러리
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.5'

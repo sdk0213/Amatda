@@ -1,7 +1,6 @@
 package com.turtle.amatda.data.repository.weather
 
-import com.turtle.amatda.data.model.WeatherEntity
-import com.turtle.amatda.data.model.WeatherResponse
+import com.turtle.amatda.data.model.WeatherJson
 import io.reactivex.Single
 import retrofit2.Response
 import javax.inject.Inject
@@ -13,7 +12,7 @@ class WeatherDataSourceFactory @Inject constructor(
                    ny : String,
                    base_date : String,
                    base_time : String
-    ) : Single<Response<WeatherResponse>> {
+    ) : Single<Response<WeatherJson>> {
         return remoteDataSource.getWeather(
             nx = nx,
             ny = ny,

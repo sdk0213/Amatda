@@ -2,7 +2,7 @@ package com.turtle.amatda.data.repository.weather
 
 import com.google.gson.JsonSyntaxException
 import com.turtle.amatda.data.mapper.ResponseMapper
-import com.turtle.amatda.data.model.WeatherResponse
+import com.turtle.amatda.data.model.WeatherJson
 import com.turtle.amatda.data.util.Resource
 import com.turtle.amatda.domain.model.Weather
 import com.turtle.amatda.domain.repository.WeatherRepository
@@ -16,7 +16,7 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(
-    private val mapper: ResponseMapper<WeatherResponse, List<Weather>>,
+    private val mapper: ResponseMapper<WeatherJson, List<Weather>>,
     private val factory: WeatherDataSourceFactory
 ) : WeatherRepository {
 
@@ -48,7 +48,7 @@ class WeatherRepositoryImpl @Inject constructor(
                 }
                 val errorJson = JSONObject()
                     .put("message", message)
-                return@onErrorReturn Response.error<WeatherResponse>(
+                return@onErrorReturn Response.error<WeatherJson>(
                     code,
                     ResponseBody.create(
                         MediaType.parse("application/json"), errorJson.toString()
@@ -66,9 +66,7 @@ class WeatherRepositoryImpl @Inject constructor(
                         Resource.Error(
                             data = null,
                             code = it.code(),
-                            // todo : 실패하였을떄 메시지가 정상적으로 출력이 되지 않음
                             message = JSONObject(errorBody).getString("message") // 실패하면 HTTP 실패 메시지 전송
-
                         )
                     )
                 }

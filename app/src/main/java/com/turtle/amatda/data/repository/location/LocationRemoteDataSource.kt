@@ -15,7 +15,7 @@ import io.reactivex.Flowable
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
-class LocationRemoteDataSourceImpl @Inject constructor(
+class LocationRemoteDataSource @Inject constructor(
     private val fusedLocationProviderClient: FusedLocationProviderClient,
     private val locationRequest: LocationRequest,
     private val geocoder: Geocoder

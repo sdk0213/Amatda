@@ -6,11 +6,11 @@ import io.reactivex.Flowable
 import javax.inject.Inject
 
 class LocationRepositoryImpl @Inject constructor(
-    private val locationRemoteDataSourceImpl: LocationRemoteDataSourceImpl
+    private val locationRemoteDataSource: LocationRemoteDataSource
 ) : LocationRepository {
 
     override fun getLocation(): Flowable<DomainLocation> {
-        return locationRemoteDataSourceImpl
+        return locationRemoteDataSource
             .locationObservable
     }
 

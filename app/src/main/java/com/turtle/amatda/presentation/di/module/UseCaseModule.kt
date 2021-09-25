@@ -99,4 +99,10 @@ class UseCaseModule {
         return GetLocationUseCase(repository)
     }
 
+    @Provides
+    @Singleton
+    fun provideGetAreaUseCase(repository: AreaRepository): GetAreaUseCase {
+        return GetAreaUseCase(repository)
+    }
+
 }

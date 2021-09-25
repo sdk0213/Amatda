@@ -2,24 +2,20 @@ package com.turtle.amatda.presentation.di.module
 
 import com.turtle.amatda.data.mapper.Mapper
 import com.turtle.amatda.data.mapper.ResponseMapper
-import com.turtle.amatda.data.model.CarrierEntity
-import com.turtle.amatda.data.model.ItemEntity
-import com.turtle.amatda.data.model.PocketEntity
-import com.turtle.amatda.data.model.WeatherResponse
+import com.turtle.amatda.data.model.*
+import com.turtle.amatda.data.repository.area.AreaRemoteDataSource
+import com.turtle.amatda.data.repository.area.AreaRepositoryImpl
 import com.turtle.amatda.data.repository.carrier.CarrierDataSourceFactory
 import com.turtle.amatda.data.repository.carrier.CarrierRepositoryImpl
 import com.turtle.amatda.data.repository.item.ItemDataSourceFactory
 import com.turtle.amatda.data.repository.item.ItemRepositoryImpl
-import com.turtle.amatda.data.repository.location.LocationRemoteDataSourceImpl
+import com.turtle.amatda.data.repository.location.LocationRemoteDataSource
 import com.turtle.amatda.data.repository.location.LocationRepositoryImpl
 import com.turtle.amatda.data.repository.pocket.PocketDataSourceFactory
 import com.turtle.amatda.data.repository.pocket.PocketRepositoryImpl
 import com.turtle.amatda.data.repository.weather.WeatherDataSourceFactory
 import com.turtle.amatda.data.repository.weather.WeatherRepositoryImpl
-import com.turtle.amatda.domain.model.Carrier
-import com.turtle.amatda.domain.model.Item
-import com.turtle.amatda.domain.model.Pocket
-import com.turtle.amatda.domain.model.Weather
+import com.turtle.amatda.domain.model.*
 import com.turtle.amatda.domain.repository.*
 import dagger.Module
 import dagger.Provides
@@ -60,7 +56,7 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideWeatherRepositoryImpl(
-        mapper: ResponseMapper<WeatherResponse, List<Weather>>,
+        mapper: ResponseMapper<WeatherJson, List<Weather>>,
         factory: WeatherDataSourceFactory
     ): WeatherRepository {
         return WeatherRepositoryImpl(mapper, factory)
@@ -69,9 +65,18 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideLocationRepositoryImpl(
-        locationRemoteDataSourceImpl: LocationRemoteDataSourceImpl
+        locationRemoteDataSource: LocationRemoteDataSource
     ): LocationRepository {
-        return LocationRepositoryImpl(locationRemoteDataSourceImpl)
+        return LocationRepositoryImpl(locationRemoteDataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAreaRepositoryImpl(
+        mapper: ResponseMapper<AreaXml, List<Area>>,
+        areaRemoteDataSource: AreaRemoteDataSource
+    ): AreaRepository {
+        return AreaRepositoryImpl(mapper, areaRemoteDataSource)
     }
 
 }

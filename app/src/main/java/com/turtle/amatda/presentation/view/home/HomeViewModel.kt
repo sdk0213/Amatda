@@ -8,6 +8,7 @@ import com.turtle.amatda.data.util.Resource
 import com.turtle.amatda.domain.model.ApiCallBaseTime
 import com.turtle.amatda.domain.model.ApiCallWeather
 import com.turtle.amatda.domain.model.Weather
+import com.turtle.amatda.domain.usecases.GetAreaUseCase
 import com.turtle.amatda.domain.usecases.GetLocationUseCase
 import com.turtle.amatda.domain.usecases.GetWeatherUseCase
 import com.turtle.amatda.presentation.utilities.convertGridToGps
@@ -23,7 +24,8 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
     private val getWeatherUseCase: GetWeatherUseCase,
-    private val getLocationUseCase: GetLocationUseCase
+    private val getLocationUseCase: GetLocationUseCase,
+    private val getAreaUseCase: GetAreaUseCase
 ) : BaseViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>(false)
@@ -38,6 +40,51 @@ class HomeViewModel @Inject constructor(
     private val _weatherAddress = MutableLiveData<String>()
     val weatherAddress: LiveData<String> get() = _weatherAddress
 
+    fun getTour() {
+        compositeDisposable.add(
+            getAreaUseCase.execute("") // 처음에는 시도 코드를 가져오기 위해서 빈 값으로 요청
+                .flatMap { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            val area = response.data ?: arrayListOf()
+                            val code = area.find {
+                                _weatherAddress.value?.contains(it.name) ?: false
+                            }?.code
+                            Log.d("sudeky","주 지역 코드 : $code")
+                            // 시의 지역코드로 다시 재 검색
+                            getAreaUseCase.execute(code)
+                        }
+                        is Resource.Loading -> {
+                            _errorMessage.value =
+                                "Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}"
+                            getAreaUseCase.execute("1") // 값이 잘못되었을경우 서울로 요청
+                        }
+                        is Resource.Error -> {
+                            _errorMessage.value =
+                                "Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}"
+                            getAreaUseCase.execute("1") // 값이 잘못되었을경우 서울로 요청
+                        }
+                    }
+                }
+                .subscribe { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            val area = response.data ?: arrayListOf()
+                            val code = area.find {
+                                _weatherAddress.value?.contains(it.name) ?: false
+                            }?.code
+                            Log.d("sudeky","부 지역 코드 $code")
+                        }
+                        is Resource.Loading -> {
+                            _errorMessage.value = "지역코드를 찾을수 없습니다."
+                        }
+                        is Resource.Error -> {
+                            _errorMessage.value = "지역코드를 찾을수 없습니다."
+                        }
+                    }
+                }
+        )
+    }
     @SuppressLint("MissingPermission")
     // 현재 위치를 받아서 공공데이터 포털 API 의 날씨를 현재 위치를 기준으로 요청 하는 기능
     fun getWeather() {
@@ -80,6 +127,7 @@ class HomeViewModel @Inject constructor(
                                     // 0,3,6,9,12,15,18,21시만 출력
                                     date == "00:00" || date == "03:00" || date == "06:00" || date == "09:00" || date == "12:00" || date == "15:00" || date == "18:00" || date == "21:00"
                                 }
+                                getTour() // 관광지 목록 가져오기 - GPS 로 위치를 가져온다음에 수행하기위해서 현재 날씨를 가져온다음에 실행
                             }
                             is Resource.Loading -> {
 

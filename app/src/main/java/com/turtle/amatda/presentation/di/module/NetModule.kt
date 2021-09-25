@@ -2,7 +2,10 @@ package com.turtle.amatda.presentation.di.module
 
 import android.util.Log
 import com.google.gson.GsonBuilder
+import com.tickaroo.tikxml.TikXml
+import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
 import com.turtle.amatda.data.api.ApiClient
+import com.turtle.amatda.data.api.TourAPIService
 import com.turtle.amatda.data.api.WeatherAPIService
 import dagger.Module
 import dagger.Provides
@@ -12,6 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -19,7 +23,8 @@ class NetModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    @Named("WeatherRetrofit")
+    fun provideWeatherRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .baseUrl(ApiClient.WEATHER_BASE_URL)
@@ -30,8 +35,26 @@ class NetModule {
 
     @Singleton
     @Provides
-    fun provideWeatherAPIService(retrofit: Retrofit): WeatherAPIService {
+    @Named("TourRetrofit")
+    fun provideTourRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .addConverterFactory(TikXmlConverterFactory.create(TikXml.Builder().exceptionOnUnreadXml(false).build()))
+            .baseUrl(ApiClient.TOUR_BASE_URL)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+            .client(okHttpClient)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideWeatherAPIService(@Named("WeatherRetrofit") retrofit: Retrofit): WeatherAPIService {
         return retrofit.create(WeatherAPIService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideTourAPIService(@Named("TourRetrofit") retrofit: Retrofit): TourAPIService {
+        return retrofit.create(TourAPIService::class.java)
     }
 
     // okhttp 인스턴스 생성

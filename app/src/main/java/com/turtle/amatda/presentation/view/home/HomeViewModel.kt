@@ -5,10 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.data.util.Resource
-import com.turtle.amatda.domain.model.ApiCallBaseTime
-import com.turtle.amatda.domain.model.ApiCallWeather
-import com.turtle.amatda.domain.model.AreaCode
-import com.turtle.amatda.domain.model.Weather
+import com.turtle.amatda.domain.model.*
 import com.turtle.amatda.domain.usecases.GetAreaUseCase
 import com.turtle.amatda.domain.usecases.GetLocationUseCase
 import com.turtle.amatda.domain.usecases.GetTourUseCase
@@ -42,6 +39,9 @@ class HomeViewModel @Inject constructor(
 
     private val _weatherAddress = MutableLiveData<String>()
     val weatherAddress: LiveData<String> get() = _weatherAddress
+
+    private val _tourList = MutableLiveData<List<Tour>>()
+    val tourList: LiveData<List<Tour>> get() = _tourList
 
     private var _areaCode = "1"
     private var _sigungucode = "1"
@@ -111,9 +111,7 @@ class HomeViewModel @Inject constructor(
                 .subscribe { response ->
                     when (response) {
                         is Resource.Success -> {
-                            response.data?.forEach {
-                                Log.d("sudeky","${it.title}")
-                            }
+                            _tourList.value = response.data!!
                         }
                         is Resource.Loading -> {
 

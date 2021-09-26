@@ -34,6 +34,8 @@ open class TourResponseMapper @Inject constructor() :
                         cat3 = it.cat3 ?: "",
                         contentid = it.contentid ?: "",
                         createdtime = it.createdtime ?: "",
+                        firstimage = it.firstimage ?: "",
+                        firstimage2 = it.firstimage2 ?: "",
                         mapx = it.mapx ?: "",
                         mapy = it.mapy ?: "",
                         mlevel = it.mlevel ?: "",

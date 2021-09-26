@@ -12,6 +12,7 @@ import java.util.*
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.fragment_home) {
 
     private lateinit var homeWeatherAdapter: HomeWeatherAdapter
+    private lateinit var homeTourAdapter: HomeTourAdapter
     private lateinit var permissionRx : Disposable
 
     override fun init() {
@@ -47,7 +48,9 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
 
     private fun view() {
         homeWeatherAdapter = HomeWeatherAdapter()
+        homeTourAdapter = HomeTourAdapter(mContext)
         binding.recyclerviewHomeWeather.adapter = homeWeatherAdapter
+        binding.recyclerviewHomeTour.adapter = homeTourAdapter
         binding.viewModel = viewModel
     }
 
@@ -60,10 +63,11 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
 
         viewModel.errorMessage.observe(this@HomeFragment) { errorMessage ->
             if (!errorMessage.isNullOrEmpty()) {
-                errorMessage.let {
-                    Toast.makeText(activity, errorMessage, Toast.LENGTH_LONG).show()
-                }
+                Toast.makeText(activity, errorMessage, Toast.LENGTH_LONG).show()
             }
+        }
+        viewModel.tourList.observe(this@HomeFragment) {
+            homeTourAdapter.submitList(it)
         }
     }
 

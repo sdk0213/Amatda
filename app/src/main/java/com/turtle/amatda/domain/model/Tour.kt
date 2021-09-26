@@ -8,6 +8,8 @@ data class Tour (
     val cat3 : String?,
     val contentid : String?,
     val createdtime : String?,
+    val firstimage: String?,
+    val firstimage2: String?,
     val mapx : String?,
     val mapy : String?,
     val mlevel : String?,

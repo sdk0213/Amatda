@@ -54,6 +54,10 @@ data class TourEntity (
     val contentid : String?,
     @PropertyElement(name="createdtime")
     val createdtime : String?,
+    @PropertyElement(name="firstimage")
+    val firstimage: String?,
+    @PropertyElement(name="firstimage2")
+    val firstimage2: String?,
     @PropertyElement(name="mapx")
     val mapx : String?,
     @PropertyElement(name="mapy")

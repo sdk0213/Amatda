@@ -105,4 +105,10 @@ class UseCaseModule {
         return GetAreaUseCase(repository)
     }
 
+    @Provides
+    @Singleton
+    fun provideGetTourUseCase(repository: TourRepository): GetTourUseCase {
+        return GetTourUseCase(repository)
+    }
+
 }

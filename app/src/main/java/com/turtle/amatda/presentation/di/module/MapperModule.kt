@@ -33,4 +33,9 @@ class MapperModule {
     fun provideAreaResponseMapper(): ResponseMapper<AreaXml, List<Area>> {
         return AreaResponseMapper()
     }
+
+    @Provides
+    fun provideTourResponseMapper(): ResponseMapper<TourXml, List<Tour>> {
+        return TourResponseMapper()
+    }
 }

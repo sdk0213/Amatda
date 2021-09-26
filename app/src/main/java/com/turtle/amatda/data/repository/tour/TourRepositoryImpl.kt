@@ -1,12 +1,16 @@
-package com.turtle.amatda.data.repository.area
+package com.turtle.amatda.data.repository.tour
 
 import com.google.gson.JsonSyntaxException
 import com.tickaroo.tikxml.XmlDataException
 import com.turtle.amatda.data.mapper.ResponseMapper
 import com.turtle.amatda.data.model.AreaXml
+import com.turtle.amatda.data.model.TourXml
 import com.turtle.amatda.data.util.Resource
 import com.turtle.amatda.domain.model.Area
+import com.turtle.amatda.domain.model.AreaCode
+import com.turtle.amatda.domain.model.Tour
 import com.turtle.amatda.domain.repository.AreaRepository
+import com.turtle.amatda.domain.repository.TourRepository
 import io.reactivex.Single
 import okhttp3.MediaType
 import okhttp3.ResponseBody
@@ -16,13 +20,15 @@ import retrofit2.Response
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-class AreaRepositoryImpl @Inject constructor(
-    private val mapper: ResponseMapper<AreaXml, List<Area>>,
-    private val areaRemoteDataSource: AreaRemoteDataSource
-) : AreaRepository {
+class TourRepositoryImpl @Inject constructor(
+    private val mapper: ResponseMapper<TourXml, List<Tour>>,
+    private val tourRemoteDataSource: TourRemoteDataSource
+) : TourRepository {
 
-    override fun getArea(areaCode: String): Single<Resource<List<Area>>> {
-        return areaRemoteDataSource.getArea(
+    override fun getTour(
+        areaCode: AreaCode
+    ): Single<Resource<List<Tour>>> {
+        return tourRemoteDataSource.getTour(
             areaCode = areaCode
         )
             .onErrorReturn {
@@ -46,7 +52,7 @@ class AreaRepositoryImpl @Inject constructor(
                 }
                 val errorJson = JSONObject()
                     .put("message", message)
-                return@onErrorReturn Response.error<AreaXml>(
+                return@onErrorReturn Response.error<TourXml>(
                     code,
                     ResponseBody.create(
                         MediaType.parse("application/json"), errorJson.toString()

@@ -7,6 +7,7 @@ import com.turtle.amatda.data.api.TourAPIService
 import com.turtle.amatda.data.api.WeatherAPIService
 import com.turtle.amatda.data.repository.area.AreaRemoteDataSource
 import com.turtle.amatda.data.repository.location.LocationRemoteDataSource
+import com.turtle.amatda.data.repository.tour.TourRemoteDataSource
 import com.turtle.amatda.data.repository.weather.WeatherRemoteDataSource
 import com.turtle.amatda.data.repository.weather.WeatherRemoteDataSourceImpl
 import dagger.Module
@@ -40,6 +41,14 @@ class RemoteDataModule {
         geocoder: Geocoder
     ): LocationRemoteDataSource {
         return LocationRemoteDataSource(fusedLocationProviderClient, locationRequest, geocoder)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTourRemoteDataSource(
+        api: TourAPIService
+    ): TourRemoteDataSource {
+        return TourRemoteDataSource(api)
     }
 
 }

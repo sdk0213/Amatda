@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_view_tour"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:id="@+id/card_view_restaurant"
+        android:layout_width="120dp"
+        android:layout_height="175dp"
         android:layout_margin="10dp"
         app:cardCornerRadius="25dp"
         app:cardElevation="10dp"
@@ -21,32 +21,50 @@
             android:background="@color/amatda_main_transparent_4">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_list_item_home_tour_title"
+                android:id="@+id/tv_list_item_home_restaurant_title"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:gravity="center"
                 app:autoSizeMaxTextSize="100sp"
                 app:autoSizeMinTextSize="1sp"
                 app:autoSizeStepGranularity="1sp"
                 app:autoSizeTextType="uniform"
-                app:layout_constraintBottom_toTopOf="@id/img_view_list_item_home_tour_image"
+                app:layout_constraintBottom_toTopOf="@id/tv_list_item_home_restaurant_type"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="장소이름표시됨" />
+                tools:text="가게이름표시됨" />
 
-            <ImageView
-                android:id="@+id/img_view_list_item_home_tour_image"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:scaleType="fitXY"
+            <TextView
+                android:id="@+id/tv_list_item_home_restaurant_type"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@id/tv_list_item_home_restaurant_addr"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_list_item_home_restaurant_title"
+                tools:text="음식 타입 표시됨" />
+
+            <TextView
+                android:id="@+id/tv_list_item_home_restaurant_addr"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="12sp"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_list_item_home_tour_title" />
+                app:layout_constraintTop_toBottomOf="@id/tv_list_item_home_restaurant_type"
+                tools:text="가게 주소 표시됨"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

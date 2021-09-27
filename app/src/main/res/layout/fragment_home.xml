@@ -67,106 +67,150 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraint_view_home_weather"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toTopOf="@id/constraint_view_home_carrier"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="wrap_content">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_home_weather"
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraint_view_home_weather"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:text="날씨"
-                        android:textSize="25sp"
-                        app:layout_constraintBottom_toTopOf="@id/img_view_home_weather_position"
+                        app:layout_constraintBottom_toTopOf="@id/constraint_view_home_restaurant"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/img_view_home_weather_position"
-                        android:layout_width="wrap_content"
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_home_weather"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:text="날씨"
+                            android:textSize="25sp"
+                            app:layout_constraintBottom_toTopOf="@id/img_view_home_weather_position"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_view_home_weather_position"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_gps_fixed_24"
+                            app:layout_constraintBottom_toTopOf="@id/recyclerview_home_weather"
+                            app:layout_constraintEnd_toStartOf="@id/tv_home_weather_address"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_home_weather" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_home_weather_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:text="@{viewModel.weatherAddress}"
+                            app:layout_constraintBottom_toBottomOf="@id/img_view_home_weather_position"
+                            app:layout_constraintStart_toEndOf="@id/img_view_home_weather_position"
+                            app:layout_constraintTop_toTopOf="@id/img_view_home_weather_position"
+                            tools:text="머한민국 머전 광역시 머구 머동 999" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerview_home_weather"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/img_view_home_weather_position"
+                            app:spanCount="1"
+                            tools:listitem="@layout/list_item_home_weather" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraint_view_home_restaurant"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_gps_fixed_24"
-                        app:layout_constraintBottom_toTopOf="@id/recyclerview_home_weather"
-                        app:layout_constraintEnd_toStartOf="@id/tv_home_weather_address"
+                        app:layout_constraintBottom_toTopOf="@id/constraint_view_home_tour"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_home_weather" />
+                        app:layout_constraintTop_toBottomOf="@id/constraint_view_home_weather">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_home_weather_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="@{viewModel.weatherAddress}"
-                        app:layout_constraintBottom_toBottomOf="@id/img_view_home_weather_position"
-                        app:layout_constraintStart_toEndOf="@id/img_view_home_weather_position"
-                        app:layout_constraintTop_toTopOf="@id/img_view_home_weather_position"
-                        tools:text="머한민국 머전 광역시 머구 머동 999" />
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_home_restaurant"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:text="주변 음식점"
+                            android:textSize="25sp"
+                            app:layout_constraintBottom_toTopOf="@id/recyclerview_home_restaurant"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerview_home_weather"
-                        android:layout_width="match_parent"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerview_home_restaurant"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_home_restaurant"
+                            app:spanCount="1"
+                            tools:listitem="@layout/list_item_home_restaurant" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraint_view_home_tour"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/img_view_home_weather_position"
-                        app:spanCount="1"
-                        tools:listitem="@layout/list_item_home_weather" />
+                        app:layout_constraintTop_toBottomOf="@id/constraint_view_home_restaurant">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_home_tour"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:text="주변 여행지"
+                            android:textSize="25sp"
+                            app:layout_constraintBottom_toTopOf="@id/recyclerview_home_tour"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerview_home_tour"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_home_tour"
+                            app:spanCount="1"
+                            tools:listitem="@layout/list_item_home_tour" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraint_view_home_carrier"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/constraint_view_home_weather">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_home_carrier"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:text="근처 여행지 추천"
-                        android:textSize="25sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toTopOf="@id/recyclerview_home_tour" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerview_home_tour"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_home_carrier"
-                        app:spanCount="1"
-                        tools:listitem="@layout/list_item_home_tour" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

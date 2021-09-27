@@ -1,15 +1,11 @@
 package com.turtle.amatda.data.repository.tour
 
-import com.google.gson.JsonSyntaxException
 import com.tickaroo.tikxml.XmlDataException
 import com.turtle.amatda.data.mapper.ResponseMapper
-import com.turtle.amatda.data.model.AreaXml
 import com.turtle.amatda.data.model.TourXml
 import com.turtle.amatda.data.util.Resource
-import com.turtle.amatda.domain.model.Area
-import com.turtle.amatda.domain.model.AreaCode
+import com.turtle.amatda.domain.model.TourCode
 import com.turtle.amatda.domain.model.Tour
-import com.turtle.amatda.domain.repository.AreaRepository
 import com.turtle.amatda.domain.repository.TourRepository
 import io.reactivex.Single
 import okhttp3.MediaType
@@ -26,10 +22,10 @@ class TourRepositoryImpl @Inject constructor(
 ) : TourRepository {
 
     override fun getTour(
-        areaCode: AreaCode
+        tourCode: TourCode
     ): Single<Resource<List<Tour>>> {
         return tourRemoteDataSource.getTour(
-            areaCode = areaCode
+            tourCode = tourCode
         )
             .onErrorReturn {
                 var code = 1000

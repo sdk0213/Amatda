@@ -12,7 +12,6 @@ import com.turtle.amatda.domain.usecases.GetTourUseCase
 import com.turtle.amatda.domain.usecases.GetWeatherUseCase
 import com.turtle.amatda.presentation.utilities.convertGridToGps
 import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringHHmmTimeStamp
-import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringMMddHHmmTimeStamp
 import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringyyyyMMddTimeStamp
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import java.io.PrintWriter
@@ -42,6 +41,9 @@ class HomeViewModel @Inject constructor(
 
     private val _tourList = MutableLiveData<List<Tour>>()
     val tourList: LiveData<List<Tour>> get() = _tourList
+
+    private val _restaurantList = MutableLiveData<List<Tour>>()
+    val restaurantList: LiveData<List<Tour>> get() = _restaurantList
 
     private var _areaCode = "1"
     private var _sigungucode = "1"
@@ -82,7 +84,8 @@ class HomeViewModel @Inject constructor(
                             _sigungucode = code
                             // 관광지 검색
                             getTourUseCase.execute(
-                                AreaCode(
+                                TourCode(
+                                    contentTypeId = "12",
                                     areacode = _areaCode,
                                     sigungucode = _sigungucode
                                 )
@@ -91,7 +94,8 @@ class HomeViewModel @Inject constructor(
                         is Resource.Loading -> {
                             _errorMessage.value = "지역코드를 찾을수 없습니다."
                             getTourUseCase.execute(
-                                AreaCode(
+                                TourCode(
+                                    contentTypeId = "12",
                                     areacode = _areaCode,
                                     sigungucode = _sigungucode
                                 )
@@ -100,7 +104,42 @@ class HomeViewModel @Inject constructor(
                         is Resource.Error -> {
                             _errorMessage.value = "지역코드를 찾을수 없습니다."
                             getTourUseCase.execute(
-                                AreaCode(
+                                TourCode(
+                                    contentTypeId = "12",
+                                    areacode = _areaCode,
+                                    sigungucode = _sigungucode
+                                )
+                            )
+                        }
+                    }
+                }
+                .flatMap {  response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            _tourList.value = response.data!!
+                            getTourUseCase.execute(
+                                TourCode(
+                                    contentTypeId = "39",
+                                    areacode = _areaCode,
+                                    sigungucode = _sigungucode
+                                )
+                            )
+                        }
+                        is Resource.Loading -> {
+                            getTourUseCase.execute(
+                                TourCode(
+                                    contentTypeId = "39",
+                                    areacode = _areaCode,
+                                    sigungucode = _sigungucode
+                                )
+                            )
+                        }
+                        is Resource.Error -> {
+                            _errorMessage.value =
+                                "Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}"
+                            getTourUseCase.execute(
+                                TourCode(
+                                    contentTypeId = "39",
                                     areacode = _areaCode,
                                     sigungucode = _sigungucode
                                 )
@@ -111,7 +150,7 @@ class HomeViewModel @Inject constructor(
                 .subscribe { response ->
                     when (response) {
                         is Resource.Success -> {
-                            _tourList.value = response.data!!
+                            _restaurantList.value = response.data!!
                         }
                         is Resource.Loading -> {
 

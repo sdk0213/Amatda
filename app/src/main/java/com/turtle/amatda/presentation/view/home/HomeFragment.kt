@@ -13,6 +13,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
 
     private lateinit var homeWeatherAdapter: HomeWeatherAdapter
     private lateinit var homeTourAdapter: HomeTourAdapter
+    private lateinit var homeRestaurantAdapter: HomeRestaurantAdapter
     private lateinit var permissionRx : Disposable
 
     override fun init() {
@@ -49,8 +50,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
     private fun view() {
         homeWeatherAdapter = HomeWeatherAdapter()
         homeTourAdapter = HomeTourAdapter(mContext)
+        homeRestaurantAdapter = HomeRestaurantAdapter(mContext)
         binding.recyclerviewHomeWeather.adapter = homeWeatherAdapter
         binding.recyclerviewHomeTour.adapter = homeTourAdapter
+        binding.recyclerviewHomeRestaurant.adapter = homeRestaurantAdapter
         binding.viewModel = viewModel
     }
 
@@ -68,6 +71,9 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
         }
         viewModel.tourList.observe(this@HomeFragment) {
             homeTourAdapter.submitList(it)
+        }
+        viewModel.restaurantList.observe(this@HomeFragment) {
+            homeRestaurantAdapter.submitList(it)
         }
     }
 

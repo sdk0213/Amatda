@@ -1,6 +1,7 @@
 package com.turtle.amatda.domain.model
 
-data class AreaCode (
+data class TourCode (
+    val contentTypeId: String ?,
     val areacode: String?,
     val sigungucode : String?
 )

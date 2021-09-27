@@ -91,15 +91,25 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
+                        <ImageView
+                            android:id="@+id/image_view_home_weather_sunny"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/ic_baseline_wb_sunny_24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/img_view_home_weather_position"
+                            app:layout_constraintEnd_toStartOf="@id/tv_home_weather"/>
+
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_home_weather"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
+                            android:layout_marginStart="10dp"
                             android:text="날씨"
                             android:textSize="25sp"
-                            app:layout_constraintBottom_toTopOf="@id/img_view_home_weather_position"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/image_view_home_weather_sunny"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -147,16 +157,26 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/constraint_view_home_weather">
 
+                        <ImageView
+                            android:id="@+id/image_view_home_restaurant_food"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/ic_baseline_food_bank_24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/recyclerview_home_restaurant"
+                            app:layout_constraintEnd_toStartOf="@id/tv_home_restaurant"/>
+
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_home_restaurant"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
+                            android:layout_marginStart="10dp"
                             android:text="주변 음식점"
                             android:textSize="25sp"
-                            app:layout_constraintBottom_toTopOf="@id/recyclerview_home_restaurant"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintStart_toEndOf="@id/image_view_home_restaurant_food"
+                            app:layout_constraintTop_toTopOf="parent"/>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerview_home_restaurant"
@@ -182,15 +202,25 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/constraint_view_home_restaurant">
 
+                        <ImageView
+                            android:id="@+id/image_view_home_tour"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/ic_baseline_local_see_24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/recyclerview_home_tour"
+                            app:layout_constraintEnd_toStartOf="@id/tv_home_tour"/>
+
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_home_tour"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
+                            android:layout_marginStart="10dp"
                             android:text="주변 여행지"
                             android:textSize="25sp"
-                            app:layout_constraintBottom_toTopOf="@id/recyclerview_home_tour"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/image_view_home_tour"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.recyclerview.widget.RecyclerView

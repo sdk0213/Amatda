@@ -48,6 +48,7 @@ class HomeViewModel @Inject constructor(
     private var _areaCode = "1"
     private var _sigungucode = "1"
 
+    // 현재 위치의 주소를 활영하여 지역코드를 조회 후 지역코드를 기반으로 주변 음식점 및 주변 여행지 목록을 가져온다.
     fun getTour() {
         compositeDisposable.add(
             getAreaUseCase.execute("") // 처음에는 시도 코드를 가져오기 위해서 빈 값으로 요청
@@ -63,13 +64,10 @@ class HomeViewModel @Inject constructor(
                             getAreaUseCase.execute(code)
                         }
                         is Resource.Loading -> {
-                            _errorMessage.value =
-                                "Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}"
                             getAreaUseCase.execute("1") // 값이 잘못되었을경우 서울로 요청
                         }
                         is Resource.Error -> {
-                            _errorMessage.value =
-                                "Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}"
+                            Log.d(TAG,"Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}")
                             getAreaUseCase.execute("1") // 값이 잘못되었을경우 서울로 요청
                         }
                     }
@@ -92,7 +90,6 @@ class HomeViewModel @Inject constructor(
                             )
                         }
                         is Resource.Loading -> {
-                            _errorMessage.value = "지역코드를 찾을수 없습니다."
                             getTourUseCase.execute(
                                 TourCode(
                                     contentTypeId = "12",
@@ -102,7 +99,7 @@ class HomeViewModel @Inject constructor(
                             )
                         }
                         is Resource.Error -> {
-                            _errorMessage.value = "지역코드를 찾을수 없습니다."
+                            Log.d(TAG,"Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}")
                             getTourUseCase.execute(
                                 TourCode(
                                     contentTypeId = "12",
@@ -135,8 +132,7 @@ class HomeViewModel @Inject constructor(
                             )
                         }
                         is Resource.Error -> {
-                            _errorMessage.value =
-                                "Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}"
+                            Log.d(TAG,"Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}")
                             getTourUseCase.execute(
                                 TourCode(
                                     contentTypeId = "39",

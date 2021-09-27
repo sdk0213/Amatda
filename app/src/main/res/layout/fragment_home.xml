@@ -93,9 +93,10 @@
 
                         <ImageView
                             android:id="@+id/image_view_home_weather_sunny"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
                             android:background="@drawable/ic_baseline_wb_sunny_24"
+                            android:layout_marginBottom="10dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toTopOf="@id/img_view_home_weather_position"
@@ -105,18 +106,19 @@
                             android:id="@+id/tv_home_weather"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
                             android:layout_marginStart="10dp"
                             android:text="날씨"
-                            android:textSize="25sp"
+                            android:textSize="20sp"
                             app:layout_constraintStart_toEndOf="@id/image_view_home_weather_sunny"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="@id/image_view_home_weather_sunny"
+                            app:layout_constraintBottom_toBottomOf="@id/image_view_home_weather_sunny"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/img_view_home_weather_position"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
                             android:src="@drawable/ic_baseline_gps_fixed_24"
+                            android:layout_marginStart="10dp"
                             app:layout_constraintBottom_toTopOf="@id/recyclerview_home_weather"
                             app:layout_constraintEnd_toStartOf="@id/tv_home_weather_address"
                             app:layout_constraintStart_toStartOf="parent"
@@ -159,9 +161,10 @@
 
                         <ImageView
                             android:id="@+id/image_view_home_restaurant_food"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
                             android:background="@drawable/ic_baseline_food_bank_24"
+                            android:layout_marginBottom="10dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toTopOf="@id/recyclerview_home_restaurant"
@@ -171,12 +174,12 @@
                             android:id="@+id/tv_home_restaurant"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
                             android:layout_marginStart="10dp"
                             android:text="주변 음식점"
-                            android:textSize="25sp"
+                            android:textSize="20sp"
                             app:layout_constraintStart_toEndOf="@id/image_view_home_restaurant_food"
-                            app:layout_constraintTop_toTopOf="parent"/>
+                            app:layout_constraintBottom_toBottomOf="@id/image_view_home_restaurant_food"
+                            app:layout_constraintTop_toTopOf="@id/image_view_home_restaurant_food"/>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerview_home_restaurant"
@@ -204,9 +207,10 @@
 
                         <ImageView
                             android:id="@+id/image_view_home_tour"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
                             android:background="@drawable/ic_baseline_local_see_24"
+                            android:layout_marginBottom="10dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toTopOf="@id/recyclerview_home_tour"
@@ -216,12 +220,12 @@
                             android:id="@+id/tv_home_tour"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
                             android:layout_marginStart="10dp"
                             android:text="주변 여행지"
-                            android:textSize="25sp"
+                            android:textSize="20sp"
                             app:layout_constraintStart_toEndOf="@id/image_view_home_tour"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="@id/image_view_home_tour"
+                            app:layout_constraintBottom_toBottomOf="@id/image_view_home_tour" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerview_home_tour"

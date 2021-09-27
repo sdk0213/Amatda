@@ -3,11 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_view_restaurant"
         android:layout_width="120dp"
         android:layout_height="175dp"
         android:layout_margin="10dp"
+        android:clickable="true"
+        android:focusable="true"
         app:cardCornerRadius="25dp"
         app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -68,6 +70,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>

@@ -21,7 +21,7 @@
             type="com.turtle.amatda.domain.model.CarrierAndGetHasPocketNum"/>
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="10dp"
@@ -117,6 +117,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>

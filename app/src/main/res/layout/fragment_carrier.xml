@@ -62,7 +62,7 @@
                         android:layout_height="match_parent"
                         android:fitsSystemWindows="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/image_toolbar_my_carrier" />
+                        android:src="@drawable/external_image_toolbar_my_carrier" />
 
                     <com.google.android.material.appbar.MaterialToolbar
                         android:id="@+id/topAppBar"

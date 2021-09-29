@@ -11,8 +11,8 @@
 
     <item
         android:id="@+id/item_add_carrier"
-        android:title="@string/app_bar_carrier_add"
-        android:contentDescription="@string/app_bar_carrier_add"
+        android:title="@string/app_bar_add_carrier"
+        android:contentDescription="@string/app_bar_add_carrier"
         android:icon="@drawable/ic_add_24"
         app:showAsAction="always" />
 

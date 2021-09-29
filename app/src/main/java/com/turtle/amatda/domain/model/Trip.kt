@@ -4,8 +4,10 @@ import java.util.*
 
 data class Trip(
     val id: Long = 0,
-    val title: String,
-    val subTitle: String,
-    val date_start: Date,
-    val date_end: Date
+    val title: String = "", // 퇴사 여행
+    val course: String = "", // 부산 -> 포항 -> 영덕
+    val nightsAndDays: String = "", // 0박 0일
+    val date_start: Date = Date(), // 21/09/28
+    val date_end: Date = Date(), // 21/10/01
+    val rating: Int = 3 // 3점
 )

@@ -38,4 +38,9 @@ class MapperModule {
     fun provideTourResponseMapper(): ResponseMapper<TourXml, List<Tour>> {
         return TourResponseMapper()
     }
+
+    @Provides
+    fun provideTripMapper(): Mapper<TripEntity, Trip>{
+        return TripMapper()
+    }
 }

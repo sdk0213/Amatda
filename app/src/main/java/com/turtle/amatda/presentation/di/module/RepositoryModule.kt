@@ -15,6 +15,8 @@ import com.turtle.amatda.data.repository.pocket.PocketDataSourceFactory
 import com.turtle.amatda.data.repository.pocket.PocketRepositoryImpl
 import com.turtle.amatda.data.repository.tour.TourRemoteDataSource
 import com.turtle.amatda.data.repository.tour.TourRepositoryImpl
+import com.turtle.amatda.data.repository.trip.TripDataSourceFactory
+import com.turtle.amatda.data.repository.trip.TripRepositoryImpl
 import com.turtle.amatda.data.repository.weather.WeatherDataSourceFactory
 import com.turtle.amatda.data.repository.weather.WeatherRepositoryImpl
 import com.turtle.amatda.domain.model.*
@@ -88,6 +90,15 @@ class RepositoryModule {
         tourRemoteDataSource: TourRemoteDataSource
     ): TourRepository {
         return TourRepositoryImpl(mapper, tourRemoteDataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTripRepositoryImpl(
+        tripMapper: Mapper<TripEntity, Trip>,
+        factory: TripDataSourceFactory
+    ): TripRepository {
+        return TripRepositoryImpl(tripMapper, factory)
     }
 
 }

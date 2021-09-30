@@ -26,10 +26,13 @@ class TripFragment : BaseFragment<TripViewModel, FragmentTripBinding>(R.layout.f
 
     private fun viewModel() {
         binding.viewModel = viewModel
+        viewModel.getAllTrip()
     }
 
     private fun observer() {
-
+        viewModel.tripList.observe(this@TripFragment){
+            tripAdapter.submitList(it)
+        }
     }
 
     private fun listener() {

@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.turtle.amatda.databinding.ListItemTripBinding
 import com.turtle.amatda.domain.model.Trip
+import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringMMddHHmmTimeStamp
+import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringyyyyMMddTimeStamp
 
 class TripAdapter constructor(
 
@@ -33,6 +35,10 @@ class TripAdapter constructor(
 
         fun bind(trip: Trip) {
             binding.apply {
+                tvTripName.text = trip.title
+                tvTripCourse.text = trip.course
+                tvTripDate.text = "${trip.date_start.convertDateToStringyyyyMMddTimeStamp()} ~ ${trip.date_end.convertDateToStringyyyyMMddTimeStamp()}"
+                ratingbarTripRating.rating = trip.rating.toFloat()
 //                carrierAndGetHasPocketNum = carrierAndPocket
 //                setClickListener {
 //                    clickCarrier(carrierAndPocket.carrier)

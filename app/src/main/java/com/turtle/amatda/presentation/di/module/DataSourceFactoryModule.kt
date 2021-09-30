@@ -6,6 +6,8 @@ import com.turtle.amatda.data.repository.item.ItemDataSourceFactory
 import com.turtle.amatda.data.repository.item.ItemLocalDataSource
 import com.turtle.amatda.data.repository.pocket.PocketDataSourceFactory
 import com.turtle.amatda.data.repository.pocket.PocketLocalDataSource
+import com.turtle.amatda.data.repository.trip.TripDataSourceFactory
+import com.turtle.amatda.data.repository.trip.TripLocalDataSource
 import com.turtle.amatda.data.repository.weather.WeatherDataSourceFactory
 import com.turtle.amatda.data.repository.weather.WeatherRemoteDataSource
 import dagger.Module
@@ -39,4 +41,9 @@ class DataSourceFactoryModule {
         return WeatherDataSourceFactory(localDataSource)
     }
 
+    @Provides
+    @Singleton
+    fun provideTripDataSourceFactory(localDataSource: TripLocalDataSource): TripDataSourceFactory {
+        return TripDataSourceFactory(localDataSource)
+    }
 }

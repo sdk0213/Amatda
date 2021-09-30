@@ -29,6 +29,9 @@ fun CharSequence.toEditable(): Editable =
 fun String.convertToDateyyyyMMddHHmm() : Date =
     SimpleDateFormat("yyyyMMddHHmm", Locale.getDefault()).parse(this)!!
 
+fun String.convertToDateyyyyMMdd() : Date =
+    SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).parse(this)!!
+
 fun String.convertToDateHHmm() : Date =
     SimpleDateFormat("HHmm", Locale.getDefault()).parse(this)!!
 

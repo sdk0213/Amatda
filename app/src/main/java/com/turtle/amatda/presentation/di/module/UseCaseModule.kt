@@ -111,4 +111,15 @@ class UseCaseModule {
         return GetTourUseCase(repository)
     }
 
+    @Provides
+    @Singleton
+    fun provideAddTripUseCase(repository: TripRepository): AddTripUseCase {
+        return AddTripUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetAllTripUseCase(repository: TripRepository): GetAllTripUseCase {
+        return GetAllTripUseCase(repository)
+    }
 }

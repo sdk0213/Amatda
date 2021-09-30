@@ -39,4 +39,7 @@
     <dimen name="carrier_item_color">30dp</dimen>
     <dimen name="carrier_item_color_margin">5dp</dimen>
 
+    <!-- 여행 만들기 -->
+    <dimen name="trip_date_text_size">20sp</dimen>
+
 </resources>

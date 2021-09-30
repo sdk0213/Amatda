@@ -24,7 +24,8 @@
     <!-- 앱 바 메뉴 -->
     <string name="app_bar_search">검색</string>
     <string name="app_bar_item_add">물품 추가</string>
-    <string name="app_bar_carrier_add">가방 추가</string>
+    <string name="app_bar_add_carrier">가방 추가</string>
+    <string name="app_bar_add_trip">여행 추가</string>
     <string name="app_bar_more">더 보기</string>
 
     <!-- contentDescription -->
@@ -73,5 +74,12 @@
     <!-- 검색 -->
     <string name="item_search_hint">물품 검색...</string>
     <string name="item_search_nothing">검색된 물품이 없습니다.</string>
+
+    <!-- 여행 만들기 -->
+    <string name="question_trip_title">여행의 이름을 정해주세요</string>
+    <string name="question_trip_title_hint">예)친구들과의 여름 여행..</string>
+    <string name="question_trip_date">달력에서 여행 시작 날짜와 종료 날짜를 선택해주세요.</string>
+    <string name="question_trip_date_start_day">여행 시작 :</string>
+    <string name="question_trip_date_end_day">여행 끝 :</string>
 
 </resources>

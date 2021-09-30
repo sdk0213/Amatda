@@ -11,13 +11,14 @@ import com.turtle.amatda.domain.model.Carrier
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import java.util.*
 
-class CarrierFragment : BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R.layout.fragment_carrier) {
+class CarrierFragment :
+    BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R.layout.fragment_carrier) {
 
     private lateinit var carrierAdapter: CarrierAdapter
 
     private val arrayOfAllItem = arrayListOf<String>()
-    private val mapOfPocketIdAndPocketName = mutableMapOf<Date,String>()
-    private val mapOfPocketIdAndCarrierName = mutableMapOf<Date,String>()
+    private val mapOfPocketIdAndPocketName = mutableMapOf<Date, String>()
+    private val mapOfPocketIdAndCarrierName = mutableMapOf<Date, String>()
 
     override fun init() {
         view()
@@ -27,17 +28,25 @@ class CarrierFragment : BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R
         onBackPressed()
     }
 
-    private fun view(){
+    private fun view() {
         initAdapter()
     }
 
     private fun initAdapter() {
         carrierAdapter = CarrierAdapter(
             clickCarrier = {
-                findNavController().navigate(CarrierFragmentDirections.actionGlobalCarrierItemFragment(it))
+                findNavController().navigate(
+                    CarrierFragmentDirections.actionGlobalCarrierItemFragment(
+                        it
+                    )
+                )
             },
             editCarrier = {
-                findNavController().navigate(CarrierFragmentDirections.actionGlobalCarrierTypeFragment(it))
+                findNavController().navigate(
+                    CarrierFragmentDirections.actionGlobalCarrierTypeFragment(
+                        it
+                    )
+                )
             },
             deleteCarrier = {
                 viewModel.deleteCarrier(it)
@@ -46,21 +55,21 @@ class CarrierFragment : BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R
         binding.carrierRecyclerView.adapter = carrierAdapter
     }
 
-    private fun viewModel(){
+    private fun viewModel() {
         viewModel.getCarrierList()
         viewModel.getAllItem()
     }
 
-    private fun observer(){
+    private fun observer() {
 
-        viewModel.mCarrierAndGetHasPocketNum.observe(this@CarrierFragment){
+        viewModel.mCarrierAndGetHasPocketNum.observe(this@CarrierFragment) {
             carrierAdapter.submitList(it)
         }
 
         viewModel.allCarrierPocketList.observe(this@CarrierFragment) { allCarrierAndPokcet ->
             mapOfPocketIdAndCarrierName.clear()
             mapOfPocketIdAndPocketName.clear()
-            allCarrierAndPokcet.forEach{ carrierAndPocket ->
+            allCarrierAndPokcet.forEach { carrierAndPocket ->
                 carrierAndPocket.pockets.forEach { pocket ->
                     mapOfPocketIdAndCarrierName[pocket.id] = carrierAndPocket.carrier.name
                     mapOfPocketIdAndPocketName[pocket.id] = pocket.name
@@ -70,28 +79,32 @@ class CarrierFragment : BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R
 
         viewModel.allItemList.observe(this@CarrierFragment) { listOfAllItem ->
             arrayOfAllItem.clear()
-            listOfAllItem.forEach{ item ->
+            listOfAllItem.forEach { item ->
                 // "새 물품 (캐리어가방 - 큰주머니 - 바깥쪽)",
-                arrayOfAllItem.add("${item.name} (${mapOfPocketIdAndCarrierName[item.pocket_id]} - ${mapOfPocketIdAndPocketName[item.pocket_id]} - ${
-                    when(item.item_place){
-                        0 -> getString(R.string.item_position_inner)
-                        1 -> getString(R.string.item_position_middle)
-                        else ->getString(R.string.item_position_outer)
-                    }
-                })")
+                arrayOfAllItem.add(
+                    "${item.name} (${mapOfPocketIdAndCarrierName[item.pocket_id]} - ${mapOfPocketIdAndPocketName[item.pocket_id]} - ${
+                        when (item.item_place) {
+                            0 -> getString(R.string.item_position_inner)
+                            1 -> getString(R.string.item_position_middle)
+                            else -> getString(R.string.item_position_outer)
+                        }
+                    })"
+                )
             }
         }
 
     }
 
-    private fun listener(){
+    private fun listener() {
 
         binding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.item_add_carrier -> {
-                    findNavController().navigate(CarrierFragmentDirections.actionGlobalCarrierTypeFragment(
-                        Carrier()
-                    ))
+                    findNavController().navigate(
+                        CarrierFragmentDirections.actionGlobalCarrierTypeFragment(
+                            Carrier()
+                        )
+                    )
                     true
                 }
                 R.id.item_search -> {
@@ -112,14 +125,14 @@ class CarrierFragment : BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R
 
             setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
-                    if(!arrayOfAllItem.any { it.contains(query) }){
+                    if (!arrayOfAllItem.any { it.contains(query) }) {
                         showToast(getString(R.string.item_search_nothing))
                     }
                     return true
                 }
 
                 override fun onQueryTextChange(newText: String): Boolean {
-                    Log.d(TAG,"onQueryTextChange is worked")
+                    Log.d(TAG, "onQueryTextChange is worked")
                     return false
                 }
             })

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_view_trip_date"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_trip_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/question_trip_date"
+            android:textSize="@dimen/trip_date_text_size"
+            app:layout_constraintBottom_toTopOf="@id/calender_trip_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calender_trip_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_trip_date_start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_trip_date"
+            app:mcv_selectionColor="@color/amatda_main"
+            app:mcv_selectionMode="range"
+            app:mcv_showOtherDates="all" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_trip_date_start"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/question_trip_date_start_day"
+            android:textSize="@dimen/trip_date_text_size"
+            app:layout_constraintBottom_toTopOf="@id/tv_trip_date_end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calender_trip_date" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_trip_date_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/question_trip_date_end_day"
+            android:textSize="@dimen/trip_date_text_size"
+            app:layout_constraintBottom_toTopOf="@id/btn_trip_title_ok"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_trip_date_start" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_trip_title_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:onClick="@{clickListener}"
+            android:text="@string/common_button_checked"
+            android:textSize="@dimen/carrier_name_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_trip_date_end" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

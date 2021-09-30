@@ -54,10 +54,11 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
         binding.recyclerviewHomeWeather.adapter = homeWeatherAdapter
         binding.recyclerviewHomeTour.adapter = homeTourAdapter
         binding.recyclerviewHomeRestaurant.adapter = homeRestaurantAdapter
-        binding.viewModel = viewModel
     }
 
-    private fun viewModel() {}
+    private fun viewModel() {
+        binding.viewModel = viewModel
+    }
 
     private fun observer() {
         viewModel.weatherList.observe(this@HomeFragment) {

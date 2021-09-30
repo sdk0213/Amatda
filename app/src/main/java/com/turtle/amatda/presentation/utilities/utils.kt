@@ -1,5 +1,7 @@
 package com.turtle.amatda.presentation.utilities
 
+import java.util.*
+
 fun convertGridToGps(mode: Int, lat_X: Double, lng_Y: Double): LatXLngY {
     val RE = 6371.00877 // 지구 반경(km)
     val GRID = 5.0 // 격자 간격(km)
@@ -73,3 +75,12 @@ class LatXLngY {
     var x = 0.0
     var y = 0.0
 }
+
+// 현재 Year
+fun getCurrentYear(): Int = Calendar.getInstance().get(Calendar.YEAR)
+
+// 현재 Month
+fun getCurrentMonth(): Int = Calendar.getInstance().get(Calendar.MONTH) + 1
+
+// 현재 Day
+fun getCurrentDay(): Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)

@@ -42,7 +42,7 @@
         android:id="@+id/view_carrier_fragment"
         android:name="com.turtle.amatda.presentation.view.carrier.CarrierFragment"
         android:label="@string/menu_my_carrier"
-        tools:layout="@layout/fragment_carrier"/>
+        tools:layout="@layout/fragment_carrier" />
 
     <fragment
         android:id="@+id/view_trip_fragment"
@@ -60,6 +60,7 @@
 
     </fragment>
 
+    <!-- ******** Start Carrier 생성 및 관리 ******** -->
     <fragment
         android:id="@+id/carrierTypeFragment"
         android:name="com.turtle.amatda.presentation.view.carrier_type.CarrierTypeFragment"
@@ -88,7 +89,11 @@
             app:argType="com.turtle.amatda.domain.model.Carrier" />
         <action
             android:id="@+id/action_carrierSizeFragment_to_carrierNameFragment"
-            app:destination="@id/carrierNameFragment" />
+            app:destination="@id/carrierNameFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -104,22 +109,58 @@
     <fragment
         android:id="@+id/carrierItemFragment"
         android:name="com.turtle.amatda.presentation.view.carrier_item.CarrierItemFragment"
-        android:label="CarrierItemFragment">
+        android:label="CarrierItemFragment"
+        tools:layout="@layout/fragment_carrier_item">
 
         <argument
             android:name="carrier"
             app:argType="com.turtle.amatda.domain.model.Carrier" />
     </fragment>
 
+    <!-- ******** End Carrier 생성 및 관리 ******** -->
+
+    <!-- ******** Start Trip 생성 및 관리 ******** -->
+    <fragment
+        android:id="@+id/tripTitleFragment"
+        android:name="com.turtle.amatda.presentation.view.trip_title.TripTitleFragment"
+        android:label="TripTitleFragment"
+        tools:layout="@layout/fragment_trip_title">
+        <argument
+            android:name="trip"
+            app:argType="com.turtle.amatda.domain.model.Trip" />
+        <action
+            android:id="@+id/action_tripTitleFragment_to_tripDateFragment"
+            app:destination="@id/tripDateFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/tripDateFragment"
+        android:name="com.turtle.amatda.presentation.view.trip_date.TripDateFragment"
+        android:label="TripDateFragment"
+        tools:layout="@layout/fragment_trip_date">
+
+        <argument
+            android:name="trip"
+            app:argType="com.turtle.amatda.domain.model.Trip" />
+
+    </fragment>
+
+    <!-- ******** End Trip 생성 및 관리 ******** -->
+
     <!-- Global Action -->
-    <!-- todo : Global 사용하지 않고서 ViewPager2 에서 Fragment를 호출할수 있는 방향을 체-->
+    <!-- todo : Global 사용하지 않고서 ViewPager2 에서 Fragment를 호출할수 있는 방법 찾기 -->
 
     <!-- To Main -->
     <action
         android:id="@+id/action_global_view_fragment"
+        app:destination="@id/view_fragment_main"
         app:popUpTo="@id/view_fragment_main"
-        app:popUpToInclusive="false"
-        app:destination="@id/view_fragment_main" />
+        app:popUpToInclusive="false" />
 
     <!-- To Carrier Type -->
     <action
@@ -139,5 +180,13 @@
         app:popEnterAnim="@anim/slide_up"
         app:popExitAnim="@anim/slide_down" />
 
+    <!-- To Trip Title -->
+    <action
+        android:id="@+id/action_global_tripTitleFragment"
+        app:destination="@id/tripTitleFragment"
+        app:enterAnim="@anim/slide_up"
+        app:exitAnim="@anim/slide_down"
+        app:popEnterAnim="@anim/slide_up"
+        app:popExitAnim="@anim/slide_down" />
 
 </navigation>

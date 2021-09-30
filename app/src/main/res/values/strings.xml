@@ -24,7 +24,8 @@
     <!-- 앱 바 메뉴 -->
     <string name="app_bar_search">searching</string>
     <string name="app_bar_item_add">add Item</string>
-    <string name="app_bar_carrier_add">add Carrier</string>
+    <string name="app_bar_add_carrier">add Carrier</string>
+    <string name="app_bar_add_trip">add Trip</string>
     <string name="app_bar_more">more</string>
 
     <!-- contentDescription -->
@@ -65,7 +66,7 @@
     <string name="item_edit_tooltip_color">색깔</string>
 
     <!-- 물건 만들기 - 가이드 설명 -->
-    <string name="item_guide_text_0">가방을 눕혔을</string>
+    <string name="item_guide_text_0">가방을 눕혔을때</string>
     <string name="item_guide_text_1">안\n쪽\n(1 층)</string>
     <string name="item_guide_text_2">가운데\n쪽\n(2 층)</string>
     <string name="item_guide_text_3">바 깥\n쪽\n(3 층)</string>
@@ -73,5 +74,12 @@
     <!-- 검색 -->
     <string name="item_search_hint">Search...</string>
     <string name="item_search_nothing">No Items</string>
+
+    <!-- 여행 만들기 -->
+    <string name="question_trip_title">Please name your trip</string>
+    <string name="question_trip_title_hint">ex)summer trip with friends</string>
+    <string name="question_trip_date">Please select the start and end dates of your trip from the calendar.</string>
+    <string name="question_trip_date_start_day">travel start date :</string>
+    <string name="question_trip_date_end_day">travel end date :</string>
 
 </resources>

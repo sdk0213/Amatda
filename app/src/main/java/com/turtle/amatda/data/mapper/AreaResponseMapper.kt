@@ -24,7 +24,7 @@ open class AreaResponseMapper @Inject constructor() :
         val areaList = arrayListOf<Area>()
 
         response.body()?.let { result ->
-            result.body?.items?.item?.forEach {
+            result.body.items.item?.forEach {
                 areaList.add(
                     Area(
                         code = it.code ?: "",
@@ -35,8 +35,8 @@ open class AreaResponseMapper @Inject constructor() :
             }
             return Resource.Success(
                 data = areaList,
-                code = result.header?.resultCode,
-                message = result.header?.resultMsg
+                code = result.header.resultCode,
+                message = result.header.resultMsg
             )
         }
 

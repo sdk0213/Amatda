@@ -395,7 +395,7 @@ class CarrierItemFragment :
         }
 
         // 주머니 이름 변경 리스너 - [키보드 확인]
-        binding.pocketName.setOnKeyListener { v, keyCode, event ->
+        binding.pocketName.setOnKeyListener { _, keyCode, _ ->
             when (keyCode) {
                 KeyEvent.KEYCODE_ENTER -> {
                     binding.pocketName.text.toString().let {
@@ -468,7 +468,7 @@ class CarrierItemFragment :
                 }
             })
 
-            setOnItemClickListener { _, _, position, _ ->
+            setOnItemClickListener { _, _, _, _ ->
                 // 아무것도 하지 않는다.
                 // todo : 아이템 클릭시 해당 아이템으로 이동은 추후에 개발
             }

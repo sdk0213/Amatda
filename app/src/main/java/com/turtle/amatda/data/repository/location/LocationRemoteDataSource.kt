@@ -51,15 +51,13 @@ class LocationRemoteDataSource @Inject constructor(
     }
 
     private fun setLocation(location: Location) {
-        val address = geocoder.getFromLocation(location.latitude,
-            location.longitude, 1)
         locationSubject.onNext(
             DomainLocation(
                 location.latitude,
                 location.longitude,
                 location.accuracy,
                 address = geocoder.getFromLocation(location.latitude,
-                    location.longitude, 1)[0]?.getAddressLine(0).toString() ?: "현재 위치 알수 없음"
+                    location.longitude, 1)[0]?.getAddressLine(0).toString()
             )
         )
     }

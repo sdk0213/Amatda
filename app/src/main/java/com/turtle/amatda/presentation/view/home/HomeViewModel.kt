@@ -197,8 +197,8 @@ class HomeViewModel @Inject constructor(
                         when (response) {
                             is Resource.Success -> {
                                 val weather = response.data ?: arrayListOf()
-                                _weatherList.value = weather.filter { weather ->
-                                    val date = weather.date.convertDateToStringHHmmTimeStamp()
+                                _weatherList.value = weather.filter {
+                                    val date = it.date.convertDateToStringHHmmTimeStamp()
                                     // 0,3,6,9,12,15,18,21시만 출력
                                     date == "00:00" || date == "03:00" || date == "06:00" || date == "09:00" || date == "12:00" || date == "15:00" || date == "18:00" || date == "21:00"
                                 }

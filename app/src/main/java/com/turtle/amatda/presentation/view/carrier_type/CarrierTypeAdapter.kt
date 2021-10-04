@@ -34,7 +34,7 @@ class CarrierTypeAdapter constructor(
         fun bind(item: CarrierType) {
             binding.apply {
                 carrierType = item
-                setClickListener { view ->
+                setClickListener {
                     clickType(item)
                 }
                 executePendingBindings()

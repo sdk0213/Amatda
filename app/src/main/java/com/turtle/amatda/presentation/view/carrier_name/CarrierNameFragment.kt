@@ -30,7 +30,7 @@ class CarrierNameFragment : BaseFragment<CarrierNameViewModel, FragmentCarrierNa
             0
         )
 
-        binding.setClickListener { view ->
+        binding.setClickListener {
             when(editCarrier){
                 true -> {
                     viewModel.updateCarrier(

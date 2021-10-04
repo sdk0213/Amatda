@@ -133,7 +133,7 @@ class CarrierItemViewModel @Inject constructor(
                             currentPocket = pocketAndItem?.find { it.pocket.id == currentPocket.id }?.pocket!!
                         }
                         // 주머니 1개 이상 존재 여부
-                        _isPocketExist.value = pocketAndItem?.isEmpty() != true
+                        _isPocketExist.value = pocketAndItem.isEmpty() != true
                         val pocketListByCarrierId = arrayListOf<Pocket>()
                         pocketAndItem.map { pocketListByCarrierId.add(it.pocket) }
                         _pocketList.value = pocketListByCarrierId

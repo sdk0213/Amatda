@@ -34,7 +34,7 @@ class CarrierSizeAdapter constructor(
         fun bind(item: CarrierSize) {
             binding.apply {
                 carrierSize = item
-                setClickListener { view ->
+                setClickListener {
                     clickSize(item)
                 }
                 executePendingBindings()

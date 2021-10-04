@@ -152,7 +152,7 @@ class CarrierFragment :
                 }
             })
 
-            setOnItemClickListener { _, _, position, _ ->
+            setOnItemClickListener { _, _, _, _ ->
                 // 아무것도 하지 않는다.
                 // todo : 아이템 클릭시 해당 아이템으로 이동은 추후에 개발
             }

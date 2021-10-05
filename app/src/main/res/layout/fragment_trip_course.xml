@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="clickListener"
-            type="android.view.View.OnClickListener"/>
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,43 +14,44 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_trip_area"
+            android:id="@+id/tv_trip_course"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/question_trip_area"
-            android:textSize="@dimen/carrier_name_text_size"
             android:layout_marginTop="20dp"
-            app:layout_constraintBottom_toTopOf="@id/recycler_view_trip_area"
+            android:text="@string/question_trip_course"
+            android:textSize="@dimen/carrier_name_text_size"
+            app:layout_constraintBottom_toTopOf="@id/fragment_autocomplete_support"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_trip_area"
+        <fragment
+            android:id="@+id/fragment_autocomplete_support"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toTopOf="@id/btn_trip_area_ok"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            app:layout_constraintBottom_toTopOf="@id/btn_trip_course_ok"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_trip_area" />
+            app:layout_constraintTop_toBottomOf="@id/tv_trip_course">
+
+        </fragment>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_trip_area_ok"
+            android:id="@+id/btn_trip_course_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:gravity="center"
+            android:onClick="@{clickListener}"
             android:text="@string/common_button_checked"
             android:textSize="@dimen/carrier_name_text_size"
-            android:onClick="@{clickListener}"
-            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recycler_view_trip_area" />
+            app:layout_constraintTop_toBottomOf="@id/fragment_autocomplete_support" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

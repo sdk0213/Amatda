@@ -18,6 +18,7 @@ import com.turtle.amatda.presentation.view.main.MainActivity
 import com.turtle.amatda.presentation.view.main.MainViewPagerFragment
 import com.turtle.amatda.presentation.view.mypage.MyPageFragment
 import com.turtle.amatda.presentation.view.trip.TripFragment
+import com.turtle.amatda.presentation.view.trip_course.TripCourseFragment
 import com.turtle.amatda.presentation.view.trip_date.TripDateFragment
 import com.turtle.amatda.presentation.view.trip_title.TripTitleFragment
 import dagger.Module
@@ -86,4 +87,8 @@ abstract class MainModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = [TripDateModule::class])
     abstract fun getTripDateFragment(): TripDateFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [TripCourseModule::class])
+    abstract fun getTripCourseFragment(): TripCourseFragment
 }

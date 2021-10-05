@@ -79,8 +79,8 @@
     <string name="question_trip_title">Please name your trip</string>
     <string name="question_trip_title_hint">ex)summer trip with friends</string>
     <string name="question_trip_date">Please select the start and end dates of your trip from the calendar.</string>
-    <string name="question_trip_date_start_day">travel start date :</string>
-    <string name="question_trip_date_end_day">travel end date :</string>
-    <string name="question_trip_area">Please add your travel area</string>
+    <string name="question_trip_date_start_day">travel start date</string>
+    <string name="question_trip_date_end_day">travel end date</string>
+    <string name="question_trip_course">Please add your travel area</string>
 
 </resources>

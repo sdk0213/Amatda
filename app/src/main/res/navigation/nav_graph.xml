@@ -148,6 +148,26 @@
             android:name="trip"
             app:argType="com.turtle.amatda.domain.model.Trip" />
 
+        <action
+            android:id="@+id/action_tripDateFragment_to_tripCourseFragment"
+            app:destination="@id/tripCourseFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/tripCourseFragment"
+        android:name="com.turtle.amatda.presentation.view.trip_course.TripCourseFragment"
+        android:label="TripCourseFragment"
+        tools:layout="@layout/fragment_trip_course">
+
+        <argument
+            android:name="trip"
+            app:argType="com.turtle.amatda.domain.model.Trip" />
+
     </fragment>
 
     <!-- ******** End Trip 생성 및 관리 ******** -->

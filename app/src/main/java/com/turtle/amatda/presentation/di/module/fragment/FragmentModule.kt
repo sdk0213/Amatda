@@ -34,3 +34,6 @@ class TripDateModule {}
 
 @Module
 class TripTitleModule {}
+
+@Module
+class TripCourseModule {}

@@ -44,3 +44,6 @@ fun String.convertHHmm() : String =
     SimpleDateFormat("HH시 mm분", Locale.getDefault()).format(
         SimpleDateFormat("HHmm", Locale.getDefault()).parse(this)!!
     )
+
+fun Date.getCountDay(endDate: Date) : Long =
+    (this.time - endDate.time) / 24*60*60*1000

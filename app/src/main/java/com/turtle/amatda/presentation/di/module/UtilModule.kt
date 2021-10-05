@@ -6,6 +6,9 @@ import android.os.Build
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.net.PlacesClient
+import com.turtle.amatda.BuildConfig
 import com.turtle.amatda.presentation.di.qualifier.ApplicationContext
 import dagger.Module
 import dagger.Provides
@@ -44,5 +47,13 @@ class UtilModule {
         } else {
             Geocoder(context, context.resources.configuration.locale)
         }
+    }
+
+    // Google Place
+    // 구글 플레이스
+    @Provides
+    fun provideGooglePlaceClient(@ApplicationContext context: Context) : PlacesClient{
+        Places.initialize(context, BuildConfig.PLACES_API_KEY)
+        return Places.createClient(context)
     }
 }

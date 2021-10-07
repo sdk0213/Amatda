@@ -22,7 +22,8 @@
         android:theme="@style/Theme.Amatda">
         <activity
             android:name=".presentation.view.main.MainActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,6 +43,10 @@
             android:exported="false"
             android:protectionLevel="signature"
             android:syncable="true"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
 
     </application>
 

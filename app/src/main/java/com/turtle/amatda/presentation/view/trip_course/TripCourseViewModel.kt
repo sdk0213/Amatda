@@ -1,14 +1,21 @@
 package com.turtle.amatda.presentation.view.trip_course
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.libraries.places.api.model.Place
+import com.turtle.amatda.domain.model.MapCameraPosition
 import com.turtle.amatda.domain.model.Trip
+import com.turtle.amatda.domain.usecases.GetLocationUseCase
 import com.turtle.amatda.presentation.utilities.extensions.getCountDay
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import java.util.*
 import javax.inject.Inject
 
-class TripCourseViewModel @Inject constructor() : BaseViewModel() {
+class TripCourseViewModel @Inject constructor(
+    private val getLocationUseCase: GetLocationUseCase,
+) : BaseViewModel() {
 
     private val _argsTrip = MutableLiveData<Trip>()
     val argsTrip: LiveData<Trip> get() = _argsTrip
@@ -16,9 +23,16 @@ class TripCourseViewModel @Inject constructor() : BaseViewModel() {
     private val _tripDays = MutableLiveData<Long>()
     val tripDays: LiveData<Long> get() = _tripDays
 
+    private val _newPlace = MutableLiveData<Place>()
+    val newPlace: LiveData<Place> get() = _newPlace
+
+    private val _cameraPosition = MutableLiveData<MapCameraPosition>()
+    val cameraPosition: LiveData<MapCameraPosition> get() = _cameraPosition
+
     fun init(trip: Trip){
         setTrip(trip)
         calDate()
+        getLocation()
     }
 
     private fun setTrip(trip: Trip) {
@@ -42,5 +56,28 @@ class TripCourseViewModel @Inject constructor() : BaseViewModel() {
         val endDate = _argsTrip.value?.date_end ?: Date()
         _tripDays.value = startDate.getCountDay(endDate)
     }
+
+    private fun getLocation(){
+        getLocationUseCase.execute()
+            .take(1)
+            .subscribe(
+                {
+                    moveCamera(MapCameraPosition(LatLng(it.latitude, it.longitude), 13.5f))
+                },
+                {
+                    Log.d(TAG,"getLocation is on Error : ${it.message}")
+                }
+            )
+    }
+
+    fun moveCamera(mapCameraPosition: MapCameraPosition){
+        _cameraPosition.value = mapCameraPosition
+    }
+
+    fun addMarkerToMap(place: Place){
+        _newPlace.value = place
+    }
+
+
 
 }

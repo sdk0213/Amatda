@@ -15,7 +15,7 @@
     * usecase (상당히 좋다고 느꼈던 부분)
     * repository
   * 종속성 주입
-    * dagger2
+    * dagger2 (약 한달 정도 공부하여 적용하였으나 아직도 이게 맞는것인지 아닌것인지 헷갈림)
   * 구글 쩨트팩 - jetpack (google)
     * room
     * viewModel

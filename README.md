@@ -28,7 +28,7 @@
     * okhttp
     * retrofit
     * gson
-    * TedPermission (Rxjava 활용하기위해서 도입)
+    * TedPermission - (rx-permission을 활용하기위해서 도입)
     * tikxml (Retrofit 에서 xml 파싱하기위하여)
     * keyboardvisibilityevent (키보드 올라와있을때 제거 하기위해)
     * materialsearchview (검색 구현이 시간이 너무 오래걸릴것같아 임시로 사용중)

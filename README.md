@@ -1,4 +1,53 @@
-# Amatda
+# Amatda (공부용 사이드 프로젝트)
+* 다음 기술들을 공부하고 실습하기위해서 만드는 프로젝트입니다. 일과 공부와 개발을 병행하며 하기 때문에 개발기간이 매~~우 긴것이 단점아닌 특징
+  * 언어
+    * kotlin
+  * 반응형프로그래밍
+    * rxjava2 
+    * coroutine (공부했으나 rxjava 부터 겪어보기위해 적용하지 않음)
+  * 앱 디자인 (디자이너 없음.. 최대한 노력했으나 쉽지 않음.. 어쩔땐 디자인 시간이 더 오래걸림)
+    * material (최대한 지향하려고 노력함)
+  * 디자인 패턴
+    * mvvm 
+  * 클린아키텍쳐 (최대한 지향하려고 노력함)
+    * data - domain - presentation 구분 (패키지로 구분하였음) 
+    * mapper
+    * usecase (상당히 좋다고 느꼈던 부분)
+    * repository
+  * 종속성 주입
+    * dagger2 (약 한달 정도 공부하여 적용하였으나 아직도 이게 맞는것인지 아닌것인지 헷갈림)
+  * 구글 쩨트팩 - jetpack (google)
+    * room
+    * viewModel
+    * view/data binding
+    * livedata
+    * navigation component
+    * workmanager (진행중)
+  * 라이브러리
+    * glide
+    * okhttp
+    * retrofit
+    * gson
+    * TedPermission - (rx-permission을 활용하기위해서 도입)
+    * tikxml (Retrofit 에서 xml 파싱하기위하여)
+    * keyboardvisibilityevent (키보드 올라와있을때 제거 하기위해)
+    * materialsearchview (검색 구현이 시간이 너무 오래걸릴것같아 임시로 사용중)
+  * API
+    * 공공데이터 포털 날씨 검색
+    * 공공데이터 포털 주변 관광지 검색
+    * Google Map
+    * Google Place
+    * FireBase 인증 (공부중)
+    * 카카오톡 이메일 로그인 (공부중)
+  * 구글 앱 등록
+  * 테스트 (공부중)
+    * mockito 등... 아직 안해봄... 
+  * 서버
+    * FCM (파이어베이스 클라우드 메시지)
+    * 앱 서버 구현 (공부중)
+      * FireBase 사용예정
+
+---
 여행 비서 어플리케이션
 ---
 여행 도중 신경쓸 거리는 한두가지가 아닙니다.

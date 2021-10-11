@@ -11,9 +11,15 @@ import java.util.*
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.fragment_home) {
 
-    private lateinit var homeWeatherAdapter: HomeWeatherAdapter
-    private lateinit var homeTourAdapter: HomeTourAdapter
-    private lateinit var homeRestaurantAdapter: HomeRestaurantAdapter
+    private val homeWeatherAdapter: HomeWeatherAdapter by lazy {
+        HomeWeatherAdapter()
+    }
+    private val homeTourAdapter: HomeTourAdapter by lazy {
+        HomeTourAdapter(mContext)
+    }
+    private val homeRestaurantAdapter: HomeRestaurantAdapter by lazy {
+        HomeRestaurantAdapter(mContext)
+    }
     private lateinit var permissionRx : Disposable
 
     override fun init() {
@@ -48,9 +54,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
     }
 
     private fun view() {
-        homeWeatherAdapter = HomeWeatherAdapter()
-        homeTourAdapter = HomeTourAdapter(mContext)
-        homeRestaurantAdapter = HomeRestaurantAdapter(mContext)
         binding.recyclerviewHomeWeather.adapter = homeWeatherAdapter
         binding.recyclerviewHomeTour.adapter = homeTourAdapter
         binding.recyclerviewHomeRestaurant.adapter = homeRestaurantAdapter

@@ -9,7 +9,9 @@ import com.turtle.amatda.presentation.view.base.BaseFragment
 
 class TripFragment : BaseFragment<TripViewModel, FragmentTripBinding>(R.layout.fragment_trip) {
 
-    private lateinit var tripAdapter: TripAdapter
+    private val tripAdapter: TripAdapter by lazy {
+        TripAdapter()
+    }
 
     override fun init() {
         view()
@@ -20,8 +22,7 @@ class TripFragment : BaseFragment<TripViewModel, FragmentTripBinding>(R.layout.f
     }
 
     private fun view() {
-        tripAdapter = TripAdapter()
-        binding.recyclerViewTrip.adapter = tripAdapter
+        binding.recyclerviewTrip.adapter = tripAdapter
     }
 
     private fun viewModel() {

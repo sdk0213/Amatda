@@ -12,7 +12,7 @@ import com.turtle.amatda.presentation.view.home.HomeViewModel
 import com.turtle.amatda.presentation.view.main.MainViewPagerModel
 import com.turtle.amatda.presentation.view.mypage.MyPageViewModel
 import com.turtle.amatda.presentation.view.trip.TripViewModel
-import com.turtle.amatda.presentation.view.trip_course.TripCourseViewModel
+import com.turtle.amatda.presentation.view.trip_zone.TripZoneViewModel
 import com.turtle.amatda.presentation.view.trip_date.TripDateViewModel
 import dagger.Binds
 import dagger.Module
@@ -76,6 +76,6 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(TripCourseViewModel::class)
-    abstract fun bindsTripCourseViewModel(viewModel: TripCourseViewModel): ViewModel
+    @ViewModelKey(TripZoneViewModel::class)
+    abstract fun bindsTripZoneViewModel(viewModel: TripZoneViewModel): ViewModel
 }

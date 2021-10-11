@@ -160,7 +160,7 @@
 
     <fragment
         android:id="@+id/tripCourseFragment"
-        android:name="com.turtle.amatda.presentation.view.trip_course.TripCourseFragment"
+        android:name="com.turtle.amatda.presentation.view.trip_zone.TripZoneFragment"
         android:label="TripCourseFragment"
         tools:layout="@layout/fragment_trip_course">
 

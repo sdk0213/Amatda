@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.domain.model.Trip
+import com.turtle.amatda.domain.model.TripZone
 import com.turtle.amatda.domain.usecases.AddTripUseCase
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import java.util.*
@@ -28,7 +29,7 @@ class TripDateViewModel @Inject constructor(
                 Trip(
                     id = 0,
                     title = _argsTrip.value?.title ?: "제목없음",
-                    course = "부산 -> 포항 -> 영덕",
+                    zoneList = arrayListOf(TripZone()),
                     nightsAndDays = "2박 3일",
                     date_start = _tripStartDate.value ?: Date(),
                     date_end = _tripEndDate.value ?: Date(),
@@ -40,7 +41,7 @@ class TripDateViewModel @Inject constructor(
 
                     },
                     {
-                        Log.d(TAG,it.message.toString())
+                        Log.d(TAG, it.message.toString())
                     }
                 )
         )
@@ -55,11 +56,10 @@ class TripDateViewModel @Inject constructor(
         _argsTrip.value = trip
     }
 
-    fun getTrip() : Trip{
+    fun getTrip(): Trip {
         return Trip(
             id = 0,
             title = _argsTrip.value?.title ?: "제목없음",
-            course = "부산 -> 포항 -> 영덕",
             nightsAndDays = "2박 3일",
             date_start = _tripStartDate.value ?: Date(),
             date_end = _tripEndDate.value ?: Date(),

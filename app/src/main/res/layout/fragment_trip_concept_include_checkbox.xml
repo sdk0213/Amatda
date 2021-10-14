@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.turtle.amatda.domain.model.TripConcept" />
+
+        <variable
+            name="viewModel"
+            type="com.turtle.amatda.presentation.view.trip_concept.TripConceptViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fadeScrollbars="false"
+            android:scrollbarThumbVertical="@drawable/scrollbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioGroup
+                android:id="@+id/radio_group_trip_concept"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/radio_button_trip_concept_normal">
+
+                <RadioButton
+                    android:id="@+id/radio_button_trip_concept_normal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.NORMAL)}"
+                    android:text="@{TripConcept.NORMAL.concept}" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.FUNNY)}"
+                    android:text="@{TripConcept.FUNNY.concept}" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.ACTIVITY)}"
+                    android:text="@{TripConcept.ACTIVITY.concept}" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.REST)}"
+                    android:text="@{TripConcept.REST.concept}" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.LOVELY)}"
+                    android:text="@{TripConcept.LOVELY.concept}" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.HONEYMOON)}"
+                    android:text="@{TripConcept.HONEYMOON.concept}" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.CULTURE)}"
+                    android:text="@{TripConcept.CULTURE.concept}" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.STUDY)}"
+                    android:text="@{TripConcept.STUDY.concept}" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.WORK)}"
+                    android:text="@{TripConcept.WORK.concept}" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.FOOD)}"
+                    android:text="@{TripConcept.FOOD.concept}" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.SELFREFLECTION)}"
+                    android:text="@{TripConcept.SELFREFLECTION.concept}" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.REFRESH)}"
+                    android:text="@{TripConcept.REFRESH.concept}" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.BOOK)}"
+                    android:text="@{TripConcept.BOOK.concept}" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.MUSIC)}"
+                    android:text="@{TripConcept.MUSIC.concept}" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.CHALLENGER)}"
+                    android:text="@{TripConcept.CHALLENGER.concept}" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/amatda_main"
+                    android:onClick="@{() -> viewModel.updateConcept(TripConcept.FRIENDSHIP)}"
+                    android:text="@{TripConcept.FRIENDSHIP.concept}" />
+
+            </RadioGroup>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

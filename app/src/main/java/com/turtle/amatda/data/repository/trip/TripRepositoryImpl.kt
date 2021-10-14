@@ -1,7 +1,7 @@
 package com.turtle.amatda.data.repository.trip
 
 import com.turtle.amatda.data.mapper.Mapper
-import com.turtle.amatda.data.model.TripEntity
+import com.turtle.amatda.data.model.TripAndTripZoneEntity
 import com.turtle.amatda.domain.model.Trip
 import com.turtle.amatda.domain.repository.TripRepository
 import io.reactivex.Completable
@@ -9,15 +9,16 @@ import io.reactivex.Flowable
 import javax.inject.Inject
 
 class TripRepositoryImpl @Inject constructor(
-    private val tripMapper: Mapper<TripEntity, Trip>,
+    private val tripMapper: Mapper<TripAndTripZoneEntity, Trip>,
     private val factory: TripDataSourceFactory
 ) : TripRepository {
 
     override fun getAllTrip(): Flowable<List<Trip>> {
-        return factory.getTripAll().map { list ->
-            list.map { trip ->
-                tripMapper.entityToMap(trip)
-            }
+        return factory.getTripAll().flatMap { list ->
+            Flowable.fromIterable(list)
+                .map { tripMapper.entityToMap(it) }
+                .toList()
+                .toFlowable()
         }
     }
 

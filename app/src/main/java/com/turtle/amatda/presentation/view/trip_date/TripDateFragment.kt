@@ -28,7 +28,7 @@ class TripDateFragment :
     private fun listener() {
         binding.setClickListener {
             findNavController().navigate(
-                TripDateFragmentDirections.actionTripDateFragmentToTripCourseFragment(
+                TripDateFragmentDirections.actionTripDateFragmentToTripConceptFragment(
                     viewModel.getTrip()
                 )
             )

@@ -47,32 +47,31 @@
     <string name="edit_pocket_add">주머니 추가히기</string>
     <string name="edit_pocket_rename">주머니 이름바꾸기</string>
     <string name="edit_pocket_delete">주머니 삭제하기</string>
-    <string name="edit_pocket_rename_cancel">취소 (주머니 이름바꾸기)</string>
-    <string name="edit_pocket_delete_cancel">취소 (주머니 삭제하기)</string>
-    <string name="item_position_inner">안 쪽</string>
-    <string name="item_position_middle">가운데 쪽</string>
-    <string name="item_position_outer">바깥 쪽</string>
+    <string name="edit_pocket_rename_cancel">cancel (주머니 이름바꾸기)</string>
+    <string name="edit_pocket_delete_cancel">cancel (주머니 삭제하기)</string>
+    <string name="item_position_inner">inside</string>
+    <string name="item_position_middle">middle</string>
+    <string name="item_position_outer">outside</string>
 
     <!-- 물건 만들기 -->
-    <string name="add_item_label">물품 추가</string>
+    <string name="add_item_label">add item</string>
     <string name="edit_item_label">물품 이름 바꾸기</string>
     <string name="save_carrier_and_item">가방 저장</string>
 
     <!-- 물건 만들기 - ToolTip -->
-    <string name="item_edit_tooltip_cancel">취소</string>
-    <string name="item_edit_tooltip_delete">삭제</string>
-    <string name="item_edit_tooltip_resize">크기</string>
-    <string name="item_edit_tooltip_count">개수</string>
-    <string name="item_edit_tooltip_color">색깔</string>
+    <string name="item_edit_tooltip_delete">delete</string>
+    <string name="item_edit_tooltip_resize">resize</string>
+    <string name="item_edit_tooltip_count">count</string>
+    <string name="item_edit_tooltip_color">color</string>
 
     <!-- 물건 만들기 - 가이드 설명 -->
-    <string name="item_guide_text_0">가방을 눕혔을때</string>
-    <string name="item_guide_text_1">안\n쪽\n(1 층)</string>
-    <string name="item_guide_text_2">가운데\n쪽\n(2 층)</string>
-    <string name="item_guide_text_3">바 깥\n쪽\n(3 층)</string>
+    <string name="item_guide_text_0">lay the bag down</string>
+    <string name="item_guide_text_1">inside\n(1 층)</string>
+    <string name="item_guide_text_2">middle\n(2 층)</string>
+    <string name="item_guide_text_3">outside\n(3 층)</string>
 
     <!-- 검색 -->
-    <string name="item_search_hint">Search...</string>
+    <string name="item_search_hint">Search..</string>
     <string name="item_search_nothing">No Items</string>
 
     <!-- 여행 만들기 -->
@@ -82,5 +81,9 @@
     <string name="question_trip_date_start_day">travel start date</string>
     <string name="question_trip_date_end_day">travel end date</string>
     <string name="question_trip_course">Please select a travel area by travel date</string>
+    <string name="question_trip_concept">Check out the travel concept.</string>
+
+    <!-- 지역 생성 -->
+    <string name="question_trip_zone_ok">Add location</string>
 
 </resources>

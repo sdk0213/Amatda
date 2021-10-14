@@ -95,7 +95,7 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideTripRepositoryImpl(
-        tripMapper: Mapper<TripEntity, Trip>,
+        tripMapper: Mapper<TripAndTripZoneEntity, Trip>,
         factory: TripDataSourceFactory
     ): TripRepository {
         return TripRepositoryImpl(tripMapper, factory)

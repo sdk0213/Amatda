@@ -67,7 +67,7 @@ class CarrierItemViewModel @Inject constructor(
     val isPocketRenameClicked: LiveData<Boolean> get() = _isPocketRenameClicked
 
     // 모든 아이템 가져오기
-    fun getAllItem(){
+    fun getAllItem() {
         compositeDisposable.add(
             getPocketUseCase.execute()
                 .subscribe(
@@ -130,7 +130,8 @@ class CarrierItemViewModel @Inject constructor(
                                 currentPocket = it.pocket
                             }
                         } else {
-                            currentPocket = pocketAndItem?.find { it.pocket.id == currentPocket.id }?.pocket!!
+                            currentPocket =
+                                pocketAndItem?.find { it.pocket.id == currentPocket.id }?.pocket!!
                         }
                         // 주머니 1개 이상 존재 여부
                         _isPocketExist.value = pocketAndItem.isEmpty() != true
@@ -238,7 +239,6 @@ class CarrierItemViewModel @Inject constructor(
         )
     }
 
-    // todo: 기존에 선택된 아이템들의 정보가 필요한데 지금 이게 Fragment 에서 처리하고 있는데 이거를 Observer 형태로 변경을 해야하나 고민인된다.
     fun removeItem(item_id: Date) {
         _itemList.value?.find {
             it.id == item_id

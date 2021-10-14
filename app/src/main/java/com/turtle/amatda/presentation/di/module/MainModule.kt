@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.databinding.DataBindingUtil
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.ActivityMainBinding
-import com.turtle.amatda.domain.model.TripZone
 import com.turtle.amatda.presentation.di.module.fragment.*
 import com.turtle.amatda.presentation.di.qualifier.ActivityContext
 import com.turtle.amatda.presentation.di.scope.ActivityScope
@@ -19,9 +18,11 @@ import com.turtle.amatda.presentation.view.main.MainActivity
 import com.turtle.amatda.presentation.view.main.MainViewPagerFragment
 import com.turtle.amatda.presentation.view.mypage.MyPageFragment
 import com.turtle.amatda.presentation.view.trip.TripFragment
-import com.turtle.amatda.presentation.view.trip_zone.TripZoneFragment
+import com.turtle.amatda.presentation.view.trip_concept.TripConceptFragment
 import com.turtle.amatda.presentation.view.trip_date.TripDateFragment
 import com.turtle.amatda.presentation.view.trip_title.TripTitleFragment
+import com.turtle.amatda.presentation.view.trip_zone.TripZoneFragment
+import com.turtle.amatda.presentation.view.trip_zone_make.TripZoneMakeFragment
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
@@ -90,6 +91,14 @@ abstract class MainModule {
     abstract fun getTripDateFragment(): TripDateFragment
 
     @FragmentScope
+    @ContributesAndroidInjector(modules = [TripConceptModule::class])
+    abstract fun getTripConceptFragment(): TripConceptFragment
+
+    @FragmentScope
     @ContributesAndroidInjector(modules = [TripZoneModule::class])
     abstract fun getTripZoneFragment(): TripZoneFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [TripZoneMakeModule::class])
+    abstract fun getTripZoneMakeFragment(): TripZoneMakeFragment
 }

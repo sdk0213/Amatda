@@ -12,10 +12,7 @@ import com.turtle.amatda.data.db.dao.CarrierDao
 import com.turtle.amatda.data.db.dao.ItemDao
 import com.turtle.amatda.data.db.dao.PocketDao
 import com.turtle.amatda.data.db.dao.TripDao
-import com.turtle.amatda.data.model.CarrierEntity
-import com.turtle.amatda.data.model.ItemEntity
-import com.turtle.amatda.data.model.PocketEntity
-import com.turtle.amatda.data.model.TripEntity
+import com.turtle.amatda.data.model.*
 import com.turtle.amatda.presentation.utilities.DATABASE_NAME
 import com.turtle.amatda.presentation.workers.SeedDatabaseWorker
 
@@ -24,12 +21,16 @@ import com.turtle.amatda.presentation.workers.SeedDatabaseWorker
         CarrierEntity::class,
         ItemEntity::class,
         PocketEntity::class,
-        TripEntity::class
+        TripEntity::class,
+        TripZoneEntity::class
     ],
     version = 1,
     exportSchema = false
 )
-@TypeConverters(DateTypeConverter::class)
+@TypeConverters(
+    DateTypeConverter::class,
+    TripConceptEnumTypeConverter::class
+)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun todoDao(): CarrierDao

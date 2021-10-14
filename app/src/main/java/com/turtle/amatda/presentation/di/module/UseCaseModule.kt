@@ -122,4 +122,10 @@ class UseCaseModule {
     fun provideGetAllTripUseCase(repository: TripRepository): GetAllTripUseCase {
         return GetAllTripUseCase(repository)
     }
+
+    @Provides
+    @Singleton
+    fun provideSaveTripUseCase(repository: TripRepository): SaveTripUseCase {
+        return SaveTripUseCase(repository)
+    }
 }

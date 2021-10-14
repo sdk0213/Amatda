@@ -1,6 +1,6 @@
 package com.turtle.amatda.data.repository.trip
 
-import com.turtle.amatda.data.model.TripEntity
+import com.turtle.amatda.data.model.TripAndTripZoneEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import javax.inject.Inject
@@ -8,19 +8,19 @@ import javax.inject.Inject
 class TripDataSourceFactory @Inject constructor(
     private val localDataSource: TripLocalDataSource
 ) {
-    fun getTripAll(): Flowable<List<TripEntity>> {
+    fun getTripAll(): Flowable<List<TripAndTripZoneEntity>> {
         return localDataSource.getTripAll()
     }
 
-    fun insertTrip(tripEntity: TripEntity): Completable {
-        return localDataSource.insertTrip(tripEntity)
+    fun insertTrip(tripAndTripZoneEntity: TripAndTripZoneEntity): Completable {
+        return localDataSource.insertTrip(tripAndTripZoneEntity)
     }
 
-    fun deleteTrip(tripEntity: TripEntity): Completable {
-        return localDataSource.deleteTrip(tripEntity)
+    fun deleteTrip(tripAndTripZoneEntity: TripAndTripZoneEntity): Completable {
+        return localDataSource.deleteTrip(tripAndTripZoneEntity)
     }
 
-    fun updateTrip(tripEntity: TripEntity): Completable {
-        return localDataSource.updateTrip(tripEntity)
+    fun updateTrip(tripAndTripZoneEntity: TripAndTripZoneEntity): Completable {
+        return localDataSource.updateTrip(tripAndTripZoneEntity)
     }
 }

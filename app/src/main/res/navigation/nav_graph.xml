@@ -149,8 +149,8 @@
             app:argType="com.turtle.amatda.domain.model.Trip" />
 
         <action
-            android:id="@+id/action_tripDateFragment_to_tripCourseFragment"
-            app:destination="@id/tripCourseFragment"
+            android:id="@+id/action_tripDateFragment_to_tripConceptFragment"
+            app:destination="@id/tripConceptFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -159,14 +159,54 @@
     </fragment>
 
     <fragment
-        android:id="@+id/tripCourseFragment"
-        android:name="com.turtle.amatda.presentation.view.trip_zone.TripZoneFragment"
-        android:label="TripCourseFragment"
-        tools:layout="@layout/fragment_trip_course">
+        android:id="@+id/tripConceptFragment"
+        android:name="com.turtle.amatda.presentation.view.trip_concept.TripConceptFragment"
+        android:label="TripConceptFragment"
+        tools:layout="@layout/fragment_trip_concept">
 
         <argument
             android:name="trip"
             app:argType="com.turtle.amatda.domain.model.Trip" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/tripZoneFragment"
+        android:name="com.turtle.amatda.presentation.view.trip_zone.TripZoneFragment"
+        android:label="TripZoneFragment"
+        tools:layout="@layout/fragment_trip_zone">
+
+        <argument
+            android:name="trip"
+            app:argType="com.turtle.amatda.domain.model.Trip" />
+
+        <action
+            android:id="@+id/action_tripZoneFragment_to_tripZoneMakeFragment"
+            app:destination="@id/tripZoneMakeFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/slide_down"
+            app:popEnterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/tripZoneMakeFragment"
+        android:name="com.turtle.amatda.presentation.view.trip_zone_make.TripZoneMakeFragment"
+        android:label="TripZoneMakeFragment"
+        tools:layout="@layout/fragment_trip_zone_make">
+
+        <argument
+            android:name="place"
+            app:argType="com.google.android.libraries.places.api.model.Place" />
+
+        <action
+            android:id="@+id/action_tripZoneMakeFragment_to_tripZoneFragment"
+            app:destination="@id/tripZoneFragment"
+            app:enterAnim="@anim/slide_down"
+            app:exitAnim="@anim/slide_up"
+            app:popEnterAnim="@anim/slide_down"
+            app:popExitAnim="@anim/slide_up" />
 
     </fragment>
 

@@ -11,10 +11,10 @@ import com.turtle.amatda.databinding.ListItemTripZoneBinding
 import com.turtle.amatda.domain.model.ListItemType
 import com.turtle.amatda.domain.model.TripZone
 import com.turtle.amatda.domain.model.TripZoneItem
-import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringMMddHHmmTimeStamp
 
 class TripZoneAdapter constructor(
-    private val context: Context
+    private val context: Context,
+    private val clickAddArea: () -> (Unit)
 ) : ListAdapter<TripZoneItem, RecyclerView.ViewHolder>(
     TripZoneDiffCallback()
 ) {
@@ -45,7 +45,7 @@ class TripZoneAdapter constructor(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
 
-        if(item.listItemType == ListItemType.ITEM) { // 아이템
+        if (item.listItemType == ListItemType.ITEM) { // 아이템
             (holder as TripZoneViewHolder).bind(item.item as TripZone)
         } else { // 아이템 생성 버튼
             (holder as CreateItemViewHolder).bind(item.item as String)
@@ -60,7 +60,6 @@ class TripZoneAdapter constructor(
             binding.apply {
                 tvTripZoneAddr.text = item.area
                 tvTripZoneType.text = item.zoneType.zone
-                tvTripZoneDate.text = item.date.convertDateToStringMMddHHmmTimeStamp()
                 executePendingBindings()
             }
         }
@@ -74,6 +73,9 @@ class TripZoneAdapter constructor(
         fun bind(title: String) {
             binding.apply {
                 btnItemCreate.text = title
+                btnItemCreate.setOnClickListener {
+                    clickAddArea()
+                }
                 executePendingBindings()
             }
         }

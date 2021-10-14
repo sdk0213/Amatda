@@ -35,8 +35,9 @@ class TripAdapter constructor(
         fun bind(trip: Trip) {
             binding.apply {
                 tvTripName.text = trip.title
-                tvTripCourse.text = trip.course
-                tvTripDate.text = "${trip.date_start.convertDateToStringyyyyMMddTimeStamp()} ~ ${trip.date_end.convertDateToStringyyyyMMddTimeStamp()}"
+                tvTripCourse.text = trip.zoneList.map { it.area }.toList().toString()
+                tvTripDate.text =
+                    "${trip.date_start.convertDateToStringyyyyMMddTimeStamp()} ~ ${trip.date_end.convertDateToStringyyyyMMddTimeStamp()}"
                 ratingbarTripRating.rating = trip.rating.toFloat()
                 ratingbarTripRating.setOnRatingBarChangeListener { _, rating, _ ->
                     ratingbarTripRating.rating = rating

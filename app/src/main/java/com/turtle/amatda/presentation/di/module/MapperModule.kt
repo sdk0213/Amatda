@@ -10,12 +10,12 @@ import dagger.Provides
 class MapperModule {
 
     @Provides
-    fun provideItemMapper(): Mapper<ItemEntity, Item>{
+    fun provideItemMapper(): Mapper<ItemEntity, Item> {
         return ItemMapper()
     }
 
     @Provides
-    fun provideCarrierMapper(): Mapper<CarrierEntity, Carrier>{
+    fun provideCarrierMapper(): Mapper<CarrierEntity, Carrier> {
         return CarrierMapper()
     }
 
@@ -40,7 +40,7 @@ class MapperModule {
     }
 
     @Provides
-    fun provideTripMapper(): Mapper<TripEntity, Trip>{
+    fun provideTripMapper(): Mapper<TripAndTripZoneEntity, Trip> {
         return TripMapper()
     }
 }

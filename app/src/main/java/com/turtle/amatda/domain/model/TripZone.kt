@@ -10,12 +10,13 @@ data class TripZone(
     val area: String = "", // 지역명
     val title: String = "", // 제목
     val date: Date = Date(), // 방문 날짜
-    val lat: String, // 위도
-    val lon: String, // 경도
-    val zoneType: ZoneType // 존 타입
+    val lat: String = "0", // 위도
+    val lon: String = "0", // 경도
+    val zoneType: ZoneType = ZoneType.NONE // 존 타입
 ) : Parcelable
 
 enum class ZoneType(val zone: String) {
+    NONE("해당 없음"),
     ACCOMMODATION("숙소"),
     RESTAURANT("음식점"),
     CAFE("카페"),

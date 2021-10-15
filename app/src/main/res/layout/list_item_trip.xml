@@ -23,7 +23,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:onClick="@{clickListener}"
         app:cardCornerRadius="25dp"
@@ -37,6 +37,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/amatda_main_transparent_4">
+
+            <TextView
+                android:id="@+id/tv_trip_d_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_trip_d_day_outline"
+                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="현재 진행중" />
 
             <TextView
                 android:id="@+id/tv_trip_name"
@@ -89,6 +105,7 @@
                 android:stepSize="0.5"
                 android:progressTint="@color/amatda_main"
                 android:isIndicator="false"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/view_line_between_about_and_click"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -57,7 +57,13 @@ class LocationRemoteDataSource @Inject constructor(
                 location.longitude,
                 location.accuracy,
                 address = geocoder.getFromLocation(location.latitude,
-                    location.longitude, 1)[0]?.getAddressLine(0).toString()
+                    location.longitude, 1)?.let {
+                        if(it.size > 0){
+                            it[0]?.getAddressLine(0).toString()
+                        } else {
+                            "주소를 가져올수 없습니다."
+                        }
+                } ?: "주소를 가져올수 없습니다."
             )
         )
     }

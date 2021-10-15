@@ -46,4 +46,4 @@ fun String.convertHHmm() : String =
     )
 
 fun Date.getCountDay(endDate: Date) : Long =
-    (this.time - endDate.time) / 24*60*60*1000
+    ((this.time - endDate.time) / (24*60*60*1000)) + 1

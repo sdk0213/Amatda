@@ -26,14 +26,11 @@ class TripConceptViewModel @Inject constructor(
 
     private fun getTrip(): Trip {
         return Trip(
-            id = _argsTrip.value?.id ?: 0,
             title = _argsTrip.value?.title ?: "",
             type = tripConcept,
             zoneList = arrayListOf(TripZone()),
-            nightsAndDays = _argsTrip.value?.nightsAndDays ?: "",
             date_start = _argsTrip.value?.date_start ?: Date(),
             date_end = _argsTrip.value?.date_end ?: Date(),
-            rating = _argsTrip.value?.rating ?: 3
         )
     }
 

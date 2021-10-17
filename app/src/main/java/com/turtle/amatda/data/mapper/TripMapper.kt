@@ -37,6 +37,7 @@ open class TripMapper @Inject constructor() : Mapper<TripAndTripZoneEntity, Trip
             tripEntity = TripEntity(
                 id = type.id,
                 title = type.title,
+                type = type.type,
                 nightsAndDays = type.nightsAndDays,
                 date_start = type.date_start,
                 date_end = type.date_end,

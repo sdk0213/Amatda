@@ -22,7 +22,6 @@ class TripConceptFragment :
 
     private fun viewModel() {
         binding.viewModel = viewModel
-        binding.fragmentTripConceptInclude.viewModel = view
         viewModel.setTrip(args.trip)
     }
 

@@ -8,10 +8,7 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.turtle.amatda.data.db.dao.CarrierDao
-import com.turtle.amatda.data.db.dao.ItemDao
-import com.turtle.amatda.data.db.dao.PocketDao
-import com.turtle.amatda.data.db.dao.TripDao
+import com.turtle.amatda.data.db.dao.*
 import com.turtle.amatda.data.model.*
 import com.turtle.amatda.presentation.utilities.DATABASE_NAME
 import com.turtle.amatda.presentation.workers.SeedDatabaseWorker
@@ -24,7 +21,7 @@ import com.turtle.amatda.presentation.workers.SeedDatabaseWorker
         TripEntity::class,
         TripZoneEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(
@@ -37,6 +34,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun itemDao(): ItemDao
     abstract fun pocketDao(): PocketDao
     abstract fun TripDao(): TripDao
+    abstract fun TripZoneDao(): TripZoneDao
 
     companion object {
 

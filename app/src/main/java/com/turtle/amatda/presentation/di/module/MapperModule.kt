@@ -43,4 +43,9 @@ class MapperModule {
     fun provideTripMapper(): Mapper<TripAndTripZoneEntity, Trip> {
         return TripMapper()
     }
+
+    @Provides
+    fun provideTripZoneMapper(): Mapper<TripZoneEntity, TripZone> {
+        return TripZoneMapper()
+    }
 }

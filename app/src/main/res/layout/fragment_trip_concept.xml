@@ -32,8 +32,8 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <include
-            layout="@layout/fragment_trip_concept_include_checkbox"
             android:id="@+id/fragment_trip_concept_include"
+            layout="@layout/fragment_trip_concept_include_checkbox"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
@@ -43,7 +43,6 @@
             app:layout_constraintStart_toStartOf="@id/tv_trip_concept_question"
             app:layout_constraintTop_toBottomOf="@id/tv_trip_concept_question"
             bind:viewModel="@{viewModel}" />
-
 
         <Button
             android:id="@+id/btn_trip_title_ok"

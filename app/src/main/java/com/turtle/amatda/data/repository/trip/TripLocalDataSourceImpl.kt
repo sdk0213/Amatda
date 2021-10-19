@@ -14,6 +14,10 @@ class TripLocalDataSourceImpl @Inject constructor(
         return tripDao.getAll()
     }
 
+    override fun getTrip(tripAndTripZoneEntity: TripAndTripZoneEntity): Flowable<TripAndTripZoneEntity> {
+        return tripDao.getTrip(tripAndTripZoneEntity.tripEntity.id)
+    }
+
     override fun insertTrip(tripAndTripZoneEntity: TripAndTripZoneEntity): Completable {
         return tripDao.insert(
             tripAndTripZoneEntity.tripEntity,

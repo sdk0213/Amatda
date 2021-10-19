@@ -128,4 +128,16 @@ class UseCaseModule {
     fun provideSaveTripUseCase(repository: TripRepository): SaveTripUseCase {
         return SaveTripUseCase(repository)
     }
+
+    @Provides
+    @Singleton
+    fun provideGetTripUseCase(repository: TripRepository): GetTripUseCase {
+        return GetTripUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteTripZoneUseCase(repository: TripZoneRepository): DeleteTripZoneUseCase {
+        return DeleteTripZoneUseCase(repository)
+    }
 }

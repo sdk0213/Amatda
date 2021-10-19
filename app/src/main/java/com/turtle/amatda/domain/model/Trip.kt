@@ -13,7 +13,7 @@ data class Trip(
     val nightsAndDays: String = "", // 0박 0일
     val date_start: Date = Date(), // 21/09/28
     val date_end: Date = Date(), // 21/10/01
-    val rating: Int = 3 // 3점
+    val rating: Int = 3 // 3점 ( 0 <= rating <= 5)
 ) : Parcelable
 
 enum class TripConcept(val concept: String) {

@@ -18,7 +18,8 @@ class TripConceptViewModel @Inject constructor(
     private val _argsTrip = MutableLiveData<Trip>()
     val argsTrip: LiveData<Trip> get() = _argsTrip
 
-    private var tripConcept = TripConcept.NORMAL
+    private val _tripConcept = MutableLiveData(TripConcept.NORMAL)
+    val tripConcept: LiveData<TripConcept> get() = _tripConcept
 
     fun setTrip(trip: Trip) {
         _argsTrip.value = trip
@@ -26,16 +27,17 @@ class TripConceptViewModel @Inject constructor(
 
     private fun getTrip(): Trip {
         return Trip(
+            id = _argsTrip.value?.id ?: 0L,
             title = _argsTrip.value?.title ?: "",
-            type = tripConcept,
-            zoneList = arrayListOf(TripZone()),
+            type = _tripConcept.value ?: TripConcept.NORMAL,
+            zoneList = _argsTrip.value?.zoneList ?: arrayListOf(TripZone()),
             date_start = _argsTrip.value?.date_start ?: Date(),
             date_end = _argsTrip.value?.date_end ?: Date(),
         )
     }
 
     fun updateConcept(tripConcept: TripConcept) {
-        this.tripConcept = tripConcept
+        _tripConcept.value = tripConcept
     }
 
     fun saveTrip() {

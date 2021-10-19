@@ -13,8 +13,9 @@ import com.turtle.amatda.domain.model.TripZone
 import com.turtle.amatda.domain.model.TripZoneItem
 
 class TripZoneAdapter constructor(
-    private val context: Context,
-    private val clickAddArea: () -> (Unit)
+    private val clickAddArea: () -> (Unit),
+    private val deleteArea: (TripZone) -> (Unit),
+    private val editArea: (TripZone) -> (Unit)
 ) : ListAdapter<TripZoneItem, RecyclerView.ViewHolder>(
     TripZoneDiffCallback()
 ) {
@@ -56,10 +57,17 @@ class TripZoneAdapter constructor(
         private val binding: ListItemTripZoneBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: TripZone) {
+        fun bind(tripZone: TripZone) {
             binding.apply {
-                tvTripZoneAddr.text = item.area
-                tvTripZoneType.text = item.zoneType.zone
+                tvTripZoneAddr.text = tripZone.area
+                tvTripZoneType.text = tripZone.zoneType.zone
+                tvTripZoneTitle.text = tripZone.title
+                btnTripZoneDelete.setOnClickListener {
+                    deleteArea(tripZone)
+                }
+                setEditClick {
+                    editArea(tripZone)
+                }
                 executePendingBindings()
             }
         }

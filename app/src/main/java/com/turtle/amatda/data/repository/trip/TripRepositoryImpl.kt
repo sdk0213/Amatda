@@ -9,31 +9,37 @@ import io.reactivex.Flowable
 import javax.inject.Inject
 
 class TripRepositoryImpl @Inject constructor(
-    private val tripMapper: Mapper<TripAndTripZoneEntity, Trip>,
+    private val mapper: Mapper<TripAndTripZoneEntity, Trip>,
     private val factory: TripDataSourceFactory
 ) : TripRepository {
 
     override fun getAllTrip(): Flowable<List<Trip>> {
         return factory.getTripAll().flatMap { list ->
             Flowable.fromIterable(list)
-                .map { tripMapper.entityToMap(it) }
+                .map { mapper.entityToMap(it) }
                 .toList()
                 .toFlowable()
         }
     }
 
+    override fun getTrip(trip: Trip): Flowable<Trip> {
+        return factory.getTrip(
+            mapper.mapToEntity(trip)
+        ).map { mapper.entityToMap(it) }
+    }
+
     override fun insertTrip(trip: Trip): Completable {
-        val tripEntity = tripMapper.mapToEntity(trip)
+        val tripEntity = mapper.mapToEntity(trip)
         return factory.insertTrip(tripEntity)
     }
 
     override fun deleteTrip(trip: Trip): Completable {
-        val tripEntity = tripMapper.mapToEntity(trip)
+        val tripEntity = mapper.mapToEntity(trip)
         return factory.deleteTrip(tripEntity)
     }
 
     override fun updateTrip(trip: Trip): Completable {
-        val tripEntity = tripMapper.mapToEntity(trip)
+        val tripEntity = mapper.mapToEntity(trip)
         return factory.updateTrip(tripEntity)
     }
 }

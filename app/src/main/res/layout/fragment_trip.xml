@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="178dp"
                 android:fitsSystemWindows="true"
-                app:layout_constraintBottom_toTopOf="@id/carrier_recycler_view"
+                app:layout_constraintBottom_toTopOf="@id/recyclerview_trip"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

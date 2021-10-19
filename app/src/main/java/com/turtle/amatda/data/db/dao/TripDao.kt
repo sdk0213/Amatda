@@ -4,8 +4,10 @@ import androidx.room.*
 import com.turtle.amatda.data.model.TripAndTripZoneEntity
 import com.turtle.amatda.data.model.TripEntity
 import com.turtle.amatda.data.model.TripZoneEntity
+import com.turtle.amatda.domain.model.Trip
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface TripDao {
@@ -13,6 +15,9 @@ interface TripDao {
     @Transaction
     @Query("SELECT * FROM Trip")
     fun getAll(): Flowable<List<TripAndTripZoneEntity>>
+
+    @Query("SELECT * FROM Trip Where trip_id == :trip_id")
+    fun getTrip(trip_id: Long) : Flowable<TripAndTripZoneEntity>
 
     fun insert(tripEntity: TripEntity, tripZoneListEntity: List<TripZoneEntity>): Completable {
         return insertTrip(tripEntity).andThen(

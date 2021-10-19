@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="viewModel"
+            type="com.turtle.amatda.presentation.view.trip_zone_make.TripZoneMakeViewModel" />
+
+        <variable
             name="clickListener"
             type="android.view.View.OnClickListener" />
     </data>
@@ -74,7 +78,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_trip_zone_make_title"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,6 +93,7 @@
             app:layout_constraintTop_toBottomOf="@id/til_trip_zone_make_type">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/til_trip_zone_make_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

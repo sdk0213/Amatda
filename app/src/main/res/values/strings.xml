@@ -80,7 +80,7 @@
     <string name="question_trip_date">Please select the start and end dates of your trip from the calendar.</string>
     <string name="question_trip_date_start_day">travel start date</string>
     <string name="question_trip_date_end_day">travel end date</string>
-    <string name="question_trip_course">Please select a travel area by travel date</string>
+    <string name="question_trip_course">place to travel</string>
     <string name="question_trip_concept">Check out the travel concept.</string>
 
     <!-- 지역 생성 -->

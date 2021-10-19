@@ -8,12 +8,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.turtle.amatda.databinding.ListItemTripBinding
 import com.turtle.amatda.domain.model.Trip
-import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringyyyyMMddTimeStamp
+import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringyyMMddTimeStampWithSlash
 import com.turtle.amatda.presentation.utilities.extensions.getCountDay
 import java.util.*
 
 class TripAdapter constructor(
-
+    private val clickTrip: (Trip) -> (Unit),
+    private val deleteTrip: (Trip) -> (Unit),
+    private val editTrip: (Trip) -> (Unit)
 ) : ListAdapter<Trip, TripAdapter.TripViewHolder>(
     TripDiffCallback()
 ) {
@@ -38,6 +40,7 @@ class TripAdapter constructor(
         fun bind(trip: Trip) {
             binding.apply {
                 tvTripName.text = trip.title
+                tvTripType.text = "(${trip.type.concept})"
                 tvTripDDay.text = when {
                     Date().before(trip.date_start) -> "D-${trip.date_start.getCountDay(Date())}"
                     Date().after(trip.date_end) -> {
@@ -46,23 +49,34 @@ class TripAdapter constructor(
                     }
                     else -> "여행 진행중"
                 }
-                tvTripCourse.text = trip.zoneList.map { it.area }.toList().toString()
+                tvTripZone.text =
+                    when (trip.zoneList.size) {
+                        0 -> "방문할 장소를 추가해주세요"
+                        else -> "${trip.zoneList.size}개의 장소를 방문합니다."
+                    }
                 tvTripDate.text =
-                    "${trip.date_start.convertDateToStringyyyyMMddTimeStamp()} ~ ${trip.date_end.convertDateToStringyyyyMMddTimeStamp()}"
+                    "${trip.date_start.convertDateToStringyyMMddTimeStampWithSlash()} ~ ${trip.date_end.convertDateToStringyyMMddTimeStampWithSlash()}"
                 ratingbarTripRating.rating = trip.rating.toFloat()
                 ratingbarTripRating.setOnRatingBarChangeListener { _, rating, _ ->
                     ratingbarTripRating.rating = rating
                 }
-//                carrierAndGetHasPocketNum = carrierAndPocket
-//                setClickListener {
-//                    clickCarrier(carrierAndPocket.carrier)
-//                }
-//                setEditClickListener {
-//                    editCarrier(carrierAndPocket.carrier)
-//                }
-//                setDeleteClickListener {
-//                    deleteCarrier(carrierAndPocket.carrier)
-//                }
+
+                setClickListener {
+                    clickTrip( // 클릭한 trip 정보 넘기기
+                        trip
+                    )
+                }
+                setDeleteClickListener {
+                    deleteTrip(
+                        trip
+                    )
+                }
+                setEditClickListener {
+                    editTrip(
+                        trip
+                    )
+                }
+
                 executePendingBindings()
             }
         }
@@ -77,6 +91,10 @@ class TripDiffCallback : DiffUtil.ItemCallback<Trip>() {
     }
 
     override fun areContentsTheSame(oldPocket: Trip, newPocket: Trip): Boolean {
-        return oldPocket.id == newPocket.id
+        return oldPocket.title == newPocket.title &&
+                oldPocket.date_start == newPocket.date_start &&
+                oldPocket.date_end == newPocket.date_end &&
+                oldPocket.type == newPocket.type
+
     }
 }

@@ -1,54 +1,69 @@
 package com.turtle.amatda.presentation.view.trip_zone
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.turtle.amatda.domain.model.ListItemType
+import com.google.android.libraries.places.api.model.Place
+import com.turtle.amatda.domain.model.PlaceAndTrip
 import com.turtle.amatda.domain.model.Trip
-import com.turtle.amatda.domain.model.TripZoneItem
-import com.turtle.amatda.presentation.utilities.extensions.getCountDay
+import com.turtle.amatda.domain.model.TripZone
+import com.turtle.amatda.domain.usecases.DeleteTripZoneUseCase
+import com.turtle.amatda.domain.usecases.GetTripUseCase
+import com.turtle.amatda.presentation.utilities.Event
 import com.turtle.amatda.presentation.view.base.BaseViewModel
-import java.util.*
 import javax.inject.Inject
 
-class TripZoneViewModel @Inject constructor() : BaseViewModel() {
+class TripZoneViewModel @Inject constructor(
+    private val getTripUseCase: GetTripUseCase,
+    private val deleteTripZoneUseCase: DeleteTripZoneUseCase
+) : BaseViewModel() {
 
-    private val _argsTrip = MutableLiveData<Trip>()
-    val argsTrip: LiveData<Trip> get() = _argsTrip
+    private val _currentPlaceAndTrip = MutableLiveData<Event<PlaceAndTrip>>()
+    val currentPlaceAndTrip: LiveData<Event<PlaceAndTrip>> get() = _currentPlaceAndTrip
 
-    private val _tripDays = MutableLiveData<Long>()
-    val tripDays: LiveData<Long> get() = _tripDays
-
-    private val _tripZoneItemList = MutableLiveData<List<TripZoneItem>>()
-    val tripZoneItemList: LiveData<List<TripZoneItem>> get() = _tripZoneItemList
+    private val _currentTrip = MutableLiveData<Trip>()
+    val currentTrip: LiveData<Trip> get() = _currentTrip
 
     fun init(trip: Trip) {
         setTrip(trip)
-        calDate()
-
-        val array = ArrayList<TripZoneItem>()
-        array.add(TripZoneItem(ListItemType.FUNCTION, "여기를 눌러 여행 지역을 추가하세요"))
-        _tripZoneItemList.value = array
+        getCurrentTripFromDb(trip)
     }
 
     private fun setTrip(trip: Trip) {
-        _argsTrip.value = trip
+        _currentTrip.value = trip
     }
 
-    fun getTrip(): Trip {
-        return Trip(
-            id = 0,
-            title = _argsTrip.value?.title ?: "제목없음",
-            nightsAndDays = "2박 3일",
-            date_start = _argsTrip.value?.date_start ?: Date(),
-            date_end = _argsTrip.value?.date_end ?: Date(),
-            rating = 3
+    private fun getCurrentTripFromDb(trip: Trip) {
+        compositeDisposable.add(
+            getTripUseCase.execute(trip)
+                .subscribe(
+                    {
+                        _currentTrip.value = it
+                    },
+                    {
+
+                    }
+                )
         )
     }
 
-    private fun calDate() {
-        val startDate = _argsTrip.value?.date_start ?: Date()
-        val endDate = _argsTrip.value?.date_end ?: Date()
-        _tripDays.value = startDate.getCountDay(endDate)
+    fun deleteArea(tripZone: TripZone) {
+        compositeDisposable.add(
+            deleteTripZoneUseCase.execute(tripZone)
+                .subscribe(
+                    {
+                        Log.d(TAG, "deleteTripZoneUseCase is success")
+                    },
+                    {
+                        Log.d(TAG, "deleteTripZoneUseCase is failed")
+                    }
+                )
+        )
+
+    }
+
+    fun selectedPlace(place: Place) {
+        _currentPlaceAndTrip.value = Event(PlaceAndTrip(place, _currentTrip.value ?: Trip()))
     }
 
 }

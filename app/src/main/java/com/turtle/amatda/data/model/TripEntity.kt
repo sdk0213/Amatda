@@ -10,7 +10,7 @@ import java.util.*
 data class TripEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "trip_id")
-    val id: Long,
+    val id: Long = 0,
 
     @ColumnInfo(name = "trip_name")
     val title: String,
@@ -28,5 +28,5 @@ data class TripEntity(
     val date_end: Date,
 
     @ColumnInfo(name = "trip_rating")
-    val rating: Int
+    val rating: Int // ( 0 <= rating <= 5)
 )

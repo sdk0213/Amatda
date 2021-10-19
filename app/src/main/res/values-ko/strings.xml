@@ -80,7 +80,7 @@
     <string name="question_trip_date">달력에서 여행 시작 날짜와 종료 날짜를 선택해주세요.</string>
     <string name="question_trip_date_start_day">여행 시작</string>
     <string name="question_trip_date_end_day">여행 끝</string>
-    <string name="question_trip_course">여행 날짜별로 여행 지역을 선택해주세요</string>
+    <string name="question_trip_course">방문할 여행 장소</string>
     <string name="question_trip_concept">여행의 콘셉트를 체크하세요.</string>
 
     <!-- 지역 생성 -->

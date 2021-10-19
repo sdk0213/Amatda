@@ -56,6 +56,7 @@ class LocationRemoteDataSource @Inject constructor(
                 location.latitude,
                 location.longitude,
                 location.accuracy,
+                // todo : 인터넷이 연결되어있지 않을경우 java.lang.reflect.InvocationTargetException 이 발생하는 현상 수정이 필요함
                 address = geocoder.getFromLocation(location.latitude,
                     location.longitude, 1)?.let {
                         if(it.size > 0){

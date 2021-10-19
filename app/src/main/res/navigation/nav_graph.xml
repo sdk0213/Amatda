@@ -197,16 +197,8 @@
         tools:layout="@layout/fragment_trip_zone_make">
 
         <argument
-            android:name="place"
-            app:argType="com.google.android.libraries.places.api.model.Place" />
-
-        <action
-            android:id="@+id/action_tripZoneMakeFragment_to_tripZoneFragment"
-            app:destination="@id/tripZoneFragment"
-            app:enterAnim="@anim/slide_down"
-            app:exitAnim="@anim/slide_up"
-            app:popEnterAnim="@anim/slide_down"
-            app:popExitAnim="@anim/slide_up" />
+            android:name="placeAndTrip"
+            app:argType="com.turtle.amatda.domain.model.PlaceAndTrip" />
 
     </fragment>
 
@@ -240,10 +232,19 @@
         app:popEnterAnim="@anim/slide_up"
         app:popExitAnim="@anim/slide_down" />
 
-    <!-- To Trip Title -->
+    <!-- To Trip Make -->
     <action
         android:id="@+id/action_global_tripTitleFragment"
         app:destination="@id/tripTitleFragment"
+        app:enterAnim="@anim/slide_up"
+        app:exitAnim="@anim/slide_down"
+        app:popEnterAnim="@anim/slide_up"
+        app:popExitAnim="@anim/slide_down" />
+
+    <!-- To Manage Trip Zone -->
+    <action
+        android:id="@+id/action_global_tripZoneFragment"
+        app:destination="@id/tripZoneFragment"
         app:enterAnim="@anim/slide_up"
         app:exitAnim="@anim/slide_down"
         app:popEnterAnim="@anim/slide_up"

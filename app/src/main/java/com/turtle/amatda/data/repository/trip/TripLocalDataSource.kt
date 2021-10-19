@@ -7,6 +7,7 @@ import io.reactivex.Flowable
 interface TripLocalDataSource {
 
     fun getTripAll(): Flowable<List<TripAndTripZoneEntity>>
+    fun getTrip(tripAndTripZoneEntity: TripAndTripZoneEntity): Flowable<TripAndTripZoneEntity>
     fun insertTrip(tripAndTripZoneEntity: TripAndTripZoneEntity): Completable
     fun deleteTrip(tripAndTripZoneEntity: TripAndTripZoneEntity): Completable
     fun updateTrip(tripAndTripZoneEntity: TripAndTripZoneEntity): Completable

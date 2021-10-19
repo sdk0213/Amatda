@@ -1,7 +1,12 @@
 package com.turtle.amatda.presentation.view.trip_zone_make
 
+import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -11,6 +16,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentTripZoneMakeBinding
 import com.turtle.amatda.domain.model.ZoneType
+import com.turtle.amatda.presentation.utilities.EventObserver
+import com.turtle.amatda.presentation.utilities.extensions.toEditable
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import java.util.*
 
@@ -26,6 +33,24 @@ class TripZoneMakeFragment :
         (childFragmentManager.findFragmentById(R.id.fragment_google_map) as SupportMapFragment)
     }
 
+    private val listOfZoneType = listOf(
+        ZoneType.NONE.zone,
+        ZoneType.ACCOMMODATION.zone,
+        ZoneType.RESTAURANT.zone,
+        ZoneType.CAFE.zone,
+        ZoneType.MARKET.zone,
+        ZoneType.TOURISTAREA.zone,
+        ZoneType.LEISUREACTIVITY.zone,
+        ZoneType.FESTIVAL.zone,
+        ZoneType.BUSTERMINAL.zone,
+        ZoneType.STATION.zone,
+        ZoneType.CAR.zone,
+    )
+
+    private val typeAdapter by lazy {
+        ArrayAdapter(mContext, R.layout.list_item_type, listOfZoneType)
+    }
+
     override fun init() {
         view()
         viewModel()
@@ -35,28 +60,21 @@ class TripZoneMakeFragment :
 
     private fun view() {
         supportMapFragment.getMapAsync(this)
-
-        val listOfZoneType = listOf(
-            ZoneType.NONE.zone,
-            ZoneType.ACCOMMODATION.zone,
-            ZoneType.RESTAURANT.zone,
-            ZoneType.CAFE.zone,
-            ZoneType.MARKET.zone,
-            ZoneType.TOURISTAREA.zone,
-            ZoneType.LEISUREACTIVITY.zone,
-            ZoneType.FESTIVAL.zone,
-            ZoneType.BUSTERMINAL.zone,
-            ZoneType.STATION.zone,
-            ZoneType.CAR.zone,
-        )
-        val adapter = ArrayAdapter(mContext, R.layout.list_item_type, listOfZoneType)
-        binding.atvTripZoneMakeType.setAdapter(adapter)
+        args.placeAndTrip.trip.zoneList.find { tripZone ->
+            tripZone.lat == args.placeAndTrip.place.latLng?.latitude.toString() ?: "0" && tripZone.lon == args.placeAndTrip.place.latLng?.longitude.toString() ?: "0"
+        } ?: run {
+            binding.atvTripZoneMakeType.setAdapter(typeAdapter)
+        }
     }
 
     private fun viewModel() {
     }
 
     private fun observer() {
+        viewModel.currentPlace.observe(this@TripZoneMakeFragment) {
+            viewModel.initMap(it)
+        }
+
         viewModel.cameraPosition.observe(this@TripZoneMakeFragment) {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(it.latLng, it.zoom))
         }
@@ -68,28 +86,51 @@ class TripZoneMakeFragment :
         viewModel.position.observe(this@TripZoneMakeFragment) {
             binding.tvTripZoneMakeLocation.text = it
         }
+
+        viewModel.editMode.observe(this@TripZoneMakeFragment, EventObserver {
+            // 수정 모드라면 자동 입력 최초 한번 필요
+            binding.tilTripZoneMakeTitle.text = it.title.toEditable()
+            viewModel.setPlaceTitle(it.title)
+            binding.atvTripZoneMakeType.text = it.zoneType.zone.toEditable()
+            binding.atvTripZoneMakeType.setAdapter(typeAdapter)
+            viewModel.setPlaceType(it.zoneType.zone)
+        })
     }
 
     private fun listener() {
         binding.btnTripCourseOk.setOnClickListener {
-//            TripZoneMakeFragmentDirections.actionTripZoneMakeFragmentToTripZoneFragment(
-//                TripZone (
-//                    id = 0,
-//                    area = args.place.name ?: "알수 없음",
-//                    title = binding.tilTripZoneMakeTitle.editText.toString(),
-//                    date = Date(),
-//                    lat = args.place.latLng?.latitude.toString() ?: "0",
-//                    lon = args.place.latLng?.longitude.toString() ?: "0",
-//                    zoneType = ZoneType.values().find { it.zone == binding.atvTripZoneMakeType.text.toString()} ?: ZoneType.NONE
-//                )
-//            )
+            (mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                it.windowToken,
+                0
+            )
+            viewModel.saveTripZone()
+            findNavController().navigateUp()
         }
+
+        binding.atvTripZoneMakeType.setOnItemClickListener { _, _, position, _ ->
+            viewModel.setPlaceType(listOfZoneType[position])
+        }
+
+        binding.tilTripZoneMakeTitle.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // 아무 동작 하지 않음
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // 아무 동작 하지 않음
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.setPlaceTitle(s.toString())
+            }
+
+        })
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
         googleMap?.let {
             mMap = it
-            viewModel.mapInit(args.place)
+            viewModel.initPlaceAndTrip(args.placeAndTrip)
         } ?: run {
             Log.d(TAG, "googleMap is Null")
         }

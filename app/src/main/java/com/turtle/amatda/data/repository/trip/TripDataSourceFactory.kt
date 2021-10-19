@@ -12,6 +12,10 @@ class TripDataSourceFactory @Inject constructor(
         return localDataSource.getTripAll()
     }
 
+    fun getTrip(tripAndTripZoneEntity: TripAndTripZoneEntity): Flowable<TripAndTripZoneEntity> {
+        return localDataSource.getTrip(tripAndTripZoneEntity)
+    }
+
     fun insertTrip(tripAndTripZoneEntity: TripAndTripZoneEntity): Completable {
         return localDataSource.insertTrip(tripAndTripZoneEntity)
     }

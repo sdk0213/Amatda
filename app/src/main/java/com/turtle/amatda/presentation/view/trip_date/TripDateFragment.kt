@@ -2,10 +2,12 @@ package com.turtle.amatda.presentation.view.trip_date
 
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentTripDateBinding
 import com.turtle.amatda.presentation.utilities.extensions.convertToDateyyyyMMdd
 import com.turtle.amatda.presentation.view.base.BaseFragment
+import java.util.*
 
 class TripDateFragment :
     BaseFragment<TripDateViewModel, FragmentTripDateBinding>(R.layout.fragment_trip_date) {
@@ -19,6 +21,41 @@ class TripDateFragment :
     }
 
     private fun view() {
+        if (args.trip.id != 0L) { // 아이템 수정 (ID 값이 0 이 아님)
+            val startCal = Calendar.getInstance(Locale.getDefault()).apply {
+                time = args.trip.date_start
+            }
+            val endCal = Calendar.getInstance(Locale.getDefault()).apply {
+                time = args.trip.date_end
+            }
+            binding.calenderTripDate.selectRange(
+                CalendarDay.from(
+                    startCal.get(Calendar.YEAR),
+                    startCal.get(Calendar.MONTH) + 1,
+                    startCal.get(Calendar.DAY_OF_MONTH)
+                ),
+                CalendarDay.from(
+                    endCal.get(Calendar.YEAR),
+                    endCal.get(Calendar.MONTH) + 1,
+                    endCal.get(Calendar.DAY_OF_MONTH)
+                ),
+            )
+
+            binding.tvTripDateStart.text =
+                "${getString(R.string.question_trip_date_start_day)} : ${startCal.get(Calendar.YEAR)}년 ${
+                    startCal.get(
+                        Calendar.MONTH
+                    ) + 1
+                }월 ${startCal.get(Calendar.DAY_OF_MONTH)}일"
+            binding.tvTripDateEnd.text =
+                "${getString(R.string.question_trip_date_end_day)} : ${endCal.get(Calendar.YEAR)}년 ${
+                    endCal.get(
+                        Calendar.MONTH
+                    ) + 1
+                }월 ${endCal.get(Calendar.DAY_OF_MONTH)}일"
+
+            viewModel.setDate(args.trip.date_start, args.trip.date_end)
+        }
     }
 
     private fun viewModel() {

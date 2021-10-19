@@ -3,10 +3,7 @@ package com.turtle.amatda.presentation.di.module
 import android.content.Context
 import com.turtle.amatda.data.db.AppDatabase
 import com.turtle.amatda.data.db.PreferenceManager
-import com.turtle.amatda.data.db.dao.ItemDao
-import com.turtle.amatda.data.db.dao.CarrierDao
-import com.turtle.amatda.data.db.dao.PocketDao
-import com.turtle.amatda.data.db.dao.TripDao
+import com.turtle.amatda.data.db.dao.*
 import com.turtle.amatda.presentation.di.qualifier.ApplicationContext
 import dagger.Module
 import dagger.Provides
@@ -45,6 +42,11 @@ class DatabaseModule {
     @Provides
     fun provideTripDao(appDatabase: AppDatabase): TripDao {
         return appDatabase.TripDao()
+    }
+
+    @Provides
+    fun provideTripZoneDao(appDatabase: AppDatabase): TripZoneDao {
+        return appDatabase.TripZoneDao()
     }
 
 }

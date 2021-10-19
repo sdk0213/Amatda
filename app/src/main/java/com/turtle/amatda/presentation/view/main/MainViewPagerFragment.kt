@@ -8,7 +8,8 @@ import com.turtle.amatda.databinding.FragmentMainViewpagerBinding
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 
-class MainViewPagerFragment : BaseFragment<MainViewPagerModel, FragmentMainViewpagerBinding>(R.layout.fragment_main_viewpager) {
+class MainViewPagerFragment :
+    BaseFragment<MainViewPagerModel, FragmentMainViewpagerBinding>(R.layout.fragment_main_viewpager) {
 
     private val mainFragmentStateAdapter: MainFragmentStateAdapter // DI 사용시에는 다음 stackoverflow 참고 HomeFragmentStateAdapter.get() 형태 , 지금은 사용하지 않음 : https://stackoverflow.com/questions/56646711/expected-the-adapter-to-be-fresh-while-restoring-state
         get() = MainFragmentStateAdapter(this)
@@ -28,10 +29,12 @@ class MainViewPagerFragment : BaseFragment<MainViewPagerModel, FragmentMainViewp
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = tabTextList[position]
         }.attach()
+        // todo: 왜 해당 코드를 사용하지 않으면 MainViewPagerFragment 가 하나 더 띄어지는지 확인이 필요함
         findNavController().navigateUp()
 
         // 키보드 올라왔을때 TabLayout 에 의하여 가려지는 현상을 방지하기위하여 키보드가 올라왔을대는 TabLayout GONE 처리
-        KeyboardVisibilityEvent.setEventListener(requireActivity()
+        KeyboardVisibilityEvent.setEventListener(
+            requireActivity()
         ) { isOpen -> binding.tabLayout.visibility = if (isOpen) View.GONE else View.VISIBLE }
     }
 

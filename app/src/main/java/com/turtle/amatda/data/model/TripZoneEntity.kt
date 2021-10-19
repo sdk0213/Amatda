@@ -16,10 +16,13 @@ import java.util.*
 data class TripZoneEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "trip_zone_id")
-    val id: Long,
+    val id: Long = 0,
 
     @ColumnInfo(name = "trip_zone_area")
     val area: String = "알수 없음", // 지역명
+
+    @ColumnInfo(name = "trip_zone_addr")
+    val addr: String = "알수 없음", // 지역명
 
     @ColumnInfo(name = "trip_zone_title")
     val title: String = "알수 없음", // 제목

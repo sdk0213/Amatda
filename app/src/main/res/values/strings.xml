@@ -13,16 +13,16 @@
     <string name="toast_cannot_get_location_no_permission">We can\'t get weather information and travel information because we don\'t have location permission.</string>
     <string name="permission_request_rationale_title">request permission</string>
     <string name="permission_request_rationale_message">
-        We provide information on weather information and reports.
-        Location information performs the following functions.
-        Location information is minimal storage where only the travel area the user has traveled to is stored on the Internet (smartphone) (server). Also, your position remains the same.\n
-        The location permission required is as follows.\n\n
-        - Weather (3 days at current location)\n
-        - Mental feelings (attractions near the current location)\n
-        -(Recommended around current location)\n
-        - My Travel (current status list) User writes in a diary and notifies the user)\n
-        (Requires notification location background location permission for the location set by the user.\n
-        The background location permission (location - story) is to use Google's geofencing technology.)
+        Location permission is required to receive weather information and my travel notification function.\n
+        Location information is used for the following functions and is never collected other than that.\n
+        Location-related information is stored locally (smartphone) only in the travel area created by the user, not externally (server). Also, location-related data that can identify the user is not saved.\n
+        Features that require location permission are as follows.\n\n
+        - Weather (weather for 3 days at your current location)\n
+        - Umsim-eok (recommended restaurants near the current location)\n
+        - Destination (Recommended destinations near your current location)\n
+        - My travel (determining whether the current location is a travel area planned (created) by the user and notifying the user)\n
+        (Background location permission is required to notify when the user is located in my travel area set by the user.\n
+        Background location permission (location - always allowed) is required to use Google\'s geofencing technology.)
     </string>
     <string name="permission_request_denied_message">Location permission is required for weather information and travel history. You can allow location permission in [Settings] > [Permissions] > [Location]</string>
 

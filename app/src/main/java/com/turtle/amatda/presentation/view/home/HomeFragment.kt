@@ -1,6 +1,7 @@
 package com.turtle.amatda.presentation.view.home
 
 import android.Manifest
+import android.os.Build
 import android.widget.Toast
 import com.tedpark.tedpermission.rx2.TedRxPermission
 import com.turtle.amatda.R
@@ -20,7 +21,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
     private val homeRestaurantAdapter: HomeRestaurantAdapter by lazy {
         HomeRestaurantAdapter(mContext)
     }
-    private lateinit var permissionRx : Disposable
+    private lateinit var permissionRx: Disposable
 
     override fun init() {
         requestPermission()
@@ -30,14 +31,21 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
     }
 
     private fun requestPermission() {
-        permissionRx = TedRxPermission.create()
-            .setRationaleTitle(R.string.permission_request_rationale_title)
-            .setRationaleMessage(R.string.permission_request_rationale_message)
-            .setPermissions(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            .setDeniedMessage(R.string.permission_request_denied_message)
+        permissionRx = TedRxPermission.create().apply {
+            setRationaleTitle(R.string.permission_request_rationale_title)
+            setRationaleMessage(R.string.permission_request_rationale_message)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                setPermissions(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                )
+            } else {
+                setPermissions(
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            }
+            setDeniedMessage(R.string.permission_request_rationale_message)
+        }
             .request()
             .subscribe(
                 { tedPermissionResult ->

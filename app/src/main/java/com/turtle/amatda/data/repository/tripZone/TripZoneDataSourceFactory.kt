@@ -2,6 +2,7 @@ package com.turtle.amatda.data.repository.tripZone
 
 import com.turtle.amatda.data.model.TripZoneEntity
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -11,6 +12,10 @@ class TripZoneDataSourceFactory @Inject constructor(
 
     fun getTripZone(tripZoneEntity: TripZoneEntity): Single<TripZoneEntity> {
         return localDataSource.getTripZone(tripZoneEntity)
+    }
+
+    fun getAllTripZone(): Flowable<List<TripZoneEntity>> {
+        return localDataSource.getAllTripZone()
     }
 
     fun insertTripZone(tripZoneEntity: TripZoneEntity): Completable {

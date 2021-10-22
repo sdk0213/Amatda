@@ -50,7 +50,7 @@
             android:value="${MAPS_API_KEY}" />
 
         <!-- 지오펜싱 리시버 -->
-        <receiver android:name="com.turtle.amatda.data.broadcast.GeofenceBroadcastReceiver" />
+        <receiver android:name="com.turtle.amatda.presentation.broadcast.GeofenceBroadcastReceiver" />
 
     </application>
 

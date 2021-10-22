@@ -96,5 +96,7 @@
 
     <!-- 지역 생성 -->
     <string name="question_trip_zone_ok">Add location</string>
+    <string name="toast_message_trip_zone_success">TripZone registration was successful.</string>
+    <string name="toast_message_trip_zone_failed">TripZone registration failed. please try again</string>
 
 </resources>

@@ -140,4 +140,10 @@ class UseCaseModule {
     fun provideDeleteTripZoneUseCase(repository: TripZoneRepository): DeleteTripZoneUseCase {
         return DeleteTripZoneUseCase(repository)
     }
+
+    @Provides
+    @Singleton
+    fun provideGetAllTripZone(repository: TripZoneRepository): GetAllTripZoneUseCase {
+        return GetAllTripZoneUseCase(repository)
+    }
 }

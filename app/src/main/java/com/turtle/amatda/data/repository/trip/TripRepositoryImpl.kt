@@ -14,11 +14,10 @@ class TripRepositoryImpl @Inject constructor(
 ) : TripRepository {
 
     override fun getAllTrip(): Flowable<List<Trip>> {
-        return factory.getTripAll().flatMap { list ->
-            Flowable.fromIterable(list)
-                .map { mapper.entityToMap(it) }
-                .toList()
-                .toFlowable()
+        return factory.getTripAll().map {
+            it.map {  tripAndTripZoneEntity ->
+                mapper.entityToMap(tripAndTripZoneEntity)
+            }
         }
     }
 

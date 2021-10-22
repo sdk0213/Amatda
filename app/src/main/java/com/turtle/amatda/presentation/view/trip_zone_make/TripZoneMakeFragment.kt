@@ -104,6 +104,7 @@ class TripZoneMakeFragment :
                 0
             )
             viewModel.saveTripZone()
+            showToast(getString(R.string.toast_message_trip_zone_success))
             findNavController().navigateUp()
         }
 

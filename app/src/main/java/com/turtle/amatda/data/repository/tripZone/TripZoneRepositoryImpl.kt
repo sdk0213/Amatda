@@ -5,6 +5,7 @@ import com.turtle.amatda.data.model.TripZoneEntity
 import com.turtle.amatda.domain.model.TripZone
 import com.turtle.amatda.domain.repository.TripZoneRepository
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -16,6 +17,13 @@ class TripZoneRepositoryImpl @Inject constructor(
     override fun getTripZone(tripZone: TripZone): Single<TripZone> {
         return factory.getTripZone(mapper.mapToEntity(tripZone)) // Entity 으로 변환하여 요청후
             .map { mapper.entityToMap(it) } // 다시 Map 으로 변환하여 전달
+    }
+
+    override fun getAllTripZone(): Flowable<List<TripZone>> {
+        return factory.getAllTripZone()
+            .map { it.map {  tripZoneEntity ->
+                mapper.entityToMap(tripZoneEntity)
+            } }
     }
 
     override fun insertTripZone(tripZone: TripZone): Completable {

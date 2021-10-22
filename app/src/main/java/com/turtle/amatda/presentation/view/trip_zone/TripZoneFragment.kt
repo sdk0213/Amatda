@@ -2,6 +2,7 @@ package com.turtle.amatda.presentation.view.trip_zone
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,8 +14,6 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentTripZoneBinding
 import com.turtle.amatda.domain.model.ListItemType
-import com.turtle.amatda.domain.model.PlaceAndTrip
-import com.turtle.amatda.domain.model.Trip
 import com.turtle.amatda.domain.model.TripZoneItem
 import com.turtle.amatda.presentation.utilities.EventObserver
 import com.turtle.amatda.presentation.view.base.BaseFragment
@@ -103,6 +102,18 @@ class TripZoneFragment :
                     placeAndTrip
                 )
             )
+        })
+
+        viewModel.addZoneMessage.observe(this@TripZoneFragment, EventObserver { addZoneSuccess ->
+            if (addZoneSuccess) {
+                showToast(getString(R.string.toast_message_trip_zone_success))
+            } else {
+                showToast(getString(R.string.toast_message_trip_zone_failed))
+            }
+        })
+
+        viewModel.errorMessage.observe(this@TripZoneFragment, EventObserver { errorMessage ->
+            Toast.makeText(activity, errorMessage, Toast.LENGTH_LONG).show()
         })
     }
 

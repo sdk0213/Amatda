@@ -3,6 +3,7 @@ package com.turtle.amatda.data.repository.tripZone
 import com.turtle.amatda.data.db.dao.TripZoneDao
 import com.turtle.amatda.data.model.TripZoneEntity
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -12,6 +13,10 @@ class TripZoneLocalDataSourceImpl @Inject constructor(
 
     override fun getTripZone(tripZoneEntity: TripZoneEntity): Single<TripZoneEntity> {
         return tripZoneDao.getTripZone(tripZoneEntity.id)
+    }
+
+    override fun getAllTripZone(): Flowable<List<TripZoneEntity>> {
+        return tripZoneDao.getAllTripZone()
     }
 
     override fun insertTripZone(tripZoneEntity: TripZoneEntity): Completable {

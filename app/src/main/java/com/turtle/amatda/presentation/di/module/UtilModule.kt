@@ -12,7 +12,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.turtle.amatda.BuildConfig
-import com.turtle.amatda.data.broadcast.GeofenceBroadcastReceiver
+import com.turtle.amatda.presentation.broadcast.GeofenceBroadcastReceiver
 import com.turtle.amatda.presentation.di.qualifier.ApplicationContext
 import dagger.Module
 import dagger.Provides

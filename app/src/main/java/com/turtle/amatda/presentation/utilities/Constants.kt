@@ -41,3 +41,9 @@ const val DEADLINE_HAS_EXPIRED_ERROR = 31    // 기한만료된 서비스키
 const val UNREGISTERED_IP_ERROR = 32  // 등록되지 않은 IP
 const val UNSIGNED_CALL_ERROR = 33    // 서명되지 않은 호출
 const val UNKNOWN_ERROR = 99   // 기타에러
+
+// 지오펜싱
+const val GEOFENCE_RADIUS_IN_METERS = 200f // 200M
+const val GEOFENCE_LIOTERE_IN_MILLISECONDS = 60000 // 60초
+private const val GEOFENCE_EXPIRATION_IN_DAYS: Long = 90
+const val GEOFENCE_EXPIRATION_IN_MILLISECONDS = GEOFENCE_EXPIRATION_IN_DAYS * 24 * 60 * 60 * 1000 // 90일동안 유지시킴

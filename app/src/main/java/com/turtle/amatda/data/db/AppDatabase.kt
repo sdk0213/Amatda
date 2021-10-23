@@ -11,7 +11,7 @@ import androidx.work.WorkManager
 import com.turtle.amatda.data.db.dao.*
 import com.turtle.amatda.data.model.*
 import com.turtle.amatda.presentation.utilities.DATABASE_NAME
-import com.turtle.amatda.presentation.workers.SeedDatabaseWorker
+import com.turtle.amatda.presentation.android.workers.SeedDatabaseWorker
 
 @Database(
     entities = [

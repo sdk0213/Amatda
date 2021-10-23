@@ -10,7 +10,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import com.turtle.amatda.presentation.di.AppViewModelFactory
+import com.turtle.amatda.presentation.android.di.AppViewModelFactory
 import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type

@@ -11,7 +11,8 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,
-        ActivityModule::class,  // 액티비티 스코프 모듈
+        AndroidActivityModule::class,  // 액티비티 스코프 모듈
+        AndroidServiceModule::class,
         AppModule::class, // 애플리케이션 스코프 모듈
         DatabaseModule::class,
         LocalDataModule::class,

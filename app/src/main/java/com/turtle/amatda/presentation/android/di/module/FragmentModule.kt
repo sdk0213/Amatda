@@ -1,4 +1,4 @@
-package com.turtle.amatda.presentation.android.di.module.fragment
+package com.turtle.amatda.presentation.android.di.module
 
 import dagger.Module
 

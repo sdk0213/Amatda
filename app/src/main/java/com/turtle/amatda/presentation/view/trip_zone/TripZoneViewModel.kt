@@ -66,8 +66,19 @@ class TripZoneViewModel @Inject constructor(
                 }
                 .subscribe(
                     { tripZoneList ->
+                        // todo: 기존 여행지와 변화된것이 없다면 Geofence 를 재등록하면 안된다.
                         val geofenceList: MutableList<Geofence> = mutableListOf()
                         if (tripZoneList.isEmpty()) return@subscribe
+
+                        geofencingClient.removeGeofences(geofencePendingIntent).run {
+                            addOnSuccessListener {
+                                Log.d(TAG,"모든 여행지역 삭제 성공")
+                            }
+                            addOnFailureListener {
+                                Log.d(TAG,"모든 여행지역 삭제 실패")
+                            }
+                        }
+
                         tripZoneList.forEach { tripZone ->
                             geofenceList.add(
                                 getGeofence(

@@ -12,8 +12,8 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.turtle.amatda.BuildConfig
-import com.turtle.amatda.presentation.android.broadcast.GeofenceBroadcastReceiver
 import com.turtle.amatda.presentation.android.di.qualifier.ApplicationContext
+import com.turtle.amatda.presentation.android.service.GeofenceReceiverService
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
@@ -77,14 +77,14 @@ class UtilModule {
         @Named("GeoIntent") intent: Intent
     ): PendingIntent {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            PendingIntent.getBroadcast(
+            PendingIntent.getService(
                 context,
                 0,
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
             )
         } else {
-            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getService(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
     }
 
@@ -92,6 +92,6 @@ class UtilModule {
     @Provides
     @Named("GeoIntent")
     fun provideGoogleGeoIntent(@ApplicationContext context: Context): Intent {
-        return Intent(context, GeofenceBroadcastReceiver::class.java)
+        return Intent(context, GeofenceReceiverService::class.java)
     }
 }

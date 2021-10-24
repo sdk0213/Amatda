@@ -1,16 +1,24 @@
 package com.turtle.amatda.presentation.view.home
 
 import android.Manifest
+import android.content.Intent
 import android.os.Build
 import android.widget.Toast
 import com.tedpark.tedpermission.rx2.TedRxPermission
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentHomeBinding
+import com.turtle.amatda.presentation.android.AndroidUtil
+import com.turtle.amatda.presentation.android.service.GeofenceReceiverService
+import com.turtle.amatda.presentation.utilities.thisServiceIsForeGroundService
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import io.reactivex.disposables.Disposable
 import java.util.*
+import javax.inject.Inject
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.fragment_home) {
+
+    @Inject
+    lateinit var androidUtil: AndroidUtil
 
     private val homeWeatherAdapter: HomeWeatherAdapter by lazy {
         HomeWeatherAdapter()
@@ -28,6 +36,24 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
         view()
         viewModel()
         observer()
+        service()
+    }
+
+    private fun service() {
+        if (!androidUtil.isServiceRunning(GeofenceReceiverService::class.java)) {
+            if (Build.VERSION_CODES.O <= Build.VERSION.SDK_INT) {
+                mContext.startForegroundService(
+                    Intent(
+                        mContext,
+                        GeofenceReceiverService::class.java
+                    ).apply {
+                        putExtra(thisServiceIsForeGroundService, true)
+                    }
+                )
+            } else {
+                mContext.startService(Intent(mContext, GeofenceReceiverService::class.java))
+            }
+        }
     }
 
     private fun requestPermission() {

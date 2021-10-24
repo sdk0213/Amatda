@@ -8,6 +8,8 @@ import com.turtle.amatda.presentation.android.di.module.fragment.*
 import com.turtle.amatda.presentation.android.di.qualifier.ActivityContext
 import com.turtle.amatda.presentation.android.di.scope.ActivityScope
 import com.turtle.amatda.presentation.android.di.scope.FragmentScope
+import com.turtle.amatda.presentation.android.di.scope.ServiceScope
+import com.turtle.amatda.presentation.android.service.GeofenceReceiverService
 import com.turtle.amatda.presentation.view.carrier.CarrierFragment
 import com.turtle.amatda.presentation.view.carrier_item.CarrierItemFragment
 import com.turtle.amatda.presentation.view.carrier_name.CarrierNameFragment
@@ -28,7 +30,7 @@ import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class MainModule {
+abstract class ViewModule {
 
     companion object {
 

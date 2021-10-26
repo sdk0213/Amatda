@@ -22,13 +22,18 @@ package com.turtle.amatda.presentation.utilities
 const val DATABASE_NAME = "amatda-db"
 const val CHECKLIST_DATA_FILENAME = "checkList.json"
 
-// 알림 (Notification) 정보
+// 알림 채널 생성 ID / NAME
+const val notificationChannelIdOfDefault = "notificationChannelIdOfDefault"
+const val notificationChannelNameOfDefault = "여행 정보 알림"
 const val notificationChannelIdOfGeofence = "notificationChannelIdOfGeofence"
 const val notificationChannelNameOfGeofence = "위치 정보 관련 알림"
 
-// 포어그라운드 채널 정보
+// 알림 채널 노티 알림 ID
+const val notificationIdOfDefault = 1000
+const val notificationIdOfGeofence = 1001
+
+// 포어그라운드 서비스 관련
 const val thisServiceIsForeGroundService = "thisServiceIsForeGroundService"
-const val foregroundChannelIdOfGeofence = 1
 
 // 공공 데이터 포털 Open API 에러 코드
 // https://www.data.go.kr/iim/api/selectAPIAcountView.do (기상청41_단기예보 조회서비스_오픈API활용가이드_최종.docx)

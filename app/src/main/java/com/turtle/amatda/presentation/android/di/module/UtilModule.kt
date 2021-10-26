@@ -71,25 +71,34 @@ class UtilModule {
 
     // 구글 지오펜싱 PendingIntent
     @Provides
+    @Singleton
     @Named("GeoPendingIntent")
     fun provideGoogleGeofencePendingIntent(
         @ApplicationContext context: Context,
         @Named("GeoIntent") intent: Intent
     ): PendingIntent {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            PendingIntent.getService(
+            PendingIntent.getForegroundService(
                 context,
                 0,
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
             )
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            PendingIntent.getForegroundService(
+                context,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
         } else {
-            PendingIntent.getService(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
     }
 
     // 구글 지오펜싱 Intent
     @Provides
+    @Singleton
     @Named("GeoIntent")
     fun provideGoogleGeoIntent(@ApplicationContext context: Context): Intent {
         return Intent(context, GeofenceReceiverService::class.java)

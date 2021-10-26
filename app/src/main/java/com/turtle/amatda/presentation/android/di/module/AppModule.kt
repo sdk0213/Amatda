@@ -26,7 +26,7 @@ class AppModule {
     // 안드로이드 관련 Util
     @Provides
     @Singleton
-    fun provideAndroidUtil(@ApplicationContext context: Context) : AndroidUtil{
+    fun provideAndroidUtil(@ApplicationContext context: Context): AndroidUtil {
         return AndroidUtil(context)
     }
 
@@ -40,8 +40,14 @@ class AppModule {
     // 노티피케이션(알림) 유틸
     @Provides
     @Singleton
-    fun provideNotiUtil(notificationManager: NotificationManager) : NotificationUtil {
-        return NotificationUtil(notificationManager)
+    fun provideNotificationUtil(
+        notificationManager: NotificationManager,
+        @ApplicationContext context: Context
+    ): NotificationUtil {
+        return NotificationUtil(
+            notificationManager,
+            context
+        )
     }
 
 }

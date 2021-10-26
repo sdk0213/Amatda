@@ -49,9 +49,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
 
-        <!-- 지오펜싱 리시버 -->
-        <receiver android:name="com.turtle.amatda.presentation.android.broadcast.GeofenceBroadcastReceiver" />
-
         <!-- 지오펜싱 리시버를 위한 포어그라운드 서비스-->
         <service android:name=".presentation.android.service.GeofenceReceiverService"/>
 

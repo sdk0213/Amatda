@@ -16,10 +16,7 @@ import com.turtle.amatda.domain.model.TripZone
 import com.turtle.amatda.domain.usecases.DeleteTripZoneUseCase
 import com.turtle.amatda.domain.usecases.GetAllTripZoneUseCase
 import com.turtle.amatda.domain.usecases.GetTripUseCase
-import com.turtle.amatda.presentation.utilities.Event
-import com.turtle.amatda.presentation.utilities.GEOFENCE_EXPIRATION_IN_MILLISECONDS
-import com.turtle.amatda.presentation.utilities.GEOFENCE_LIOTERE_IN_MILLISECONDS
-import com.turtle.amatda.presentation.utilities.GEOFENCE_RADIUS_IN_METERS
+import com.turtle.amatda.presentation.utilities.*
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import java.io.PrintWriter
 import java.io.StringWriter
@@ -82,7 +79,7 @@ class TripZoneViewModel @Inject constructor(
                         tripZoneList.forEach { tripZone ->
                             geofenceList.add(
                                 getGeofence(
-                                    tripZone.id.toString() + tripZone.title,
+                                    "${tripZone.area}${amatdaSplit}${tripZone.title}",
                                     LatLng(
                                         tripZone.lat.toDouble(),
                                         tripZone.lon.toDouble()

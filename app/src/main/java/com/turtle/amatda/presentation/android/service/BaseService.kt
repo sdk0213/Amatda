@@ -19,6 +19,6 @@ abstract class BaseService : DaggerService() {
                 return START_NOT_STICKY
             }
         }
-        return START_NOT_STICKY
+        return START_STICKY
     }
 }

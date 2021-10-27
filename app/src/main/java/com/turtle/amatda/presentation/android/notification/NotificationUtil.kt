@@ -51,10 +51,11 @@ class NotificationUtil @Inject constructor(
             color = ContextCompat.getColor(context, R.color.amatda_main)
             setSmallIcon(R.drawable.ic_launcher_foreground)
             setContentTitle(notificationData.title)
-            setContentText(notificationData.text)
+            setContentText("펼쳐서 메모를 확인하세요")
             notificationData.onGoing?.let {
                 setOngoing(notificationData.onGoing)
             }
+            setStyle(NotificationCompat.BigTextStyle().bigText(notificationData.text))
         }.build()
 
 }

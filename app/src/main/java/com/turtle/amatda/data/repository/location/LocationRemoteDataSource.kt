@@ -13,6 +13,8 @@ import com.turtle.amatda.domain.model.DomainLocation
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.subjects.PublishSubject
+import java.io.IOException
+import java.lang.reflect.InvocationTargetException
 import javax.inject.Inject
 
 class LocationRemoteDataSource @Inject constructor(
@@ -56,15 +58,23 @@ class LocationRemoteDataSource @Inject constructor(
                 location.latitude,
                 location.longitude,
                 location.accuracy,
-                // todo : 인터넷이 연결되어있지 않을경우 java.lang.reflect.InvocationTargetException 이 발생하는 현상 수정이 필요함
-                address = geocoder.getFromLocation(location.latitude,
-                    location.longitude, 1)?.let {
-                        if(it.size > 0){
+                address =
+                try {
+                    geocoder.getFromLocation(
+                        location.latitude,
+                        location.longitude, 1
+                    )?.let {
+                        if (it.size > 0) {
                             it[0]?.getAddressLine(0).toString()
                         } else {
                             "주소를 가져올수 없습니다."
                         }
-                } ?: "주소를 가져올수 없습니다."
+                    } ?: "주소를 가져올수 없습니다."
+                } catch (e: IOException){
+                    "주소를 가져올수 없습니다."
+                } catch (e: InvocationTargetException){
+                    "주소를 가져올수 없습니다."
+                }
             )
         )
     }

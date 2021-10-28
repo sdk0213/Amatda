@@ -1,11 +1,11 @@
-package com.turtle.amatda.presentation.android.di
+package com.turtle.amatda.presentation.android.di.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 import javax.inject.Provider
 
-class AppViewModelFactory @Inject constructor(
+class ViewModelFactory @Inject constructor(
     private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

@@ -2,7 +2,8 @@ package com.turtle.amatda.presentation.android.di.module
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.turtle.amatda.presentation.android.di.AppViewModelFactory
+import com.turtle.amatda.presentation.android.di.factory.ViewModelFactory
+import com.turtle.amatda.presentation.android.di.key.ViewModelKey
 import com.turtle.amatda.presentation.view.carrier.CarrierViewModel
 import com.turtle.amatda.presentation.view.carrier_item.CarrierItemViewModel
 import com.turtle.amatda.presentation.view.carrier_name.CarrierNameViewModel
@@ -24,7 +25,7 @@ import dagger.multibindings.IntoMap
 abstract class ViewModelModule {
 
     @Binds
-    abstract fun bindViewModelFactory(factory: AppViewModelFactory): ViewModelProvider.Factory
+    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
     @Binds
     @IntoMap

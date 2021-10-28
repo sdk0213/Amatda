@@ -45,17 +45,21 @@ class NotificationUtil @Inject constructor(
         }
     }
 
-    fun makeNotificationView(notificationData: NotificationData) : Notification =
+    fun makeNotificationView(notificationData: NotificationData): Notification =
         NotificationCompat.Builder(context, notificationData.id).apply {
             priority = NotificationCompat.PRIORITY_HIGH
             color = ContextCompat.getColor(context, R.color.amatda_main)
             setSmallIcon(R.drawable.ic_launcher_foreground)
             setContentTitle(notificationData.title)
-            setContentText("펼쳐서 메모를 확인하세요")
             notificationData.onGoing?.let {
                 setOngoing(notificationData.onGoing)
             }
-            setStyle(NotificationCompat.BigTextStyle().bigText(notificationData.text))
+            if (notificationData.isBigText) {
+                setContentText("펼쳐서 메모를 확인하세요")
+                setStyle(NotificationCompat.BigTextStyle().bigText(notificationData.text))
+            } else {
+                setContentText(notificationData.text)
+            }
         }.build()
 
 }

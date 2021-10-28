@@ -1,4 +1,4 @@
-package com.turtle.amatda.presentation.android.workers
+package com.turtle.amatda.presentation.android.di.factory
 
 import android.content.Context
 import androidx.work.ListenableWorker

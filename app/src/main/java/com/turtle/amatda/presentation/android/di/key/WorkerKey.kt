@@ -1,4 +1,4 @@
-package com.turtle.amatda.presentation.android.di.module
+package com.turtle.amatda.presentation.android.di.key
 
 import androidx.work.ListenableWorker
 import dagger.MapKey

@@ -35,6 +35,9 @@ const val notificationIdOfGeofence = 1001
 // 포어그라운드 서비스 관련
 const val thisServiceIsForeGroundService = "thisServiceIsForeGroundService"
 
+// 브로드 캐스트
+const val broadCastMessageOfUndeadService = "BROADCAST_FOR_UNDEAD_SERVICE"
+
 // str split
 const val amatdaSplit = "/%#!(amatda)(split)!%^/"
 

@@ -3,6 +3,7 @@ package com.turtle.amatda.presentation.android.di.module
 import android.app.Application
 import android.app.NotificationManager
 import android.content.Context
+import androidx.work.WorkManager
 import com.turtle.amatda.presentation.android.AndroidUtil
 import com.turtle.amatda.presentation.android.App
 import com.turtle.amatda.presentation.android.di.qualifier.ApplicationContext
@@ -22,6 +23,11 @@ class AppModule {
     @Singleton
     @ApplicationContext
     fun provideContext(app: App): Context = app
+
+    @Provides
+    fun provideWorkManager(@ApplicationContext context: Context) : WorkManager {
+        return WorkManager.getInstance(context)
+    }
 
     // 안드로이드 관련 Util
     @Provides

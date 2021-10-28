@@ -28,16 +28,22 @@ class GeofenceReceiverService : BaseService() {
         notificationUtil.makeNotificationView(
             NotificationData(
                 id = notificationChannelIdOfGeofence,
-                title = "위치정보파악",
-                text = "지오펜스 작동중",
-                onGoing = false
+                title = "아마따 여행 비서",
+                text = "여행 알림 서비스가 동작중입니다.",
+                onGoing = false,
+                isBigText = false
             )
         )
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        super.onStartCommand(intent, flags, startId)
 
         intent?.let {
+
+            if (it.getBooleanExtra(thisServiceIsForeGroundService, false)) {
+                startForeground(notificationIdOfGeofence, notificationView)
+            }
 
             val geofencingEvent = GeofencingEvent.fromIntent(intent)
             if (geofencingEvent.hasError()) {
@@ -79,7 +85,8 @@ class GeofenceReceiverService : BaseService() {
                                     id = notificationChannelIdOfDefault,
                                     title = "${this[0]}${transitionMsg}",
                                     text = this[1],
-                                    onGoing = true
+                                    onGoing = true,
+                                    isBigText = true
                                 )
                             )
                         )
@@ -91,8 +98,6 @@ class GeofenceReceiverService : BaseService() {
                 Log.d("sudeky", geofenceTransition.toString())
             }
         }
-
-        super.onStartCommand(intent, flags, startId)
 
         return START_STICKY
     }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.turtle.amatda.presentation.android.workers
+package com.turtle.amatda.presentation.android.workmanager
 
 import android.content.Context
 import android.util.Log
@@ -27,14 +27,15 @@ import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import com.turtle.amatda.domain.model.Item
 import com.turtle.amatda.domain.usecases.InsertItemFromAssetsUseCase
+import com.turtle.amatda.presentation.android.di.factory.ChildWorkerFactory
 import com.turtle.amatda.presentation.utilities.CHECKLIST_DATA_FILENAME
-
 
 class SeedDatabaseWorker @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted params: WorkerParameters,
     private val insertItemFromAssetsUseCase: InsertItemFromAssetsUseCase
 ) : Worker(appContext, params) {
+
     override fun doWork(): Result {
         try {
             applicationContext.assets.open(CHECKLIST_DATA_FILENAME).use { inputStream ->
@@ -45,7 +46,7 @@ class SeedDatabaseWorker @AssistedInject constructor(
                     insertItemFromAssetsUseCase.execute(itemList)
                         .subscribe({
                             Log.i(TAG, "Seeding Complete")
-                        },{
+                        }, {
                             Log.e(TAG, "Error subscrobe Completable is on Error")
                         })
                     return Result.success()

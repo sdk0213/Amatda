@@ -10,7 +10,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import com.turtle.amatda.presentation.android.di.AppViewModelFactory
+import com.turtle.amatda.presentation.android.di.factory.ViewModelFactory
 import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
@@ -29,7 +29,7 @@ abstract class BaseFragment<T : BaseViewModel, B : ViewDataBinding>
     protected lateinit var binding: B
 
     @Inject
-    lateinit var viewModelFactory: AppViewModelFactory
+    lateinit var viewModelFactory: ViewModelFactory
 
     protected val viewModel: T
         get(){

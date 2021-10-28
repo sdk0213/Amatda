@@ -4,7 +4,7 @@ import androidx.work.Configuration
 import com.google.android.gms.location.GeofencingClient
 import com.turtle.amatda.presentation.android.di.DaggerAppComponent
 import com.turtle.amatda.presentation.android.notification.NotificationUtil
-import com.turtle.amatda.presentation.android.workers.WorkerFactory
+import com.turtle.amatda.presentation.android.di.factory.WorkerFactory
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import javax.inject.Inject

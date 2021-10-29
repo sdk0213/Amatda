@@ -76,7 +76,7 @@ class NetModule {
 
     // 로그를 찍기 위한 로깅 인터셉터 설정
     @Provides
-    fun provideHttpLogginInterceptor(): HttpLoggingInterceptor {
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         val loggingInterceptor = HttpLoggingInterceptor { message ->
             Timber.d("Http Logging message : $message")
         }

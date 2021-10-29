@@ -1,12 +1,12 @@
 package com.turtle.amatda.presentation.view.carrier_item
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.domain.model.*
 import com.turtle.amatda.domain.usecases.*
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -107,7 +107,7 @@ class CarrierItemViewModel @Inject constructor(
                 .subscribe(
                     {},
                     {
-                        Log.e(TAG, "addCarrierPocket is Error ${it.message}")
+                        Timber.e("addCarrierPocket is Error ${it.message}")
                     }
                 )
         )
@@ -178,14 +178,14 @@ class CarrierItemViewModel @Inject constructor(
                         removeViewList.removeAll(keepViewList)
                         beforeItemList.addAll(makeItemList)
 
-                        Log.d("asdjl", "_makeItemList.value = ${_makeItemList.value}")
+                        Timber.d("_makeItemList.value = ${_makeItemList.value}")
                         _itemList.value = beforeItemList
                         _removeItemList.value = removeViewList
                         _makeItemList.value = makeItemList
 
                     },
                     {
-                        Log.e(TAG, "getItems is Error ${it.message}")
+                        Timber.e("getItems is Error ${it.message}")
                     }
                 )
         )
@@ -203,7 +203,7 @@ class CarrierItemViewModel @Inject constructor(
                 .subscribe(
                     {},
                     {
-                        Log.e(TAG, "deletePocket is Error ${it.message}")
+                        Timber.e("deletePocket is Error ${it.message}")
                     }
                 )
         )
@@ -220,9 +220,11 @@ class CarrierItemViewModel @Inject constructor(
                 )
             )
                 .subscribe(
-                    {},
                     {
-                        Log.e(TAG, "editPocket Name to ${pocketName} is Error ${it.message}")
+                        Timber.d("editPocket name to $pocketName is success")
+                    },
+                    {
+                        Timber.e("editPocket name to $pocketName on error ${it.message}")
                     }
                 )
         )
@@ -260,7 +262,7 @@ class CarrierItemViewModel @Inject constructor(
                     {
                     },
                     {
-                        Log.e(TAG, "insertItem is Error ${it.message}")
+                        Timber.e("updateMove is Error ${it.message}")
                     }
                 )
         )
@@ -280,7 +282,7 @@ class CarrierItemViewModel @Inject constructor(
                     {
                     },
                     {
-                        Log.e(TAG, "insertItem is Error ${it.message}")
+                        Timber.e("editItem is Error ${it.message}")
                     }
                 )
         )
@@ -291,21 +293,21 @@ class CarrierItemViewModel @Inject constructor(
         updateItemUseCase.updateType = updateItemUseCase.typeItemCount
         _itemList.value?.find {
             it.id == itemIdCurrentClicked
-        }?.let {
-            if (it.count + (if (isCountUp) 1 else -1) < 1) return
+        }?.let { item ->
+            if (item.count + (if (isCountUp) 1 else -1) < 1) return
             compositeDisposable.add(
                 updateItemUseCase.execute(
                     Item(
-                        id = it.id,
-                        count = it.count + (if (isCountUp) 1 else -1),
-                        pocket_id = it.pocket_id
+                        id = item.id,
+                        count = item.count + (if (isCountUp) 1 else -1),
+                        pocket_id = item.pocket_id
                     )
                 )
                     .subscribe(
                         {
                         },
                         {
-                            Log.e(TAG, "insertItem is Error ${it.message}")
+                            Timber.e("recountItem is Error ${it.message}")
                         }
                     )
             )
@@ -342,21 +344,21 @@ class CarrierItemViewModel @Inject constructor(
     fun updateColor(color: Long) {
         _itemList.value?.find {
             it.id == itemIdCurrentClicked
-        }?.let {
+        }?.let { item ->
             updateItemUseCase.updateType = updateItemUseCase.typeItemColor
             compositeDisposable.add(
                 updateItemUseCase.execute(
                     Item(
-                        id = it.id,
+                        id = item.id,
                         color = color,
-                        pocket_id = it.pocket_id
+                        pocket_id = item.pocket_id
                     )
                 )
                     .subscribe(
                         {
                         },
                         {
-                            Log.e(TAG, "insert Color is Error ${it.message}")
+                            Timber.e("updateColor is Error ${it.message}")
                         }
                     )
             )
@@ -379,7 +381,7 @@ class CarrierItemViewModel @Inject constructor(
                     {
                     },
                     {
-                        Log.e(TAG, "insertItem is Error ${it.message}")
+                        Timber.e("updateSize is Error ${it.message}")
                     }
                 )
         )
@@ -391,7 +393,7 @@ class CarrierItemViewModel @Inject constructor(
                 .subscribe(
                     {},
                     {
-                        Log.e(TAG, "insertItem is Error ${it.message}")
+                        Timber.e("saveItem is Error ${it.message}")
                     }
                 )
         )
@@ -405,7 +407,7 @@ class CarrierItemViewModel @Inject constructor(
                         itemIsUnClicked()
                     },
                     {
-                        Log.e(TAG, "deleteItem is Error ${it.message}")
+                        Timber.e("deleteItem is Error ${it.message}")
                     }
                 )
         )

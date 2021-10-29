@@ -1,6 +1,5 @@
 package com.turtle.amatda.presentation.view.trip_date
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.domain.model.Trip
@@ -8,6 +7,7 @@ import com.turtle.amatda.domain.model.TripConcept
 import com.turtle.amatda.domain.model.TripZone
 import com.turtle.amatda.domain.usecases.AddTripUseCase
 import com.turtle.amatda.presentation.view.base.BaseViewModel
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -42,7 +42,7 @@ class TripDateViewModel @Inject constructor(
 
                     },
                     {
-                        Log.d(TAG, it.message.toString())
+                        Timber.d(it)
                     }
                 )
         )

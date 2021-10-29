@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.location.Geocoder
 import android.location.Location
 import android.os.Looper
-import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -52,31 +51,33 @@ class LocationRemoteDataSource @Inject constructor(
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
     }
 
-    private fun setLocation(location: Location) {
-        locationSubject.onNext(
-            DomainLocation(
-                location.latitude,
-                location.longitude,
-                location.accuracy,
-                address =
-                try {
-                    geocoder.getFromLocation(
-                        location.latitude,
-                        location.longitude, 1
-                    )?.let {
-                        if (it.size > 0) {
-                            it[0]?.getAddressLine(0).toString()
-                        } else {
-                            "주소를 가져올수 없습니다."
-                        }
-                    } ?: "주소를 가져올수 없습니다."
-                } catch (e: IOException){
-                    "주소를 가져올수 없습니다."
-                } catch (e: InvocationTargetException){
-                    "주소를 가져올수 없습니다."
-                }
+    private fun setLocation(location: Location?) {
+        location?.let {
+            locationSubject.onNext(
+                DomainLocation(
+                    location.latitude,
+                    location.longitude,
+                    location.accuracy,
+                    address =
+                    try {
+                        geocoder.getFromLocation(
+                            location.latitude,
+                            location.longitude, 1
+                        )?.let {
+                            if (it.size > 0) {
+                                it[0]?.getAddressLine(0).toString()
+                            } else {
+                                "주소를 가져올수 없습니다."
+                            }
+                        } ?: "주소를 가져올수 없습니다."
+                    } catch (e: IOException) {
+                        "주소를 가져올수 없습니다."
+                    } catch (e: InvocationTargetException) {
+                        "주소를 가져올수 없습니다."
+                    }
+                )
             )
-        )
+        }
     }
 
 }

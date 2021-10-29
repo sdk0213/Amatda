@@ -2,7 +2,6 @@ package com.turtle.amatda.presentation.view.trip_zone
 
 import android.annotation.SuppressLint
 import android.app.PendingIntent
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.location.Geofence
@@ -18,6 +17,7 @@ import com.turtle.amatda.domain.usecases.GetAllTripZoneUseCase
 import com.turtle.amatda.domain.usecases.GetTripUseCase
 import com.turtle.amatda.presentation.utilities.*
 import com.turtle.amatda.presentation.view.base.BaseViewModel
+import timber.log.Timber
 import java.io.PrintWriter
 import java.io.StringWriter
 import javax.inject.Inject
@@ -69,10 +69,10 @@ class TripZoneViewModel @Inject constructor(
 
                         geofencingClient.removeGeofences(geofencePendingIntent).run {
                             addOnSuccessListener {
-                                Log.d(TAG,"모든 여행지역 삭제 성공")
+                                Timber.d("모든 여행지역 삭제 성공")
                             }
                             addOnFailureListener {
-                                Log.d(TAG,"모든 여행지역 삭제 실패")
+                                Timber.e("모든 여행지역 삭제 실패")
                             }
                         }
 
@@ -94,9 +94,10 @@ class TripZoneViewModel @Inject constructor(
                         )
                             .run {
                                 addOnSuccessListener {
-                                    Log.d(TAG, "여행 등록에 성공하였습니다.")
+                                    Timber.d("여행 등록에 성공")
                                 }
                                 addOnFailureListener {
+                                    Timber.e("여행 등록에 실패")
                                     _addZoneMessage.value = Event(false)
                                 }
                             }
@@ -118,10 +119,10 @@ class TripZoneViewModel @Inject constructor(
             deleteTripZoneUseCase.execute(tripZone)
                 .subscribe(
                     {
-                        Log.d(TAG, "deleteTripZoneUseCase is success")
+                        Timber.d("deleteArea is success")
                     },
                     {
-                        Log.d(TAG, "deleteTripZoneUseCase is failed")
+                        Timber.d("deleteArea is failed : ${it.message}")
                     }
                 )
         )

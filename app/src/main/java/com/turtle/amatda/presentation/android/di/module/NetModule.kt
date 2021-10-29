@@ -1,6 +1,5 @@
 package com.turtle.amatda.presentation.android.di.module
 
-import android.util.Log
 import com.google.gson.GsonBuilder
 import com.tickaroo.tikxml.TikXml
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
@@ -14,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
@@ -38,7 +38,11 @@ class NetModule {
     @Named("TourRetrofit")
     fun provideTourRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .addConverterFactory(TikXmlConverterFactory.create(TikXml.Builder().exceptionOnUnreadXml(false).build()))
+            .addConverterFactory(
+                TikXmlConverterFactory.create(
+                    TikXml.Builder().exceptionOnUnreadXml(false).build()
+                )
+            )
             .baseUrl(ApiClient.TOUR_BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .client(okHttpClient)
@@ -74,7 +78,7 @@ class NetModule {
     @Provides
     fun provideHttpLogginInterceptor(): HttpLoggingInterceptor {
         val loggingInterceptor = HttpLoggingInterceptor { message ->
-            Log.d("Amatda NetModule", "request/received data to/from Server : ${message}")
+            Timber.d("Http Logging message : $message")
         }
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return loggingInterceptor

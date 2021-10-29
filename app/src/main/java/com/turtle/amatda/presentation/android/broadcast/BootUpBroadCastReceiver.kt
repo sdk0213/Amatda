@@ -2,11 +2,11 @@ package com.turtle.amatda.presentation.android.broadcast
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.turtle.amatda.presentation.android.workmanager.KeepServiceWorker
 import dagger.android.DaggerBroadcastReceiver
+import timber.log.Timber
 import javax.inject.Inject
 
 class BootUpBroadCastReceiver : DaggerBroadcastReceiver() {
@@ -23,7 +23,7 @@ class BootUpBroadCastReceiver : DaggerBroadcastReceiver() {
                 )
             }
         }?.run {
-            Log.e("sudeky", "BootUpReceiver : intent is null")
+            Timber.e("BootUpReceiver : intent is null")
         }
     }
 

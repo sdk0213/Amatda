@@ -2,16 +2,14 @@ package com.turtle.amatda.presentation.android.service
 
 import android.app.NotificationManager
 import android.content.Intent
-import android.util.Log
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofenceStatusCodes
 import com.google.android.gms.location.GeofencingEvent
 import com.turtle.amatda.presentation.android.notification.NotificationData
 import com.turtle.amatda.presentation.android.notification.NotificationUtil
 import com.turtle.amatda.presentation.utilities.*
-import com.turtle.amatda.presentation.utilities.notificationChannelIdOfDefault
+import timber.log.Timber
 import java.io.*
-import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -49,7 +47,7 @@ class GeofenceReceiverService : BaseService() {
             if (geofencingEvent.hasError()) {
                 val errorMessage =
                     GeofenceStatusCodes.getStatusCodeString(geofencingEvent.errorCode)
-                Log.e("GeofenceBR", errorMessage)
+                Timber.e(errorMessage)
                 return START_NOT_STICKY
             }
 
@@ -77,7 +75,7 @@ class GeofenceReceiverService : BaseService() {
                 val str = StringBuilder("")
                 triggeringGeofences.forEach { geofence ->
                     geofence.requestId.split(amatdaSplit).apply {
-                        Log.d("sudeky", "${this[0]}${transitionMsg}")
+                        Timber.d("${this[0]}${transitionMsg}")
                         saveRecord("${this[0]}${transitionMsg}")
                         notificationManager.notify(
                             notificationIdOfDefault, notificationUtil.makeNotificationView(
@@ -95,7 +93,7 @@ class GeofenceReceiverService : BaseService() {
                 }
 
             } else {
-                Log.d("sudeky", geofenceTransition.toString())
+                Timber.d("GeofenceTransition : $geofenceTransition")
             }
         }
 

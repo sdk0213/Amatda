@@ -3,7 +3,6 @@ package com.turtle.amatda.presentation.view.trip_zone_make
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
@@ -19,6 +18,7 @@ import com.turtle.amatda.domain.model.ZoneType
 import com.turtle.amatda.presentation.utilities.EventObserver
 import com.turtle.amatda.presentation.utilities.extensions.toEditable
 import com.turtle.amatda.presentation.view.base.BaseFragment
+import timber.log.Timber
 import java.util.*
 
 class TripZoneMakeFragment :
@@ -133,7 +133,7 @@ class TripZoneMakeFragment :
             mMap = it
             viewModel.initPlaceAndTrip(args.placeAndTrip)
         } ?: run {
-            Log.d(TAG, "googleMap is Null")
+            Timber.d("googleMap is null")
         }
     }
 }

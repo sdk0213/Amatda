@@ -6,6 +6,7 @@ import com.turtle.amatda.BuildConfig
 import com.turtle.amatda.presentation.android.di.DaggerAppComponent
 import com.turtle.amatda.presentation.android.notification.NotificationUtil
 import com.turtle.amatda.presentation.android.di.factory.WorkerFactory
+import com.turtle.amatda.presentation.utilities.CustomTimberDebug
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import timber.log.Timber
@@ -22,13 +23,16 @@ class App : DaggerApplication(), Configuration.Provider {
     @Inject
     lateinit var notificationUtil: NotificationUtil
 
+    @Inject
+    lateinit var customTimberDebug: CustomTimberDebug
+
     override fun onCreate() {
         super.onCreate()
         notificationUtil.buildNotificationChannel()
 
         // Timber 로그 라이브러리 초기화
         if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
+            Timber.plant(customTimberDebug)
         }
     }
 

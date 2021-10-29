@@ -1,6 +1,5 @@
 package com.turtle.amatda.presentation.view.trip_concept
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.domain.model.Trip
@@ -8,6 +7,7 @@ import com.turtle.amatda.domain.model.TripConcept
 import com.turtle.amatda.domain.model.TripZone
 import com.turtle.amatda.domain.usecases.SaveTripUseCase
 import com.turtle.amatda.presentation.view.base.BaseViewModel
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -45,10 +45,10 @@ class TripConceptViewModel @Inject constructor(
             saveTripUseCase.execute(getTrip())
                 .subscribe(
                     {
-                        Log.d(TAG, "success save Trip")
+                        Timber.d("saveTrip is success")
                     },
                     {
-                        Log.d(TAG, "failed save Trip")
+                        Timber.d("saveTrip is Error : ${it.message}")
                     }
                 )
         )

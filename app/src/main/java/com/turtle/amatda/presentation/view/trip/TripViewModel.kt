@@ -1,12 +1,12 @@
 package com.turtle.amatda.presentation.view.trip
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.domain.model.Trip
 import com.turtle.amatda.domain.usecases.DeleteTripUseCase
 import com.turtle.amatda.domain.usecases.GetAllTripUseCase
 import com.turtle.amatda.presentation.view.base.BaseViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 class TripViewModel @Inject constructor(
@@ -36,10 +36,10 @@ class TripViewModel @Inject constructor(
             deleteTripUseCase.execute(trip)
                 .subscribe(
                     {
-                        Log.d(TAG, "deleteTrip is success")
+                        Timber.d("deleteTrip is success")
                     },
                     {
-                        Log.d(TAG, "deleteTrip is onError")
+                        Timber.e("deleteTrip is onError")
                     }
                 )
         )

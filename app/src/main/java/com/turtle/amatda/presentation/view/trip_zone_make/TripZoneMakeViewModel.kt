@@ -1,6 +1,5 @@
 package com.turtle.amatda.presentation.view.trip_zone_make
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.LatLng
@@ -9,6 +8,7 @@ import com.turtle.amatda.domain.model.*
 import com.turtle.amatda.domain.usecases.SaveTripUseCase
 import com.turtle.amatda.presentation.utilities.Event
 import com.turtle.amatda.presentation.view.base.BaseViewModel
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -133,10 +133,10 @@ class TripZoneMakeViewModel @Inject constructor(
             )
                 .subscribe(
                     {
-                        Log.d(TAG, "saveTripZone is success")
+                        Timber.d("saveTripZone is success")
                     },
                     {
-
+                        Timber.e("saveTripZone is failed : ${it.message}")
                     }
                 )
         )

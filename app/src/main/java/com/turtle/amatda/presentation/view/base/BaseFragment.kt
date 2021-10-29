@@ -18,11 +18,7 @@ import javax.inject.Inject
 
 
 abstract class BaseFragment<T : BaseViewModel, B : ViewDataBinding>
-    constructor(@LayoutRes private val layoutId: Int) : DaggerFragment() {
-
-    companion object {
-        val TAG : String= BaseFragment::class.java.simpleName
-    }
+constructor(@LayoutRes private val layoutId: Int) : DaggerFragment() {
 
     lateinit var mContext: Context
 
@@ -32,8 +28,9 @@ abstract class BaseFragment<T : BaseViewModel, B : ViewDataBinding>
     lateinit var viewModelFactory: ViewModelFactory
 
     protected val viewModel: T
-        get(){
-            val types: Array<Type> = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
+        get() {
+            val types: Array<Type> =
+                (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
             return ViewModelProvider(this, viewModelFactory).get(types[0] as Class<T>)
         }
 

@@ -1,6 +1,5 @@
 package com.turtle.amatda.presentation.view.carrier
 
-import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
@@ -9,6 +8,7 @@ import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentCarrierBinding
 import com.turtle.amatda.domain.model.Carrier
 import com.turtle.amatda.presentation.view.base.BaseFragment
+import timber.log.Timber
 import java.util.*
 
 class CarrierFragment :
@@ -132,7 +132,7 @@ class CarrierFragment :
                 }
 
                 override fun onQueryTextChange(newText: String): Boolean {
-                    Log.d(TAG, "onQueryTextChange is worked")
+                    Timber.d("onQueryTextChange is worked")
                     return false
                 }
             })

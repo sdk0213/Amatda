@@ -1,7 +1,6 @@
 package com.turtle.amatda.presentation.view.home
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.data.util.Resource
@@ -14,6 +13,7 @@ import com.turtle.amatda.presentation.utilities.convertGridToGps
 import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringHHmmTimeStamp
 import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringyyyyMMddTimeStamp
 import com.turtle.amatda.presentation.view.base.BaseViewModel
+import timber.log.Timber
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.text.SimpleDateFormat
@@ -49,7 +49,7 @@ class HomeViewModel @Inject constructor(
     private var _sigungucode = "1"
 
     // 현재 위치의 주소를 활영하여 지역코드를 조회 후 지역코드를 기반으로 주변 음식점 및 주변 여행지 목록을 가져온다.
-    fun getTour() {
+    private fun getTour() {
         compositeDisposable.add(
             getAreaUseCase.execute("") // 처음에는 시도 코드를 가져오기 위해서 빈 값으로 요청
                 .flatMap { response ->
@@ -67,7 +67,7 @@ class HomeViewModel @Inject constructor(
                             getAreaUseCase.execute("1") // 값이 잘못되었을경우 서울로 요청
                         }
                         is Resource.Error -> {
-                            Log.d(TAG,"Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}")
+                            Timber.e("Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}")
                             getAreaUseCase.execute("1") // 값이 잘못되었을경우 서울로 요청
                         }
                     }
@@ -99,7 +99,7 @@ class HomeViewModel @Inject constructor(
                             )
                         }
                         is Resource.Error -> {
-                            Log.d(TAG,"Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}")
+                            Timber.e("Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}")
                             getTourUseCase.execute(
                                 TourCode(
                                     contentTypeId = "12",
@@ -110,7 +110,7 @@ class HomeViewModel @Inject constructor(
                         }
                     }
                 }
-                .flatMap {  response ->
+                .flatMap { response ->
                     when (response) {
                         is Resource.Success -> {
                             _tourList.value = response.data!!
@@ -132,7 +132,7 @@ class HomeViewModel @Inject constructor(
                             )
                         }
                         is Resource.Error -> {
-                            Log.d(TAG,"Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}")
+                            Timber.e("Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}")
                             getTourUseCase.execute(
                                 TourCode(
                                     contentTypeId = "39",
@@ -153,7 +153,7 @@ class HomeViewModel @Inject constructor(
                         }
                         is Resource.Error -> {
                             _errorMessage.value =
-                            "Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}"
+                                "Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}"
                         }
                     }
                 }
@@ -218,7 +218,7 @@ class HomeViewModel @Inject constructor(
                         val sw = StringWriter()
                         it.printStackTrace(PrintWriter(sw))
                         val exceptionAsString: String = sw.toString()
-                        Log.e(TAG, "getWeather on Error stacktrace : $exceptionAsString")
+                        Timber.e("getWeather on Error stacktrace : $exceptionAsString")
                         _errorMessage.value =
                             "Api call failed in subscribe.onError\nmessage : ${it.message}"
                     }

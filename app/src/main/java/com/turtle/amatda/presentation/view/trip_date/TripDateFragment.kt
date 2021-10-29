@@ -6,6 +6,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentTripDateBinding
 import com.turtle.amatda.presentation.utilities.extensions.convertToDateyyyyMMdd
+import com.turtle.amatda.presentation.utilities.extensions.toCalenderDay
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import java.util.*
 
@@ -21,38 +22,20 @@ class TripDateFragment :
     }
 
     private fun view() {
-        if (args.trip.id != 0L) { // 아이템 수정 (ID 값이 0 이 아님)
-            val startCal = Calendar.getInstance(Locale.getDefault()).apply {
-                time = args.trip.date_start
-            }
-            val endCal = Calendar.getInstance(Locale.getDefault()).apply {
-                time = args.trip.date_end
-            }
-            binding.calenderTripDate.selectRange(
-                CalendarDay.from(
-                    startCal.get(Calendar.YEAR),
-                    startCal.get(Calendar.MONTH) + 1,
-                    startCal.get(Calendar.DAY_OF_MONTH)
-                ),
-                CalendarDay.from(
-                    endCal.get(Calendar.YEAR),
-                    endCal.get(Calendar.MONTH) + 1,
-                    endCal.get(Calendar.DAY_OF_MONTH)
-                ),
-            )
+        // 아이템 수정모드일경우 (ID 값이 0 이 아님)
+        if (args.trip.id != 0L) {
+            val startCal = args.trip.date_start.toCalenderDay()
+            val endCal = args.trip.date_end.toCalenderDay()
+            binding.calenderTripDate.selectRange(startCal, endCal)
 
             binding.tvTripDateStart.text =
-                "${getString(R.string.question_trip_date_start_day)} : ${startCal.get(Calendar.YEAR)}년 ${
-                    startCal.get(
-                        Calendar.MONTH
-                    ) + 1
-                }월 ${startCal.get(Calendar.DAY_OF_MONTH)}일"
+                "${getString(R.string.question_trip_date_start_day)} : ${startCal.year}년 ${
+                    startCal.month
+                }월 ${startCal.day}일"
             binding.tvTripDateEnd.text =
-                "${getString(R.string.question_trip_date_end_day)} : ${endCal.get(Calendar.YEAR)}년 ${
-                    endCal.get(
-                        Calendar.MONTH
-                    ) + 1
-                }월 ${endCal.get(Calendar.DAY_OF_MONTH)}일"
+                "${getString(R.string.question_trip_date_end_day)} : ${endCal.year}년 ${
+                    endCal.month
+                }월 ${endCal.day}일"
 
             viewModel.setDate(args.trip.date_start, args.trip.date_end)
         }

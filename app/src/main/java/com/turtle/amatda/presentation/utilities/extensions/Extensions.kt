@@ -1,6 +1,7 @@
 package com.turtle.amatda.presentation.utilities.extensions
 
 import android.text.Editable
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,6 +22,16 @@ fun Date.convertDateToStringMMddHHmmTimeStamp(): String =
 
 fun Date.convertDateToStringHHmmTimeStamp(): String =
     SimpleDateFormat("HH:mm", Locale.getDefault()).format(this)
+
+fun Date.toCalenderDay(): CalendarDay {
+    val cal = Calendar.getInstance(Locale.getDefault())
+    cal.time = this
+    return CalendarDay.from(
+        cal.get(Calendar.YEAR),
+        cal.get(Calendar.MONTH) + 1,
+        cal.get(Calendar.DAY_OF_MONTH)
+    )
+}
 
 fun String.toEditable(): Editable =
     Editable.Factory.getInstance().newEditable(this)

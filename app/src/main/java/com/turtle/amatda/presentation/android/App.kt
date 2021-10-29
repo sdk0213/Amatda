@@ -2,11 +2,13 @@ package com.turtle.amatda.presentation.android
 
 import androidx.work.Configuration
 import com.google.android.gms.location.GeofencingClient
+import com.turtle.amatda.BuildConfig
 import com.turtle.amatda.presentation.android.di.DaggerAppComponent
 import com.turtle.amatda.presentation.android.notification.NotificationUtil
 import com.turtle.amatda.presentation.android.di.factory.WorkerFactory
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
+import timber.log.Timber
 import javax.inject.Inject
 
 class App : DaggerApplication(), Configuration.Provider {
@@ -23,6 +25,11 @@ class App : DaggerApplication(), Configuration.Provider {
     override fun onCreate() {
         super.onCreate()
         notificationUtil.buildNotificationChannel()
+
+        // Timber 로그 라이브러리 초기화
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication?> {

@@ -1,10 +1,14 @@
 package com.turtle.amatda.presentation.view.trip_date
 
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.prolificinteractive.materialcalendarview.DayViewDecorator
+import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentTripDateBinding
+import com.turtle.amatda.presentation.utilities.EventObserver
 import com.turtle.amatda.presentation.utilities.extensions.convertToDateyyyyMMdd
 import com.turtle.amatda.presentation.utilities.extensions.toCalenderDay
 import com.turtle.amatda.presentation.view.base.BaseFragment
@@ -19,6 +23,7 @@ class TripDateFragment :
         view()
         viewModel()
         listener()
+        observer()
     }
 
     private fun view() {
@@ -43,6 +48,7 @@ class TripDateFragment :
 
     private fun viewModel() {
         viewModel.setTrip(args.trip)
+        viewModel.getAllTrip()
     }
 
     private fun listener() {
@@ -59,10 +65,6 @@ class TripDateFragment :
                 "${dates[0].year}/${dates[0].month}/${dates[0].day}".convertToDateyyyyMMdd(),
                 "${dates[dates.size - 1].year}/${dates[dates.size - 1].month}/${dates[dates.size - 1].day}".convertToDateyyyyMMdd(),
             )
-            binding.tvTripDateStart.text =
-                "${getString(R.string.question_trip_date_start_day)} : ${dates[0].year}년 ${dates[0].month}월 ${dates[0].day}일"
-            binding.tvTripDateEnd.text =
-                "${getString(R.string.question_trip_date_end_day)} : ${dates[dates.size - 1].year}년 ${dates[dates.size - 1].month}월 ${dates[dates.size - 1].day}일"
         }
 
         binding.calenderTripDate.setOnDateChangedListener { _, _, selected ->
@@ -83,6 +85,45 @@ class TripDateFragment :
 //            )
 //            .setCalendarDisplayMode(CalendarMode.MONTHS)
 //            .commit()
+    }
+
+    private fun observer() {
+        viewModel.disabledDate.observe(this@TripDateFragment) { hashSetOfDisabledCalendarDay ->
+            binding.calenderTripDate.addDecorator(
+                object: DayViewDecorator{
+                    override fun shouldDecorate(day: CalendarDay?): Boolean {
+                        return hashSetOfDisabledCalendarDay.contains(day)
+                    }
+
+                    override fun decorate(view: DayViewFacade?) {
+                        view?.setDaysDisabled(true)
+                        ContextCompat.getDrawable(mContext, R.drawable.ic_baseline_cancel_24)?.let {
+                            view?.setBackgroundDrawable(it)
+                        }
+                    }
+
+                }
+            )
+        }
+
+        viewModel.tripStartDate.observe(this@TripDateFragment) {
+            val calendar = it.toCalenderDay()
+            binding.tvTripDateStart.text =
+                "${getString(R.string.question_trip_date_start_day)} : ${calendar.year}년 ${calendar.month}월 ${calendar.day}일"
+        }
+
+        viewModel.tripEndDate.observe(this@TripDateFragment) {
+            val calendar = it.toCalenderDay()
+            binding.tvTripDateEnd.text =
+                "${getString(R.string.question_trip_date_end_day)} : ${calendar.year}년 ${calendar.month}월 ${calendar.day}일"
+        }
+
+        viewModel.isWrongDate.observe(this@TripDateFragment, EventObserver { needToReselect ->
+            if(needToReselect){
+                binding.calenderTripDate.clearSelection()
+                showToast("선택하신 날짜에 다른 여행이 계획되어있습니다.")
+            }
+        })
     }
 
 }

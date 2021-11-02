@@ -63,7 +63,12 @@ class TripDateViewModel @Inject constructor(
     fun setDate(startDate: Date, endDate: Date) {
         if(!checkWrongDate(startDate, endDate)){
             _tripStartDate.value = startDate
-            _tripEndDate.value = endDate
+            _tripEndDate.value = Calendar.getInstance().apply {
+                time = endDate
+                set(Calendar.HOUR_OF_DAY, 23)
+                set(Calendar.MINUTE, 59)
+                set(Calendar.SECOND, 59)
+            }.time
         }
     }
 

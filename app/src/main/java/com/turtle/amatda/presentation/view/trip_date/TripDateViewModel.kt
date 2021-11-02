@@ -96,7 +96,7 @@ class TripDateViewModel @Inject constructor(
                     {   tripList ->
                         // 수정모드 일경우 기존것은 제거
                         var mutableTripList = tripList.toMutableList()
-                        mutableTripList.remove(_argsTrip.value)
+                        mutableTripList.remove(mutableTripList.find { it.id == _argsTrip.value?.id ?: 0 })
                         _disabledDate.value = hashSetOf<CalendarDay>().apply {
                             mutableTripList.forEach { trip ->
                                 getDateListBetween(trip.date_start, trip.date_end).forEach {

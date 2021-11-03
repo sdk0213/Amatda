@@ -6,6 +6,7 @@ import com.turtle.amatda.BuildConfig
 import com.turtle.amatda.presentation.android.di.DaggerAppComponent
 import com.turtle.amatda.presentation.android.notification.NotificationUtil
 import com.turtle.amatda.presentation.android.di.factory.WorkerFactory
+import com.turtle.amatda.presentation.utilities.CatchUnexpectedException
 import com.turtle.amatda.presentation.utilities.CustomTimberDebug
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
@@ -26,6 +27,9 @@ class App : DaggerApplication(), Configuration.Provider {
     @Inject
     lateinit var customTimberDebug: CustomTimberDebug
 
+    @Inject
+    lateinit var catchUnexpectedException: CatchUnexpectedException
+
     override fun onCreate() {
         super.onCreate()
         notificationUtil.buildNotificationChannel()
@@ -34,6 +38,8 @@ class App : DaggerApplication(), Configuration.Provider {
         if (BuildConfig.DEBUG) {
             Timber.plant(customTimberDebug)
         }
+
+        Thread.setDefaultUncaughtExceptionHandler(catchUnexpectedException)
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication?> {

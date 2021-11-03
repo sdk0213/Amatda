@@ -18,6 +18,7 @@ open class TripMapper @Inject constructor() : Mapper<TripAndTripZoneEntity, Trip
                 TripZone(
                     id = it.id,
                     area = it.area,
+                    addr = it.addr,
                     title = it.title,
                     date = it.date,
                     lat = it.lat,
@@ -47,6 +48,7 @@ open class TripMapper @Inject constructor() : Mapper<TripAndTripZoneEntity, Trip
                 TripZoneEntity(
                     id = it.id,
                     area = it.area,
+                    addr = it.addr,
                     title = it.title,
                     date = it.date,
                     lat = it.lat,

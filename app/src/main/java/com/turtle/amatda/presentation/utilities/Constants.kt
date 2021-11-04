@@ -35,6 +35,10 @@ const val notificationIdOfGeofence = 1001
 // 포어그라운드 서비스 관련
 const val thisServiceIsForeGroundService = "thisServiceIsForeGroundService"
 
+// 인텐트 엑스트라
+const val intentServiceTitle = "intentServiceTitle"
+const val intentServiceText = "intentServiceText"
+
 // 브로드 캐스트
 const val broadCastMessageOfUndeadService = "BROADCAST_FOR_UNDEAD_SERVICE"
 
@@ -65,4 +69,5 @@ const val UNKNOWN_ERROR = 99   // 기타에러
 const val GEOFENCE_RADIUS_IN_METERS = 200f // 200M
 const val GEOFENCE_LIOTERE_IN_MILLISECONDS = 60000
 private const val GEOFENCE_EXPIRATION_IN_DAYS: Long = 90
-const val GEOFENCE_EXPIRATION_IN_MILLISECONDS = GEOFENCE_EXPIRATION_IN_DAYS * 24 * 60 * 60 * 1000 // 90일동안 유지시킴
+const val GEOFENCE_EXPIRATION_IN_MILLISECONDS =
+    GEOFENCE_EXPIRATION_IN_DAYS * 24 * 60 * 60 * 1000 // 90일동안 유지시킴

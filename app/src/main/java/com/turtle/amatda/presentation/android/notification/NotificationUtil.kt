@@ -45,7 +45,7 @@ class NotificationUtil @Inject constructor(
         }
     }
 
-    fun makeNotificationView(notificationData: NotificationData): Notification =
+    fun buildNotificationView(notificationData: NotificationData): Notification =
         NotificationCompat.Builder(context, notificationData.id).apply {
             priority = NotificationCompat.PRIORITY_HIGH
             color = ContextCompat.getColor(context, R.color.amatda_main)
@@ -55,7 +55,7 @@ class NotificationUtil @Inject constructor(
                 setOngoing(notificationData.onGoing)
             }
             if (notificationData.isBigText) {
-                setContentText("펼쳐서 메모를 확인하세요")
+                setContentText(notificationData.shortText)
                 setStyle(NotificationCompat.BigTextStyle().bigText(notificationData.text))
             } else {
                 setContentText(notificationData.text)

@@ -1,35 +1,28 @@
 package com.turtle.amatda.presentation.view.trip_zone
 
 import android.annotation.SuppressLint
-import android.app.PendingIntent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.location.Geofence
-import com.google.android.gms.location.GeofencingClient
-import com.google.android.gms.location.GeofencingRequest
-import com.google.android.gms.maps.model.LatLng
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.google.android.libraries.places.api.model.Place
 import com.turtle.amatda.domain.model.PlaceAndTrip
 import com.turtle.amatda.domain.model.Trip
 import com.turtle.amatda.domain.model.TripZone
 import com.turtle.amatda.domain.usecases.DeleteTripZoneUseCase
-import com.turtle.amatda.domain.usecases.GetAllTripZoneUseCase
 import com.turtle.amatda.domain.usecases.GetTripUseCase
-import com.turtle.amatda.presentation.utilities.*
+import com.turtle.amatda.presentation.android.workmanager.ManageTripZoneGeofenceWorker
+import com.turtle.amatda.presentation.utilities.Event
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import timber.log.Timber
 import java.io.PrintWriter
 import java.io.StringWriter
 import javax.inject.Inject
-import javax.inject.Named
 
 class TripZoneViewModel @Inject constructor(
-    private val geofencingClient: GeofencingClient,
-    @Named("GeoPendingIntent")
-    private val geofencePendingIntent: PendingIntent,
     private val getTripUseCase: GetTripUseCase,
     private val deleteTripZoneUseCase: DeleteTripZoneUseCase,
-    private val getAllTripZoneUseCase: GetAllTripZoneUseCase
+    private val workManager: WorkManager
 ) : BaseViewModel() {
 
     private val _addZoneMessage = MutableLiveData<Event<Boolean>>()
@@ -46,7 +39,7 @@ class TripZoneViewModel @Inject constructor(
 
     fun init(trip: Trip) {
         setTrip(trip)
-        getCurrentTripFromDb(trip)
+        getCurrentTrip(trip)
     }
 
     private fun setTrip(trip: Trip) {
@@ -54,61 +47,20 @@ class TripZoneViewModel @Inject constructor(
     }
 
     @SuppressLint("MissingPermission")
-    private fun getCurrentTripFromDb(trip: Trip) {
+    private fun getCurrentTrip(trip: Trip) {
         compositeDisposable.add(
             getTripUseCase.execute(trip)
-                .flatMap {
-                    _currentTrip.value = it
-                    getAllTripZoneUseCase.execute()
-                }
                 .subscribe(
-                    { tripZoneList ->
-                        // todo: 기존 여행지와 변화된것이 없다면 Geofence 를 재등록하면 안된다.
-                        val geofenceList: MutableList<Geofence> = mutableListOf()
-                        if (tripZoneList.isEmpty()) return@subscribe
-
-                        geofencingClient.removeGeofences(geofencePendingIntent).run {
-                            addOnSuccessListener {
-                                Timber.d("모든 여행지역 삭제 성공")
-                            }
-                            addOnFailureListener {
-                                Timber.e("모든 여행지역 삭제 실패")
-                            }
-                        }
-
-                        tripZoneList.forEach { tripZone ->
-                            geofenceList.add(
-                                getGeofence(
-                                    "${tripZone.area}${amatdaSplit}${tripZone.title}",
-                                    LatLng(
-                                        tripZone.lat.toDouble(),
-                                        tripZone.lon.toDouble()
-                                    )
-                                )
-                            )
-                        }
-
-                        geofencingClient.addGeofences(
-                            getGeofencingRequest(geofenceList),
-                            geofencePendingIntent
-                        )
-                            .run {
-                                addOnSuccessListener {
-                                    Timber.d("여행 등록에 성공")
-                                }
-                                addOnFailureListener {
-                                    Timber.e("여행 등록에 실패")
-                                    _addZoneMessage.value = Event(false)
-                                }
-                            }
-
+                    { currentTrip ->
+                        _currentTrip.value = currentTrip
                     },
                     {
                         val sw = StringWriter()
                         it.printStackTrace(PrintWriter(sw))
                         val exceptionAsString: String = sw.toString()
+                        Timber.e("getCurrentTrip is Error exception : $exceptionAsString")
                         _errorMessage.value =
-                            Event("Get Trip, TripZone failed in subscribe.onError\nmessage : ${it.message}")
+                            Event("getCurrentTrip is subscribe.onError\nmessage : ${it.message}")
                     }
                 )
         )
@@ -120,6 +72,9 @@ class TripZoneViewModel @Inject constructor(
                 .subscribe(
                     {
                         Timber.d("deleteArea is success")
+                        workManager.enqueue(
+                            OneTimeWorkRequestBuilder<ManageTripZoneGeofenceWorker>().build()
+                        )
                     },
                     {
                         Timber.d("deleteArea is failed : ${it.message}")
@@ -132,28 +87,4 @@ class TripZoneViewModel @Inject constructor(
     fun selectedPlace(place: Place) {
         _currentPlaceAndTrip.value = Event(PlaceAndTrip(place, _currentTrip.value ?: Trip()))
     }
-
-    private fun getGeofencingRequest(list: List<Geofence>): GeofencingRequest {
-        return GeofencingRequest.Builder().apply {
-            setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER) // Geofence 이벤트는 진입시 부터 처리할 때
-            addGeofences(list)    // Geofence 리스트 추가
-        }.build()
-    }
-
-    private fun getGeofence(
-        reqId: String,
-        latLng: LatLng,
-        radius: Float = GEOFENCE_RADIUS_IN_METERS // 단위 m
-    ) =
-        Geofence.Builder()
-            .setRequestId(reqId)    // 이벤트 발생시 BroadcastReceiver에서 구분할 id
-            .setCircularRegion(latLng.latitude, latLng.longitude, radius)
-            .setExpirationDuration(GEOFENCE_EXPIRATION_IN_MILLISECONDS)  // Geofence 만료 시간
-            .setLoiteringDelay(GEOFENCE_LIOTERE_IN_MILLISECONDS) // 얼마나 머물면 DWELL 로 판정할지
-            .setTransitionTypes(
-                Geofence.GEOFENCE_TRANSITION_ENTER            // 진입 감지시
-                        or Geofence.GEOFENCE_TRANSITION_EXIT  // 이탈 감지시
-                        or Geofence.GEOFENCE_TRANSITION_DWELL // 머물기
-            )    // 머물기 감지시
-            .build()
 }

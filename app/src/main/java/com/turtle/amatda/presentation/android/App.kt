@@ -1,11 +1,14 @@
 package com.turtle.amatda.presentation.android
 
 import androidx.work.Configuration
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.google.android.gms.location.GeofencingClient
 import com.turtle.amatda.BuildConfig
 import com.turtle.amatda.presentation.android.di.DaggerAppComponent
-import com.turtle.amatda.presentation.android.notification.NotificationUtil
 import com.turtle.amatda.presentation.android.di.factory.WorkerFactory
+import com.turtle.amatda.presentation.android.notification.NotificationUtil
+import com.turtle.amatda.presentation.android.workmanager.ManageTripZoneGeofenceWorker
 import com.turtle.amatda.presentation.utilities.CatchUnexpectedException
 import com.turtle.amatda.presentation.utilities.CustomTimberDebug
 import dagger.android.AndroidInjector
@@ -30,6 +33,9 @@ class App : DaggerApplication(), Configuration.Provider {
     @Inject
     lateinit var catchUnexpectedException: CatchUnexpectedException
 
+    @Inject
+    lateinit var workManager: WorkManager
+
     override fun onCreate() {
         super.onCreate()
         notificationUtil.buildNotificationChannel()
@@ -37,9 +43,12 @@ class App : DaggerApplication(), Configuration.Provider {
         // Timber 로그 라이브러리 초기화
         if (BuildConfig.DEBUG) {
             Timber.plant(customTimberDebug)
+            Timber.d("onCreate")
         }
 
         Thread.setDefaultUncaughtExceptionHandler(catchUnexpectedException)
+
+        init()
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication?> {
@@ -48,5 +57,11 @@ class App : DaggerApplication(), Configuration.Provider {
 
     override fun getWorkManagerConfiguration(): Configuration {
         return Configuration.Builder().setWorkerFactory(workerFactory).build()
+    }
+
+    private fun init() {
+        workManager.enqueue(
+            OneTimeWorkRequestBuilder<ManageTripZoneGeofenceWorker>().build()
+        )
     }
 }

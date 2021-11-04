@@ -2,17 +2,21 @@ package com.turtle.amatda.presentation.view.trip_concept
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.turtle.amatda.domain.model.Trip
 import com.turtle.amatda.domain.model.TripConcept
 import com.turtle.amatda.domain.model.TripZone
 import com.turtle.amatda.domain.usecases.SaveTripUseCase
+import com.turtle.amatda.presentation.android.workmanager.ManageTripZoneGeofenceWorker
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
 class TripConceptViewModel @Inject constructor(
-    private val saveTripUseCase: SaveTripUseCase
+    private val saveTripUseCase: SaveTripUseCase,
+    private val workManager: WorkManager
 ) : BaseViewModel() {
 
     private val _argsTrip = MutableLiveData<Trip>()
@@ -46,6 +50,10 @@ class TripConceptViewModel @Inject constructor(
                 .subscribe(
                     {
                         Timber.d("saveTrip is success")
+                        // 여행이 변경되었을수도 있으니 지오펜스 매니저 호출
+                        workManager.enqueue(
+                            OneTimeWorkRequestBuilder<ManageTripZoneGeofenceWorker>().build()
+                        )
                     },
                     {
                         Timber.d("saveTrip is Error : ${it.message}")

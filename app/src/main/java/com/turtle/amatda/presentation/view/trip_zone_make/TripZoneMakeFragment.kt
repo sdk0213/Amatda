@@ -1,10 +1,15 @@
 package com.turtle.amatda.presentation.view.trip_zone_make
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -18,6 +23,7 @@ import com.turtle.amatda.domain.model.ZoneType
 import com.turtle.amatda.presentation.utilities.EventObserver
 import com.turtle.amatda.presentation.utilities.extensions.toEditable
 import com.turtle.amatda.presentation.view.base.BaseFragment
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import timber.log.Timber
 import java.util.*
 
@@ -89,7 +95,7 @@ class TripZoneMakeFragment :
 
         viewModel.editMode.observe(this@TripZoneMakeFragment, EventObserver {
             // 수정 모드라면 자동 입력 최초 한번 필요
-            binding.tilTripZoneMakeTitle.text = it.title.toEditable()
+            binding.tieTripZoneMakeTitle.text = it.title.toEditable()
             viewModel.setPlaceTitle(it.title)
             binding.atvTripZoneMakeType.text = it.zoneType.zone.toEditable()
             binding.atvTripZoneMakeType.setAdapter(typeAdapter)
@@ -98,7 +104,20 @@ class TripZoneMakeFragment :
     }
 
     private fun listener() {
-        binding.btnTripCourseOk.setOnClickListener {
+
+        KeyboardVisibilityEvent.setEventListener(requireActivity()) { isOpen ->
+            binding.btnMakeTripZoneOk.visibility = if (isOpen) View.GONE else View.VISIBLE
+            binding.tilTripZoneMakeType.visibility = if (isOpen) View.GONE else View.VISIBLE
+            binding.tvTripZoneMakeLocation.visibility = if (isOpen) View.GONE else View.VISIBLE
+            binding.imgViewTripCourseLocation.visibility = if (isOpen) View.GONE else View.VISIBLE
+            supportMapFragment.view?.visibility = if (isOpen) View.GONE else View.VISIBLE
+            // view 의 상태가 변할경우 Focusing 을 잃는문제를 위해 0.1 초뒤에 다시 포커싱
+            Handler(Looper.getMainLooper()).postDelayed({
+                if(isOpen) binding.tilTripZoneMakeTitle.requestFocus() else binding.tilTripZoneMakeTitle.clearFocus()
+            },330)
+        }
+
+        binding.btnMakeTripZoneOk.setOnClickListener {
             (mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
                 it.windowToken,
                 0
@@ -112,7 +131,7 @@ class TripZoneMakeFragment :
             viewModel.setPlaceType(listOfZoneType[position])
         }
 
-        binding.tilTripZoneMakeTitle.addTextChangedListener(object : TextWatcher {
+        binding.tieTripZoneMakeTitle.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // 아무 동작 하지 않음
             }

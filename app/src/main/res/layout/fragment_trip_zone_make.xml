@@ -22,7 +22,7 @@
             android:id="@+id/fragment_google_map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="250dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
@@ -35,7 +35,7 @@
         <ImageView
             android:id="@+id/img_view_trip_course_location"
             android:layout_width="40dp"
-            android:layout_height="50dp"
+            android:layout_height="75dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/ic_baseline_location_on_24"
@@ -45,7 +45,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_trip_zone_make_location"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="75dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:gravity="center"
@@ -78,29 +78,31 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_trip_zone_make_title"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:hint="(메모)"
             app:endIconMode="clear_text"
-            app:layout_constraintBottom_toTopOf="@id/btn_trip_course_ok"
+            app:layout_constraintBottom_toTopOf="@id/btn_make_trip_zone_ok"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_trip_zone_make_type">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/til_trip_zone_make_title"
+                android:id="@+id/tie_trip_zone_make_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:gravity="start" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_trip_course_ok"
+            android:id="@+id/btn_make_trip_zone_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"

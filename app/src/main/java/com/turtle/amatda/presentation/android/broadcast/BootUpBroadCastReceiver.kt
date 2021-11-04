@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.turtle.amatda.presentation.android.workmanager.KeepServiceWorker
+import com.turtle.amatda.presentation.android.workmanager.ManageTripZoneGeofenceWorker
 import dagger.android.DaggerBroadcastReceiver
 import timber.log.Timber
 import javax.inject.Inject
@@ -19,7 +19,7 @@ class BootUpBroadCastReceiver : DaggerBroadcastReceiver() {
         intent?.let {
             if (it.action == Intent.ACTION_BOOT_COMPLETED) {
                 workManager.enqueue(
-                    OneTimeWorkRequestBuilder<KeepServiceWorker>().build()
+                    OneTimeWorkRequestBuilder<ManageTripZoneGeofenceWorker>().build()
                 )
             }
         }?.run {

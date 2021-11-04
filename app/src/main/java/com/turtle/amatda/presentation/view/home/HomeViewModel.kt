@@ -3,12 +3,15 @@ package com.turtle.amatda.presentation.view.home
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.turtle.amatda.data.util.Resource
 import com.turtle.amatda.domain.model.*
 import com.turtle.amatda.domain.usecases.GetAreaUseCase
 import com.turtle.amatda.domain.usecases.GetLocationUseCase
 import com.turtle.amatda.domain.usecases.GetTourUseCase
 import com.turtle.amatda.domain.usecases.GetWeatherUseCase
+import com.turtle.amatda.presentation.android.workmanager.ManageTripZoneGeofenceWorker
 import com.turtle.amatda.presentation.utilities.convertGridToGps
 import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringHHmmTimeStamp
 import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringyyyyMMddTimeStamp
@@ -48,6 +51,9 @@ class HomeViewModel @Inject constructor(
     private var _areaCode = "1"
     private var _sigungucode = "1"
 
+    fun init(){
+        getWeather()
+    }
     // 현재 위치의 주소를 활영하여 지역코드를 조회 후 지역코드를 기반으로 주변 음식점 및 주변 여행지 목록을 가져온다.
     private fun getTour() {
         compositeDisposable.add(

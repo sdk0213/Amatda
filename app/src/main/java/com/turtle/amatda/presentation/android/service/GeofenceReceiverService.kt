@@ -5,13 +5,11 @@ import android.content.Intent
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofenceStatusCodes
 import com.google.android.gms.location.GeofencingEvent
+import com.turtle.amatda.presentation.android.AndroidUtil
 import com.turtle.amatda.presentation.android.notification.NotificationData
 import com.turtle.amatda.presentation.android.notification.NotificationUtil
 import com.turtle.amatda.presentation.utilities.*
 import timber.log.Timber
-import java.io.*
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 class GeofenceReceiverService : BaseService() {
@@ -22,17 +20,8 @@ class GeofenceReceiverService : BaseService() {
     @Inject
     lateinit var notificationManager: NotificationManager
 
-    private val notificationView by lazy {
-        notificationUtil.makeNotificationView(
-            NotificationData(
-                id = notificationChannelIdOfGeofence,
-                title = "아마따 여행 비서",
-                text = "여행 알림 서비스가 동작중입니다.",
-                onGoing = false,
-                isBigText = false
-            )
-        )
-    }
+    @Inject
+    lateinit var androidUtil: AndroidUtil
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
@@ -40,7 +29,22 @@ class GeofenceReceiverService : BaseService() {
         intent?.let {
 
             if (it.getBooleanExtra(thisServiceIsForeGroundService, false)) {
-                startForeground(notificationIdOfGeofence, notificationView)
+                startForeground(
+                    notificationIdOfGeofence, notificationUtil.buildNotificationView(
+                        NotificationData(
+                            id = notificationChannelIdOfGeofence,
+                            title = it.getStringExtra(intentServiceTitle) ?: run {
+                                "아마따 여행 알림"
+                            },
+                            text = it.getStringExtra(intentServiceText) ?: run {
+                                "여행 알림 서비스가 동작중입니다."
+                            },
+                            onGoing = false,
+                            isBigText = true,
+                            shortText = "펼쳐서 진행중인 여행을 확인하세요"
+                        )
+                    )
+                )
             }
 
             val geofencingEvent = GeofencingEvent.fromIntent(intent)
@@ -48,7 +52,7 @@ class GeofenceReceiverService : BaseService() {
                 val errorMessage =
                     GeofenceStatusCodes.getStatusCodeString(geofencingEvent.errorCode)
                 Timber.e(errorMessage)
-                return START_NOT_STICKY
+                return START_STICKY
             }
 
             // Get the transition type.
@@ -72,13 +76,12 @@ class GeofenceReceiverService : BaseService() {
                 // todo : 다음 상태 일때 Notification 하기
                 //      1. dwell 일경우
                 //      2. exit 일경우
-                val str = StringBuilder("")
                 triggeringGeofences.forEach { geofence ->
                     geofence.requestId.split(amatdaSplit).apply {
                         Timber.d("${this[0]}${transitionMsg}")
-                        saveRecord("${this[0]}${transitionMsg}")
+                        androidUtil.saveLog("${this[0]}${transitionMsg}")
                         notificationManager.notify(
-                            notificationIdOfDefault, notificationUtil.makeNotificationView(
+                            notificationIdOfDefault, notificationUtil.buildNotificationView(
                                 NotificationData(
                                     id = notificationChannelIdOfDefault,
                                     title = "${this[0]}${transitionMsg}",
@@ -102,29 +105,7 @@ class GeofenceReceiverService : BaseService() {
 
     override fun onDestroy() {
         super.onDestroy()
-        saveRecord("die")
+        androidUtil.saveLog("GeofenceReceiverService is Dead")
     }
 
-    private fun saveRecord(str: String) {
-
-        val saveFile = File(
-            filesDir, "text.txt"
-        )
-
-        try {
-            val now = System.currentTimeMillis() // 현재시간 받아오기
-            val date = Date(now) // Date 객체 생성
-            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            val nowTime: String = sdf.format(date)
-            val buf = BufferedWriter(FileWriter(saveFile, true))
-            buf.append("$nowTime ") // 날짜 쓰기
-            buf.append(str) // 파일 쓰기
-            buf.newLine() // 개행
-            buf.close()
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-    }
 }

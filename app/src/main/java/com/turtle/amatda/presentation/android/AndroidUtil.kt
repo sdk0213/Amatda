@@ -3,6 +3,9 @@ package com.turtle.amatda.presentation.android
 import android.app.ActivityManager
 import android.content.Context
 import com.turtle.amatda.presentation.android.di.qualifier.ApplicationContext
+import java.io.*
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class AndroidUtil @Inject constructor(
@@ -17,5 +20,21 @@ class AndroidUtil @Inject constructor(
             }
         }
         return false
+    }
+
+    fun saveLog(log: String) {
+        try {
+            val now: String =
+                SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+            val buf = BufferedWriter(FileWriter(File(context.filesDir, "log.txt"), true))
+            buf.append("$now ") // 날짜 쓰기
+            buf.append(log) // 파일 쓰기
+            buf.newLine() // 개행
+            buf.close()
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
     }
 }

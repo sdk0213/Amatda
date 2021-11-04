@@ -74,7 +74,6 @@ class TripZoneFragment :
                             tripZone.lat.toDouble(),
                             tripZone.lon.toDouble()
                         )
-                        name = tripZone.title
                     }.build()
                 )
             }

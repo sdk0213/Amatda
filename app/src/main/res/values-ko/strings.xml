@@ -38,6 +38,7 @@
     <string name="app_bar_add_carrier">가방 추가</string>
     <string name="app_bar_add_trip">여행 추가</string>
     <string name="app_bar_more">더 보기</string>
+    <string name="app_bar_setting">설정</string>
 
     <!-- contentDescription -->
     <string name="cttdcrp_add_carrier">가방 추가</string>

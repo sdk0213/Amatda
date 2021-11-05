@@ -2,6 +2,8 @@ package com.turtle.amatda.presentation.view.base
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +21,10 @@ import javax.inject.Inject
 
 abstract class BaseFragment<T : BaseViewModel, B : ViewDataBinding>
 constructor(@LayoutRes private val layoutId: Int) : DaggerFragment() {
+
+    protected val handler by lazy {
+        Handler(Looper.getMainLooper())
+    }
 
     lateinit var mContext: Context
 
@@ -48,6 +54,11 @@ constructor(@LayoutRes private val layoutId: Int) : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        handler.removeCallbacksAndMessages(null)
     }
 
     abstract fun init()

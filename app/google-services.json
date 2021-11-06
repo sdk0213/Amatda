@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "113262707268",
+    "firebase_url": "https://amatda-327706-default-rtdb.firebaseio.com",
     "project_id": "amatda-327706",
     "storage_bucket": "amatda-327706.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "113262707268-36unh4116737t9h46iciqi481bg9v3kr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.turtle.amatda",
+            "certificate_hash": "ed7bf2a775e9d8597202e380d0f42d5a90cdc95e"
+          }
+        },
         {
           "client_id": "113262707268-12m4foi3qp8o2mbi02le3e3ufdc42b3j.apps.googleusercontent.com",
           "client_type": 3

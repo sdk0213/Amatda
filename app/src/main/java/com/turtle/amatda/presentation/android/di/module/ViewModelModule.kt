@@ -10,6 +10,8 @@ import com.turtle.amatda.presentation.view.carrier_name.CarrierNameViewModel
 import com.turtle.amatda.presentation.view.carrier_size.CarrierSizeViewModel
 import com.turtle.amatda.presentation.view.carrier_type.CarrierTypeViewModel
 import com.turtle.amatda.presentation.view.home.HomeViewModel
+import com.turtle.amatda.presentation.view.intro.IntroViewModel
+import com.turtle.amatda.presentation.view.login.LoginViewModel
 import com.turtle.amatda.presentation.view.main.MainViewPagerModel
 import com.turtle.amatda.presentation.view.mypage.MyPageViewModel
 import com.turtle.amatda.presentation.view.trip.TripViewModel
@@ -26,6 +28,16 @@ abstract class ViewModelModule {
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(IntroViewModel::class)
+    abstract fun bindsIntroViewModel(viewModel: IntroViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoginViewModel::class)
+    abstract fun bindsLoginViewModel(viewModel: LoginViewModel): ViewModel
 
     @Binds
     @IntoMap

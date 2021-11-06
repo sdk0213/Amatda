@@ -1,15 +1,11 @@
 package com.turtle.amatda.presentation.view.trip_zone_make
 
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -112,9 +108,9 @@ class TripZoneMakeFragment :
             binding.imgViewTripCourseLocation.visibility = if (isOpen) View.GONE else View.VISIBLE
             supportMapFragment.view?.visibility = if (isOpen) View.GONE else View.VISIBLE
             // view 의 상태가 변할경우 Focusing 을 잃는문제를 위해 0.1 초뒤에 다시 포커싱
-            Handler(Looper.getMainLooper()).postDelayed({
-                if(isOpen) binding.tilTripZoneMakeTitle.requestFocus() else binding.tilTripZoneMakeTitle.clearFocus()
-            },330)
+            handler.postDelayed({
+                if (isOpen) binding.tilTripZoneMakeTitle.requestFocus() else binding.tilTripZoneMakeTitle.clearFocus()
+            }, 330)
         }
 
         binding.btnMakeTripZoneOk.setOnClickListener {

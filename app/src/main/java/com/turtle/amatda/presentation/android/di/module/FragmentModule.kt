@@ -3,6 +3,12 @@ package com.turtle.amatda.presentation.android.di.module
 import dagger.Module
 
 @Module
+class IntroModule {}
+
+@Module
+class LoginModule {}
+
+@Module
 class CarrierModule {}
 
 @Module

@@ -18,7 +18,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/view_fragment_main">
+    app:startDestination="@id/view_fragment_intro">
+
+<!--    enterAnim : action 실행시, 이동할 Destination에 대한 애니메이션-->
+<!--    exitAnim : action을 실행할 때 현재 Destination에 대한 애니메이션-->
+<!--    popExitAnim : 이전 화면으로 돌아갈 때(Pop or Back) 종료되는 현재 Destincation 에 대한 애니메이션-->
+<!--    popEnterAnim : 이전 화면으로 돌아갈 때(Pop or Back) 이동할 BackStack의 Destination에 대한 애니메이션-->
+
+    <fragment
+        android:id="@+id/view_fragment_intro"
+        android:name="com.turtle.amatda.presentation.view.intro.IntroFragment"
+        tools:layout="@layout/fragment_intro">
+
+        <action
+            android:id="@+id/action_introFragment_to_loginFragment"
+            app:destination="@id/view_fragment_login"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@+id/view_fragment_intro"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/view_fragment_login"
+        android:name="com.turtle.amatda.presentation.view.login.LoginFragment"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_loginFragment_to_mainViewPagerFragment"
+            app:destination="@id/view_fragment_main"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/slide_down"
+            app:popEnterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/view_fragment_main"
@@ -211,7 +246,7 @@
     <action
         android:id="@+id/action_global_view_fragment"
         app:destination="@id/view_fragment_main"
-        app:popUpTo="@id/view_fragment_main"
+        app:popUpTo="@+id/view_fragment_main"
         app:popUpToInclusive="false" />
 
     <!-- To Carrier Type -->

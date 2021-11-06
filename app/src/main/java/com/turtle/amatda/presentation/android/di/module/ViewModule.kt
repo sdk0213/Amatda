@@ -13,6 +13,8 @@ import com.turtle.amatda.presentation.view.carrier_name.CarrierNameFragment
 import com.turtle.amatda.presentation.view.carrier_size.CarrierSizeFragment
 import com.turtle.amatda.presentation.view.carrier_type.CarrierTypeFragment
 import com.turtle.amatda.presentation.view.home.HomeFragment
+import com.turtle.amatda.presentation.view.intro.IntroFragment
+import com.turtle.amatda.presentation.view.login.LoginFragment
 import com.turtle.amatda.presentation.view.main.MainActivity
 import com.turtle.amatda.presentation.view.main.MainViewPagerFragment
 import com.turtle.amatda.presentation.view.mypage.MyPageFragment
@@ -44,6 +46,14 @@ abstract class ViewModule {
         }
 
     }
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [IntroModule::class])
+    abstract fun getIntroFragment(): IntroFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [LoginModule::class])
+    abstract fun getLoginFragment(): LoginFragment
 
     @FragmentScope
     @ContributesAndroidInjector(modules = [MainViewPagerModule::class])

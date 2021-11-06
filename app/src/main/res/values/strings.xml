@@ -9,6 +9,7 @@
     <string name="common_type">Type</string>
     <string name="common_edit">Edit</string>
     <string name="app_bar_setting">Setting</string>
+    <string name="copyright_miricanvas">source: miricanvas</string>
 
     <!-- 권한 -->
     <string name="toast_cannot_get_location_no_permission">We can\'t get weather information and travel information because we don\'t have location permission.</string>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "113262707268",
+    "project_id": "amatda-327706",
+    "storage_bucket": "amatda-327706.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113262707268:android:e1e2bb367953942adb3211",
+        "android_client_info": {
+          "package_name": "com.turtle.amatda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113262707268-12m4foi3qp8o2mbi02le3e3ufdc42b3j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaqNAgn_Gq2UbgefZjserE6-Ke9aIeDR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "113262707268-12m4foi3qp8o2mbi02le3e3ufdc42b3j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

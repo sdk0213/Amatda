@@ -1,4 +1,4 @@
-package com.turtle.amatda.data.util
+package com.turtle.amatda.domain.model
 
 sealed class Resource<T>(
     val data: T? = null,

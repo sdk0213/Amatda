@@ -5,6 +5,7 @@ plugins {
     id "androidx.navigation.safeargs.kotlin"
     id "kotlin-parcelize"
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -151,6 +152,20 @@ dependencies {
     // 구글 맵스(Google Maps)
     // 구글 플레이스 (Google Place)
     implementation 'com.google.android.libraries.places:places:2.5.0'
+
+    // 구글 파이어베이스
+    implementation platform('com.google.firebase:firebase-bom:29.0.0')
+    // 구글 파이어베이스 - 아날리틱스
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    // 구글 파이어베이스 - 인증
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+
+//    // 카카오 로그인
+    implementation 'com.kakao.sdk:usermgmt:1.30.6'
+//
+//    // 네이버 로그인
+    implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'
 }
 
 secrets {

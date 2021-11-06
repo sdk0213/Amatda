@@ -1,11 +1,18 @@
 package com.turtle.amatda.presentation.android.di.module
 
+import android.content.Context
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.GsonBuilder
 import com.tickaroo.tikxml.TikXml
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
+import com.turtle.amatda.R
 import com.turtle.amatda.data.api.ApiClient
 import com.turtle.amatda.data.api.TourAPIService
 import com.turtle.amatda.data.api.WeatherAPIService
+import com.turtle.amatda.presentation.android.di.qualifier.ApplicationContext
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -82,5 +89,29 @@ class NetModule {
         }
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return loggingInterceptor
+    }
+
+    // 구글 로그인 옵션
+    @Provides
+    @Singleton
+    fun provideGoogleSignInOptions(@ApplicationContext context: Context): GoogleSignInOptions {
+        return GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(context.getString(R.string.default_web_client_id)) // R.string.default_web_client_id -> google-services.json 을 삽입할경우 만들어지는 값
+            .requestEmail()
+            .build()
+    }
+
+    // 구글 로그인 클라이언트
+    @Provides
+    @Singleton
+    fun provideGoogleSignInClient(@ApplicationContext context: Context, googleSignInOptions: GoogleSignInOptions): GoogleSignInClient {
+        return GoogleSignIn.getClient(context, googleSignInOptions)
+    }
+
+    // 구글 파이어 베이스 인증
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
     }
 }

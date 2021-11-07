@@ -40,6 +40,7 @@ android {
         dataBinding true
     }
 
+    // dagger 에러 보기 편하도록 수정
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
             options.compilerArgs << "-Xmaxerrs" << 500
@@ -165,7 +166,9 @@ dependencies {
     implementation 'com.kakao.sdk:usermgmt:1.30.6'
 //
 //    // 네이버 로그인
-    implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'
+//     안드로이드 12 대응이 되어있지 않아서 라이브러리 로컬로 저장 후 AndroidManifest.xml 수정하여 aar 파일 재생성
+//    implementation files('libs/naveridlogin_android_sdk_4.2.6.aar')
+//    implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'
 }
 
 secrets {

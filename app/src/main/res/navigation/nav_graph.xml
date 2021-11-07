@@ -32,7 +32,7 @@
 
         <action
             android:id="@+id/action_introFragment_to_loginFragment"
-            app:destination="@id/view_fragment_login"
+            app:destination="@id/view_fragment_login_sign_in"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popUpTo="@+id/view_fragment_intro"
@@ -41,17 +41,55 @@
     </fragment>
 
     <fragment
-        android:id="@+id/view_fragment_login"
-        android:name="com.turtle.amatda.presentation.view.login.LoginFragment"
-        tools:layout="@layout/fragment_login">
+        android:id="@+id/view_fragment_login_sign_in"
+        android:name="com.turtle.amatda.presentation.view.login_sign_in.LoginSignInFragment"
+        tools:layout="@layout/fragment_login_sign_in">
 
         <action
-            android:id="@+id/action_loginFragment_to_mainViewPagerFragment"
+            android:id="@+id/action_loginSignInFragment_to_mainViewPagerFragment"
             app:destination="@id/view_fragment_main"
             app:enterAnim="@anim/slide_up"
             app:exitAnim="@anim/slide_down"
             app:popEnterAnim="@anim/slide_up"
             app:popExitAnim="@anim/slide_down" />
+
+        <action
+            android:id="@+id/action_loginSignInFragment_to_loginSignInWithEmailFragment"
+            app:destination="@id/view_fragment_login_sign_in_with_email"
+            app:enterAnim="@anim/fade_in_fast"
+            app:exitAnim="@anim/fade_out_fast"
+            app:popEnterAnim="@anim/fade_in_fast"
+            app:popExitAnim="@anim/fade_out_fast"  />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/view_fragment_login_sign_up"
+        android:name="com.turtle.amatda.presentation.view.login_sign_up.LoginSignUpFragment"
+        tools:layout="@layout/fragment_login_sign_up">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/view_fragment_login_sign_in_with_email"
+        android:name="com.turtle.amatda.presentation.view.login_sign_in_with_email.LoginSignInWithEmailFragment"
+        tools:layout="@layout/fragment_login_sign_in_with_email">
+
+        <action
+            android:id="@+id/action_loginSignInWithEmailFragment_to_mainViewPagerFragment"
+            app:destination="@id/view_fragment_main"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/slide_down"
+            app:popEnterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
+
+        <action
+            android:id="@+id/action_loginSignInWithEmailFragment_to_LoginSignUpFragment"
+            app:destination="@id/view_fragment_login_sign_up"
+            app:enterAnim="@anim/fade_in_fast"
+            app:exitAnim="@anim/fade_out_fast"
+            app:popEnterAnim="@anim/fade_in_fast"
+            app:popExitAnim="@anim/fade_out_fast"  />
 
     </fragment>
 

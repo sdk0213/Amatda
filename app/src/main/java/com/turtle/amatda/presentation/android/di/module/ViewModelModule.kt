@@ -11,7 +11,9 @@ import com.turtle.amatda.presentation.view.carrier_size.CarrierSizeViewModel
 import com.turtle.amatda.presentation.view.carrier_type.CarrierTypeViewModel
 import com.turtle.amatda.presentation.view.home.HomeViewModel
 import com.turtle.amatda.presentation.view.intro.IntroViewModel
-import com.turtle.amatda.presentation.view.login.LoginViewModel
+import com.turtle.amatda.presentation.view.login_sign_in.LoginSignInViewModel
+import com.turtle.amatda.presentation.view.login_sign_in_with_email.LoginSignInWithEmailViewModel
+import com.turtle.amatda.presentation.view.login_sign_up.LoginSignUpViewModel
 import com.turtle.amatda.presentation.view.main.MainViewPagerModel
 import com.turtle.amatda.presentation.view.mypage.MyPageViewModel
 import com.turtle.amatda.presentation.view.trip.TripViewModel
@@ -36,8 +38,18 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(LoginViewModel::class)
-    abstract fun bindsLoginViewModel(viewModel: LoginViewModel): ViewModel
+    @ViewModelKey(LoginSignInViewModel::class)
+    abstract fun bindsLoginSignInViewModel(signInViewModel: LoginSignInViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoginSignInWithEmailViewModel::class)
+    abstract fun bindsLoginSignInWithEmailViewModel(viewModelSignIn: LoginSignInWithEmailViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoginSignUpViewModel::class)
+    abstract fun bindsLoginSignUpViewModel(viewModelSignIn: LoginSignUpViewModel): ViewModel
 
     @Binds
     @IntoMap

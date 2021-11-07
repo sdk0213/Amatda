@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.turtle.amatda.presentation.view.login_sign_up.LoginSignUpViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_view_intro_logo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/external_image_logo"
+            app:layout_constraintBottom_toTopOf="@id/btn_login_amatda"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="8" />
+
+        <!-- 사용하지 않지만 LoginFragment 의 로고와 동일한 위치에 조정하기 위해서 넣음-->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login_amatda"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginBottom="300dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="25dp"
+            android:text="@string/login_email_login"
+            android:gravity="center"
+            android:visibility="invisible"
+            app:icon="@drawable/ic_baseline_email_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_view_intro_logo"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_sign_up_verify_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="250dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="sdk0213@naver.com 으로 이메일로 인증메일을 전송하였습니다.\n해당 이메일을 인증해주세요."/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login_email_ok_verify"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/common_button_checked"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_sign_up_verify_email"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_login_email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="300dp"
+            android:hint="@string/login_email"
+            app:startIconDrawable="@drawable/ic_baseline_email_24"
+            app:endIconMode="clear_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_login_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="start" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_login_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:hint="@string/login_password"
+            app:startIconDrawable="@drawable/ic_baseline_lock_24"
+            app:endIconMode="password_toggle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_login_email">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_login_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="start"
+                android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_login_password_recheck"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:hint="@string/login_password_recheck"
+            app:startIconDrawable="@drawable/ic_baseline_lock_24"
+            app:endIconMode="password_toggle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_login_password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_login_password_recheck"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="start"
+                android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login_email_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:text="취소"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_login_email_login"
+            app:layout_constraintTop_toBottomOf="@id/til_login_password_recheck"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login_email_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="회원가입"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@id/btn_login_email_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_login_email_cancel"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

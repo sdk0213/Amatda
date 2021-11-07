@@ -6,7 +6,13 @@ import dagger.Module
 class IntroModule {}
 
 @Module
-class LoginModule {}
+class LoginSignInModule {}
+
+@Module
+class LoginSignInWithEmailModule {}
+
+@Module
+class LoginSignUpModule {}
 
 @Module
 class CarrierModule {}

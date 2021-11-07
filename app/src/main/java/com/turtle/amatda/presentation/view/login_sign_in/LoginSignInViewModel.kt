@@ -1,4 +1,4 @@
-package com.turtle.amatda.presentation.view.login
+package com.turtle.amatda.presentation.view.login_sign_in
 
 import android.content.Intent
 import androidx.lifecycle.LiveData
@@ -13,7 +13,7 @@ import com.turtle.amatda.presentation.view.base.BaseViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
-class LoginViewModel @Inject constructor(
+class LoginSignInViewModel @Inject constructor(
     private val firebaseAuthUseCase: LoginToFirebaseAuthUseCase
 ) : BaseViewModel() {
 

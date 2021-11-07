@@ -8,8 +8,13 @@
     <string name="common_name">Name</string>
     <string name="common_type">Type</string>
     <string name="common_edit">Edit</string>
-    <string name="app_bar_setting">Setting</string>
     <string name="copyright_miricanvas">source: miricanvas</string>
+
+    <!-- 로그인 -->
+    <string name="login_email">Email</string>
+    <string name="login_email_login">Login with Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_password_recheck">Reconfirm Password</string>
 
     <!-- 권한 -->
     <string name="toast_cannot_get_location_no_permission">We can\'t get weather information and travel information because we don\'t have location permission.</string>
@@ -40,6 +45,7 @@
     <string name="app_bar_add_carrier">add Carrier</string>
     <string name="app_bar_add_trip">add Trip</string>
     <string name="app_bar_more">more</string>
+    <string name="app_bar_setting">Setting</string>
 
     <!-- contentDescription -->
     <string name="cttdcrp_add_carrier">add carrier</string>

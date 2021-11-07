@@ -14,7 +14,9 @@ import com.turtle.amatda.presentation.view.carrier_size.CarrierSizeFragment
 import com.turtle.amatda.presentation.view.carrier_type.CarrierTypeFragment
 import com.turtle.amatda.presentation.view.home.HomeFragment
 import com.turtle.amatda.presentation.view.intro.IntroFragment
-import com.turtle.amatda.presentation.view.login.LoginFragment
+import com.turtle.amatda.presentation.view.login_sign_in.LoginSignInFragment
+import com.turtle.amatda.presentation.view.login_sign_in_with_email.LoginSignInWithEmailFragment
+import com.turtle.amatda.presentation.view.login_sign_up.LoginSignUpFragment
 import com.turtle.amatda.presentation.view.main.MainActivity
 import com.turtle.amatda.presentation.view.main.MainViewPagerFragment
 import com.turtle.amatda.presentation.view.mypage.MyPageFragment
@@ -52,8 +54,16 @@ abstract class ViewModule {
     abstract fun getIntroFragment(): IntroFragment
 
     @FragmentScope
-    @ContributesAndroidInjector(modules = [LoginModule::class])
-    abstract fun getLoginFragment(): LoginFragment
+    @ContributesAndroidInjector(modules = [LoginSignInModule::class])
+    abstract fun getLoginSignInFragment(): LoginSignInFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [LoginSignInWithEmailModule::class])
+    abstract fun getLoginSignInWithEmailFragment(): LoginSignInWithEmailFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [LoginSignUpModule::class])
+    abstract fun getLoginSignUpFragment(): LoginSignUpFragment
 
     @FragmentScope
     @ContributesAndroidInjector(modules = [MainViewPagerModule::class])

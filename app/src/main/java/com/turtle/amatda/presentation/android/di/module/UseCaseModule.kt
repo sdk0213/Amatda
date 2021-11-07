@@ -143,7 +143,13 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetAllTripZone(repository: TripZoneRepository): GetAllTripZoneUseCase {
+    fun provideGetAllTripZoneUseCase(repository: TripZoneRepository): GetAllTripZoneUseCase {
         return GetAllTripZoneUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoginToFirebaseAuthUseCase(repository: FirebaseRepository): LoginToFirebaseAuthUseCase {
+        return LoginToFirebaseAuthUseCase(repository)
     }
 }

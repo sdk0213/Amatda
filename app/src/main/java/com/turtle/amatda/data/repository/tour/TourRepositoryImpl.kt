@@ -3,9 +3,9 @@ package com.turtle.amatda.data.repository.tour
 import com.tickaroo.tikxml.XmlDataException
 import com.turtle.amatda.data.mapper.ResponseMapper
 import com.turtle.amatda.data.model.TourXml
-import com.turtle.amatda.data.util.Resource
-import com.turtle.amatda.domain.model.TourCode
+import com.turtle.amatda.domain.model.Resource
 import com.turtle.amatda.domain.model.Tour
+import com.turtle.amatda.domain.model.TourCode
 import com.turtle.amatda.domain.repository.TourRepository
 import io.reactivex.Single
 import okhttp3.MediaType

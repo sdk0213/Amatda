@@ -1,6 +1,6 @@
 package com.turtle.amatda.domain.usecases
 
-import com.turtle.amatda.data.util.Resource
+import com.turtle.amatda.domain.model.Resource
 import com.turtle.amatda.domain.model.ApiCallWeather
 import com.turtle.amatda.domain.model.Weather
 import com.turtle.amatda.domain.repository.WeatherRepository

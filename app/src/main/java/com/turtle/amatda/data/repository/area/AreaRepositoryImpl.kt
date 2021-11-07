@@ -1,11 +1,10 @@
 package com.turtle.amatda.data.repository.area
 
-import com.google.gson.JsonSyntaxException
 import com.tickaroo.tikxml.XmlDataException
 import com.turtle.amatda.data.mapper.ResponseMapper
 import com.turtle.amatda.data.model.AreaXml
-import com.turtle.amatda.data.util.Resource
 import com.turtle.amatda.domain.model.Area
+import com.turtle.amatda.domain.model.Resource
 import com.turtle.amatda.domain.repository.AreaRepository
 import io.reactivex.Single
 import okhttp3.MediaType

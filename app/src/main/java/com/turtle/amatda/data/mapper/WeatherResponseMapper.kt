@@ -1,7 +1,7 @@
 package com.turtle.amatda.data.mapper
 
 import com.turtle.amatda.data.model.WeatherJson
-import com.turtle.amatda.data.util.Resource
+import com.turtle.amatda.domain.model.Resource
 import com.turtle.amatda.domain.model.Pty
 import com.turtle.amatda.domain.model.Sky
 import com.turtle.amatda.domain.model.Weather

@@ -1,8 +1,8 @@
 package com.turtle.amatda.domain.usecases
 
-import com.turtle.amatda.data.util.Resource
-import com.turtle.amatda.domain.model.TourCode
+import com.turtle.amatda.domain.model.Resource
 import com.turtle.amatda.domain.model.Tour
+import com.turtle.amatda.domain.model.TourCode
 import com.turtle.amatda.domain.repository.TourRepository
 import com.turtle.amatda.domain.usecases.common.SingleUseCase
 import io.reactivex.Single

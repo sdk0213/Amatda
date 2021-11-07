@@ -1,7 +1,7 @@
 package com.turtle.amatda.data.mapper
 
 import com.turtle.amatda.data.model.AreaXml
-import com.turtle.amatda.data.util.Resource
+import com.turtle.amatda.domain.model.Resource
 import com.turtle.amatda.domain.model.Area
 import com.turtle.amatda.presentation.utilities.NORMAL_SERVICE
 import retrofit2.Response

@@ -10,6 +10,7 @@ import com.tickaroo.tikxml.TikXml
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
 import com.turtle.amatda.R
 import com.turtle.amatda.data.api.ApiClient
+import com.turtle.amatda.data.api.FirebaseAuthApiService
 import com.turtle.amatda.data.api.TourAPIService
 import com.turtle.amatda.data.api.WeatherAPIService
 import com.turtle.amatda.presentation.android.di.qualifier.ApplicationContext
@@ -114,4 +115,12 @@ class NetModule {
     fun provideFirebaseAuth(): FirebaseAuth {
         return FirebaseAuth.getInstance()
     }
+
+    // 구글 파이어베이스 API
+    @Provides
+    @Singleton
+    fun provideFirebaseAuthApiService(firebaseAuth: FirebaseAuth): FirebaseAuthApiService {
+        return FirebaseAuthApiService(firebaseAuth)
+    }
+
 }

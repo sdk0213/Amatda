@@ -3,7 +3,6 @@ package com.turtle.amatda.presentation.view.home
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.turtle.amatda.data.util.Resource
 import com.turtle.amatda.domain.model.*
 import com.turtle.amatda.domain.usecases.GetAreaUseCase
 import com.turtle.amatda.domain.usecases.GetLocationUseCase

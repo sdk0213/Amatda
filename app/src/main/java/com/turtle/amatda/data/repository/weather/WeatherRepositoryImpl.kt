@@ -3,7 +3,7 @@ package com.turtle.amatda.data.repository.weather
 import com.google.gson.JsonSyntaxException
 import com.turtle.amatda.data.mapper.ResponseMapper
 import com.turtle.amatda.data.model.WeatherJson
-import com.turtle.amatda.data.util.Resource
+import com.turtle.amatda.domain.model.Resource
 import com.turtle.amatda.domain.model.Weather
 import com.turtle.amatda.domain.repository.WeatherRepository
 import io.reactivex.Single
@@ -21,10 +21,10 @@ class WeatherRepositoryImpl @Inject constructor(
 ) : WeatherRepository {
 
     override fun getWeather(
-        nx : String,
-        ny : String,
-        base_date : String,
-        base_time : String
+        nx: String,
+        ny: String,
+        base_date: String,
+        base_time: String
     ): Single<Resource<List<Weather>>> {
         return factory.getWeather(nx = nx, ny = ny, base_date = base_date, base_time = base_time)
             .onErrorReturn {
@@ -34,15 +34,15 @@ class WeatherRepositoryImpl @Inject constructor(
                     code = it.code()
                     message = it.message()
                 }
-                if (it is UnknownHostException){
+                if (it is UnknownHostException) {
                     code = 1001
                     message = "서버에 연결할 수 없습니다. 인터넷 연결을 확인해주세요"
                 }
-                if (it is JsonSyntaxException){
+                if (it is JsonSyntaxException) {
                     code = 1002
                     message = "파싱 에러 - 잘못된 값을 반환 받았습니다."
                 }
-                if (it is IllegalStateException){
+                if (it is IllegalStateException) {
                     code = 1003
                     message = "IllegalStateException : 로그 확인 필요"
                 }

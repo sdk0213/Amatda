@@ -1,6 +1,6 @@
 package com.turtle.amatda.data.mapper
 
-import com.turtle.amatda.data.util.Resource
+import com.turtle.amatda.domain.model.Resource
 import retrofit2.Response
 
 interface ResponseMapper<E, D> {

@@ -1,7 +1,7 @@
 package com.turtle.amatda.data.mapper
 
 import com.turtle.amatda.data.model.TourXml
-import com.turtle.amatda.data.util.Resource
+import com.turtle.amatda.domain.model.Resource
 import com.turtle.amatda.domain.model.Tour
 import com.turtle.amatda.presentation.utilities.NORMAL_SERVICE
 import retrofit2.Response

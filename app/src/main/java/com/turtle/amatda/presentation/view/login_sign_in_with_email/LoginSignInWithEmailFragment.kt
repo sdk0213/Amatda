@@ -3,6 +3,7 @@ package com.turtle.amatda.presentation.view.login_sign_in_with_email
 import androidx.navigation.fragment.findNavController
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentLoginSignInWithEmailBinding
+import com.turtle.amatda.presentation.utilities.EventObserver
 import com.turtle.amatda.presentation.view.base.BaseFragment
 
 class LoginSignInWithEmailFragment :
@@ -29,10 +30,36 @@ class LoginSignInWithEmailFragment :
                 LoginSignInWithEmailFragmentDirections.actionLoginSignInWithEmailFragmentToLoginSignUpFragment()
             )
         }
+
+        binding.btnLoginEmailCancel.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun observer() {
+        viewModel.signInSuccess.observe(
+            this@LoginSignInWithEmailFragment,
+            EventObserver { success ->
+                if (success) {
+                    showToast(getString(R.string.login_success))
+                }
+            })
 
+        viewModel.signInFailedNeedEmailVerified.observe(
+            this@LoginSignInWithEmailFragment,
+            EventObserver { failed ->
+                if (failed) {
+                    showToast(getString(R.string.login_toast_check_verify_email))
+                }
+            })
+
+        viewModel.signInFailedInvalidPassword.observe(
+            this@LoginSignInWithEmailFragment,
+            EventObserver { failed ->
+                if(failed){
+                    showToast(getString(R.string.login_toast_failed_invalid_password))
+                }
+            })
     }
 
 }

@@ -7,8 +7,8 @@ import com.turtle.amatda.data.api.FirebaseAuthApiService
 import com.turtle.amatda.data.api.TourAPIService
 import com.turtle.amatda.data.api.WeatherAPIService
 import com.turtle.amatda.data.repository.area.AreaRemoteDataSource
-import com.turtle.amatda.data.repository.fireBase.FirebaseRemoteDataSource
-import com.turtle.amatda.data.repository.fireBase.FirebaseRemoteDataSourceImpl
+import com.turtle.amatda.data.repository.user_auth.UserAuthRemoteDataSource
+import com.turtle.amatda.data.repository.user_auth.UserAuthRemoteDataSourceImpl
 import com.turtle.amatda.data.repository.location.LocationRemoteDataSource
 import com.turtle.amatda.data.repository.tour.TourRemoteDataSource
 import com.turtle.amatda.data.repository.weather.WeatherRemoteDataSource
@@ -56,10 +56,10 @@ class RemoteDataModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseRemoteDataSource(
+    fun provideUserAuthRemoteDataSource(
         api: FirebaseAuthApiService
-    ): FirebaseRemoteDataSource {
-        return FirebaseRemoteDataSourceImpl(api)
+    ): UserAuthRemoteDataSource {
+        return UserAuthRemoteDataSourceImpl(api)
     }
 
 }

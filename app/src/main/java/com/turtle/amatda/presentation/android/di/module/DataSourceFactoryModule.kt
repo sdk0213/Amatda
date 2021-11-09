@@ -2,8 +2,8 @@ package com.turtle.amatda.presentation.android.di.module
 
 import com.turtle.amatda.data.repository.carrier.CarrierDataSourceFactory
 import com.turtle.amatda.data.repository.carrier.CarrierLocalDataSource
-import com.turtle.amatda.data.repository.fireBase.FirebaseDataSourceFactory
-import com.turtle.amatda.data.repository.fireBase.FirebaseRemoteDataSource
+import com.turtle.amatda.data.repository.user_auth.UserAuthDataSourceFactory
+import com.turtle.amatda.data.repository.user_auth.UserAuthRemoteDataSource
 import com.turtle.amatda.data.repository.item.ItemDataSourceFactory
 import com.turtle.amatda.data.repository.item.ItemLocalDataSource
 import com.turtle.amatda.data.repository.pocket.PocketDataSourceFactory
@@ -59,7 +59,7 @@ class DataSourceFactoryModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseDataSourceFactory(localDataSource: FirebaseRemoteDataSource): FirebaseDataSourceFactory {
-        return FirebaseDataSourceFactory(localDataSource)
+    fun provideUserAuthDataSourceFactory(localDataSource: UserAuthRemoteDataSource): UserAuthDataSourceFactory {
+        return UserAuthDataSourceFactory(localDataSource)
     }
 }

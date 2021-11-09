@@ -149,7 +149,13 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideLoginToFirebaseAuthUseCase(repository: FirebaseRepository): LoginToFirebaseAuthUseCase {
-        return LoginToFirebaseAuthUseCase(repository)
+    fun provideSignInWithGoogleUseCase(repository: UserAuthRepository): SignInWithGoogleUseCase {
+        return SignInWithGoogleUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSignUpWithEmailUseCase(repository: UserAuthRepository): SignUpWithEmailUseCase {
+        return SignUpWithEmailUseCase(repository)
     }
 }

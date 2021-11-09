@@ -7,8 +7,8 @@ import com.turtle.amatda.data.repository.area.AreaRemoteDataSource
 import com.turtle.amatda.data.repository.area.AreaRepositoryImpl
 import com.turtle.amatda.data.repository.carrier.CarrierDataSourceFactory
 import com.turtle.amatda.data.repository.carrier.CarrierRepositoryImpl
-import com.turtle.amatda.data.repository.fireBase.FirebaseDataSourceFactory
-import com.turtle.amatda.data.repository.fireBase.FirebaseRepositoryImpl
+import com.turtle.amatda.data.repository.user_auth.UserAuthDataSourceFactory
+import com.turtle.amatda.data.repository.user_auth.UserAuthRepositoryImpl
 import com.turtle.amatda.data.repository.item.ItemDataSourceFactory
 import com.turtle.amatda.data.repository.item.ItemRepositoryImpl
 import com.turtle.amatda.data.repository.location.LocationRemoteDataSource
@@ -116,9 +116,9 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseRepositoryImpl(
-        factory: FirebaseDataSourceFactory
-    ): FirebaseRepository {
-        return FirebaseRepositoryImpl(factory)
+    fun provideUserAuthRepositoryImpl(
+        factory: UserAuthDataSourceFactory
+    ): UserAuthRepository {
+        return UserAuthRepositoryImpl(factory)
     }
 }

@@ -64,7 +64,8 @@
                 android:id="@+id/tie_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="start" />
+                android:gravity="start"
+                android:singleLine="true"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,7 +88,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="start"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:singleLine="true"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,18 +100,19 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="10dp"
             android:layout_marginTop="10dp"
-            android:text="취소"
+            android:text="@string/common_button_cancel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btn_login_email_login"
+            app:layout_constraintEnd_toStartOf="@id/btn_login_email_sign_up_ok"
             app:layout_constraintTop_toBottomOf="@id/til_login_password"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_login_email_login"
+            android:id="@+id/btn_login_email_sign_up_ok"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="로그인"
+            android:text="@string/login"
             android:layout_marginEnd="40dp"
             android:layout_marginStart="10dp"
+            android:onClick="@{() -> viewModel.signInWithEmail(tieLoginEmail.getText().toString(), tieLoginPassword.getText().toString())}"
             app:layout_constraintStart_toEndOf="@id/btn_login_email_cancel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/btn_login_email_cancel"/>
@@ -118,7 +121,7 @@
             android:id="@+id/btn_login_email_sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="이메일로 회원가입하기"
+            android:text="@string/login_sign_up_with_email"
             android:layout_marginBottom="30dp"
             app:icon="@drawable/ic_baseline_email_24"
             app:layout_constraintStart_toStartOf="parent"

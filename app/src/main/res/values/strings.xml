@@ -11,10 +11,21 @@
     <string name="copyright_miricanvas">source: miricanvas</string>
 
     <!-- 로그인 -->
+    <string name="login">Login</string>
+    <string name="login_sign_up">Sign Up</string>
+    <string name="login_success">Login Success</string>
     <string name="login_email">Email</string>
     <string name="login_email_login">Login with Email</string>
+    <string name="login_sign_up_with_email">Sign Up by email</string>
     <string name="login_password">Password</string>
     <string name="login_password_recheck">Reconfirm Password</string>
+    <string name="login_toast_password_recheck">Password verification is incorrect.</string>
+    <string name="login_toast_sign_up_success">Email sign-up is complete.\nYou can log in when email verification is complete.</string>
+    <string name="login_toast_sign_up_failed">Email sign-up is failed.</string>
+    <string name="login_toast_sign_up_failed_pw_weakness">Password should be at least 6 characters</string>
+    <string name="login_please_check_verify_email">A verification email has been sent to your registered email address.\nPlease check your verification email.</string>
+    <string name="login_toast_check_verify_email">Email is not verified. Proceed with email verification.</string>
+    <string name="login_toast_failed_invalid_password">The password is incorrect.</string>
 
     <!-- 권한 -->
     <string name="toast_cannot_get_location_no_permission">We can\'t get weather information and travel information because we don\'t have location permission.</string>

@@ -6,15 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.FirebaseNetworkException
-import com.turtle.amatda.domain.model.ApiCallFirebase
-import com.turtle.amatda.domain.usecases.LoginToFirebaseAuthUseCase
+import com.turtle.amatda.domain.model.ApiCallFirebaseGoogleAuth
+import com.turtle.amatda.domain.usecases.SignInWithGoogleUseCase
 import com.turtle.amatda.presentation.utilities.Event
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
 class LoginSignInViewModel @Inject constructor(
-    private val firebaseAuthUseCase: LoginToFirebaseAuthUseCase
+    private val signInWithGoogleUseCase: SignInWithGoogleUseCase
 ) : BaseViewModel() {
 
     private val _needInternetConnection = MutableLiveData<Event<Boolean>>()
@@ -33,7 +33,7 @@ class LoginSignInViewModel @Inject constructor(
             val acct = GoogleSignIn.getSignedInAccountFromIntent(intent)
                 .getResult(ApiException::class.java)
             acct?.idToken?.let {
-                compositeDisposable.add(firebaseAuthUseCase.execute(ApiCallFirebase(tokenId = it))
+                compositeDisposable.add(signInWithGoogleUseCase.execute(ApiCallFirebaseGoogleAuth(tokenId = it))
                     .subscribe(
                         {
                             // 로그인 성공
@@ -50,7 +50,7 @@ class LoginSignInViewModel @Inject constructor(
                         }
                     )
                 )
-            } ?: kotlin.run {
+            } ?: run {
                 Timber.e("Google Login failed message: getToken from account is null")
                 // 로그인 실패 - 토큰없음
                 _isLoginSuccess.value = Event(false)

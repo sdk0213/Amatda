@@ -1,6 +1,10 @@
 package com.turtle.amatda.presentation.utilities.extensions
 
+import android.content.Context
+import android.os.IBinder
 import android.text.Editable
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import java.text.SimpleDateFormat
 import java.util.*
@@ -72,3 +76,15 @@ fun String.convertHHmm(): String =
 
 fun Date.getCountDay(endDate: Date): Long =
     ((this.time - endDate.time) / (24 * 60 * 60 * 1000)) + 1
+
+fun Context.hideKeyboard(windowToken: IBinder) =
+    (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+        windowToken,
+        0
+    )
+
+fun Context.showKeyboard(view: View) =
+    (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(
+        view,
+        0
+    )

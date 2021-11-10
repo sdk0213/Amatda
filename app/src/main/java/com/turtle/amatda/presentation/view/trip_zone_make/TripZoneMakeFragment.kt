@@ -17,6 +17,7 @@ import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentTripZoneMakeBinding
 import com.turtle.amatda.domain.model.ZoneType
 import com.turtle.amatda.presentation.utilities.EventObserver
+import com.turtle.amatda.presentation.utilities.extensions.hideKeyboard
 import com.turtle.amatda.presentation.utilities.extensions.toEditable
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
@@ -114,10 +115,7 @@ class TripZoneMakeFragment :
         }
 
         binding.btnMakeTripZoneOk.setOnClickListener {
-            (mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                it.windowToken,
-                0
-            )
+            mContext.hideKeyboard(it.windowToken)
             viewModel.saveTripZone()
             showToast(getString(R.string.toast_message_trip_zone_success))
             findNavController().navigateUp()

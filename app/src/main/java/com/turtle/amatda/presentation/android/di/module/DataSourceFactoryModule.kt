@@ -12,6 +12,8 @@ import com.turtle.amatda.data.repository.trip.TripDataSourceFactory
 import com.turtle.amatda.data.repository.trip.TripLocalDataSource
 import com.turtle.amatda.data.repository.tripZone.TripZoneDataSourceFactory
 import com.turtle.amatda.data.repository.tripZone.TripZoneLocalDataSource
+import com.turtle.amatda.data.repository.user.UserDataSourceFactory
+import com.turtle.amatda.data.repository.user.UserRemoteDataSource
 import com.turtle.amatda.data.repository.weather.WeatherDataSourceFactory
 import com.turtle.amatda.data.repository.weather.WeatherRemoteDataSource
 import dagger.Module
@@ -61,5 +63,11 @@ class DataSourceFactoryModule {
     @Singleton
     fun provideUserAuthDataSourceFactory(localDataSource: UserAuthRemoteDataSource): UserAuthDataSourceFactory {
         return UserAuthDataSourceFactory(localDataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserDataSourceFactory(localDataSource: UserRemoteDataSource): UserDataSourceFactory {
+        return UserDataSourceFactory(localDataSource)
     }
 }

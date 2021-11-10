@@ -1,12 +1,11 @@
 package com.turtle.amatda.presentation.view.trip_title
 
-import android.content.Context
-import android.view.inputmethod.InputMethodManager
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentTripTitleBinding
 import com.turtle.amatda.domain.model.Trip
+import com.turtle.amatda.presentation.utilities.extensions.showKeyboard
 import com.turtle.amatda.presentation.utilities.extensions.toEditable
 import com.turtle.amatda.presentation.view.base.BaseFragment
 
@@ -22,10 +21,7 @@ class TripTitleFragment :
 
     private fun view() {
         binding.edtTripTitle.requestFocus()
-        (mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(
-            binding.edtTripTitle,
-            0
-        )
+        mContext.showKeyboard(binding.edtTripTitle)
         binding.edtTripTitle.text =
             if (args.trip.id != 0L) { // 아이템 수정 (ID 값이 0 이 아님)
                 args.trip.title.toEditable()

@@ -5,6 +5,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.gson.GsonBuilder
 import com.tickaroo.tikxml.TikXml
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
@@ -122,5 +125,13 @@ class NetModule {
     fun provideFirebaseAuthApiService(firebaseAuth: FirebaseAuth): FirebaseAuthApiService {
         return FirebaseAuthApiService(firebaseAuth)
     }
+
+    // 구글 파이어베이스 파이어스토어(Firebase FireStore) API
+    @Provides
+    @Singleton
+    fun provideFirebaseFirestore(): FirebaseFirestore {
+        return Firebase.firestore
+    }
+
 
 }

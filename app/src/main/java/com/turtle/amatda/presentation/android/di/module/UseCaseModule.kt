@@ -158,4 +158,16 @@ class UseCaseModule {
     fun provideSignUpWithEmailUseCase(repository: UserAuthRepository): SignUpWithEmailUseCase {
         return SignUpWithEmailUseCase(repository)
     }
+
+    @Provides
+    @Singleton
+    fun provideUpdateUserUseCase(repository: UserRepository): UpdateUserUseCase {
+        return UpdateUserUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetUserUseCase(repository: UserRepository): GetUserUseCase {
+        return GetUserUseCase(repository)
+    }
 }

@@ -2,16 +2,21 @@ package com.turtle.amatda.presentation.view.login_sign_up
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.turtle.amatda.domain.model.ApiCallFirebaseEmailAuth
+import com.turtle.amatda.domain.model.User
 import com.turtle.amatda.domain.usecases.SignUpWithEmailUseCase
+import com.turtle.amatda.domain.usecases.UpdateUserUseCase
 import com.turtle.amatda.presentation.utilities.Event
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
 class LoginSignUpViewModel @Inject constructor(
-    private val signUpWithEmailUseCase: SignUpWithEmailUseCase
+    private val signUpWithEmailUseCase: SignUpWithEmailUseCase,
+    private val updateUserUseCase: UpdateUserUseCase,
+    private val firebaseAuth: FirebaseAuth
 ) : BaseViewModel() {
 
     private val _signUpSuccess = MutableLiveData<Event<Boolean>>()
@@ -37,13 +42,34 @@ class LoginSignUpViewModel @Inject constructor(
             )
                 .subscribe(
                     {
-                        _signUpSuccess.value = Event(true)
+                        firebaseAuth.currentUser?.let { user ->
+                            compositeDisposable.add(
+                                updateUserUseCase.execute(
+                                    User(
+                                        id = user.uid,
+                                        email = email,
+                                        password = password,
+                                        nickName = "헬로아마따",
+                                        photo = "",
+                                        exp = 999
+                                    )
+                                )
+                                    .subscribe(
+                                        {
+                                            _signUpSuccess.value = Event(true)
+                                        },
+                                        {
+                                            Timber.e("updateUserUseCase is onError: $it")
+                                            _signUpSuccess.value = Event(false)
+                                        }
+                                    )
+                            )
+                        }
                     },
                     {
-                        if(it is FirebaseAuthWeakPasswordException){
+                        if (it is FirebaseAuthWeakPasswordException) {
                             _checkPasswordWeakness.value = Event(true)
-                        }
-                        else {
+                        } else {
                             _signUpSuccess.value = Event(false)
                         }
                     }

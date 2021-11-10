@@ -161,6 +161,8 @@ dependencies {
     // 구글 파이어베이스 - 인증
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
+    // 구글 파이어베이스 - 파이어스토어 (DB - NOSQL)
+    implementation 'com.google.firebase:firebase-firestore-ktx'
 
 //    // 카카오 로그인
     implementation 'com.kakao.sdk:usermgmt:1.30.6'

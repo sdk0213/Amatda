@@ -99,8 +99,9 @@
         tools:layout="@layout/fragment_main_viewpager">
 
         <argument
-            android:name="name"
-            app:argType="string" />
+            android:name="loginComplete"
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
 
     <fragment

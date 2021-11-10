@@ -7,6 +7,8 @@ import androidx.navigation.fragment.navArgs
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentCarrierNameBinding
 import com.turtle.amatda.domain.model.Carrier
+import com.turtle.amatda.presentation.utilities.extensions.hideKeyboard
+import com.turtle.amatda.presentation.utilities.extensions.showKeyboard
 import com.turtle.amatda.presentation.utilities.extensions.toEditable
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import java.util.*
@@ -25,10 +27,7 @@ class CarrierNameFragment : BaseFragment<CarrierNameViewModel, FragmentCarrierNa
         }
 
         binding.carrierName.requestFocus()
-        (mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(
-            binding.carrierName,
-            0
-        )
+        mContext.showKeyboard(binding.carrierName)
 
         binding.setClickListener {
             when(editCarrier){

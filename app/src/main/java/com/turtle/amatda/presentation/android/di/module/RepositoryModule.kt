@@ -7,8 +7,6 @@ import com.turtle.amatda.data.repository.area.AreaRemoteDataSource
 import com.turtle.amatda.data.repository.area.AreaRepositoryImpl
 import com.turtle.amatda.data.repository.carrier.CarrierDataSourceFactory
 import com.turtle.amatda.data.repository.carrier.CarrierRepositoryImpl
-import com.turtle.amatda.data.repository.user_auth.UserAuthDataSourceFactory
-import com.turtle.amatda.data.repository.user_auth.UserAuthRepositoryImpl
 import com.turtle.amatda.data.repository.item.ItemDataSourceFactory
 import com.turtle.amatda.data.repository.item.ItemRepositoryImpl
 import com.turtle.amatda.data.repository.location.LocationRemoteDataSource
@@ -21,6 +19,10 @@ import com.turtle.amatda.data.repository.trip.TripDataSourceFactory
 import com.turtle.amatda.data.repository.trip.TripRepositoryImpl
 import com.turtle.amatda.data.repository.tripZone.TripZoneDataSourceFactory
 import com.turtle.amatda.data.repository.tripZone.TripZoneRepositoryImpl
+import com.turtle.amatda.data.repository.user.UserDataSourceFactory
+import com.turtle.amatda.data.repository.user.UserRepositoryImpl
+import com.turtle.amatda.data.repository.user_auth.UserAuthDataSourceFactory
+import com.turtle.amatda.data.repository.user_auth.UserAuthRepositoryImpl
 import com.turtle.amatda.data.repository.weather.WeatherDataSourceFactory
 import com.turtle.amatda.data.repository.weather.WeatherRepositoryImpl
 import com.turtle.amatda.domain.model.*
@@ -120,5 +122,14 @@ class RepositoryModule {
         factory: UserAuthDataSourceFactory
     ): UserAuthRepository {
         return UserAuthRepositoryImpl(factory)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserRepositoryImpl(
+        mapper: Mapper<UserEntity, User>,
+        factory: UserDataSourceFactory
+    ): UserRepository {
+        return UserRepositoryImpl(mapper, factory)
     }
 }

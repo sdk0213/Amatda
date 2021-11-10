@@ -51,40 +51,6 @@ class LoginSignInFragment :
             findNavController().navigate(
                 LoginSignInFragmentDirections.actionLoginSignInFragmentToLoginSignInWithEmailFragment()
             )
-//            auth.currentUser?.reload()
-//            auth.signInWithEmailAndPassword("sdk0213@naver.com", "operatq23!")
-//                .addOnCompleteListener { task ->
-//                    if (task.isSuccessful) {
-//
-//                    } else {
-//                        auth.createUserWithEmailAndPassword("sdk0213@naver.com", "operat1q23!")
-//                            .addOnCompleteListener { task ->
-//                                if (task.isSuccessful) {
-//                                    Timber.d("가입 완료")
-//                                }
-//                            }
-//                    }
-//                }
-//                .addOnFailureListener {
-//                    Timber.d("가입완료된 이메일 입니다.")
-//                    auth.currentUser?.let {
-//                        if (it.isEmailVerified) {
-//                            Timber.d("이미 이메일 인증 완료")
-//                            return@addOnFailureListener
-//                        } else {
-//                            Timber.d("이메일 인증 필요")
-//                            it.sendEmailVerification()
-//                                .addOnCompleteListener { task ->
-//                                    if (task.isSuccessful) {
-//                                        Timber.d("인증 이메일 전송")
-//                                    } else {
-//                                        Timber.e("인증 이메일 전송 실패")
-//                                    }
-//                                }
-//                        }
-//
-//                    }
-//                }
 
         }
 

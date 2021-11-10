@@ -4,6 +4,7 @@ import androidx.navigation.fragment.findNavController
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentLoginSignInWithEmailBinding
 import com.turtle.amatda.presentation.utilities.EventObserver
+import com.turtle.amatda.presentation.utilities.extensions.hideKeyboard
 import com.turtle.amatda.presentation.view.base.BaseFragment
 
 class LoginSignInWithEmailFragment :
@@ -42,6 +43,12 @@ class LoginSignInWithEmailFragment :
             EventObserver { success ->
                 if (success) {
                     showToast(getString(R.string.login_success))
+                    mContext.hideKeyboard(binding.btnLoginSignInWithEmailOk.windowToken)
+                    findNavController().navigate(
+                        LoginSignInWithEmailFragmentDirections.actionLoginSignInWithEmailFragmentToMainViewPagerFragment(
+                            "complete"
+                        )
+                    )
                 }
             })
 
@@ -56,7 +63,7 @@ class LoginSignInWithEmailFragment :
         viewModel.signInFailedInvalidPassword.observe(
             this@LoginSignInWithEmailFragment,
             EventObserver { failed ->
-                if(failed){
+                if (failed) {
                     showToast(getString(R.string.login_toast_failed_invalid_password))
                 }
             })

@@ -20,6 +20,8 @@ import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentCarrierItemBinding
 import com.turtle.amatda.domain.model.Item
 import com.turtle.amatda.domain.model.Pocket
+import com.turtle.amatda.presentation.utilities.extensions.hideKeyboard
+import com.turtle.amatda.presentation.utilities.extensions.showKeyboard
 import com.turtle.amatda.presentation.utilities.extensions.toEditable
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import timber.log.Timber
@@ -258,17 +260,11 @@ class CarrierItemFragment :
             if (viewModel.isItemRenameClicked.value == true) {
                 binding.itemNameView.visibility = VISIBLE
                 binding.itemName.requestFocus()
-                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(
-                    binding.itemName,
-                    0
-                )
+                mContext.showKeyboard(binding.itemName)
             } else {
                 binding.itemNameView.visibility = GONE
                 binding.itemName.clearFocus()
-                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                    binding.itemName.windowToken,
-                    0
-                )
+                mContext.hideKeyboard(binding.itemName.windowToken)
             }
         }
 
@@ -291,10 +287,7 @@ class CarrierItemFragment :
             if (pocketRenameClicked == false) {
                 binding.pocketNameView.visibility = GONE
                 binding.pocketName.clearFocus()
-                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                    binding.pocketName.windowToken,
-                    0
-                )
+                mContext.hideKeyboard(binding.pocketName.windowToken)
             }
             updateViewMenuItemActionView()
             binding.navigationView.menu.findItem(R.id.pocket_rename)
@@ -353,10 +346,7 @@ class CarrierItemFragment :
                 if (!it.isNullOrEmpty()) viewModel.editItem(it)
                 binding.itemNameView.visibility = GONE
                 binding.itemName.clearFocus()
-                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                    binding.itemName.windowToken,
-                    0
-                )
+                mContext.hideKeyboard(binding.itemName.windowToken)
             }
         }
 
@@ -368,10 +358,7 @@ class CarrierItemFragment :
                         if (!it.isNullOrEmpty()) viewModel.editItem(it)
                         binding.itemNameView.visibility = GONE
                         binding.itemName.clearFocus()
-                        (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                            binding.itemName.windowToken,
-                            0
-                        )
+                        mContext.hideKeyboard(binding.itemName.windowToken)
                         viewModel.itemRenameIsUnClicked()
                     }
                     true
@@ -390,10 +377,7 @@ class CarrierItemFragment :
                 )
                 binding.pocketNameView.visibility = GONE
                 binding.pocketName.clearFocus()
-                (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                    binding.pocketName.windowToken,
-                    0
-                )
+                mContext.hideKeyboard(binding.pocketName.windowToken)
             }
         }
 
@@ -408,10 +392,7 @@ class CarrierItemFragment :
                         )
                         binding.pocketNameView.visibility = GONE
                         binding.pocketName.clearFocus()
-                        (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                            binding.pocketName.windowToken,
-                            0
-                        )
+                        mContext.hideKeyboard(binding.pocketName.windowToken)
                     }
                     true
                 }
@@ -611,10 +592,7 @@ class CarrierItemFragment :
 
     private fun unSelectItem() {
 
-        (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-            binding.itemName.windowToken,
-            0
-        )
+        mContext.hideKeyboard(binding.itemName.windowToken)
         binding.itemNameView.visibility = GONE
         viewItemList.find { it.tag == viewIdHasBeenClicked }?.isSelected = false
         viewModel.itemResizeIsUnClicked()
@@ -703,10 +681,7 @@ class CarrierItemFragment :
                         } else if (viewModel.isPocketRenameClicked.value == true) {
                             binding.pocketNameView.visibility = VISIBLE
                             binding.pocketName.requestFocus()
-                            (mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(
-                                binding.pocketName,
-                                0
-                            )
+                            mContext.showKeyboard(binding.pocketName)
                             binding.pocketName.text =
                                 viewPocketAndMenuItemViewIdMap[view.id]?.name?.toEditable()
                                     ?: "해당 주머니 이름을 모르겠습니다.".toEditable()

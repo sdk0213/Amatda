@@ -1,6 +1,5 @@
 package com.turtle.amatda.data.api
 
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.turtle.amatda.data.model.FirestoreEntity
 import com.turtle.amatda.data.model.FirestoreUser

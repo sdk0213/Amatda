@@ -3,8 +3,11 @@ package com.turtle.amatda.presentation.view.mypage
 import android.app.Activity
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.navigation.fragment.findNavController
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentMypageBinding
+import com.turtle.amatda.domain.model.Level
+import com.turtle.amatda.presentation.utilities.EventObserver
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import timber.log.Timber
 
@@ -45,7 +48,49 @@ class MyPageFragment :
     }
 
     private fun observer() {
+        viewModel.logout.observe(this@MyPageFragment, EventObserver{ isLogout ->
+            if(isLogout){
+                findNavController().navigate(
+                    MyPageFragmentDirections.actionGlobalIntroFragment()
+                )
+            }
+        })
 
+        viewModel.currentUser.observe(this@MyPageFragment) { user ->
+            val level = getLevel(user.exp)
+            binding.tvMyPageMyLevel.text = "${getString(R.string.my_page_level)}${level.rank}"
+            val myExp = user.exp - level.exp
+            val upExp = level.upExp
+            val percentExp = (myExp.toDouble() / upExp.toDouble() * 100).toInt()
+            binding.tvMyPageMyExp.text = "$percentExp% ($myExp / $upExp)"
+            binding.progressMyPageMyExp.progress = percentExp
+        }
+    }
+
+    private fun getLevel(exp: Long) : Level{
+        return if(exp >= Level.LEVEL_1.exp && exp < Level.LEVEL_2.exp){
+            Level.LEVEL_1
+        } else if(exp >= Level.LEVEL_2.exp && exp < Level.LEVEL_3.exp){
+            Level.LEVEL_2
+        } else if(exp >= Level.LEVEL_3.exp && exp < Level.LEVEL_4.exp){
+            Level.LEVEL_3
+        } else if(exp >= Level.LEVEL_4.exp && exp < Level.LEVEL_5.exp){
+            Level.LEVEL_4
+        } else if(exp >= Level.LEVEL_5.exp && exp < Level.LEVEL_6.exp){
+            Level.LEVEL_5
+        } else if(exp >= Level.LEVEL_6.exp && exp < Level.LEVEL_7.exp){
+            Level.LEVEL_6
+        } else if(exp >= Level.LEVEL_7.exp && exp < Level.LEVEL_8.exp){
+            Level.LEVEL_7
+        } else if(exp >= Level.LEVEL_8.exp && exp < Level.LEVEL_9.exp){
+            Level.LEVEL_8
+        } else if(exp >= Level.LEVEL_9.exp && exp < Level.LEVEL_10.exp){
+            Level.LEVEL_9
+        } else if(exp >= Level.LEVEL_10.exp && exp < Level.LEVEL_99.exp){
+            Level.LEVEL_10
+        } else {
+            Level.LEVEL_99
+        }
     }
 
 }

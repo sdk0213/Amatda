@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import androidx.work.WorkManager
 import com.google.android.gms.location.GeofencingClient
@@ -146,6 +147,16 @@ class AppModule {
             else
                 PendingIntent.FLAG_UPDATE_CURRENT
         )
+    }
+
+    @Provides
+    fun provideSharedPreferences(@ApplicationContext context: Context) : SharedPreferences{
+        return context.getSharedPreferences("AMATDA", Context.MODE_PRIVATE)
+    }
+
+    @Provides
+    fun provideSharedPreferencesEditor(sharedPreferences: SharedPreferences) : SharedPreferences.Editor {
+        return sharedPreferences.edit()
     }
 
 }

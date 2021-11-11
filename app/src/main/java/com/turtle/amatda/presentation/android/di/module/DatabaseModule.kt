@@ -1,8 +1,9 @@
 package com.turtle.amatda.presentation.android.di.module
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.turtle.amatda.data.db.AppDatabase
-import com.turtle.amatda.data.db.PreferenceManager
+import com.turtle.amatda.presentation.android.shard_pref.SharedPrefUtil
 import com.turtle.amatda.data.db.dao.*
 import com.turtle.amatda.presentation.android.di.qualifier.ApplicationContext
 import dagger.Module
@@ -14,8 +15,11 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun providePreferenceManager(@ApplicationContext context: Context): PreferenceManager {
-        return PreferenceManager(context)
+    fun providePreferenceManager(
+        sharedPreferences: SharedPreferences,
+        editor: SharedPreferences.Editor
+    ): SharedPrefUtil {
+        return SharedPrefUtil(sharedPreferences, editor)
     }
 
     @Singleton

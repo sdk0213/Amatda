@@ -12,6 +12,7 @@
 
     <!-- 로그인 -->
     <string name="login">로그인</string>
+    <string name="login_log_out">로그아웃</string>
     <string name="login_sign_up">회원가입</string>
     <string name="login_success">로그인 성공</string>
     <string name="login_email">이메일</string>
@@ -57,6 +58,19 @@
     <string name="app_bar_add_trip">여행 추가</string>
     <string name="app_bar_more">더 보기</string>
     <string name="app_bar_setting">설정</string>
+
+    <!-- 마이페이지 -->
+    <string name="my_page_email">이메일(id) : </string>
+    <string name="my_page_nickname">별명 : </string>
+    <string name="my_page_level">등급 : </string>
+    <string name="my_page_level_question">\?</string>
+    <string name="my_page_register_profile_image">사진 등록</string>
+    <string name="my_page_setting">설정</string>
+    <string name="my_page_qna">Q &#38; A</string>
+    <string name="my_page_privacy">개인정보 보호정책</string>
+    <string name="my_page_opensource_license">오픈소스 라이선스</string>
+    <string name="my_page_logout">로그아웃</string>
+
 
     <!-- contentDescription -->
     <string name="cttdcrp_add_carrier">가방 추가</string>

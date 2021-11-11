@@ -38,6 +38,14 @@
             app:popUpTo="@+id/view_fragment_intro"
             app:popUpToInclusive="true"/>
 
+        <action
+            android:id="@+id/action_introFragment_to_mainFragment"
+            app:destination="@id/view_fragment_main"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@+id/view_fragment_intro"
+            app:popUpToInclusive="true"/>
+
     </fragment>
 
     <fragment
@@ -81,7 +89,9 @@
             app:enterAnim="@anim/slide_up"
             app:exitAnim="@anim/slide_down"
             app:popEnterAnim="@anim/slide_up"
-            app:popExitAnim="@anim/slide_down" />
+            app:popExitAnim="@anim/slide_down"
+            app:popUpTo="@+id/view_fragment_login_sign_in_with_email"
+            app:popUpToInclusive="true" />
 
         <action
             android:id="@+id/action_loginSignInWithEmailFragment_to_LoginSignUpFragment"
@@ -127,7 +137,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/view_mypage_fragment"
+        android:id="@+id/view_fragment_mypage"
         android:name="com.turtle.amatda.presentation.view.mypage.MyPageFragment"
         android:label="@string/menu_my_page"
         tools:layout="@layout/fragment_mypage">
@@ -323,5 +333,16 @@
         app:exitAnim="@anim/slide_down"
         app:popEnterAnim="@anim/slide_up"
         app:popExitAnim="@anim/slide_down" />
+
+    <!-- To Intro (로그아웃) 메인 프로그먼트 삭제 -->
+    <action
+        android:id="@+id/action_global_introFragment"
+        app:destination="@id/view_fragment_intro"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popUpTo="@+id/view_fragment_main"
+        app:popUpToInclusive="true"/>
+
+
 
 </navigation>

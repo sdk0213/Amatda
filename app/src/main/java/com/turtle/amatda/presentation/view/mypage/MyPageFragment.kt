@@ -11,6 +11,7 @@ import com.turtle.amatda.presentation.android.view_data.EditTextData
 import com.turtle.amatda.presentation.utilities.EventObserver
 import com.turtle.amatda.presentation.utilities.extensions.getNavigationResult
 import com.turtle.amatda.presentation.view.base.BaseFragment
+import com.turtle.amatda.presentation.view.dialog.ShowInfoDialogFragment
 import timber.log.Timber
 
 class MyPageFragment :
@@ -58,6 +59,10 @@ class MyPageFragment :
                     )
                 )
             )
+        }
+
+        binding.btnMyPageInfoLevel.setOnClickListener {
+            ShowInfoDialogFragment(R.layout.fragment_dialog_level).show(childFragmentManager, tag)
         }
     }
 

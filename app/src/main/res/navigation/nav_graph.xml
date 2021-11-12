@@ -292,7 +292,7 @@
     <dialog
         android:id="@+id/view_dialog_fragment_edit_text"
         android:name="com.turtle.amatda.presentation.view.dialog.EditTextDialogFragment"
-        tools:layout="@layout/fragment_edit_text_dialog">
+        tools:layout="@layout/fragment_dialog_edit_text">
 
         <argument
             android:name="editTextData"

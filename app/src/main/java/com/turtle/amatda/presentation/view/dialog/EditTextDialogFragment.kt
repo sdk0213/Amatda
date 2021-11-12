@@ -1,19 +1,20 @@
 package com.turtle.amatda.presentation.view.dialog
 
+import android.view.LayoutInflater
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.turtle.amatda.R
-import com.turtle.amatda.databinding.FragmentEditTextDialogBinding
+import com.turtle.amatda.databinding.FragmentDialogEditTextBinding
 import com.turtle.amatda.presentation.utilities.extensions.setNavigationResult
 import com.turtle.amatda.presentation.utilities.extensions.toEditable
 import com.turtle.amatda.presentation.view.base.BaseDialogFragment
 
 class EditTextDialogFragment :
-    BaseDialogFragment<FragmentEditTextDialogBinding>(R.layout.fragment_edit_text_dialog) {
+    BaseDialogFragment<FragmentDialogEditTextBinding>(R.layout.fragment_dialog_edit_text) {
 
     private val args: EditTextDialogFragmentArgs by navArgs()
 
-    override fun initViewCreated() {
+    override fun initViewCreated(inflater: LayoutInflater) {
 //        // 타이틀 제거
 //        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
 //        // 백그라운드 컬러 투명하게

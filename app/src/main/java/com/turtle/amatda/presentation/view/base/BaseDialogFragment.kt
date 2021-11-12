@@ -33,6 +33,7 @@ constructor(@LayoutRes private val layoutId: Int) : DaggerDialogFragment() {
         binding = DataBindingUtil.inflate(inflater, layoutId, null, false)
         binding.lifecycleOwner = this
         mContext = inflater.context
+        initViewCreated(inflater)
         return binding.root
     }
 
@@ -50,7 +51,7 @@ constructor(@LayoutRes private val layoutId: Int) : DaggerDialogFragment() {
         dialog?.window?.attributes = params as WindowManager.LayoutParams
     }
 
-    abstract fun initViewCreated()
+    abstract fun initViewCreated(inflater: LayoutInflater)
 
     abstract fun init()
 

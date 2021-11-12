@@ -20,10 +20,10 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/view_fragment_intro">
 
-<!--    enterAnim : action 실행시, 이동할 Destination에 대한 애니메이션-->
-<!--    exitAnim : action을 실행할 때 현재 Destination에 대한 애니메이션-->
-<!--    popExitAnim : 이전 화면으로 돌아갈 때(Pop or Back) 종료되는 현재 Destincation 에 대한 애니메이션-->
-<!--    popEnterAnim : 이전 화면으로 돌아갈 때(Pop or Back) 이동할 BackStack의 Destination에 대한 애니메이션-->
+    <!--    enterAnim : action 실행시, 이동할 Destination에 대한 애니메이션-->
+    <!--    exitAnim : action을 실행할 때 현재 Destination에 대한 애니메이션-->
+    <!--    popExitAnim : 이전 화면으로 돌아갈 때(Pop or Back) 종료되는 현재 Destincation 에 대한 애니메이션-->
+    <!--    popEnterAnim : 이전 화면으로 돌아갈 때(Pop or Back) 이동할 BackStack의 Destination에 대한 애니메이션-->
 
     <fragment
         android:id="@+id/view_fragment_intro"
@@ -36,7 +36,7 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popUpTo="@+id/view_fragment_intro"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
 
         <action
             android:id="@+id/action_introFragment_to_mainFragment"
@@ -44,7 +44,7 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popUpTo="@+id/view_fragment_intro"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
 
     </fragment>
 
@@ -67,7 +67,7 @@
             app:enterAnim="@anim/fade_in_fast"
             app:exitAnim="@anim/fade_out_fast"
             app:popEnterAnim="@anim/fade_in_fast"
-            app:popExitAnim="@anim/fade_out_fast"  />
+            app:popExitAnim="@anim/fade_out_fast" />
 
     </fragment>
 
@@ -99,7 +99,7 @@
             app:enterAnim="@anim/fade_in_fast"
             app:exitAnim="@anim/fade_out_fast"
             app:popEnterAnim="@anim/fade_in_fast"
-            app:popExitAnim="@anim/fade_out_fast"  />
+            app:popExitAnim="@anim/fade_out_fast" />
 
     </fragment>
 
@@ -110,8 +110,8 @@
 
         <argument
             android:name="loginComplete"
-            app:argType="string"
-            android:defaultValue="" />
+            android:defaultValue=""
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -288,6 +288,19 @@
 
     <!-- ******** End Trip 생성 및 관리 ******** -->
 
+    <!-- ******** Start 다이얼로그 ******** -->
+    <dialog
+        android:id="@+id/view_dialog_fragment_edit_text"
+        android:name="com.turtle.amatda.presentation.view.dialog.EditTextDialogFragment"
+        tools:layout="@layout/fragment_edit_text_dialog">
+
+        <argument
+            android:name="editTextData"
+            app:argType="com.turtle.amatda.presentation.android.view_data.EditTextData" />
+
+    </dialog>
+    <!-- ******** End 다이얼로그 ******** -->
+
     <!-- Global Action -->
     <!-- todo : Global 사용하지 않고서 ViewPager2 에서 Fragment를 호출할수 있는 방법 찾기 -->
 
@@ -341,8 +354,10 @@
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out"
         app:popUpTo="@+id/view_fragment_main"
-        app:popUpToInclusive="true"/>
+        app:popUpToInclusive="true" />
 
-
+    <action
+        android:id="@+id/action_global_edit_text_dialog"
+        app:destination="@id/view_dialog_fragment_edit_text" />
 
 </navigation>

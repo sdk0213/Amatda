@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">amatda</string>
 
     <!-- 공통 -->
@@ -130,5 +130,8 @@
     <string name="question_trip_zone_ok">Add location</string>
     <string name="toast_message_trip_zone_success">TripZone registration was successful.</string>
     <string name="toast_message_trip_zone_failed">TripZone registration failed. please try again</string>
+
+    <!-- 다이얼로그 -->
+    <string name="dialog_edit_text">Value to change</string>
 
 </resources>

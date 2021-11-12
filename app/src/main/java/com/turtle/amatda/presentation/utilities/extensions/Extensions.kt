@@ -1,10 +1,20 @@
 package com.turtle.amatda.presentation.utilities.extensions
 
 import android.content.Context
+import android.graphics.Insets
+import android.graphics.Point
+import android.os.Build
 import android.os.IBinder
 import android.text.Editable
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.navigation.fragment.findNavController
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,7 +47,7 @@ fun Date.toCalenderDay(): CalendarDay {
     )
 }
 
-fun Date.getCalendarWithoutTime() : Calendar {
+fun Date.getCalendarWithoutTime(): Calendar {
     val date = this
     return GregorianCalendar().apply {
         time = date
@@ -88,3 +98,57 @@ fun Context.showKeyboard(view: View) =
         view,
         0
     )
+
+// 윈도우 사이즈 계산
+fun WindowManager.currentWindowMetricsPointCompat(): Point {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val windowInsets = currentWindowMetrics.windowInsets
+        var insets: Insets = windowInsets.getInsets(WindowInsets.Type.navigationBars())
+        windowInsets.displayCutout?.run {
+            insets = Insets.max(
+                insets,
+                Insets.of(safeInsetLeft, safeInsetTop, safeInsetRight, safeInsetBottom)
+            )
+        }
+        val insetsWidth = insets.right + insets.left
+        val insetsHeight = insets.top + insets.bottom
+        Point(
+            currentWindowMetrics.bounds.width() - insetsWidth,
+            currentWindowMetrics.bounds.height() - insetsHeight
+        )
+    } else {
+        Point().apply {
+            defaultDisplay.getSize(this)
+        }
+    }
+}
+
+// DialogFragment --> Fragment 데이터 전달
+fun <T> Fragment.setNavigationResult(key: String, value: T) {
+    findNavController().previousBackStackEntry?.savedStateHandle?.set(
+        key,
+        value
+    )
+}
+
+// DialogFragment --> Fragment 데이터 전달
+fun <T> Fragment.getNavigationResult(@IdRes id: Int, key: String, onResult: (result: T) -> Unit) {
+    val navBackStackEntry = findNavController().getBackStackEntry(id)
+
+    val observer = LifecycleEventObserver { _, event ->
+        if (event == Lifecycle.Event.ON_RESUME
+            && navBackStackEntry.savedStateHandle.contains(key)
+        ) {
+            val result = navBackStackEntry.savedStateHandle.get<T>(key)
+            result?.let(onResult)
+            navBackStackEntry.savedStateHandle.remove<T>(key)
+        }
+    }
+    navBackStackEntry.lifecycle.addObserver(observer)
+
+    viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+        if (event == Lifecycle.Event.ON_DESTROY) {
+            navBackStackEntry.lifecycle.removeObserver(observer)
+        }
+    })
+}

@@ -132,4 +132,7 @@
     <string name="toast_message_trip_zone_success">여행지역 등록에 성공하였습니다.</string>
     <string name="toast_message_trip_zone_failed">여행지역 등록에 실패하였습니다. 다시 시도해주세요</string>
 
+    <!-- 다이얼로그 -->
+    <string name="dialog_edit_text">변경할 값</string>
+
 </resources>

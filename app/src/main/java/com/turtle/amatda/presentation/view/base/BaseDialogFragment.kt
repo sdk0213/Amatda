@@ -33,7 +33,6 @@ constructor(@LayoutRes private val layoutId: Int) : DaggerDialogFragment() {
         binding = DataBindingUtil.inflate(inflater, layoutId, null, false)
         binding.lifecycleOwner = this
         mContext = inflater.context
-        1
         return binding.root
     }
 

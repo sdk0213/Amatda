@@ -133,5 +133,8 @@
 
     <!-- 다이얼로그 -->
     <string name="dialog_edit_text">Value to change</string>
+    <!-- 다이얼로그 별명 변경 -->
+    <string name="dialog_edit_text_nickname_title">Change your nickname and click OK</string>
+    <string name="dialog_edit_text_nickname_hint">Nickname</string>
 
 </resources>

@@ -134,5 +134,8 @@
 
     <!-- 다이얼로그 -->
     <string name="dialog_edit_text">변경할 값</string>
+    <!-- 다이얼로그 별명 변경 -->
+    <string name="dialog_edit_text_nickname_title">닉네임을 변경후 확인을 눌러주세요</string>
+    <string name="dialog_edit_text_nickname_hint">닉네임</string>
 
 </resources>

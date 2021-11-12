@@ -52,8 +52,8 @@ class MyPageFragment :
             findNavController().navigate(
                 MyPageFragmentDirections.actionGlobalEditTextDialog(
                     EditTextData(
-                        title = "닉네임을 변경후 확인을 눌러주세요",
-                        hint = "닉네임",
+                        title = getString(R.string.dialog_edit_text_nickname_title),
+                        hint = getString(R.string.dialog_edit_text_nickname_hint),
                         text = viewModel.currentUser.value?.nickName ?: "알수 없음"
                     )
                 )
@@ -66,8 +66,9 @@ class MyPageFragment :
         getNavigationResult<String>(
             id = R.id.view_fragment_main,
             key = DIALOG_RETURN_KEY,
-            onResult = {
-                Timber.tag("dksung").d("전달받은 값 : $it")
+            onResult = { nickName ->
+                Timber.d("닉네임 변경 : $nickName")
+                viewModel.editNickName(nickName)
             })
 
         viewModel.logout.observe(this@MyPageFragment, EventObserver { isLogout ->

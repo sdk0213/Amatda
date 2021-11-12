@@ -12,6 +12,7 @@ import com.turtle.amatda.presentation.view.carrier_item.CarrierItemFragment
 import com.turtle.amatda.presentation.view.carrier_name.CarrierNameFragment
 import com.turtle.amatda.presentation.view.carrier_size.CarrierSizeFragment
 import com.turtle.amatda.presentation.view.carrier_type.CarrierTypeFragment
+import com.turtle.amatda.presentation.view.dialog.EditTextDialogFragment
 import com.turtle.amatda.presentation.view.home.HomeFragment
 import com.turtle.amatda.presentation.view.intro.IntroFragment
 import com.turtle.amatda.presentation.view.login_sign_in.LoginSignInFragment
@@ -120,4 +121,11 @@ abstract class ViewModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = [TripZoneMakeModule::class])
     abstract fun getTripZoneMakeFragment(): TripZoneMakeFragment
+
+    // # start Dagger Dialog Fragment
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [EditTextNameModule::class])
+    abstract fun getEditTextDialogFragment(): EditTextDialogFragment
+
+    // # end Dagger Dialog Fragment
 }

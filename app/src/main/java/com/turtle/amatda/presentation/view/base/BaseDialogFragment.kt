@@ -2,48 +2,28 @@ package com.turtle.amatda.presentation.view.base
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModelProvider
-import com.turtle.amatda.presentation.android.di.factory.ViewModelFactory
-import dagger.android.support.DaggerFragment
-import java.lang.reflect.ParameterizedType
-import java.lang.reflect.Type
-import javax.inject.Inject
+import com.turtle.amatda.presentation.utilities.extensions.currentWindowMetricsPointCompat
+import dagger.android.support.DaggerDialogFragment
 
-
-abstract class BaseFragment<T : BaseViewModel, B : ViewDataBinding>
-constructor(@LayoutRes private val layoutId: Int) : DaggerFragment() {
+abstract class BaseDialogFragment<B : ViewDataBinding>
+constructor(@LayoutRes private val layoutId: Int) : DaggerDialogFragment() {
 
     companion object {
         // Dialog 의 결과값을 리턴받는 Key 값
         const val DIALOG_RETURN_KEY = "Key"
     }
 
-    protected val handler by lazy {
-        Handler(Looper.getMainLooper())
-    }
-
     lateinit var mContext: Context
 
     protected lateinit var binding: B
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    protected val viewModel: T
-        get() {
-            val types: Array<Type> =
-                (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
-            return ViewModelProvider(this, viewModelFactory).get(types[0] as Class<T>)
-        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,6 +33,7 @@ constructor(@LayoutRes private val layoutId: Int) : DaggerFragment() {
         binding = DataBindingUtil.inflate(inflater, layoutId, null, false)
         binding.lifecycleOwner = this
         mContext = inflater.context
+        1
         return binding.root
     }
 
@@ -61,10 +42,16 @@ constructor(@LayoutRes private val layoutId: Int) : DaggerFragment() {
         init()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        handler.removeCallbacksAndMessages(null)
+    override fun onResume() {
+        super.onResume()
+        val params: ViewGroup.LayoutParams? = dialog?.window?.attributes
+        val windowsManager = mContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val deviceWidth = windowsManager.currentWindowMetricsPointCompat().x
+        params?.width = (deviceWidth * 0.9).toInt()
+        dialog?.window?.attributes = params as WindowManager.LayoutParams
     }
+
+    abstract fun initViewCreated()
 
     abstract fun init()
 

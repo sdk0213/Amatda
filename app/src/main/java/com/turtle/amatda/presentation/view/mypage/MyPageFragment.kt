@@ -72,7 +72,6 @@ class MyPageFragment :
             id = R.id.view_fragment_main,
             key = DIALOG_RETURN_KEY,
             onResult = { nickName ->
-                Timber.d("닉네임 변경 : $nickName")
                 viewModel.editNickName(nickName)
             })
 
@@ -110,14 +109,8 @@ class MyPageFragment :
             Level.LEVEL_6
         } else if (exp >= Level.LEVEL_7.exp && exp < Level.LEVEL_8.exp) {
             Level.LEVEL_7
-        } else if (exp >= Level.LEVEL_8.exp && exp < Level.LEVEL_9.exp) {
-            Level.LEVEL_8
-        } else if (exp >= Level.LEVEL_9.exp && exp < Level.LEVEL_10.exp) {
-            Level.LEVEL_9
-        } else if (exp >= Level.LEVEL_10.exp && exp < Level.LEVEL_99.exp) {
-            Level.LEVEL_10
         } else {
-            Level.LEVEL_99
+            Level.LEVEL_8
         }
     }
 

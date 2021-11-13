@@ -25,7 +25,7 @@
     <string name="login_toast_sign_up_failed">이메일 가입이 실패되었습니다.</string>
     <string name="login_toast_sign_up_failed_pw_weakness">패스워드는 최소 6자리 이상이어야 합니다.</string>
     <string name="login_please_check_verify_email">가입하신 이메일로 인증메일을 전송하였습니다.\n인증 메일을 확인해주세요.</string>
-    <string name="login_toast_check_verify_email">이메일 인증이 되어있지 않습니다. 이메일인증을 진행하세요.</string>
+    <string name="login_toast_check_verify_email">이메일 인증이 되어있지 않습니다.\n이메일인증을 진행하세요.</string>
     <string name="login_toast_failed_invalid_password">비밀번호가 맞지 않습니다.</string>
 
     <!-- 권한 -->
@@ -137,5 +137,15 @@
     <!-- 다이얼로그 별명 변경 -->
     <string name="dialog_edit_text_nickname_title">닉네임을 변경후 확인을 눌러주세요</string>
     <string name="dialog_edit_text_nickname_hint">닉네임</string>
+    <!-- 다이얼로그 레벨 -->
+    <string name="dialog_level_level_1">레벨: 1 / 등급: 노란색 지도 / 경험치: 100</string>
+    <string name="dialog_level_level_2">레벨: 2 / 등급: 초록색 지도 / 경험치: 210</string>
+    <string name="dialog_level_level_3">레벨: 3 / 등급: 파란색 지도 / 경험치: 330</string>
+    <string name="dialog_level_level_4">레벨: 4 / 등급: 빨강색 지도 / 경험치: 460</string>
+    <string name="dialog_level_level_5">레벨: 5 / 등급: 주황색 지도 / 경험치: 600</string>
+    <string name="dialog_level_level_6">레벨: 6 / 등급: 보라색 지도 / 경험치: 750</string>
+    <string name="dialog_level_level_7">레벨: 7 / 등급: 검정색 지도 / 경험치: 910</string>
+    <string name="dialog_level_level_8">레벨: 8 / 등급: 무지개색 지도 / 경험치: 1080</string>
+
 
 </resources>

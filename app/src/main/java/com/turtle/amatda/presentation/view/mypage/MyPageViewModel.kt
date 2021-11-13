@@ -3,7 +3,6 @@ package com.turtle.amatda.presentation.view.mypage
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
-import com.turtle.amatda.domain.model.Trip
 import com.turtle.amatda.domain.model.User
 import com.turtle.amatda.domain.usecases.GetUserUseCase
 import com.turtle.amatda.domain.usecases.UpdateUserUseCase
@@ -33,7 +32,7 @@ class MyPageViewModel @Inject constructor(
         getUserInformation()
     }
 
-    private fun getUserInformation(){
+    private fun getUserInformation() {
         firebaseAuth.currentUser?.let { user ->
             user.reload()
             compositeDisposable.add(
@@ -58,7 +57,7 @@ class MyPageViewModel @Inject constructor(
     }
 
     // 로그아웃
-    fun logout(){
+    fun logout() {
         firebaseAuth.signOut()
         sharedPrefUtil.isLoggedDevices = false
         _logout.value = Event(true)
@@ -94,8 +93,9 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun editNickName(nickName: String){
+    fun editNickName(nickName: String) {
         _currentUser.value?.let {
+            Timber.d("nickname rename to : $nickName")
             _currentUser.value = User(
                 id = _currentUser.value!!.id,
                 email = _currentUser.value!!.email,
@@ -108,7 +108,7 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun saveProfileImage(someData: Any){
+    fun saveProfileImage(someData: Any) {
 
 
     }

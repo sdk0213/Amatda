@@ -8,8 +8,9 @@ import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentDialogShowInfoBinding
 import com.turtle.amatda.presentation.view.base.BaseDialogFragment
 
+// Navigation Component 를 사용하여서 호출하지 말고 FragmentManager 를 통한 직접 호출
 class ShowInfoDialogFragment constructor(
-    @LayoutRes private val layoutId: Int
+    @LayoutRes private val layoutId: Int // 붙힐 Layout Id
 ) : BaseDialogFragment<FragmentDialogShowInfoBinding>(R.layout.fragment_dialog_show_info) {
 
     override fun initViewCreated(inflater: LayoutInflater) {}

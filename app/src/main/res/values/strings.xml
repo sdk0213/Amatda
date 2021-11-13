@@ -25,7 +25,7 @@
     <string name="login_toast_sign_up_failed">Email sign-up is failed.</string>
     <string name="login_toast_sign_up_failed_pw_weakness">Password should be at least 6 characters</string>
     <string name="login_please_check_verify_email">A verification email has been sent to your registered email address.\nPlease check your verification email.</string>
-    <string name="login_toast_check_verify_email">Email is not verified. Proceed with email verification.</string>
+    <string name="login_toast_check_verify_email">Email is not verified.\nProceed with email verification.</string>
     <string name="login_toast_failed_invalid_password">The password is incorrect.</string>
 
     <!-- 권한 -->
@@ -136,5 +136,15 @@
     <!-- 다이얼로그 별명 변경 -->
     <string name="dialog_edit_text_nickname_title">Change your nickname and click OK</string>
     <string name="dialog_edit_text_nickname_hint">Nickname</string>
+    <!-- 다이얼로그 레벨 -->
+
+    <string name="dialog_level_level_1">Level: 1 / Rank: Yellow Map / Exp: 100</string>
+    <string name="dialog_level_level_2">Level: 2 / Rank: Green Map / Exp: 210</string>
+    <string name="dialog_level_level_3">Level: 3 / Rank: Blue Map / Exp: 330</string>
+    <string name="dialog_level_level_4">Level: 4 / Rank: Red Map / Exp: 460</string>
+    <string name="dialog_level_level_5">Level: 5 / Rank: Orange Map / Exp: 600</string>
+    <string name="dialog_level_level_6">Level: 6 / Rank: Purple Map / Exp: 750</string>
+    <string name="dialog_level_level_7">Level: 7 / Rank: Black Map / Exp: 910</string>
+    <string name="dialog_level_level_8">Level: 8 / Rank: Rainbow Map / Exp: 1080</string>
 
 </resources>

@@ -56,7 +56,7 @@ class LoginSignInWithEmailFragment :
             this@LoginSignInWithEmailFragment,
             EventObserver { failed ->
                 if (failed) {
-                    showToast(getString(R.string.login_toast_check_verify_email))
+                    showPopUpMessage(getString(R.string.login_toast_check_verify_email))
                 }
             })
 
@@ -64,7 +64,7 @@ class LoginSignInWithEmailFragment :
             this@LoginSignInWithEmailFragment,
             EventObserver { failed ->
                 if (failed) {
-                    showToast(getString(R.string.login_toast_failed_invalid_password))
+                    showPopUpMessage(getString(R.string.login_toast_failed_invalid_password))
                 }
             })
     }

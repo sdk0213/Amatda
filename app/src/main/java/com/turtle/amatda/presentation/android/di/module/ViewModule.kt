@@ -14,6 +14,7 @@ import com.turtle.amatda.presentation.view.carrier_size.CarrierSizeFragment
 import com.turtle.amatda.presentation.view.carrier_type.CarrierTypeFragment
 import com.turtle.amatda.presentation.view.dialog.EditTextDialogFragment
 import com.turtle.amatda.presentation.view.dialog.ShowInfoDialogFragment
+import com.turtle.amatda.presentation.view.dialog.TextViewDialogFragment
 import com.turtle.amatda.presentation.view.home.HomeFragment
 import com.turtle.amatda.presentation.view.intro.IntroFragment
 import com.turtle.amatda.presentation.view.login_sign_in.LoginSignInFragment
@@ -125,12 +126,16 @@ abstract class ViewModule {
 
     // # start Dagger Dialog Fragment
     @FragmentScope
-    @ContributesAndroidInjector(modules = [EditTextNameModule::class])
+    @ContributesAndroidInjector(modules = [EditTextValueModule::class])
     abstract fun getEditTextDialogFragment(): EditTextDialogFragment
 
     @FragmentScope
     @ContributesAndroidInjector(modules = [ShowInfoModule::class])
     abstract fun getShowInfoDialogFragment(): ShowInfoDialogFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [TextViewValueModule::class])
+    abstract fun getTextViewDialogFragment(): TextViewDialogFragment
 
     // # end Dagger Dialog Fragment
 }

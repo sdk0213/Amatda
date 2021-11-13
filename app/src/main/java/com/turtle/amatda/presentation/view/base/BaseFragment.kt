@@ -9,10 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.LayoutRes
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.turtle.amatda.R
 import com.turtle.amatda.presentation.android.di.factory.ViewModelFactory
+import com.turtle.amatda.presentation.android.view_data.TextViewData
 import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
@@ -69,4 +73,16 @@ constructor(@LayoutRes private val layoutId: Int) : DaggerFragment() {
     abstract fun init()
 
     protected fun showToast(msg: String) = Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+
+    protected fun showPopUpMessage(msg: String)  {
+        findNavController().navigate(
+            R.id.view_dialog_fragment_show_text_view,
+            bundleOf(
+                "textViewData" to
+                TextViewData(
+                    text = msg
+                )
+            )
+        )
+    }
 }

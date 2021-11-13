@@ -57,7 +57,10 @@ class TripZoneModule {}
 class TripZoneMakeModule {}
 
 @Module
-class EditTextNameModule {}
+class EditTextValueModule {}
 
 @Module
 class ShowInfoModule {}
+
+@Module
+class TextViewValueModule {}

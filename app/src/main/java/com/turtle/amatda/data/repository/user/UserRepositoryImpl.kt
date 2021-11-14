@@ -2,10 +2,12 @@ package com.turtle.amatda.data.repository.user
 
 import com.turtle.amatda.data.mapper.Mapper
 import com.turtle.amatda.data.model.UserEntity
+import com.turtle.amatda.domain.model.UploadFile
 import com.turtle.amatda.domain.model.User
 import com.turtle.amatda.domain.repository.UserRepository
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -24,6 +26,10 @@ class UserRepositoryImpl @Inject constructor(
             .map {
                 mapper.entityToMap(it)
             }
+    }
+
+    override fun updateUserFile(uploadFile: UploadFile): Single<String> {
+        return factory.updateUserFile(uploadFile)
     }
 
 }

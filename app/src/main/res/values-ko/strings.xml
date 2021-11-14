@@ -70,6 +70,7 @@
     <string name="my_page_privacy">개인정보 보호정책</string>
     <string name="my_page_opensource_license">오픈소스 라이선스</string>
     <string name="my_page_logout">로그아웃</string>
+    <string name="toast_message_my_page_update_user">프로필 정보가 업데이트 되었습니다</string>
 
 
     <!-- contentDescription -->

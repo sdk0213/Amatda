@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentMypageBinding
 import com.turtle.amatda.domain.model.Level
@@ -12,16 +14,23 @@ import com.turtle.amatda.presentation.utilities.EventObserver
 import com.turtle.amatda.presentation.utilities.extensions.getNavigationResult
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import com.turtle.amatda.presentation.view.dialog.ShowInfoDialogFragment
-import timber.log.Timber
+import java.io.*
+import javax.inject.Inject
+
 
 class MyPageFragment :
     BaseFragment<MyPageViewModel, FragmentMypageBinding>(R.layout.fragment_mypage) {
 
+    @Inject
+    lateinit var firebaseStorage: FirebaseStorage
+
     private val resultActivity =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result?.resultCode == Activity.RESULT_OK) {
-                Timber.d("user selected image ${result.data}")
-                viewModel.saveProfileImage(result.data as Any)
+//                Timber.d("user selected image ${result.data}")
+                result.data?.data?.let { uri ->
+                    viewModel.uploadProfileImage(uri)
+                }
             } else if (result?.resultCode == Activity.RESULT_CANCELED) {
                 showToast("사진 선택을 취소하였습니다.")
             }
@@ -45,7 +54,11 @@ class MyPageFragment :
     private fun listener() {
         binding.buttonMyPageAddMyProfileImage.setOnClickListener {
             resultActivity.launch(
-                Intent(Intent.ACTION_GET_CONTENT).apply { type = "image/*" }
+                Intent.createChooser(Intent(Intent.ACTION_GET_CONTENT).apply {
+                    type = "image/*"
+                    flags =
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+                }, "Get Album")
             )
         }
 
@@ -91,7 +104,17 @@ class MyPageFragment :
             val percentExp = (myExp.toDouble() / upExp.toDouble() * 100).toInt()
             binding.tvMyPageMyExp.text = "$percentExp% ($myExp / $upExp)"
             binding.progressMyPageMyExp.progress = percentExp
+            Glide.with(mContext)
+                .load(user.photo)
+                .placeholder(R.drawable.external_image_loading)
+                .into(binding.imageViewMyPageProfile)
         }
+
+        viewModel.updateUser.observe(this@MyPageFragment, EventObserver { isUpdate ->
+            if (isUpdate) {
+                showToast(getString(R.string.toast_message_my_page_update_user))
+            }
+        })
     }
 
     private fun getLevel(exp: Long): Level {

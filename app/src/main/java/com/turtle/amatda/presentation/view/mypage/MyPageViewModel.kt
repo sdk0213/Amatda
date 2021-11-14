@@ -1,10 +1,13 @@
 package com.turtle.amatda.presentation.view.mypage
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
+import com.turtle.amatda.domain.model.UploadFile
 import com.turtle.amatda.domain.model.User
 import com.turtle.amatda.domain.usecases.GetUserUseCase
+import com.turtle.amatda.domain.usecases.UpdateUserFileUseCase
 import com.turtle.amatda.domain.usecases.UpdateUserUseCase
 import com.turtle.amatda.presentation.android.shard_pref.SharedPrefUtil
 import com.turtle.amatda.presentation.utilities.Event
@@ -15,6 +18,7 @@ import javax.inject.Inject
 class MyPageViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val updateUserUseCase: UpdateUserUseCase,
+    private val updateUserFileUseCase: UpdateUserFileUseCase,
     private val firebaseAuth: FirebaseAuth,
     private val sharedPrefUtil: SharedPrefUtil
 ) : BaseViewModel() {
@@ -74,7 +78,7 @@ class MyPageViewModel @Inject constructor(
                             email = currentUser.value!!.email,
                             password = currentUser.value!!.password,
                             nickName = currentUser.value!!.nickName,
-                            photo = currentUser.value!!.nickName,
+                            photo = currentUser.value!!.photo,
                             exp = currentUser.value!!.exp,
                         )
                     )
@@ -108,8 +112,33 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun saveProfileImage(someData: Any) {
-
-
+    fun uploadProfileImage(uri: Uri) {
+        _currentUser.value?.let {
+            compositeDisposable.add(
+                updateUserFileUseCase.execute(
+                    UploadFile(
+                        fileName = _currentUser.value!!.id,
+                        fileUri = uri
+                    )
+                )
+                    .subscribe(
+                        { fileDownloadUri ->
+                            Timber.d("image upload complete")
+                            _currentUser.value = User(
+                                id = _currentUser.value!!.id,
+                                email = _currentUser.value!!.email,
+                                password = _currentUser.value!!.password,
+                                nickName = _currentUser.value!!.nickName,
+                                photo = fileDownloadUri,
+                                exp = _currentUser.value!!.exp,
+                            )
+                            updateUserInformation()
+                        },
+                        {
+                            Timber.e("upload user profile image is onError: $it")
+                        }
+                    )
+            )
+        }
     }
 }

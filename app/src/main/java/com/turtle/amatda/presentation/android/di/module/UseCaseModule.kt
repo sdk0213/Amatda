@@ -170,4 +170,10 @@ class UseCaseModule {
     fun provideGetUserUseCase(repository: UserRepository): GetUserUseCase {
         return GetUserUseCase(repository)
     }
+
+    @Provides
+    @Singleton
+    fun provideUpdateUserFileUseCase(repository: UserRepository): UpdateUserFileUseCase {
+        return UpdateUserFileUseCase(repository)
+    }
 }

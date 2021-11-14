@@ -70,6 +70,7 @@
     <string name="my_page_privacy">Privacy Policy</string>
     <string name="my_page_opensource_license">OpenSource License</string>
     <string name="my_page_logout">Log Out</string>
+    <string name="toast_message_my_page_update_user">Profile information has been updated</string>
 
     <!-- contentDescription -->
     <string name="cttdcrp_add_carrier">add carrier</string>

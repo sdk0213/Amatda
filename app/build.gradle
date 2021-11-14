@@ -154,7 +154,7 @@ dependencies {
     // 구글 플레이스 (Google Place)
     implementation 'com.google.android.libraries.places:places:2.5.0'
 
-    // 구글 파이어베이스
+    // 구글 파이어베이스 - firebase-bom 을 사용하면 아래 파이어베이스 관련 라이브러리의 버전들이 자동으로 관리된다. 그래서 버전을 명시하지 않아도 된다.
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
     // 구글 파이어베이스 - 아날리틱스
     implementation 'com.google.firebase:firebase-analytics-ktx'
@@ -163,6 +163,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
     // 구글 파이어베이스 - 파이어스토어 (DB - NOSQL)
     implementation 'com.google.firebase:firebase-firestore-ktx'
+    // 구글 파이어베이스 - 스토리지 (파일 저장)
+    implementation 'com.google.firebase:firebase-storage-ktx'
 
 //    // 카카오 로그인
     implementation 'com.kakao.sdk:usermgmt:1.30.6'

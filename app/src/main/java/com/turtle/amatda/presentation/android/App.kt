@@ -8,6 +8,7 @@ import com.turtle.amatda.BuildConfig
 import com.turtle.amatda.presentation.android.di.DaggerAppComponent
 import com.turtle.amatda.presentation.android.di.factory.WorkerFactory
 import com.turtle.amatda.presentation.android.notification.NotificationUtil
+import com.turtle.amatda.presentation.android.shard_pref.SharedPrefUtil
 import com.turtle.amatda.presentation.android.workmanager.ManageTripZoneGeofenceWorker
 import com.turtle.amatda.presentation.utilities.CatchUnexpectedException
 import com.turtle.amatda.presentation.utilities.CustomTimberDebug
@@ -36,6 +37,9 @@ class App : DaggerApplication(), Configuration.Provider {
     @Inject
     lateinit var workManager: WorkManager
 
+    @Inject
+    lateinit var sharedPrefUtil: SharedPrefUtil
+
     override fun onCreate() {
         super.onCreate()
         notificationUtil.buildNotificationChannel()
@@ -60,8 +64,11 @@ class App : DaggerApplication(), Configuration.Provider {
     }
 
     private fun init() {
-        workManager.enqueue(
-            OneTimeWorkRequestBuilder<ManageTripZoneGeofenceWorker>().build()
-        )
+        // 로그인된 기기일 경우에만 지오팬스 관리 workManager 작동 (2021/11/14 dksung)
+        if(sharedPrefUtil.isLoggedDevices) {
+            workManager.enqueue(
+                OneTimeWorkRequestBuilder<ManageTripZoneGeofenceWorker>().build()
+            )
+        }
     }
 }

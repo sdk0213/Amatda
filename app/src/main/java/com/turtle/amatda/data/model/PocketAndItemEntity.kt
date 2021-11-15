@@ -15,10 +15,10 @@ import java.util.*
 data class ItemEntity(
     @PrimaryKey
     @ColumnInfo(name = "item_id")
-    val id: Date,
+    val id: Date = Date(),
 
     @ColumnInfo(name = "item_name")
-    val name: String,
+    val name: String = "null",
 
     @ColumnInfo(name = "item_count")
     val count: Int = 1,
@@ -48,16 +48,16 @@ data class ItemEntity(
     val item_place: Int = 0,
 
     @ColumnInfo(name = "pocket_id_foreign", index = true)
-    val pocket_id: Date,
+    val pocket_id: Date = Date(),
 )
 
 data class PocketAndItemsEntity(
     @Embedded
-    val pocket: PocketEntity,
+    val pocket: PocketEntity = PocketEntity(),
 
     @Relation(
         parentColumn = "pocket_id",
         entityColumn = "pocket_id_foreign"
     )
-    val items: List<ItemEntity>
+    val items: List<ItemEntity> = arrayListOf()
 )

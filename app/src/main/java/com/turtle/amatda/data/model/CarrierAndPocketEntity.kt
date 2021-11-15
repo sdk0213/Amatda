@@ -12,16 +12,16 @@ import java.util.*
             onDelete = ForeignKey.CASCADE
         )]
 )
-data class PocketEntity (
+data class PocketEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "pocket_id")
-    val id: Date,
+    val id: Date = Date(),
 
     @ColumnInfo(name = "pocket_name")
-    val name: String,
+    val name: String = "null",
 
     @ColumnInfo(name = "carrier_id_foreign", index = true)
-    val carrier_id: Long,
+    val carrier_id: Long = 0,
 )
 
 data class CarrierAndPocketEntity(

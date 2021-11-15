@@ -32,5 +32,6 @@ data class CarrierWithPocketAndItemsEntity(
 )
 
 data class CarrierData(
+    val time_stamp: Date = Date(),
     val carrierData: List<CarrierWithPocketAndItemsEntity> = arrayListOf()
 )

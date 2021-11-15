@@ -3,7 +3,6 @@ package com.turtle.amatda.data.repository.carrier
 import com.turtle.amatda.data.model.CarrierAndPocketEntity
 import com.turtle.amatda.data.model.CarrierEntity
 import com.turtle.amatda.data.model.CarrierWithPocketAndItemsEntity
-import com.turtle.amatda.domain.model.CarrierWithPocketAndItems
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -41,7 +40,7 @@ class CarrierDataSourceFactory @Inject constructor(
         return remoteDataSource.exportUserCarrierDbServer(userCarrier)
     }
 
-    fun importUserCarrierDbServer(): Completable {
+    fun importUserCarrierDbServer(): Single<List<CarrierWithPocketAndItemsEntity>> {
         return remoteDataSource.importUserCarrierDbServer()
     }
 }

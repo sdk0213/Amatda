@@ -2,9 +2,12 @@ package com.turtle.amatda.data.api
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.ktx.toObjects
 import com.turtle.amatda.data.model.*
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject
 
@@ -71,7 +74,6 @@ class FirebaseFirestoreApiService @Inject constructor(
                     }
             } ?: run {
                 emitter.onError(Exception("non-exist user"))
-
             }
         }
     }
@@ -83,14 +85,37 @@ class FirebaseFirestoreApiService @Inject constructor(
             fireStore
                 .collection(FirestoreCollection.USER.collectionName).document(firebaseAuth.uid!!)
                 .collection(FirestoreCollection.CARRIER.collectionName)
-                .document(Date().time.toString()) // 현재 시간으로 Carrier 저장
-                .set(carrierData)
+                .add(carrierData) // 현재 시간으로 Carrier 저장
                 .addOnSuccessListener {
                     emitter.onComplete()
                 }
                 .addOnFailureListener {
                     emitter.onError(it)
                 }
+        }
+    }
+
+    fun importCarrier(): Single<List<CarrierWithPocketAndItemsEntity>> {
+        return Single.create { emitter ->
+            firebaseAuth.uid?.let {
+                fireStore.collection(FirestoreCollection.USER.collectionName)
+                    .document(firebaseAuth.uid!!)
+                    .collection(FirestoreCollection.CARRIER.collectionName)
+                    .orderBy("time_stamp", Query.Direction.DESCENDING)
+                    .limit(1)
+                    .get()
+                    .addOnSuccessListener { documentSnapshot ->
+                        val result = documentSnapshot.toObjects<CarrierData>()
+                        if (!result.isNullOrEmpty()) {
+                            emitter.onSuccess(result[0].carrierData)
+                        }
+                    }
+                    .addOnFailureListener {
+                        emitter.onError(Exception("non-exist user"))
+                    }
+            } ?: run {
+                emitter.onError(Exception("non-exist user"))
+            }
         }
     }
 

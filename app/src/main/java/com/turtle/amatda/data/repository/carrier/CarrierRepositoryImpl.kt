@@ -88,8 +88,22 @@ class CarrierRepositoryImpl @Inject constructor(
         )
     }
 
-    override fun importUserCarrierDbServer(): Completable {
-        return factory.importUserCarrierDbServer()
+    override fun importUserCarrierDbServer(): Single<List<CarrierWithPocketAndItems>> {
+        return factory.importUserCarrierDbServer().map { list ->
+            list.map { carrierWithPocketAndItemsEntity ->
+                CarrierWithPocketAndItems(
+                    carrier = carrierMapper.entityToMap(carrierWithPocketAndItemsEntity.carrier),
+                    pocketAndItems = carrierWithPocketAndItemsEntity.pockets.map { pocketAndItems ->
+                        PocketAndItem(
+                            pocket = pocketMapper.entityToMap(pocketAndItems.pocket),
+                            items = pocketAndItems.items.map { itemEntity ->
+                                itemMapper.entityToMap(itemEntity)
+                            }
+                        )
+                    }
+                )
+            }
+        }
     }
 
 

@@ -19,6 +19,7 @@ class MyPageViewModel @Inject constructor(
     private val updateUserFileUseCase: UpdateUserFileUseCase,
     private val getAllCarrierDbUseCase: GetAllCarrierDbUseCase,
     private val exportDbServerUseCase: ExportDbServerUseCase,
+    private val importDbServerUseCase: ImportDbServerUseCase,
     private val firebaseAuth: FirebaseAuth,
     private val sharedPrefUtil: SharedPrefUtil
 ) : BaseViewModel() {
@@ -145,7 +146,7 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun getAllCarrierDbUseCase() {
+    fun exportCarrierDataToDbUseCase() {
         compositeDisposable.add(
             getAllCarrierDbUseCase.execute()
                 .flatMapCompletable { carrierList ->
@@ -160,6 +161,20 @@ class MyPageViewModel @Inject constructor(
                     }
                 )
 
+        )
+    }
+
+    fun importCarrierDataToDbUseCase() {
+        compositeDisposable.add(
+            importDbServerUseCase.execute()
+                .subscribe(
+                    {
+                        Timber.tag("dksung").d(it.toString())
+                    },
+                    {
+
+                    }
+                )
         )
     }
 }

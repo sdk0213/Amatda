@@ -3,7 +3,6 @@ package com.turtle.amatda.presentation.android.di.module
 import android.location.Geocoder
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
-import com.google.firebase.auth.FirebaseAuth
 import com.turtle.amatda.data.api.*
 import com.turtle.amatda.data.repository.area.AreaRemoteDataSource
 import com.turtle.amatda.data.repository.carrier.CarrierRemoteDataSource
@@ -77,9 +76,8 @@ class RemoteDataModule {
     @Provides
     @Singleton
     fun provideCarrierRemoteDataSource(
-        storeApi: FirebaseFirestoreApiService,
-        firebaseAuth: FirebaseAuth
+        storeApi: FirebaseFirestoreApiService
     ): CarrierRemoteDataSource {
-        return CarrierRemoteDataSourceImpl(storeApi, firebaseAuth)
+        return CarrierRemoteDataSourceImpl(storeApi)
     }
 }

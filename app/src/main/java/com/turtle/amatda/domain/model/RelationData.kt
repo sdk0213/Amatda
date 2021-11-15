@@ -1,21 +1,26 @@
 package com.turtle.amatda.domain.model
 
-data class CarrierAndGetHasPocketNum (
+data class CarrierAndGetHasPocketNum(
     val carrier: Carrier,
     val pocketSize: Int = 0
 )
 
-data class CarrierAndPocket (
+data class CarrierAndPocket(
     val carrier: Carrier,
     val pockets: List<Pocket>
 )
 
-data class PocketAndItem (
+data class CarrierWithPocketAndItems(
+    val carrier: Carrier,
+    val pocketAndItems: List<PocketAndItem>
+)
+
+data class PocketAndItem(
     val pocket: Pocket,
     val items: List<Item>
 )
 
-data class PocketAndItemSize (
+data class PocketAndItemSize(
     val pocket: Pocket,
-    val itemSize : Int = 0
+    val itemSize: Int = 0
 )

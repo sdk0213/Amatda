@@ -2,8 +2,7 @@ package com.turtle.amatda.presentation.android.di.module
 
 import com.turtle.amatda.data.repository.carrier.CarrierDataSourceFactory
 import com.turtle.amatda.data.repository.carrier.CarrierLocalDataSource
-import com.turtle.amatda.data.repository.user_auth.UserAuthDataSourceFactory
-import com.turtle.amatda.data.repository.user_auth.UserAuthRemoteDataSource
+import com.turtle.amatda.data.repository.carrier.CarrierRemoteDataSource
 import com.turtle.amatda.data.repository.item.ItemDataSourceFactory
 import com.turtle.amatda.data.repository.item.ItemLocalDataSource
 import com.turtle.amatda.data.repository.pocket.PocketDataSourceFactory
@@ -14,6 +13,8 @@ import com.turtle.amatda.data.repository.tripZone.TripZoneDataSourceFactory
 import com.turtle.amatda.data.repository.tripZone.TripZoneLocalDataSource
 import com.turtle.amatda.data.repository.user.UserDataSourceFactory
 import com.turtle.amatda.data.repository.user.UserRemoteDataSource
+import com.turtle.amatda.data.repository.user_auth.UserAuthDataSourceFactory
+import com.turtle.amatda.data.repository.user_auth.UserAuthRemoteDataSource
 import com.turtle.amatda.data.repository.weather.WeatherDataSourceFactory
 import com.turtle.amatda.data.repository.weather.WeatherRemoteDataSource
 import dagger.Module
@@ -25,8 +26,11 @@ class DataSourceFactoryModule {
 
     @Provides
     @Singleton
-    fun provideCarrierDataSourceFactory(localDataSource: CarrierLocalDataSource): CarrierDataSourceFactory {
-        return CarrierDataSourceFactory(localDataSource)
+    fun provideCarrierDataSourceFactory(
+        localDataSource: CarrierLocalDataSource,
+        remoteDataSource: CarrierRemoteDataSource
+    ): CarrierDataSourceFactory {
+        return CarrierDataSourceFactory(localDataSource, remoteDataSource)
     }
 
     @Provides

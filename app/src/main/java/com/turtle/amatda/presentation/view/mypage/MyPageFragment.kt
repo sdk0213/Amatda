@@ -98,7 +98,7 @@ class MyPageFragment :
 
         viewModel.currentUser.observe(this@MyPageFragment) { user ->
             val level = getLevel(user.exp)
-            binding.tvMyPageMyLevel.text = "${getString(R.string.my_page_level)}${level.rank}"
+            binding.tvMyPageMyTier.text = "(${level.rank})"
             val myExp = user.exp - level.exp
             val upExp = level.upExp
             val percentExp = (myExp.toDouble() / upExp.toDouble() * 100).toInt()
@@ -108,11 +108,28 @@ class MyPageFragment :
                 .load(user.photo)
                 .placeholder(R.drawable.external_image_loading)
                 .into(binding.imageViewMyPageProfile)
+            when (level.level) {
+                1L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_1)
+                2L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_2)
+                3L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_3)
+                4L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_4)
+                5L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_5)
+                6L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_6)
+                7L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_7)
+                8L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_8)
+            }
+            binding.tvMyPageMyLevel.text = level.level.toString()
         }
 
         viewModel.updateUser.observe(this@MyPageFragment, EventObserver { isUpdate ->
             if (isUpdate) {
                 showToast(getString(R.string.toast_message_my_page_update_user))
+            }
+        })
+
+        viewModel.updateDB.observe(this@MyPageFragment, EventObserver { isDbUpdate ->
+            if (isDbUpdate) {
+                showToast("서버에 업데이트 되었습니다.")
             }
         })
     }

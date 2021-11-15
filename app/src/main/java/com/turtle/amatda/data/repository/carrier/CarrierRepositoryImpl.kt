@@ -1,19 +1,18 @@
 package com.turtle.amatda.data.repository.carrier
 
 import com.turtle.amatda.data.mapper.Mapper
-import com.turtle.amatda.data.model.CarrierEntity
-import com.turtle.amatda.data.model.PocketEntity
-import com.turtle.amatda.domain.model.Carrier
-import com.turtle.amatda.domain.model.CarrierAndPocket
-import com.turtle.amatda.domain.model.Pocket
+import com.turtle.amatda.data.model.*
+import com.turtle.amatda.domain.model.*
 import com.turtle.amatda.domain.repository.CarrierRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class CarrierRepositoryImpl @Inject constructor(
     private val carrierMapper: Mapper<CarrierEntity, Carrier>,
     private val pocketMapper: Mapper<PocketEntity, Pocket>,
+    private val itemMapper: Mapper<ItemEntity, Item>,
     private val factory: CarrierDataSourceFactory
 ) : CarrierRepository {
 
@@ -52,4 +51,46 @@ class CarrierRepositoryImpl @Inject constructor(
         val carrierEntity = carrierMapper.mapToEntity(carrier)
         return factory.updateCarrier(carrierEntity)
     }
+
+    override fun getCarrierWithPocketAndItems(): Single<List<CarrierWithPocketAndItems>> {
+        return factory.getCarrierWithPocketAndItems().map { list ->
+            list.map { carrierWithPocketAndItemsEntity ->
+                CarrierWithPocketAndItems(
+                    carrier = carrierMapper.entityToMap(carrierWithPocketAndItemsEntity.carrier),
+                    pocketAndItems = carrierWithPocketAndItemsEntity.pockets.map { pocketAndItems ->
+                        PocketAndItem(
+                            pocket = pocketMapper.entityToMap(pocketAndItems.pocket),
+                            items = pocketAndItems.items.map { itemEntity ->
+                                itemMapper.entityToMap(itemEntity)
+                            }
+                        )
+                    }
+                )
+            }
+        }
+    }
+
+    override fun exportUserCarrierDbServer(userCarrier: List<CarrierWithPocketAndItems>): Completable {
+        return factory.exportUserCarrierDbServer(
+            userCarrier.map { carrier ->
+                CarrierWithPocketAndItemsEntity(
+                    carrier = carrierMapper.mapToEntity(carrier.carrier),
+                    pockets = carrier.pocketAndItems.map { pocketAndItem ->
+                        PocketAndItemsEntity(
+                            pocket = pocketMapper.mapToEntity(pocketAndItem.pocket),
+                            items = pocketAndItem.items.map { item ->
+                                itemMapper.mapToEntity(item)
+                            }
+                        )
+                    }
+                )
+            }
+        )
+    }
+
+    override fun importUserCarrierDbServer(): Completable {
+        return factory.importUserCarrierDbServer()
+    }
+
+
 }

@@ -60,12 +60,15 @@
     <string name="app_bar_setting">Setting</string>
 
     <!-- 마이페이지 -->
-    <string name="my_page_email">email(id) : </string>
-    <string name="my_page_nickname">NickName : </string>
-    <string name="my_page_level">Level : </string>
+    <string name="my_page_email">Email</string>
+    <string name="my_page_nickname">NickName</string>
+    <string name="my_page_tier">Tier</string>
+    <string name="my_page_level">Level</string>
     <string name="my_page_level_question">\?</string>
     <string name="my_page_register_profile_image">Photo Registration</string>
     <string name="my_page_setting">Setting</string>
+    <string name="my_page_export_db_server">Back up</string>
+    <string name="my_page_import_db_server">Restore</string>
     <string name="my_page_qna">Q &#38; A</string>
     <string name="my_page_privacy">Privacy Policy</string>
     <string name="my_page_opensource_license">OpenSource License</string>

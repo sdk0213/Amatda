@@ -21,7 +21,7 @@ import com.turtle.amatda.presentation.android.workmanager.SeedDatabaseWorker
         TripEntity::class,
         TripZoneEntity::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(

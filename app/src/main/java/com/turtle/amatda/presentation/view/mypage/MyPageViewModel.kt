@@ -6,9 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.turtle.amatda.domain.model.UploadFile
 import com.turtle.amatda.domain.model.User
-import com.turtle.amatda.domain.usecases.GetUserUseCase
-import com.turtle.amatda.domain.usecases.UpdateUserFileUseCase
-import com.turtle.amatda.domain.usecases.UpdateUserUseCase
+import com.turtle.amatda.domain.usecases.*
 import com.turtle.amatda.presentation.android.shard_pref.SharedPrefUtil
 import com.turtle.amatda.presentation.utilities.Event
 import com.turtle.amatda.presentation.view.base.BaseViewModel
@@ -19,6 +17,8 @@ class MyPageViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val updateUserUseCase: UpdateUserUseCase,
     private val updateUserFileUseCase: UpdateUserFileUseCase,
+    private val getAllCarrierDbUseCase: GetAllCarrierDbUseCase,
+    private val exportDbServerUseCase: ExportDbServerUseCase,
     private val firebaseAuth: FirebaseAuth,
     private val sharedPrefUtil: SharedPrefUtil
 ) : BaseViewModel() {
@@ -31,6 +31,9 @@ class MyPageViewModel @Inject constructor(
 
     private val _updateUser = MutableLiveData<Event<Boolean>>()
     val updateUser: LiveData<Event<Boolean>> get() = _updateUser
+
+    private val _updateDB = MutableLiveData<Event<Boolean>>()
+    val updateDB: LiveData<Event<Boolean>> get() = _updateDB
 
     init {
         getUserInformation()
@@ -140,5 +143,23 @@ class MyPageViewModel @Inject constructor(
                     )
             )
         }
+    }
+
+    fun getAllCarrierDbUseCase() {
+        compositeDisposable.add(
+            getAllCarrierDbUseCase.execute()
+                .flatMapCompletable { carrierList ->
+                    exportDbServerUseCase.execute(carrierList)
+                }
+                .subscribe(
+                    {
+                        _updateDB.value = Event(true)
+                    },
+                    {
+                        Timber.e(it)
+                    }
+                )
+
+        )
     }
 }

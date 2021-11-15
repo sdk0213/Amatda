@@ -3,8 +3,10 @@ package com.turtle.amatda.data.db.dao
 import androidx.room.*
 import com.turtle.amatda.data.model.CarrierAndPocketEntity
 import com.turtle.amatda.data.model.CarrierEntity
+import com.turtle.amatda.data.model.CarrierWithPocketAndItemsEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface CarrierDao {
@@ -26,4 +28,11 @@ interface CarrierDao {
     @Transaction
     @Query("SELECT * FROM Carrier")
     fun getCarrierAndPocketData(): Flowable<List<CarrierAndPocketEntity>>
+
+    /**
+     * Carrier With Pocket And Items
+     */
+    @Transaction
+    @Query("SELECT * FROM Carrier")
+    fun getCarrierWithPocketAndItemsData(): Single<List<CarrierWithPocketAndItemsEntity>>
 }

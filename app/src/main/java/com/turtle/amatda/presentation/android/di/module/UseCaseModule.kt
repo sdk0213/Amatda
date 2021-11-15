@@ -176,4 +176,10 @@ class UseCaseModule {
     fun provideUpdateUserFileUseCase(repository: UserRepository): UpdateUserFileUseCase {
         return UpdateUserFileUseCase(repository)
     }
+
+    @Provides
+    @Singleton
+    fun provideGetAllCarrierDbUseCase(repository: CarrierRepository): GetAllCarrierDbUseCase {
+        return GetAllCarrierDbUseCase(repository)
+    }
 }

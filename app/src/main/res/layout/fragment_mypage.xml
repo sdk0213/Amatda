@@ -91,8 +91,9 @@
                     <ImageView
                         android:id="@+id/image_view_my_page_profile"
                         android:layout_width="125dp"
-                        android:layout_height="125dp"
+                        android:layout_height="0dp"
                         android:src="@drawable/external_image_loading"
+                        app:layout_constraintBottom_toTopOf="@+id/button_my_page_add_my_profile_image"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -103,67 +104,136 @@
                         android:text="@string/my_page_register_profile_image"
                         android:textSize="12sp"
                         app:icon="@drawable/ic_baseline_photo_camera_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@id/image_view_my_page_profile"
                         app:layout_constraintStart_toStartOf="@id/image_view_my_page_profile"
                         app:layout_constraintTop_toBottomOf="@id/image_view_my_page_profile" />
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_my_page_my_account_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="@dimen/view_normal_margin_top_and_bottom"
+                        android:layout_marginBottom="@dimen/view_normal_margin_top_and_bottom"
+                        android:text="@string/my_page_email"
+                        app:layout_constraintBottom_toTopOf="@id/tv_my_page_my_nickname_nickname"
+                        app:layout_constraintStart_toEndOf="@id/image_view_my_page_profile"
+                        app:layout_constraintTop_toTopOf="@id/image_view_my_page_profile" />
+
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_my_page_my_account"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{@string/my_page_email + viewModel.currentUser.email}"
+                        android:text="@{viewModel.currentUser.email}"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@id/tv_my_page_my_nickname"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_my_page_my_account_email"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/image_view_my_page_profile"
-                        app:layout_constraintTop_toTopOf="@id/image_view_my_page_profile"
-                        tools:text="이메일 : sdk0213" />
+                        app:layout_constraintStart_toEndOf="@id/tv_my_page_my_account_email"
+                        app:layout_constraintTop_toTopOf="@id/tv_my_page_my_account_email"
+                        tools:text="id123456@domain.com" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_my_page_my_nickname_nickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/view_normal_margin_top_and_bottom"
+                        android:layout_marginBottom="@dimen/view_normal_margin_top_and_bottom"
+                        android:text="@string/my_page_nickname"
+                        app:layout_constraintBottom_toTopOf="@id/tv_my_page_my_tier_tier"
+                        app:layout_constraintStart_toStartOf="@+id/tv_my_page_my_account_email"
+                        app:layout_constraintTop_toBottomOf="@id/tv_my_page_my_account_email" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_my_page_my_nickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{@string/my_page_nickname + viewModel.currentUser.nickName}"
+                        android:text="@{viewModel.currentUser.nickName}"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@id/tv_my_page_my_level"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/image_view_my_page_profile"
-                        app:layout_constraintTop_toBottomOf="@id/tv_my_page_my_account"
-                        tools:text="닉네임 : sudeky" />
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_my_page_my_nickname_nickname"
+                        app:layout_constraintEnd_toStartOf="@id/btn_my_page_edit_nickname"
+                        app:layout_constraintStart_toEndOf="@+id/tv_my_page_my_nickname_nickname"
+                        app:layout_constraintTop_toTopOf="@+id/tv_my_page_my_nickname_nickname"
+                        tools:text="sudeky" />
 
                     <ImageView
                         android:id="@+id/btn_my_page_edit_nickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="10dp"
                         android:background="@drawable/ic_twotone_edit_24"
                         android:backgroundTint="@color/amatda_main"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_my_page_my_nickname"
-                        app:layout_constraintStart_toEndOf="@id/tv_my_page_my_nickname"
-                        app:layout_constraintTop_toTopOf="@id/tv_my_page_my_nickname" />
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_my_page_my_nickname_nickname"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_my_page_my_nickname_nickname" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_my_page_my_level"
+                        android:id="@+id/tv_my_page_my_tier_tier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/view_normal_margin_top_and_bottom"
+                        android:layout_marginBottom="@dimen/view_normal_margin_top_and_bottom"
+                        android:text="@string/my_page_tier"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_my_page_my_level_level"
+                        app:layout_constraintStart_toStartOf="@+id/tv_my_page_my_account_email"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_my_page_my_nickname_nickname" />
+
+                    <ImageView
+                        android:id="@+id/image_view_my_page_tier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_icon_level_1"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_my_page_my_tier"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_my_page_info_level"
+                        app:layout_constraintStart_toEndOf="@+id/tv_my_page_my_tier_tier"
+                        app:layout_constraintTop_toTopOf="@+id/tv_my_page_my_tier_tier" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_my_page_my_tier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@id/tv_my_page_my_exp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/image_view_my_page_profile"
-                        app:layout_constraintTop_toBottomOf="@id/tv_my_page_my_nickname"
-                        tools:text="등급: 여행 전문가" />
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_my_page_my_tier_tier"
+                        app:layout_constraintEnd_toEndOf="@+id/image_view_my_page_tier"
+                        app:layout_constraintStart_toStartOf="@+id/image_view_my_page_tier"
+                        app:layout_constraintTop_toBottomOf="@id/image_view_my_page_tier"
+                        tools:text="(노란색 지도)" />
 
                     <Button
                         android:id="@+id/btn_my_page_info_level"
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="30dp"
                         android:layout_height="40dp"
-                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="10dp"
                         android:padding="0dp"
                         android:text="@string/my_page_level_question"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_my_page_my_level"
-                        app:layout_constraintStart_toEndOf="@id/tv_my_page_my_level"
-                        app:layout_constraintTop_toTopOf="@id/tv_my_page_my_level" />
+                        app:layout_constraintBottom_toBottomOf="@id/tv_my_page_my_tier"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/image_view_my_page_tier" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_my_page_my_level_level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/view_normal_margin_top_and_bottom"
+                        android:layout_marginBottom="@dimen/view_normal_margin_top_and_bottom"
+                        android:text="@string/my_page_level"
+                        app:layout_constraintBottom_toTopOf="@+id/progress_my_page_my_exp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_my_page_my_account_email"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_my_page_my_tier_tier" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_my_page_my_level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_my_page_my_level_level"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_my_page_info_level"
+                        app:layout_constraintStart_toEndOf="@+id/tv_my_page_my_tier_tier"
+                        app:layout_constraintTop_toTopOf="@+id/tv_my_page_my_level_level"
+                        tools:text="3" />
 
 
                     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -219,18 +289,47 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_my_page_import_db_server"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:text="@string/my_page_import_db_server"
+                        app:cornerRadius="10dp"
+                        app:icon="@drawable/ic_baseline_settings_backup_restore_24"
+                        app:iconGravity="start"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/button_my_page_setting" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_my_page_export_db_server"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:onClick="@{() -> viewModel.getAllCarrierDbUseCase()}"
+                        android:text="@string/my_page_export_db_server"
+                        app:cornerRadius="10dp"
+                        app:icon="@drawable/ic_twotone_cloud_upload_24"
+                        app:iconGravity="start"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/button_my_page_import_db_server" />
+
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/button_my_page_qna"
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center|start"
-                        android:text="@string/my_page_privacy"
+                        android:text="@string/my_page_qna"
                         app:cornerRadius="10dp"
                         app:icon="@drawable/ic_twotone_question_answer_24"
                         app:iconGravity="start"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/button_my_page_setting" />
+                        app:layout_constraintTop_toBottomOf="@id/button_my_page_export_db_server" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/button_my_page_privacy_policy"

@@ -2,7 +2,9 @@ package com.turtle.amatda.data.repository.user
 
 import com.turtle.amatda.data.api.FirebaseFirestoreApiService
 import com.turtle.amatda.data.api.FirebaseStorageApiService
-import com.turtle.amatda.data.model.*
+import com.turtle.amatda.data.model.AmatdaReference
+import com.turtle.amatda.data.model.FirebaseStorageEntity
+import com.turtle.amatda.data.model.UserEntity
 import com.turtle.amatda.domain.model.UploadFile
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -15,28 +17,11 @@ class UserRemoteDataSourceImpl @Inject constructor(
 ) : UserRemoteDataSource {
 
     override fun updateUser(userEntity: UserEntity): Completable {
-        return firebaseFirestoreApiService.updateUser(
-            FirestoreEntity(
-                collection = AmatdaCollection.USER,
-                document = userEntity.id,
-                field = hashMapOf(
-                    FirestoreUser.EMAIL.variable to userEntity.email,
-                    FirestoreUser.PASSWORD.variable to userEntity.password,
-                    FirestoreUser.NICKNAME.variable to userEntity.nickName,
-                    FirestoreUser.PHOTO.variable to userEntity.photo,
-                    FirestoreUser.EXP.variable to userEntity.exp
-                )
-            )
-        )
+        return firebaseFirestoreApiService.updateUser(userEntity)
     }
 
     override fun getUser(userEntity: UserEntity): Observable<UserEntity> {
-        return firebaseFirestoreApiService.getUser(
-            FirestoreEntity(
-                collection = AmatdaCollection.USER,
-                document = userEntity.id
-            )
-        )
+        return firebaseFirestoreApiService.getUser(userEntity)
     }
 
     override fun updateUserFile(uploadFile: UploadFile): Single<String> {

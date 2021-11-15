@@ -39,9 +39,10 @@ class RepositoryModule {
     fun provideCarrierRepositoryImpl(
         carrierMapper: Mapper<CarrierEntity, Carrier>,
         pocketMapper: Mapper<PocketEntity, Pocket>,
+        itemMapper: Mapper<ItemEntity, Item>,
         factory: CarrierDataSourceFactory
     ): CarrierRepository {
-        return CarrierRepositoryImpl(carrierMapper, pocketMapper, factory)
+        return CarrierRepositoryImpl(carrierMapper, pocketMapper, itemMapper, factory)
     }
 
     @Provides

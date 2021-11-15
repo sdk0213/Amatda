@@ -60,12 +60,15 @@
     <string name="app_bar_setting">설정</string>
 
     <!-- 마이페이지 -->
-    <string name="my_page_email">이메일(id) : </string>
-    <string name="my_page_nickname">별명 : </string>
-    <string name="my_page_level">등급 : </string>
+    <string name="my_page_email">이메일</string>
+    <string name="my_page_nickname">별명</string>
+    <string name="my_page_tier">등급</string>
+    <string name="my_page_level">레벨</string>
     <string name="my_page_level_question">\?</string>
     <string name="my_page_register_profile_image">사진 등록</string>
     <string name="my_page_setting">설정</string>
+    <string name="my_page_export_db_server">백업하기</string>
+    <string name="my_page_import_db_server">복원하기</string>
     <string name="my_page_qna">Q &#38; A</string>
     <string name="my_page_privacy">개인정보 보호정책</string>
     <string name="my_page_opensource_license">오픈소스 라이선스</string>

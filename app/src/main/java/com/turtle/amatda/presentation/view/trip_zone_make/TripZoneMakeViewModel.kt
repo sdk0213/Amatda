@@ -8,6 +8,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
 import com.turtle.amatda.domain.model.*
 import com.turtle.amatda.domain.usecases.SaveTripUseCase
+import com.turtle.amatda.domain.usecases.UpdateUserExperienceUseCase
 import com.turtle.amatda.presentation.android.workmanager.ManageTripZoneGeofenceWorker
 import com.turtle.amatda.presentation.utilities.Event
 import com.turtle.amatda.presentation.view.base.BaseViewModel
@@ -17,6 +18,7 @@ import javax.inject.Inject
 
 class TripZoneMakeViewModel @Inject constructor(
     private val saveTripUseCase: SaveTripUseCase,
+    private val updateUserExperienceUseCase: UpdateUserExperienceUseCase,
     private val workManager: WorkManager
 ) : BaseViewModel() {
 
@@ -135,6 +137,9 @@ class TripZoneMakeViewModel @Inject constructor(
                     rating = _currentTrip.value?.rating ?: 3
                 )
             )
+                .andThen(
+                    updateUserExperienceUseCase.execute(Experience.EDIT_TRIP_ZONE)
+                )
                 .subscribe(
                     {
                         Timber.d("saveTripZone is success")

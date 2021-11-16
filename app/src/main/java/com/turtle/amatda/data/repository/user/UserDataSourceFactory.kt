@@ -1,6 +1,7 @@
 package com.turtle.amatda.data.repository.user
 
 import com.turtle.amatda.data.model.UserEntity
+import com.turtle.amatda.domain.model.Experience
 import com.turtle.amatda.domain.model.UploadFile
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -21,5 +22,9 @@ class UserDataSourceFactory @Inject constructor(
 
     fun updateUserFile(uploadFile: UploadFile): Single<String> {
         return remoteDataSource.updateUserFile(uploadFile)
+    }
+
+    fun updateUserExp(experience: Experience): Completable {
+        return remoteDataSource.updateUserExp(experience)
     }
 }

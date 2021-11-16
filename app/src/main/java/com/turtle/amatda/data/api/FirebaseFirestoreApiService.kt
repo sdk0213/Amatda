@@ -1,10 +1,12 @@
 package com.turtle.amatda.data.api
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObjects
 import com.turtle.amatda.data.model.*
+import com.turtle.amatda.domain.model.Experience
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -116,6 +118,27 @@ class FirebaseFirestoreApiService @Inject constructor(
             } ?: run {
                 emitter.onError(Exception("non-exist user"))
             }
+        }
+    }
+
+    fun updateUserExp(experience: Experience): Completable {
+        return Completable.create { emitter ->
+            firebaseAuth.uid?.let { uid ->
+                fireStore.collection(FirestoreCollection.USER.collectionName)
+                    .document(uid)
+                    .update("exp", FieldValue.increment(experience.exp))
+                    .addOnSuccessListener {
+                        emitter.onComplete()
+                    }
+                    .addOnFailureListener {
+                        emitter.onError(it)
+                    }
+
+            } ?: run {
+                emitter.onError(Exception("non-exist user"))
+
+            }
+
         }
     }
 

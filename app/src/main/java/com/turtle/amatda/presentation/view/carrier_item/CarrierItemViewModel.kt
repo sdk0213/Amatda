@@ -18,7 +18,8 @@ class CarrierItemViewModel @Inject constructor(
     private val saveItemUseCase: SaveItemUseCase,
     private val getAllPocketAndItemUseCase: GetAllPocketAndItemUseCase,
     private val deleteItemUseCase: DeleteItemUseCase,
-    private val updateItemUseCase: UpdateItemUseCase
+    private val updateItemUseCase: UpdateItemUseCase,
+    private val updateUserExperienceUseCase: UpdateUserExperienceUseCase
 ) : BaseViewModel() {
 
     lateinit var currentCarrier: Carrier
@@ -104,6 +105,9 @@ class CarrierItemViewModel @Inject constructor(
                     carrier_id = currentCarrier.id
                 )
             )
+                .andThen(
+                    updateUserExperienceUseCase.execute(Experience.ADD_POCKET)
+                )
                 .subscribe(
                     {},
                     {
@@ -390,6 +394,9 @@ class CarrierItemViewModel @Inject constructor(
     private fun saveItem(item: Item) {
         compositeDisposable.add(
             saveItemUseCase.execute(item)
+                .andThen(
+                    updateUserExperienceUseCase.execute(Experience.ADD_ITEM)
+                )
                 .subscribe(
                     {},
                     {

@@ -1,5 +1,6 @@
 package com.turtle.amatda.domain.repository
 
+import com.turtle.amatda.domain.model.Experience
 import com.turtle.amatda.domain.model.UploadFile
 import com.turtle.amatda.domain.model.User
 import io.reactivex.Completable
@@ -10,4 +11,5 @@ interface UserRepository {
     fun updateUser(user: User): Completable
     fun getUser(user: User): Observable<User>
     fun updateUserFile(uploadFile: UploadFile): Single<String>
+    fun updateUserExp(experience: Experience): Completable
 }

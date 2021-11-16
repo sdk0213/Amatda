@@ -1,6 +1,7 @@
 package com.turtle.amatda.data.repository.user
 
 import com.turtle.amatda.data.model.UserEntity
+import com.turtle.amatda.domain.model.Experience
 import com.turtle.amatda.domain.model.UploadFile
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -10,4 +11,5 @@ interface UserRemoteDataSource {
     fun updateUser(userEntity: UserEntity): Completable
     fun getUser(userEntity: UserEntity): Observable<UserEntity>
     fun updateUserFile(uploadFile: UploadFile): Single<String>
+    fun updateUserExp(experience: Experience): Completable
 }

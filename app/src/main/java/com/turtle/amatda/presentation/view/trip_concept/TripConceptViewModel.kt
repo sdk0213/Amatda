@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.turtle.amatda.domain.model.Experience
 import com.turtle.amatda.domain.model.Trip
 import com.turtle.amatda.domain.model.TripConcept
 import com.turtle.amatda.domain.model.TripZone
 import com.turtle.amatda.domain.usecases.SaveTripUseCase
+import com.turtle.amatda.domain.usecases.UpdateUserExperienceUseCase
 import com.turtle.amatda.presentation.android.workmanager.ManageTripZoneGeofenceWorker
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import timber.log.Timber
@@ -16,6 +18,7 @@ import javax.inject.Inject
 
 class TripConceptViewModel @Inject constructor(
     private val saveTripUseCase: SaveTripUseCase,
+    private val updateUserExperienceUseCase: UpdateUserExperienceUseCase,
     private val workManager: WorkManager
 ) : BaseViewModel() {
 
@@ -47,6 +50,9 @@ class TripConceptViewModel @Inject constructor(
     fun saveTrip() {
         compositeDisposable.add(
             saveTripUseCase.execute(getTrip())
+                .andThen(
+                    updateUserExperienceUseCase.execute(Experience.EDIT_TRIP)
+                )
                 .subscribe(
                     {
                         Timber.d("saveTrip is success")

@@ -2,6 +2,7 @@ package com.turtle.amatda.data.repository.user
 
 import com.turtle.amatda.data.mapper.Mapper
 import com.turtle.amatda.data.model.UserEntity
+import com.turtle.amatda.domain.model.Experience
 import com.turtle.amatda.domain.model.UploadFile
 import com.turtle.amatda.domain.model.User
 import com.turtle.amatda.domain.repository.UserRepository
@@ -30,6 +31,10 @@ class UserRepositoryImpl @Inject constructor(
 
     override fun updateUserFile(uploadFile: UploadFile): Single<String> {
         return factory.updateUserFile(uploadFile)
+    }
+
+    override fun updateUserExp(experience: Experience): Completable {
+        return factory.updateUserExp(experience)
     }
 
 }

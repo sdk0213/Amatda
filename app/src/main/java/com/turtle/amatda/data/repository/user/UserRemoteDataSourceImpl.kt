@@ -5,6 +5,7 @@ import com.turtle.amatda.data.api.FirebaseStorageApiService
 import com.turtle.amatda.data.model.AmatdaReference
 import com.turtle.amatda.data.model.FirebaseStorageEntity
 import com.turtle.amatda.data.model.UserEntity
+import com.turtle.amatda.domain.model.Experience
 import com.turtle.amatda.domain.model.UploadFile
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -34,5 +35,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
         )
     }
 
-
+    override fun updateUserExp(experience: Experience): Completable {
+        return firebaseFirestoreApiService.updateUserExp(experience)
+    }
 }

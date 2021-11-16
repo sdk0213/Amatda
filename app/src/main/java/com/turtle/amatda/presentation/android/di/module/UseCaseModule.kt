@@ -182,4 +182,22 @@ class UseCaseModule {
     fun provideGetAllCarrierDbUseCase(repository: CarrierRepository): GetAllCarrierDbUseCase {
         return GetAllCarrierDbUseCase(repository)
     }
+
+    @Provides
+    @Singleton
+    fun provideDeleteAllCarrierUseCase(repository: CarrierRepository): DeleteCarrierDBUseCase {
+        return DeleteCarrierDBUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideInsertCarrierDBUseCase(repository: CarrierRepository): InsertCarrierDBUseCase {
+        return InsertCarrierDBUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUpdateUserExperienceUseCase(repository: UserRepository): UpdateUserExperienceUseCase {
+        return UpdateUserExperienceUseCase(repository)
+    }
 }

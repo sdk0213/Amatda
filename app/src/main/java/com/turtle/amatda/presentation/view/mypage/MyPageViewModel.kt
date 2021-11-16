@@ -20,6 +20,8 @@ class MyPageViewModel @Inject constructor(
     private val getAllCarrierDbUseCase: GetAllCarrierDbUseCase,
     private val exportDbServerUseCase: ExportDbServerUseCase,
     private val importDbServerUseCase: ImportDbServerUseCase,
+    private val deleteCarrierDBUseCase: DeleteCarrierDBUseCase,
+    private val insertCarrierDBUseCase: InsertCarrierDBUseCase,
     private val firebaseAuth: FirebaseAuth,
     private val sharedPrefUtil: SharedPrefUtil
 ) : BaseViewModel() {
@@ -35,6 +37,9 @@ class MyPageViewModel @Inject constructor(
 
     private val _updateDB = MutableLiveData<Event<Boolean>>()
     val updateDB: LiveData<Event<Boolean>> get() = _updateDB
+
+    private val _restoreDB = MutableLiveData<Event<Boolean>>()
+    val restoreDB: LiveData<Event<Boolean>> get() = _restoreDB
 
     init {
         getUserInformation()
@@ -168,13 +173,34 @@ class MyPageViewModel @Inject constructor(
         compositeDisposable.add(
             importDbServerUseCase.execute()
                 .subscribe(
-                    {
-                        Timber.tag("dksung").d(it.toString())
+                    { listCarrier ->
+                        compositeDisposable.add(
+                            deleteCarrierDBUseCase.execute()
+                                .subscribe(
+                                    {
+                                        compositeDisposable.add(
+                                            insertCarrierDBUseCase.execute(listCarrier)
+                                                .subscribe(
+                                                    {
+                                                        _restoreDB.value = Event(true)
+                                                    },
+                                                    { throwable ->
+                                                        Timber.e(throwable)
+                                                    }
+                                                )
+                                        )
+                                    },
+                                    { throwable ->
+                                        Timber.e(throwable)
+                                    }
+                                )
+                        )
                     },
-                    {
-
+                    { throwable ->
+                        Timber.e(throwable)
                     }
                 )
+
         )
     }
 }

@@ -132,6 +132,12 @@ class MyPageFragment :
                 showToast("서버에 업데이트 되었습니다.")
             }
         })
+
+        viewModel.restoreDB.observe(this@MyPageFragment, EventObserver { isResotred ->
+            if (isResotred) {
+                showToast("복원 완료하였습니다.")
+            }
+        })
     }
 
     private fun getLevel(exp: Long): Level {

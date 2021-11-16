@@ -15,5 +15,6 @@ interface CarrierLocalDataSource {
     fun deleteCarrier(carrierEntity: CarrierEntity): Completable
     fun updateCarrier(carrierEntity: CarrierEntity): Completable
     fun getCarrierWithPocketAndItems(): Single<List<CarrierWithPocketAndItemsEntity>>
-
+    fun initCarrierDB(): Completable
+    fun insertCarrierDB(carrierList: List<CarrierWithPocketAndItemsEntity>): Completable
 }

@@ -15,6 +15,9 @@ interface PocketDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(pocket: PocketEntity): Completable
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(pocketList: List<PocketEntity>): Completable
+
     @Query("UPDATE Pocket SET pocket_name = :pocketName WHERE pocket_id= :pocketId")
     fun updatePocketName(pocketId: Date, pocketName: String): Completable
 

@@ -16,4 +16,6 @@ interface CarrierRepository {
     fun getCarrierWithPocketAndItems(): Single<List<CarrierWithPocketAndItems>>
     fun exportUserCarrierDbServer(userCarrier: List<CarrierWithPocketAndItems>): Completable
     fun importUserCarrierDbServer(): Single<List<CarrierWithPocketAndItems>>
+    fun initCarrierDB(): Completable
+    fun insertCarrierDB(carrierList: List<CarrierWithPocketAndItems>): Completable
 }

@@ -43,4 +43,12 @@ class CarrierDataSourceFactory @Inject constructor(
     fun importUserCarrierDbServer(): Single<List<CarrierWithPocketAndItemsEntity>> {
         return remoteDataSource.importUserCarrierDbServer()
     }
+
+    fun initCarrierDB(): Completable {
+        return localDataSource.initCarrierDB()
+    }
+
+    fun insertCarrierDB(carrierList: List<CarrierWithPocketAndItemsEntity>): Completable {
+        return localDataSource.insertCarrierDB(carrierList)
+    }
 }

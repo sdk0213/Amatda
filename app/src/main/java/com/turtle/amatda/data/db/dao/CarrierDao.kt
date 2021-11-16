@@ -16,11 +16,17 @@ interface CarrierDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(carrier: CarrierEntity): Completable
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(carrierList: List<CarrierEntity>): Completable
+
     @Delete
     fun delete(carrier: CarrierEntity): Completable
 
     @Update
     fun update(carrier: CarrierEntity): Completable
+
+    @Query("DELETE FROM Carrier")
+    fun initCarrierDB(): Completable
 
     /**
      * Carrier With Pocket

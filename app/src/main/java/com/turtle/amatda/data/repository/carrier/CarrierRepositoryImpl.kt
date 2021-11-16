@@ -106,5 +106,26 @@ class CarrierRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun initCarrierDB(): Completable {
+        return factory.initCarrierDB()
+    }
+
+    override fun insertCarrierDB(carrierList: List<CarrierWithPocketAndItems>): Completable {
+        return factory.insertCarrierDB(
+            carrierList.map { carrier ->
+                CarrierWithPocketAndItemsEntity(
+                    carrier = carrierMapper.mapToEntity(carrier.carrier),
+                    pockets = carrier.pocketAndItems.map { pocketAndItem ->
+                        PocketAndItemsEntity(
+                            pocket = pocketMapper.mapToEntity(pocketAndItem.pocket),
+                            items = pocketAndItem.items.map { item ->
+                                itemMapper.mapToEntity(item)
+                            }
+                        )
+                    }
+                )
+            }
+        )
+    }
 
 }

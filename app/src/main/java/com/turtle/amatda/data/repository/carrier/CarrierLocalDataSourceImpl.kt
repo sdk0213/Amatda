@@ -1,16 +1,18 @@
 package com.turtle.amatda.data.repository.carrier
 
 import com.turtle.amatda.data.db.dao.CarrierDao
-import com.turtle.amatda.data.model.CarrierAndPocketEntity
-import com.turtle.amatda.data.model.CarrierEntity
-import com.turtle.amatda.data.model.CarrierWithPocketAndItemsEntity
+import com.turtle.amatda.data.db.dao.ItemDao
+import com.turtle.amatda.data.db.dao.PocketDao
+import com.turtle.amatda.data.model.*
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import javax.inject.Inject
 
 class CarrierLocalDataSourceImpl @Inject constructor(
-    private val carrierDao: CarrierDao
+    private val carrierDao: CarrierDao,
+    private val pocketDao: PocketDao,
+    private val itemDao: ItemDao
 ) : CarrierLocalDataSource {
 
     override fun getCarrierAll(): Flowable<List<CarrierEntity>> {
@@ -37,4 +39,24 @@ class CarrierLocalDataSourceImpl @Inject constructor(
         return carrierDao.getCarrierWithPocketAndItemsData()
     }
 
+    override fun initCarrierDB(): Completable {
+        return carrierDao.initCarrierDB()
+    }
+
+    override fun insertCarrierDB(carrierList: List<CarrierWithPocketAndItemsEntity>): Completable {
+        val carrierEntityList = mutableListOf<CarrierEntity>()
+        val pocketEntityList = mutableListOf<PocketEntity>()
+        val itemEntityList = mutableListOf<ItemEntity>()
+        carrierList.forEach { CPI ->
+            carrierEntityList.add(CPI.carrier)
+            CPI.pockets.forEach { PI ->
+                pocketEntityList.add(PI.pocket)
+                itemEntityList.addAll(PI.items)
+            }
+        }
+
+        return carrierDao.insertAll(carrierEntityList)
+            .andThen(pocketDao.insertAll(pocketEntityList))
+            .andThen(itemDao.insertAll(itemEntityList))
+    }
 }

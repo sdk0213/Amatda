@@ -10,8 +10,8 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.turtle.amatda.data.db.dao.*
 import com.turtle.amatda.data.model.*
-import com.turtle.amatda.presentation.utilities.DATABASE_NAME
 import com.turtle.amatda.presentation.android.workmanager.SeedDatabaseWorker
+import com.turtle.amatda.presentation.utilities.DATABASE_NAME
 
 @Database(
     entities = [
@@ -21,7 +21,7 @@ import com.turtle.amatda.presentation.android.workmanager.SeedDatabaseWorker
         TripEntity::class,
         TripZoneEntity::class
     ],
-    version = 3,
+    version = 1,
     exportSchema = false
 )
 @TypeConverters(

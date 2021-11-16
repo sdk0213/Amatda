@@ -20,8 +20,16 @@ class LocalDataModule {
 
     @Provides
     @Singleton
-    fun provideCarrierLocalDataSourceImpl(carrierDao: CarrierDao): CarrierLocalDataSource {
-        return CarrierLocalDataSourceImpl(carrierDao)
+    fun provideCarrierLocalDataSourceImpl(
+        carrierDao: CarrierDao,
+        pocketDao: PocketDao,
+        itemDao: ItemDao
+    ): CarrierLocalDataSource {
+        return CarrierLocalDataSourceImpl(
+            carrierDao,
+            pocketDao,
+            itemDao
+        )
     }
 
     @Provides

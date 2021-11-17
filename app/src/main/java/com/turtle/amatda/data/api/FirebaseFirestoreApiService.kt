@@ -6,6 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObjects
 import com.turtle.amatda.data.model.*
+import com.turtle.amatda.domain.model.ErrorMessage
 import com.turtle.amatda.domain.model.Experience
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -39,7 +40,7 @@ class FirebaseFirestoreApiService @Inject constructor(
                         emitter.onError(it)
                     }
             } ?: run {
-                emitter.onError(Exception("non-exist user"))
+                emitter.onError(Exception(ErrorMessage.NO_DATA.message))
             }
 
         }
@@ -75,7 +76,7 @@ class FirebaseFirestoreApiService @Inject constructor(
 
                     }
             } ?: run {
-                emitter.onError(Exception("non-exist user"))
+                emitter.onError(Exception(ErrorMessage.NO_USER.message))
             }
         }
     }
@@ -113,10 +114,10 @@ class FirebaseFirestoreApiService @Inject constructor(
                         }
                     }
                     .addOnFailureListener {
-                        emitter.onError(Exception("non-exist user"))
+                        emitter.onError(Exception(ErrorMessage.NO_USER.message))
                     }
             } ?: run {
-                emitter.onError(Exception("non-exist user"))
+                emitter.onError(Exception(ErrorMessage.NO_USER.message))
             }
         }
     }
@@ -135,8 +136,7 @@ class FirebaseFirestoreApiService @Inject constructor(
                     }
 
             } ?: run {
-                emitter.onError(Exception("non-exist user"))
-
+                emitter.onError(Exception(ErrorMessage.NO_USER.message))
             }
 
         }

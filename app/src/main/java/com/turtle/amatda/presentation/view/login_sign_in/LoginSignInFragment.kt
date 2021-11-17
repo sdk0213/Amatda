@@ -4,11 +4,11 @@ import android.app.Activity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentLoginSignInBinding
 import com.turtle.amatda.presentation.utilities.EventObserver
+import com.turtle.amatda.presentation.utilities.extensions.hideKeyboard
+import com.turtle.amatda.presentation.utilities.extensions.isConnected
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import javax.inject.Inject
 
@@ -17,8 +17,6 @@ class LoginSignInFragment :
 
     @Inject
     lateinit var googleSignInClient: GoogleSignInClient
-
-    private val auth = Firebase.auth
 
     private val resultActivity =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -48,6 +46,10 @@ class LoginSignInFragment :
 
     private fun listener() {
         binding.btnLoginAmatda.setOnClickListener {
+            if (!mContext.isConnected()) {
+                showPopUpMessage(getString(R.string.common_message_required_internet_connection))
+                return@setOnClickListener
+            }
             findNavController().navigate(
                 LoginSignInFragmentDirections.actionLoginSignInFragmentToLoginSignInWithEmailFragment()
             )
@@ -55,6 +57,10 @@ class LoginSignInFragment :
         }
 
         binding.btnLoginGoogle.setOnClickListener {
+            if (!mContext.isConnected()) {
+                showPopUpMessage(getString(R.string.common_message_required_internet_connection))
+                return@setOnClickListener
+            }
             resultActivity.launch(googleSignInClient.signInIntent)
         }
 
@@ -65,8 +71,15 @@ class LoginSignInFragment :
 
     private fun observer() {
         viewModel.isLoginSuccess.observe(this@LoginSignInFragment, EventObserver { success ->
-            val message = if (success) "로그인 성공" else "로그인 실패"
-            showToast(message)
+            if (success) {
+                showToast(getString(R.string.login_success))
+                mContext.hideKeyboard(binding.btnLoginGoogle.windowToken)
+                findNavController().navigate(
+                    LoginSignInFragmentDirections.actionLoginSignInFragmentToMainViewPagerFragment(
+                        "complete"
+                    )
+                )
+            }
         })
 
         viewModel.needInternetConnection.observe(

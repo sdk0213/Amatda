@@ -33,7 +33,11 @@ class LoginSignInViewModel @Inject constructor(
             val acct = GoogleSignIn.getSignedInAccountFromIntent(intent)
                 .getResult(ApiException::class.java)
             acct?.idToken?.let {
-                compositeDisposable.add(signInWithGoogleUseCase.execute(ApiCallFirebaseGoogleAuth(tokenId = it))
+                compositeDisposable.add(signInWithGoogleUseCase.execute(
+                    ApiCallFirebaseGoogleAuth(
+                        tokenId = it
+                    )
+                )
                     .subscribe(
                         {
                             // 로그인 성공

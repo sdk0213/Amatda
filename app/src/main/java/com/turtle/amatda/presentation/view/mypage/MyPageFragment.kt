@@ -135,7 +135,13 @@ class MyPageFragment :
 
         viewModel.restoreDB.observe(this@MyPageFragment, EventObserver { isResotred ->
             if (isResotred) {
-                showToast("복원 완료하였습니다.")
+                showToast(getString(R.string.toast_message_my_page_ok_import_db))
+            }
+        })
+
+        viewModel.noDataInServerDB.observe(this@MyPageFragment, EventObserver { noData ->
+            if (noData) {
+                showToast(getString(R.string.toast_message_my_page_failed_import_db_no_data))
             }
         })
     }

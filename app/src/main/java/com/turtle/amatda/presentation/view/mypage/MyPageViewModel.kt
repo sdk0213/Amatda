@@ -41,6 +41,9 @@ class MyPageViewModel @Inject constructor(
     private val _restoreDB = MutableLiveData<Event<Boolean>>()
     val restoreDB: LiveData<Event<Boolean>> get() = _restoreDB
 
+    private val _noDataInServerDB = MutableLiveData<Event<Boolean>>()
+    val noDataInServerDB: LiveData<Event<Boolean>> get() = _noDataInServerDB
+
     init {
         getUserInformation()
     }
@@ -197,7 +200,11 @@ class MyPageViewModel @Inject constructor(
                         )
                     },
                     { throwable ->
-                        Timber.e(throwable)
+                        when (throwable.message) {
+                            ErrorMessage.NO_DATA.message -> _noDataInServerDB.value = Event(true)
+                            ErrorMessage.NO_USER.message -> Timber.e("알수없는 회원입니다.")
+                            else -> Timber.e(throwable)
+                        }
                     }
                 )
 

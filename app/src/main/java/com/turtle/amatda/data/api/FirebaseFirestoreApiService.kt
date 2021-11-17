@@ -111,6 +111,8 @@ class FirebaseFirestoreApiService @Inject constructor(
                         val result = documentSnapshot.toObjects<CarrierData>()
                         if (!result.isNullOrEmpty()) {
                             emitter.onSuccess(result[0].carrierData)
+                        } else {
+                            emitter.onError(Exception(ErrorMessage.NO_DATA.message))
                         }
                     }
                     .addOnFailureListener {

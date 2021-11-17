@@ -6,6 +6,7 @@ plugins {
     id "kotlin-parcelize"
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'com.google.gms.google-services'
+    id 'com.google.android.gms.oss-licenses-plugin'
 }
 
 android {
@@ -173,6 +174,9 @@ dependencies {
 //     안드로이드 12 대응이 되어있지 않아서 라이브러리 로컬로 저장 후 AndroidManifest.xml 수정하여 aar 파일 재생성
 //    implementation files('libs/naveridlogin_android_sdk_4.2.6.aar')
 //    implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'
+
+    // open soource license auto created library
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 }
 
 secrets {

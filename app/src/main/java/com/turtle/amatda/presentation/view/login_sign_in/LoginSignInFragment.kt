@@ -57,6 +57,10 @@ class LoginSignInFragment :
         binding.btnLoginGoogle.setOnClickListener {
             resultActivity.launch(googleSignInClient.signInIntent)
         }
+
+        binding.btnLoginKakao.setOnClickListener {
+            showToast(getString(R.string.toast_message_failed_this_service_is_not_open))
+        }
     }
 
     private fun observer() {

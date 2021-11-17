@@ -7,6 +7,8 @@
 
     <!-- 인터넷 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 네트워크 연결이 되어있는지 체크하기 위함 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- 위치 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -56,8 +58,8 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}"
-            android:exported="false"/>
+            android:exported="false"
+            android:value="${MAPS_API_KEY}" />
 
         <receiver
             android:name=".presentation.android.broadcast.BootUpBroadCastReceiver"

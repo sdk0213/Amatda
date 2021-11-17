@@ -1,8 +1,11 @@
 package com.turtle.amatda.presentation.utilities.extensions
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Insets
 import android.graphics.Point
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.IBinder
 import android.text.Editable
@@ -151,4 +154,17 @@ fun <T> Fragment.getNavigationResult(@IdRes id: Int, key: String, onResult: (res
             navBackStackEntry.lifecycle.removeObserver(observer)
         }
     })
+}
+
+@SuppressLint("MissingPermission")
+fun Context.isConnected(): Boolean {
+    val connectivityManager =
+        this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val nw = connectivityManager.activeNetwork ?: return false
+    val actNw = connectivityManager.getNetworkCapabilities(nw) ?: return false
+    return when {
+        actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+        actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+        else -> false
+    }
 }

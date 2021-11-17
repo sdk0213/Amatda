@@ -5,5 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class TextViewData(
+    val returnKey: String,
     val text: String
 ) : Parcelable

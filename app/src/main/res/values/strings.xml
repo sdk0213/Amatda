@@ -76,6 +76,15 @@
     <string name="my_page_opensource_license">OpenSource License</string>
     <string name="my_page_logout">Log Out</string>
     <string name="toast_message_my_page_update_user">Profile information has been updated</string>
+    <string name="toast_message_my_page_cancel_import_db">You Canceled to restore</string>
+    <string name="toast_message_my_page_ok_import_db">Restoration is complete</string>
+    <string name="toast_message_my_page_failed_import_db_no_data">There is no data to restore</string>
+    <string name="toast_message_my_page_cancel_export_db">You canceled the backup</string>
+    <string name="toast_message_my_page_ok_export_db">Backup is complete</string>
+    <string name="dialog_message_my_page_import_db">Are you sure you want to restore your bag information backed up on the server?\nCaution!!..My bag information currently saved will be deleted.</string>
+    <string name="dialog_message_my_page_export_db">Would you like to back up your current bag information to the server?</string>
+    <string name="dialog_message_my_page_logout">Caution!!..When you log out, the currently saved data will be lost. Log out after backing up to the server\nDo you want to log out?</string>
+    <string name="toast_message_my_page_logout_failed">logout failed</string>
 
     <!-- contentDescription -->
     <string name="cttdcrp_add_carrier">add carrier</string>

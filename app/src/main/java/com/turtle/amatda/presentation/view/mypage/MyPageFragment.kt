@@ -5,13 +5,16 @@ import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.storage.FirebaseStorage
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentMypageBinding
 import com.turtle.amatda.domain.model.Level
 import com.turtle.amatda.presentation.android.view_data.EditTextData
+import com.turtle.amatda.presentation.android.view_data.TextViewData
 import com.turtle.amatda.presentation.utilities.EventObserver
 import com.turtle.amatda.presentation.utilities.extensions.getNavigationResult
+import com.turtle.amatda.presentation.utilities.extensions.isConnected
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import com.turtle.amatda.presentation.view.dialog.ShowInfoDialogFragment
 import java.io.*
@@ -20,6 +23,11 @@ import javax.inject.Inject
 
 class MyPageFragment :
     BaseFragment<MyPageViewModel, FragmentMypageBinding>(R.layout.fragment_mypage) {
+
+    private val returnKeyDialogRename = "dialogReturnKeyRename"
+    private val returnKeyDialogImport = "dialogReturnKeyImport"
+    private val returnKeyDialogExport = "dialogReturnKeyExport"
+    private val returnKeyDialogLogout = "returnKeyDialogLogout"
 
     @Inject
     lateinit var firebaseStorage: FirebaseStorage
@@ -63,9 +71,14 @@ class MyPageFragment :
         }
 
         binding.btnMyPageEditNickname.setOnClickListener {
+            if (!mContext.isConnected()) {
+                showPopUpMessage(getString(R.string.common_message_required_internet_connection))
+                return@setOnClickListener
+            }
             findNavController().navigate(
                 MyPageFragmentDirections.actionGlobalEditTextDialog(
                     EditTextData(
+                        returnKey = returnKeyDialogRename,
                         title = getString(R.string.dialog_edit_text_nickname_title),
                         hint = getString(R.string.dialog_edit_text_nickname_hint),
                         text = viewModel.currentUser.value?.nickName ?: "알수 없음"
@@ -77,15 +90,109 @@ class MyPageFragment :
         binding.btnMyPageInfoLevel.setOnClickListener {
             ShowInfoDialogFragment(R.layout.fragment_dialog_level).show(childFragmentManager, tag)
         }
+
+        binding.buttonMyPageImportDbServer.setOnClickListener {
+            if (!mContext.isConnected()) {
+                showPopUpMessage(getString(R.string.common_message_required_internet_connection))
+                return@setOnClickListener
+            }
+            findNavController().navigate(
+                MyPageFragmentDirections.actionGlobalShowYesOrNoDialog(
+                    TextViewData(
+                        returnKey = returnKeyDialogImport,
+                        text = getString(R.string.dialog_message_my_page_import_db)
+                    )
+                )
+            )
+        }
+
+        binding.buttonMyPageExportDbServer.setOnClickListener {
+            if (!mContext.isConnected()) {
+                showPopUpMessage(getString(R.string.common_message_required_internet_connection))
+                return@setOnClickListener
+            }
+            findNavController().navigate(
+                MyPageFragmentDirections.actionGlobalShowYesOrNoDialog(
+                    TextViewData(
+                        returnKey = returnKeyDialogExport,
+                        text = getString(R.string.dialog_message_my_page_export_db)
+                    )
+                )
+            )
+        }
+
+        binding.buttonMyPageLogout.setOnClickListener {
+            if (!mContext.isConnected()) {
+                showPopUpMessage(getString(R.string.common_message_required_internet_connection))
+                return@setOnClickListener
+            }
+            findNavController().navigate(
+                MyPageFragmentDirections.actionGlobalShowYesOrNoDialog(
+                    TextViewData(
+                        returnKey = returnKeyDialogLogout,
+                        text = getString(R.string.dialog_message_my_page_logout)
+                    )
+                )
+            )
+        }
+
+        binding.buttonMyPageOpenSourceLicense.setOnClickListener {
+            OssLicensesMenuActivity.setActivityTitle("오픈소스 라이선스")
+            startActivity(
+                Intent(
+                    mContext,
+                    OssLicensesMenuActivity::class.java
+                )
+            ) // ActionBar의 title 변경
+        }
     }
 
     private fun observer() {
 
         getNavigationResult<String>(
             id = R.id.view_fragment_main,
-            key = DIALOG_RETURN_KEY,
+            key = returnKeyDialogRename,
             onResult = { nickName ->
                 viewModel.editNickName(nickName)
+            })
+
+        getNavigationResult<String>(
+            id = R.id.view_fragment_main,
+            key = returnKeyDialogImport,
+            onResult = { RETURN ->
+                when (RETURN) {
+                    DIALOG_RETURN_VALUE_OK -> {
+                        viewModel.importCarrierDataToDbUseCase()
+                    }
+                    DIALOG_RETURN_VALUE_CANCEL -> {
+                        showToast(getString(R.string.toast_message_my_page_cancel_import_db))
+                    }
+                }
+            })
+
+        getNavigationResult<String>(
+            id = R.id.view_fragment_main,
+            key = returnKeyDialogExport,
+            onResult = { RETURN ->
+                when (RETURN) {
+                    DIALOG_RETURN_VALUE_OK -> {
+                        viewModel.exportCarrierDataToDbUseCase()
+                    }
+                    DIALOG_RETURN_VALUE_CANCEL -> {
+                        showToast(getString(R.string.toast_message_my_page_cancel_export_db))
+                    }
+                }
+            })
+
+        getNavigationResult<String>(
+            id = R.id.view_fragment_main,
+            key = returnKeyDialogLogout,
+            onResult = { RETURN ->
+                when (RETURN) {
+                    DIALOG_RETURN_VALUE_OK -> {
+                        viewModel.logout()
+                    }
+                }
             })
 
         viewModel.logout.observe(this@MyPageFragment, EventObserver { isLogout ->
@@ -93,6 +200,8 @@ class MyPageFragment :
                 findNavController().navigate(
                     MyPageFragmentDirections.actionGlobalIntroFragment()
                 )
+            } else {
+                showToast(getString(R.string.toast_message_my_page_logout_failed))
             }
         })
 
@@ -129,7 +238,7 @@ class MyPageFragment :
 
         viewModel.updateDB.observe(this@MyPageFragment, EventObserver { isDbUpdate ->
             if (isDbUpdate) {
-                showToast("서버에 업데이트 되었습니다.")
+                showToast(getString(R.string.toast_message_my_page_ok_export_db))
             }
         })
 

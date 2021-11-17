@@ -64,3 +64,6 @@ class ShowInfoModule {}
 
 @Module
 class TextViewValueModule {}
+
+@Module
+class YesOrNoViewModule {}

@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
+import com.turtle.amatda.domain.model.ErrorMessage
 import com.turtle.amatda.domain.model.UploadFile
 import com.turtle.amatda.domain.model.User
 import com.turtle.amatda.domain.usecases.*
@@ -74,9 +75,19 @@ class MyPageViewModel @Inject constructor(
 
     // 로그아웃
     fun logout() {
-        firebaseAuth.signOut()
-        sharedPrefUtil.isLoggedDevices = false
-        _logout.value = Event(true)
+        compositeDisposable.add(
+            deleteCarrierDBUseCase.execute()
+                .subscribe(
+                    {
+                        firebaseAuth.signOut()
+                        sharedPrefUtil.isLoggedDevices = false
+                        _logout.value = Event(true)
+                    },
+                    {
+                        _logout.value = Event(false)
+                    }
+                )
+        )
     }
 
     private fun updateUserInformation() {

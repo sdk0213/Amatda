@@ -5,6 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class EditTextData(
+    val returnKey: String,
     val title: String,
     val hint: String,
     val text: String

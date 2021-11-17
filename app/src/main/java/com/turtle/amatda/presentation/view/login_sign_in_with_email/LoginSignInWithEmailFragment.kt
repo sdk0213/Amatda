@@ -5,6 +5,7 @@ import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentLoginSignInWithEmailBinding
 import com.turtle.amatda.presentation.utilities.EventObserver
 import com.turtle.amatda.presentation.utilities.extensions.hideKeyboard
+import com.turtle.amatda.presentation.utilities.extensions.isConnected
 import com.turtle.amatda.presentation.view.base.BaseFragment
 
 class LoginSignInWithEmailFragment :
@@ -27,6 +28,10 @@ class LoginSignInWithEmailFragment :
 
     private fun listener() {
         binding.btnLoginEmailSignUp.setOnClickListener {
+            if (!mContext.isConnected()) {
+                showPopUpMessage(getString(R.string.common_message_required_internet_connection))
+                return@setOnClickListener
+            }
             findNavController().navigate(
                 LoginSignInWithEmailFragmentDirections.actionLoginSignInWithEmailFragmentToLoginSignUpFragment()
             )

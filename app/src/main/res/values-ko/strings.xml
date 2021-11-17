@@ -76,6 +76,15 @@
     <string name="my_page_opensource_license">오픈소스 라이선스</string>
     <string name="my_page_logout">로그아웃</string>
     <string name="toast_message_my_page_update_user">프로필 정보가 업데이트 되었습니다</string>
+    <string name="toast_message_my_page_cancel_import_db">복원하기를 취소하였습니다</string>
+    <string name="toast_message_my_page_ok_import_db">복원하기를 완료하였습니다</string>
+    <string name="toast_message_my_page_failed_import_db_no_data">복원할 데이터가 없습니다</string>
+    <string name="toast_message_my_page_cancel_export_db">백업하기를 취소하였습니다</string>
+    <string name="toast_message_my_page_ok_export_db">백업하기를 완료하였습니다</string>
+    <string name="dialog_message_my_page_import_db">서버에 백업된 나의 가방 정보로 복원올 진행하시겠습니까?\n주의!!..현재 저장된 나의 가방 정보들은 삭제됩니다</string>
+    <string name="dialog_message_my_page_export_db">서버에 현재 가방 정보를 백업할까요?</string>
+    <string name="dialog_message_my_page_logout">주의!!..로그아웃을 진행시 현재 저장된 데이터가 사라집니다. 서버에 백업후 로그아웃하세요\n로그아웃을 진행하시겠습니까?</string>
+    <string name="toast_message_my_page_logout_failed">로그아웃에 실패하였습니다</string>
 
 
     <!-- contentDescription -->

@@ -59,7 +59,9 @@
             app:enterAnim="@anim/slide_up"
             app:exitAnim="@anim/slide_down"
             app:popEnterAnim="@anim/slide_up"
-            app:popExitAnim="@anim/slide_down" />
+            app:popExitAnim="@anim/slide_down"
+            app:popUpTo="@+id/view_fragment_login_sign_in_with_email"
+            app:popUpToInclusive="true" />
 
         <action
             android:id="@+id/action_loginSignInFragment_to_loginSignInWithEmailFragment"
@@ -310,6 +312,17 @@
             app:argType="com.turtle.amatda.presentation.android.view_data.TextViewData" />
 
     </dialog>
+
+    <dialog
+        android:id="@+id/view_dialog_fragment_show_yes_or_no_view"
+        android:name="com.turtle.amatda.presentation.view.dialog.YesOrNoDialogFragment"
+        tools:layout="@layout/fragment_dialog_yes_or_no">
+
+        <argument
+            android:name="textViewData"
+            app:argType="com.turtle.amatda.presentation.android.view_data.TextViewData" />
+
+    </dialog>
     <!-- ******** End 다이얼로그 ******** -->
 
     <!-- Global Action -->
@@ -374,5 +387,9 @@
     <action
         android:id="@+id/action_global_show_text_view_dialog"
         app:destination="@id/view_dialog_fragment_show_text_view" />
+
+    <action
+        android:id="@+id/action_global_show_yes_or_no_dialog"
+        app:destination="@id/view_dialog_fragment_show_yes_or_no_view" />
 
 </navigation>

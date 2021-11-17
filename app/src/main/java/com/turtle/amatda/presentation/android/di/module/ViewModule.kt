@@ -15,6 +15,7 @@ import com.turtle.amatda.presentation.view.carrier_type.CarrierTypeFragment
 import com.turtle.amatda.presentation.view.dialog.EditTextDialogFragment
 import com.turtle.amatda.presentation.view.dialog.ShowInfoDialogFragment
 import com.turtle.amatda.presentation.view.dialog.TextViewDialogFragment
+import com.turtle.amatda.presentation.view.dialog.YesOrNoDialogFragment
 import com.turtle.amatda.presentation.view.home.HomeFragment
 import com.turtle.amatda.presentation.view.intro.IntroFragment
 import com.turtle.amatda.presentation.view.login_sign_in.LoginSignInFragment
@@ -136,6 +137,10 @@ abstract class ViewModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = [TextViewValueModule::class])
     abstract fun getTextViewDialogFragment(): TextViewDialogFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [YesOrNoViewModule::class])
+    abstract fun getYesOrNoDialogFragment(): YesOrNoDialogFragment
 
     // # end Dagger Dialog Fragment
 }

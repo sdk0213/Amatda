@@ -28,7 +28,8 @@ constructor(@LayoutRes private val layoutId: Int) : DaggerFragment() {
 
     companion object {
         // Dialog 의 결과값을 리턴받는 Key 값
-        const val DIALOG_RETURN_KEY = "Key"
+        const val DIALOG_RETURN_VALUE_OK = "OK"
+        const val DIALOG_RETURN_VALUE_CANCEL = "CANCEL"
     }
 
     protected val handler by lazy {
@@ -74,14 +75,15 @@ constructor(@LayoutRes private val layoutId: Int) : DaggerFragment() {
 
     protected fun showToast(msg: String) = Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 
-    protected fun showPopUpMessage(msg: String)  {
+    protected fun showPopUpMessage(msg: String) {
         findNavController().navigate(
             R.id.view_dialog_fragment_show_text_view,
             bundleOf(
                 "textViewData" to
-                TextViewData(
-                    text = msg
-                )
+                        TextViewData(
+                            returnKey = "NORMAL_TEXT_VIEW_POP_UP_MESSAGE",
+                            text = msg
+                        )
             )
         )
     }

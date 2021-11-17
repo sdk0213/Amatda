@@ -30,6 +30,7 @@ class EditTextDialogFragment :
 
     private fun initArgs() {
         args?.let { args ->
+            returnKey = args.editTextData.returnKey
             binding.tvEditTextDialogGuide.text = args.editTextData?.title
             binding.tilEditTextDialog.editText?.text = args.editTextData?.text?.toEditable()
             binding.tilEditTextDialog.editText?.hint = args.editTextData?.hint
@@ -39,7 +40,7 @@ class EditTextDialogFragment :
     private fun listener() {
 
         binding.btnEditTextDialogOk.setOnClickListener {
-            setNavigationResult(DIALOG_RETURN_KEY, binding.tieEditTextDialog.text.toString())
+            setNavigationResult(returnKey, binding.tieEditTextDialog.text.toString())
             findNavController().navigateUp()
         }
 

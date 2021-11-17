@@ -16,9 +16,12 @@ import dagger.android.support.DaggerDialogFragment
 abstract class BaseDialogFragment<B : ViewDataBinding>
 constructor(@LayoutRes private val layoutId: Int) : DaggerDialogFragment() {
 
+    protected lateinit var returnKey: String
+
     companion object {
         // Dialog 의 결과값을 리턴받는 Key 값
-        const val DIALOG_RETURN_KEY = "Key"
+        const val DIALOG_RETURN_VALUE_OK = "OK"
+        const val DIALOG_RETURN_VALUE_CANCEL = "CANCEL"
     }
 
     lateinit var mContext: Context

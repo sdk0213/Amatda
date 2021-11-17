@@ -57,6 +57,10 @@ class TripZoneModule {}
 class TripZoneMakeModule {}
 
 @Module
+class QNAModule {}
+
+// ############################################### start Dagger Dialog Module
+@Module
 class EditTextValueModule {}
 
 @Module
@@ -67,3 +71,5 @@ class TextViewValueModule {}
 
 @Module
 class YesOrNoViewModule {}
+
+// ############################################### End Dagger Dialog Module

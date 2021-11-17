@@ -145,6 +145,12 @@ class MyPageFragment :
                 )
             ) // ActionBar의 title 변경
         }
+
+        binding.buttonMyPageQna.setOnClickListener {
+            findNavController().navigate(
+                MyPageFragmentDirections.actionGlobalQnaFragment()
+            )
+        }
     }
 
     private fun observer() {

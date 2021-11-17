@@ -288,6 +288,14 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/qnaFragment"
+        android:name="com.turtle.amatda.presentation.view.qna.QNAFragment"
+        android:label="QNAFragment"
+        tools:layout="@layout/fragment_qna">
+
+    </fragment>
+
     <!-- ******** End Trip 생성 및 관리 ******** -->
 
     <!-- ******** Start 다이얼로그 ******** -->
@@ -391,5 +399,13 @@
     <action
         android:id="@+id/action_global_show_yes_or_no_dialog"
         app:destination="@id/view_dialog_fragment_show_yes_or_no_view" />
+
+    <action
+        android:id="@+id/action_global_qnaFragment"
+        app:destination="@id/qnaFragment"
+        app:enterAnim="@anim/slide_up"
+        app:exitAnim="@anim/slide_down"
+        app:popEnterAnim="@anim/slide_up"
+        app:popExitAnim="@anim/slide_down" />
 
 </navigation>

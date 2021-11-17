@@ -24,6 +24,7 @@ import com.turtle.amatda.presentation.view.login_sign_up.LoginSignUpFragment
 import com.turtle.amatda.presentation.view.main.MainActivity
 import com.turtle.amatda.presentation.view.main.MainViewPagerFragment
 import com.turtle.amatda.presentation.view.mypage.MyPageFragment
+import com.turtle.amatda.presentation.view.qna.QNAFragment
 import com.turtle.amatda.presentation.view.trip.TripFragment
 import com.turtle.amatda.presentation.view.trip_concept.TripConceptFragment
 import com.turtle.amatda.presentation.view.trip_date.TripDateFragment
@@ -125,7 +126,11 @@ abstract class ViewModule {
     @ContributesAndroidInjector(modules = [TripZoneMakeModule::class])
     abstract fun getTripZoneMakeFragment(): TripZoneMakeFragment
 
-    // # start Dagger Dialog Fragment
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [QNAModule::class])
+    abstract fun getQNAFragment(): QNAFragment
+
+    // ############################################### start Dagger Dialog Fragment
     @FragmentScope
     @ContributesAndroidInjector(modules = [EditTextValueModule::class])
     abstract fun getEditTextDialogFragment(): EditTextDialogFragment
@@ -142,5 +147,5 @@ abstract class ViewModule {
     @ContributesAndroidInjector(modules = [YesOrNoViewModule::class])
     abstract fun getYesOrNoDialogFragment(): YesOrNoDialogFragment
 
-    // # end Dagger Dialog Fragment
+    // ############################################### end Dagger Dialog Fragment
 }

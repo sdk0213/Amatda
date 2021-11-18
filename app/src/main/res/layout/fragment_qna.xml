@@ -23,24 +23,25 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/amatda_main"
             android:elevation="0dp"
-            app:title="@string/toolbar_qna"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <AutoCompleteTextView
-            android:id="@+id/tetstets"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:text="QNA Fragment\nis HERE"
-            android:textSize="50sp"
-            android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/toolbar_qna" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_qna"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/topAppBar"/>
-
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topAppBar"
+            tools:listitem="@layout/list_item_qna" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -14,10 +14,21 @@ class TripViewModel @Inject constructor(
     private val deleteTripUseCase: DeleteTripUseCase
 ) : BaseViewModel() {
 
+    private val _permissionGrantedComplete = MutableLiveData<Boolean>()
+    val permissionGrantedComplete: LiveData<Boolean> get() = _permissionGrantedComplete
+
     private val _tripList = MutableLiveData<List<Trip>>()
     val tripList: LiveData<List<Trip>> get() = _tripList
 
-    fun getAllTrip() {
+    init {
+        getAllTrip()
+    }
+
+    fun permissionIsGranted() {
+        _permissionGrantedComplete.value = true
+    }
+
+    private fun getAllTrip() {
         compositeDisposable.add(
             getAllTripUseCase.execute()
                 .subscribe(

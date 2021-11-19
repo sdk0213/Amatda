@@ -4,9 +4,10 @@
 
     <item
         android:id="@+id/item_add_trip"
-        android:title="@string/app_bar_add_trip"
         android:contentDescription="@string/app_bar_add_trip"
         android:icon="@drawable/ic_add_24"
+        android:title="@string/app_bar_add_trip"
+        android:visible="false"
         app:showAsAction="always" />
 
 </menu>

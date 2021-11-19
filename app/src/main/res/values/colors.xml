@@ -28,6 +28,7 @@
     <color name="amatda_main">#FF6E40</color> <!-- material_200 -->
     <color name="amatda_toolbar">#80FF6E40</color>
     <color name="material_a700">#DD2C00</color>
+    <color name="amatda_main_transparent_90">#E6FF6E40</color> <!-- 90% -->
     <color name="transparent_material_a200">#CCFF6E40</color> <!-- 80% -->
     <color name="amatda_main_transparent_50">#80FF6E40</color> <!-- 50% -->
     <color name="amatda_main_transparent_20">#33FF6E40</color> <!-- 20% -->

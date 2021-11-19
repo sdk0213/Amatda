@@ -31,21 +31,10 @@
     <string name="login_toast_failed_invalid_password">비밀번호가 맞지 않습니다.</string>
 
     <!-- 권한 -->
-    <string name="toast_cannot_get_location_no_permission">위치 권한이 없어서 날씨 정보와 여행 정보를 가져올수없습니다.</string>
-    <string name="permission_request_rationale_title">권한 요청</string>
-    <string name="permission_request_rationale_message">
-        날씨 정보와 나의 여행 알림기능을 위해서는 받아오기 위해서는 위치 권한이 필요해요.\n
-        위치정보는 다음 기능에 사용되며 이 외에는 절대 수집하지 않아요.\n
-        위치관련 정보는 사용자가 생성한 여행지역만 로컬(스마트폰)에 저장되며 외부(서버)로는 저장되지 않아요. 또한 사용자를 식별가능한 위치 관련데이터는 저장하지 않아요.\n
-        위치 권한이 필요한 기능은 다음과 같아요.\n\n
-        - 날씨(현재 위치의 3일간의 날씨)\n
-        - 음심적(현재 위치 주변 음식점 추천)\n
-        - 여행지(현재 위치 주변 여행지 추천)\n
-        - 나의 여행(현재 위치한 지역이 사용자가 계획한(생성한) 여행지역인지 여부를 판단하여 사용자에게 알림)\n
-        (사용자가 설정한 나의 여행지역에 위치하였을때 알림을 주기위하여 백그라운드 위치권한이 필요해요.\n
-        백그라운드 위치권한(위치 - 항상 허용)은 구글의 지오펜싱 기술을 사용하기 위해 필요해요.)
-    </string>
-    <string name="permission_request_denied_message">날씨 정보와 여행 기록을 위해서는\n위치 권한이 필요해요.\n[설정] > [권한] > [위치] 에서 위치 권한을 허용할 수 있어요</string>
+    <string name="toast_cannot_get_location_no_permission">권한이 거부 되었습니다</string>
+    <string name="permission_request_title">권한이 필요해요</string>
+    <string name="permission_request_denied_my_home_message">나의 홈을 사용하려면 위치 권한이 필요해요.\n[설정] > [권한] > [위치]를 [이번만 허용] 또는 [앱 사용 중에만 허용]으로 변경해주세요.</string>
+    <string name="permission_request_denied_trip_message">여행 리마인더를 사용하려면 백그라운드 위치 권한이 필요해요.\n[설정] > [권한] > [위치]를 [항상 허용]으로 변경해주세요.</string>
 
     <!-- 메뉴 -->
     <string name="menu_home">홈</string>

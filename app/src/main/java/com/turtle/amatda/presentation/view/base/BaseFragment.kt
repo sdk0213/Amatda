@@ -18,6 +18,7 @@ import com.turtle.amatda.R
 import com.turtle.amatda.presentation.android.di.factory.ViewModelFactory
 import com.turtle.amatda.presentation.android.view_data.TextViewData
 import dagger.android.support.DaggerFragment
+import io.reactivex.disposables.CompositeDisposable
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import javax.inject.Inject
@@ -31,6 +32,8 @@ constructor(@LayoutRes private val layoutId: Int) : DaggerFragment() {
         const val DIALOG_RETURN_VALUE_OK = "OK"
         const val DIALOG_RETURN_VALUE_CANCEL = "CANCEL"
     }
+
+    var compositeDisposable = CompositeDisposable()
 
     protected val handler by lazy {
         Handler(Looper.getMainLooper())
@@ -86,5 +89,10 @@ constructor(@LayoutRes private val layoutId: Int) : DaggerFragment() {
                         )
             )
         )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.dispose()
     }
 }

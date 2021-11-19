@@ -1,5 +1,6 @@
 package com.turtle.amatda.presentation.view.qna
 
+import androidx.navigation.findNavController
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentQnaBinding
 import com.turtle.amatda.domain.model.QnaData

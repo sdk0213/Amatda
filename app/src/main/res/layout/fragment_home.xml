@@ -70,11 +70,11 @@
             <androidx.core.widget.NestedScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
+                android:orientation="vertical"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -95,12 +95,12 @@
                             android:id="@+id/image_view_home_weather_sunny"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:background="@drawable/ic_baseline_wb_sunny_24"
                             android:layout_marginBottom="10dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
+                            android:background="@drawable/ic_baseline_wb_sunny_24"
                             app:layout_constraintBottom_toTopOf="@id/img_view_home_weather_position"
-                            app:layout_constraintEnd_toStartOf="@id/tv_home_weather"/>
+                            app:layout_constraintEnd_toStartOf="@id/tv_home_weather"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_home_weather"
@@ -109,16 +109,16 @@
                             android:layout_marginStart="10dp"
                             android:text="날씨"
                             android:textSize="20sp"
+                            app:layout_constraintBottom_toBottomOf="@id/image_view_home_weather_sunny"
                             app:layout_constraintStart_toEndOf="@id/image_view_home_weather_sunny"
-                            app:layout_constraintTop_toTopOf="@id/image_view_home_weather_sunny"
-                            app:layout_constraintBottom_toBottomOf="@id/image_view_home_weather_sunny"/>
+                            app:layout_constraintTop_toTopOf="@id/image_view_home_weather_sunny" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/img_view_home_weather_position"
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:src="@drawable/ic_baseline_gps_fixed_24"
                             android:layout_marginStart="10dp"
+                            android:src="@drawable/ic_baseline_gps_fixed_24"
                             app:layout_constraintBottom_toTopOf="@id/recyclerview_home_weather"
                             app:layout_constraintEnd_toStartOf="@id/tv_home_weather_address"
                             app:layout_constraintStart_toStartOf="parent"
@@ -163,12 +163,12 @@
                             android:id="@+id/image_view_home_restaurant_food"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:background="@drawable/ic_baseline_food_bank_24"
                             android:layout_marginBottom="10dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
+                            android:background="@drawable/ic_baseline_food_bank_24"
                             app:layout_constraintBottom_toTopOf="@id/recyclerview_home_restaurant"
-                            app:layout_constraintEnd_toStartOf="@id/tv_home_restaurant"/>
+                            app:layout_constraintEnd_toStartOf="@id/tv_home_restaurant"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_home_restaurant"
@@ -177,9 +177,9 @@
                             android:layout_marginStart="10dp"
                             android:text="주변 음식점"
                             android:textSize="20sp"
-                            app:layout_constraintStart_toEndOf="@id/image_view_home_restaurant_food"
                             app:layout_constraintBottom_toBottomOf="@id/image_view_home_restaurant_food"
-                            app:layout_constraintTop_toTopOf="@id/image_view_home_restaurant_food"/>
+                            app:layout_constraintStart_toEndOf="@id/image_view_home_restaurant_food"
+                            app:layout_constraintTop_toTopOf="@id/image_view_home_restaurant_food" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerview_home_restaurant"
@@ -209,12 +209,12 @@
                             android:id="@+id/image_view_home_tour"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:background="@drawable/ic_baseline_local_see_24"
                             android:layout_marginBottom="10dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
+                            android:background="@drawable/ic_baseline_local_see_24"
                             app:layout_constraintBottom_toTopOf="@id/recyclerview_home_tour"
-                            app:layout_constraintEnd_toStartOf="@id/tv_home_tour"/>
+                            app:layout_constraintEnd_toStartOf="@id/tv_home_tour"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_home_tour"
@@ -223,9 +223,9 @@
                             android:layout_marginStart="10dp"
                             android:text="주변 여행지"
                             android:textSize="20sp"
+                            app:layout_constraintBottom_toBottomOf="@id/image_view_home_tour"
                             app:layout_constraintStart_toEndOf="@id/image_view_home_tour"
-                            app:layout_constraintTop_toTopOf="@id/image_view_home_tour"
-                            app:layout_constraintBottom_toBottomOf="@id/image_view_home_tour" />
+                            app:layout_constraintTop_toTopOf="@id/image_view_home_tour" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerview_home_tour"
@@ -239,6 +239,46 @@
                             app:layout_constraintTop_toBottomOf="@id/tv_home_tour"
                             app:spanCount="1"
                             tools:listitem="@layout/list_item_home_tour" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraint_view_home_permission"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:visibility="gone"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/tv_home_permission"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="50dp"
+                            android:gravity="center"
+                            android:text="나의 홈 입니다.\n내 위치를 기반으로 현재 날씨와 주변 관광지/맛집 정보를 제공합니다.\n아래 버튼을 눌러 시작해보세요.\n\n(해당 기능은 위치 권한이 필요합니다.)\n(위치권한이 활성화되어있지 않을경우 기능을 사용할수 없습니다.)"
+                            android:textColor="@color/amatda_main"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_my_home_activation"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginTop="50dp"
+                            android:layout_marginEnd="40dp"
+                            android:text="권한을 허용하고 시작하기"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_home_permission" />
+
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,16 +1,28 @@
 package com.turtle.amatda.presentation.view.home
 
 import android.Manifest
-import android.os.Build
+import android.content.pm.PackageManager
+import android.view.View
 import android.widget.Toast
+import com.gun0912.tedpermission.TedPermissionResult
 import com.tedpark.tedpermission.rx2.TedRxPermission
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentHomeBinding
 import com.turtle.amatda.presentation.view.base.BaseFragment
-import io.reactivex.disposables.Disposable
+import io.reactivex.Single
 import java.util.*
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.fragment_home) {
+
+    private val permissionRx: Single<TedPermissionResult> by lazy {
+        TedRxPermission.create().apply {
+            setDeniedTitle(R.string.permission_request_title)
+            setDeniedMessage(R.string.permission_request_denied_my_home_message)
+            setPermissions(
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        }.request()
+    }
 
     private val homeWeatherAdapter: HomeWeatherAdapter by lazy {
         HomeWeatherAdapter()
@@ -21,44 +33,43 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
     private val homeRestaurantAdapter: HomeRestaurantAdapter by lazy {
         HomeRestaurantAdapter(mContext)
     }
-    private lateinit var permissionRx: Disposable
 
     override fun init() {
-        requestPermission()
         view()
         viewModel()
+        listener()
         observer()
     }
 
-    private fun requestPermission() {
-        permissionRx = TedRxPermission.create().apply {
-            setRationaleTitle(R.string.permission_request_rationale_title)
-            setRationaleMessage(R.string.permission_request_rationale_message)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                setPermissions(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                )
-            } else {
-                setPermissions(
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
-            }
-            setDeniedMessage(R.string.permission_request_rationale_message)
-        }
-            .request()
-            .subscribe(
-                { tedPermissionResult ->
-                    if (tedPermissionResult.isGranted) {
-                        viewModel.init()
-                    } else {
-                        showToast(getString(R.string.toast_cannot_get_location_no_permission))
-                    }
-                },
-                {
-                    showToast("ERROR")
-                })
+    override fun onResume() {
+        super.onResume()
+        checkPermission()
+    }
 
+    private fun checkPermission() =
+        if (mContext.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+            binding.constraintViewHomePermission.visibility = View.VISIBLE
+        } else {
+            binding.constraintViewHomePermission.visibility = View.GONE
+        }
+
+
+    private fun requestPermission() {
+        compositeDisposable.add(
+            permissionRx
+                .subscribe(
+                    { tedPermissionResult ->
+                        if (tedPermissionResult.isGranted) {
+                            binding.constraintViewHomePermission.visibility = View.GONE
+                            viewModel.permissionIsGranted()
+                        } else {
+                            showToast(getString(R.string.toast_cannot_get_location_no_permission))
+                        }
+                    },
+                    {
+                        showToast("ERROR")
+                    })
+        )
     }
 
     private fun view() {
@@ -69,6 +80,12 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
 
     private fun viewModel() {
         binding.viewModel = viewModel
+    }
+
+    private fun listener() {
+        binding.btnMyHomeActivation.setOnClickListener {
+            requestPermission()
+        }
     }
 
     private fun observer() {
@@ -87,10 +104,5 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
         viewModel.restaurantList.observe(this@HomeFragment) {
             homeRestaurantAdapter.submitList(it)
         }
-    }
-
-    override fun onDestroy() {
-        permissionRx.dispose()
-        super.onDestroy()
     }
 }

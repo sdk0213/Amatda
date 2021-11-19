@@ -1,15 +1,39 @@
 package com.turtle.amatda.presentation.view.trip
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
+import com.gun0912.tedpermission.TedPermissionResult
+import com.tedpark.tedpermission.rx2.TedRxPermission
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentTripBinding
 import com.turtle.amatda.domain.model.Trip
 import com.turtle.amatda.presentation.view.base.BaseFragment
+import io.reactivex.Single
 
 class TripFragment : BaseFragment<TripViewModel, FragmentTripBinding>(R.layout.fragment_trip) {
 
     private lateinit var tripAdapter: TripAdapter
+
+    private val permissionRx: Single<TedPermissionResult> by lazy {
+        TedRxPermission.create().apply {
+            setDeniedTitle(R.string.permission_request_title)
+            setDeniedMessage(R.string.permission_request_denied_trip_message)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                setPermissions(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                )
+            } else {
+                setPermissions(
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            }
+        }.request()
+    }
 
     override fun init() {
         view()
@@ -17,6 +41,51 @@ class TripFragment : BaseFragment<TripViewModel, FragmentTripBinding>(R.layout.f
         observer()
         listener()
         onBackPressed()
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        checkPermission()
+    }
+
+    private fun checkPermission() {
+        var isPermissionGranted = false
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if ((mContext.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
+                (mContext.checkSelfPermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED)
+            ) {
+                isPermissionGranted = true
+            }
+        } else {
+            if (mContext.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            ) {
+                isPermissionGranted = true
+            }
+        }
+
+        binding.constraintViewTripPermission.visibility =
+            if (isPermissionGranted) View.GONE else View.VISIBLE
+        binding.topAppBar.menu.findItem(R.id.item_add_trip).isVisible = isPermissionGranted
+
+    }
+
+    private fun requestPermission() {
+        compositeDisposable.add(
+            permissionRx
+                .subscribe(
+                    { tedPermissionResult ->
+                        if (tedPermissionResult.isGranted) {
+                            binding.topAppBar.menu.findItem(R.id.item_add_trip).isVisible = true
+                            binding.constraintViewTripPermission.visibility = View.GONE
+                        } else {
+                            showToast(getString(R.string.toast_cannot_get_location_no_permission))
+                        }
+                    },
+                    {
+                        showToast("ERROR")
+                    })
+        )
     }
 
     private fun view() {
@@ -44,7 +113,6 @@ class TripFragment : BaseFragment<TripViewModel, FragmentTripBinding>(R.layout.f
 
     private fun viewModel() {
         binding.viewModel = viewModel
-        viewModel.getAllTrip()
     }
 
     private fun observer() {
@@ -68,6 +136,10 @@ class TripFragment : BaseFragment<TripViewModel, FragmentTripBinding>(R.layout.f
                     true
                 }
             }
+        }
+
+        binding.btnMyTripActivation.setOnClickListener {
+            requestPermission()
         }
     }
 

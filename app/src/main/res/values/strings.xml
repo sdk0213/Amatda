@@ -31,21 +31,10 @@
     <string name="login_toast_failed_invalid_password">The password is incorrect.</string>
 
     <!-- 권한 -->
-    <string name="toast_cannot_get_location_no_permission">We can\'t get weather information and travel information because we don\'t have location permission.</string>
-    <string name="permission_request_rationale_title">request permission</string>
-    <string name="permission_request_rationale_message">
-        Location permission is required to receive weather information and my travel notification function.\n
-        Location information is used for the following functions and is never collected other than that.\n
-        Location-related information is stored locally (smartphone) only in the travel area created by the user, not externally (server). Also, location-related data that can identify the user is not saved.\n
-        Features that require location permission are as follows.\n\n
-        - Weather (weather for 3 days at your current location)\n
-        - Umsim-eok (recommended restaurants near the current location)\n
-        - Destination (Recommended destinations near your current location)\n
-        - My travel (determining whether the current location is a travel area planned (created) by the user and notifying the user)\n
-        (Background location permission is required to notify when the user is located in my travel area set by the user.\n
-        Background location permission (location - always allowed) is required to use Google\'s geofencing technology.)
-    </string>
-    <string name="permission_request_denied_message">Location permission is required for weather information and travel history. You can allow location permission in [Settings] > [Permissions] > [Location]</string>
+    <string name="toast_cannot_get_location_no_permission">권한이 거부 되었습니다</string>
+    <string name="permission_request_title">권한이 필요해요</string>
+    <string name="permission_request_denied_my_home_message">나의 홈을 사용하려면 위치 권한이 필요해요.\n[설정] > [권한] > [위치]를 [이번만 허용] 또는 [앱 사용 중에만 허용]으로 변경해주세요.</string>
+    <string name="permission_request_denied_trip_message">여행 리마인더를 사용하려면 백그라운드 위치 권한이 필요해요.\n[설정] > [권한] > [위치]를 [항상 허용]으로 변경해주세요.</string>
 
     <!-- 메뉴 -->
     <string name="menu_home">home</string>

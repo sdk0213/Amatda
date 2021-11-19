@@ -44,7 +44,7 @@ class HomeViewModel @Inject constructor(
     private var _areaCode = "1"
     private var _sigungucode = "1"
 
-    fun init() {
+    fun permissionIsGranted() {
         getWeather()
     }
 
@@ -162,7 +162,7 @@ class HomeViewModel @Inject constructor(
 
     @SuppressLint("MissingPermission")
     // 현재 위치를 받아서 공공데이터 포털 API 의 날씨를 현재 위치를 기준으로 요청 하는 기능
-    fun getWeather() {
+    private fun getWeather() {
         showProgress()
         compositeDisposable.add(
             getLocationUseCase.execute()

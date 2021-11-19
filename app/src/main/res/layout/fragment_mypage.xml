@@ -182,7 +182,7 @@
                         android:id="@+id/image_view_my_page_tier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_icon_level_1"
+                        android:src="@drawable/flaticon_com_ic_level_1"
                         app:layout_constraintBottom_toTopOf="@+id/tv_my_page_my_tier"
                         app:layout_constraintEnd_toStartOf="@+id/btn_my_page_info_level"
                         app:layout_constraintStart_toEndOf="@+id/tv_my_page_my_tier_tier"

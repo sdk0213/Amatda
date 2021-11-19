@@ -224,14 +224,14 @@ class MyPageFragment :
                 .placeholder(R.drawable.external_image_loading)
                 .into(binding.imageViewMyPageProfile)
             when (level.level) {
-                1L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_1)
-                2L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_2)
-                3L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_3)
-                4L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_4)
-                5L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_5)
-                6L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_6)
-                7L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_7)
-                8L -> binding.imageViewMyPageTier.setImageResource(R.drawable.ic_icon_level_8)
+                1L -> binding.imageViewMyPageTier.setImageResource(R.drawable.flaticon_com_ic_level_1)
+                2L -> binding.imageViewMyPageTier.setImageResource(R.drawable.flaticon_com_ic_level_2)
+                3L -> binding.imageViewMyPageTier.setImageResource(R.drawable.flaticon_com_ic_level_3)
+                4L -> binding.imageViewMyPageTier.setImageResource(R.drawable.flaticon_com_ic_level_4)
+                5L -> binding.imageViewMyPageTier.setImageResource(R.drawable.flaticon_com_ic_level_5)
+                6L -> binding.imageViewMyPageTier.setImageResource(R.drawable.flaticon_com_ic_level_6)
+                7L -> binding.imageViewMyPageTier.setImageResource(R.drawable.flaticon_com_ic_level_7)
+                8L -> binding.imageViewMyPageTier.setImageResource(R.drawable.flaticon_com_ic_level_8)
             }
             binding.tvMyPageMyLevel.text = level.level.toString()
         }

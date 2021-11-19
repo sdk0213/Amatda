@@ -8,6 +8,7 @@ import com.turtle.amatda.domain.usecases.GetAreaUseCase
 import com.turtle.amatda.domain.usecases.GetLocationUseCase
 import com.turtle.amatda.domain.usecases.GetTourUseCase
 import com.turtle.amatda.domain.usecases.GetWeatherUseCase
+import com.turtle.amatda.presentation.utilities.Event
 import com.turtle.amatda.presentation.utilities.convertGridToGps
 import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringHHmmTimeStamp
 import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringyyyyMMddTimeStamp
@@ -25,6 +26,12 @@ class HomeViewModel @Inject constructor(
     private val getAreaUseCase: GetAreaUseCase,
     private val getTourUseCase: GetTourUseCase
 ) : BaseViewModel() {
+
+    private val _startGetWeatherApiCall = MutableLiveData<Event<Boolean>>()
+    val startGetWeatherApiCall: LiveData<Event<Boolean>> get() = _startGetWeatherApiCall
+
+    private val _startGetTourApiCall = MutableLiveData<Event<Boolean>>()
+    val startGetTourApiCall: LiveData<Event<Boolean>> get() = _startGetTourApiCall
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
@@ -44,11 +51,11 @@ class HomeViewModel @Inject constructor(
     private var _areaCode = "1"
     private var _sigungucode = "1"
 
-    fun permissionIsGranted() {
+    init {
         getWeather()
     }
 
-    // 현재 위치의 주소를 활영하여 지역코드를 조회 후 지역코드를 기반으로 주변 음식점 및 주변 여행지 목록을 가져온다.
+    // 현재 위치의 주소를 사용하여 지역코드를 조회 후 받아온 지역코드를 기반으로 주변 음식점 및 주변 여행지 목록을 가져온다.
     private fun getTour() {
         compositeDisposable.add(
             getAreaUseCase.execute("") // 처음에는 시도 코드를 가져오기 위해서 빈 값으로 요청
@@ -147,6 +154,7 @@ class HomeViewModel @Inject constructor(
                     when (response) {
                         is Resource.Success -> {
                             _restaurantList.value = response.data!!
+                            _startGetTourApiCall.value = Event(false)
                         }
                         is Resource.Loading -> {
 
@@ -164,6 +172,8 @@ class HomeViewModel @Inject constructor(
     // 현재 위치를 받아서 공공데이터 포털 API 의 날씨를 현재 위치를 기준으로 요청 하는 기능
     private fun getWeather() {
         showProgress()
+        _startGetWeatherApiCall.value = Event(true)
+        _startGetTourApiCall.value = Event(true)
         compositeDisposable.add(
             getLocationUseCase.execute()
                 .take(1)
@@ -202,6 +212,7 @@ class HomeViewModel @Inject constructor(
                                     // 0,3,6,9,12,15,18,21시만 출력
                                     date == "00:00" || date == "03:00" || date == "06:00" || date == "09:00" || date == "12:00" || date == "15:00" || date == "18:00" || date == "21:00"
                                 }
+                                _startGetWeatherApiCall.value = Event(false)
                                 getTour() // 관광지 목록 가져오기 - GPS 로 위치를 가져온다음에 수행하기위해서 현재 날씨를 가져온다음에 실행
                             }
                             is Resource.Loading -> {

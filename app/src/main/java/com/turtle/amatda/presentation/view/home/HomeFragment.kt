@@ -8,6 +8,7 @@ import com.gun0912.tedpermission.TedPermissionResult
 import com.tedpark.tedpermission.rx2.TedRxPermission
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentHomeBinding
+import com.turtle.amatda.presentation.utilities.EventObserver
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import io.reactivex.Single
 import java.util.*
@@ -61,7 +62,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
                     { tedPermissionResult ->
                         if (tedPermissionResult.isGranted) {
                             binding.constraintViewHomePermission.visibility = View.GONE
-                            viewModel.permissionIsGranted()
                         } else {
                             showToast(getString(R.string.toast_cannot_get_location_no_permission))
                         }
@@ -101,8 +101,18 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
         viewModel.tourList.observe(this@HomeFragment) {
             homeTourAdapter.submitList(it)
         }
+
         viewModel.restaurantList.observe(this@HomeFragment) {
             homeRestaurantAdapter.submitList(it)
         }
+
+        viewModel.startGetWeatherApiCall.observe(this@HomeFragment, EventObserver { loading ->
+            binding.tvHomeWeatherIsLoading.visibility = if (loading) View.VISIBLE else View.GONE
+        })
+
+        viewModel.startGetTourApiCall.observe(this@HomeFragment, EventObserver { loading ->
+            binding.tvHomeRestaurantIsLoading.visibility = if (loading) View.VISIBLE else View.GONE
+            binding.tvHomeTourIsLoading.visibility = if (loading) View.VISIBLE else View.GONE
+        })
     }
 }

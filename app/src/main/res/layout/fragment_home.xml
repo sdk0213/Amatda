@@ -135,6 +135,18 @@
                             app:layout_constraintTop_toTopOf="@id/img_view_home_weather_position"
                             tools:text="머한민국 머전 광역시 머구 머동 999" />
 
+                        <TextView
+                            android:id="@+id/tv_home_weather_isLoading"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="날씨 정보를 불러오는 중입니다.."
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/img_view_home_weather_position"
+                            tools:visibility="visible" />
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerview_home_weather"
                             android:layout_width="match_parent"
@@ -181,6 +193,18 @@
                             app:layout_constraintStart_toEndOf="@id/image_view_home_restaurant_food"
                             app:layout_constraintTop_toTopOf="@id/image_view_home_restaurant_food" />
 
+                        <TextView
+                            android:id="@+id/tv_home_restaurant_isLoading"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="주변 음식점 정보를 불러오는 중입니다.."
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_home_restaurant"
+                            tools:visibility="gone" />
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerview_home_restaurant"
                             android:layout_width="match_parent"
@@ -226,6 +250,18 @@
                             app:layout_constraintBottom_toBottomOf="@id/image_view_home_tour"
                             app:layout_constraintStart_toEndOf="@id/image_view_home_tour"
                             app:layout_constraintTop_toTopOf="@id/image_view_home_tour" />
+
+                        <TextView
+                            android:id="@+id/tv_home_tour_isLoading"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="주변 관광지 정보를 불러오는 중입니다.."
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_home_tour"
+                            tools:visibility="gone" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerview_home_tour"

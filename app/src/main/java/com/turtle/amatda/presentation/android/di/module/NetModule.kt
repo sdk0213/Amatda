@@ -80,9 +80,9 @@ class NetModule {
     fun provideOkHttpClient(htpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(htpLoggingInterceptor)
-            .connectTimeout(20, TimeUnit.SECONDS)  // 커넥션 타임아웃
-            .readTimeout(20, TimeUnit.SECONDS)
-            .writeTimeout(20, TimeUnit.SECONDS)
+            .connectTimeout(40, TimeUnit.SECONDS)  // 커넥션 타임아웃
+            .readTimeout(40, TimeUnit.SECONDS)
+            .writeTimeout(40, TimeUnit.SECONDS)
             .retryOnConnectionFailure(true)
             .build()
     }

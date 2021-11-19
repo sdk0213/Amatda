@@ -219,8 +219,9 @@ class HomeViewModel @Inject constructor(
 
                             }
                             is Resource.Error -> {
-                                _errorMessage.value =
-                                    "Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}"
+                                _errorMessage.value = "날씨 가져오기를 실패하였습니다. 재시도합니다."
+                                Timber.e( "getWeather: Resource.Error -> Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}")
+                                getWeather()
                             }
                         }
                         dismissProgress()
@@ -232,6 +233,7 @@ class HomeViewModel @Inject constructor(
                         Timber.e("getWeather on Error stacktrace : $exceptionAsString")
                         _errorMessage.value =
                             "Api call failed in subscribe.onError\nmessage : ${it.message}"
+                        getWeather()
                     }
                 )
         )

@@ -84,7 +84,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraint_view_home_weather"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toTopOf="@id/constraint_view_home_restaurant"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -164,7 +164,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraint_view_home_restaurant"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toTopOf="@id/constraint_view_home_tour"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -222,7 +222,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraint_view_home_tour"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

@@ -12,14 +12,9 @@ class LoginSignUpFragment :
     BaseFragment<LoginSignUpViewModel, FragmentLoginSignUpBinding>(R.layout.fragment_login_sign_up) {
 
     override fun init() {
-        view()
         viewModel()
         listener()
         observer()
-    }
-
-    private fun view() {
-
     }
 
     private fun viewModel() {

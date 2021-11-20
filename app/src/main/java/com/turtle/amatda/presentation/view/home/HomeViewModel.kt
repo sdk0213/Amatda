@@ -57,6 +57,7 @@ class HomeViewModel @Inject constructor(
 
     // 현재 위치의 주소를 사용하여 지역코드를 조회 후 받아온 지역코드를 기반으로 주변 음식점 및 주변 여행지 목록을 가져온다.
     private fun getTour() {
+        _startGetTourApiCall.value = Event(true)
         compositeDisposable.add(
             getAreaUseCase.execute("") // 처음에는 시도 코드를 가져오기 위해서 빈 값으로 요청
                 .flatMap { response ->
@@ -173,12 +174,12 @@ class HomeViewModel @Inject constructor(
     private fun getWeather() {
         showProgress()
         _startGetWeatherApiCall.value = Event(true)
-        _startGetTourApiCall.value = Event(true)
         compositeDisposable.add(
             getLocationUseCase.execute()
                 .take(1)
                 .flatMapSingle { location ->
                     _weatherAddress.value = location.address
+                    getTour() // 지역코드 API 를 호출하기위해서는 위치정보가 필요하기 때문에 위치정보를 가져온후에 Tour API 호출
                     getWeatherUseCase.execute(
                         ApiCallWeather(
                             nx = convertGridToGps(
@@ -213,7 +214,6 @@ class HomeViewModel @Inject constructor(
                                     date == "00:00" || date == "03:00" || date == "06:00" || date == "09:00" || date == "12:00" || date == "15:00" || date == "18:00" || date == "21:00"
                                 }
                                 _startGetWeatherApiCall.value = Event(false)
-                                getTour() // 관광지 목록 가져오기 - GPS 로 위치를 가져온다음에 수행하기위해서 현재 날씨를 가져온다음에 실행
                             }
                             is Resource.Loading -> {
 

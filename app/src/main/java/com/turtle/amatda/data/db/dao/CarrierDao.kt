@@ -41,4 +41,8 @@ interface CarrierDao {
     @Transaction
     @Query("SELECT * FROM Carrier")
     fun getCarrierWithPocketAndItemsData(): Single<List<CarrierWithPocketAndItemsEntity>>
+
+    @Transaction
+    @Query("SELECT * FROM Carrier")
+    fun getObserveCarrierWithPocketAndItemsData(): Flowable<List<CarrierWithPocketAndItemsEntity>>
 }

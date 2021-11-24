@@ -36,6 +36,10 @@ class CarrierDataSourceFactory @Inject constructor(
         return localDataSource.getCarrierWithPocketAndItems()
     }
 
+    fun getObserveCarrierWithPocketAndItems(): Flowable<List<CarrierWithPocketAndItemsEntity>> {
+        return localDataSource.getObserveCarrierWithPocketAndItems()
+    }
+
     fun exportUserCarrierDbServer(userCarrier: List<CarrierWithPocketAndItemsEntity>): Completable {
         return remoteDataSource.exportUserCarrierDbServer(userCarrier)
     }

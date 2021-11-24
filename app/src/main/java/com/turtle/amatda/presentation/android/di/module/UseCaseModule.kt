@@ -185,6 +185,12 @@ class UseCaseModule {
 
     @Provides
     @Singleton
+    fun provideGetAllCarrierUseCase(repository: CarrierRepository): GetAllCarrierUseCase {
+        return GetAllCarrierUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
     fun provideDeleteAllCarrierUseCase(repository: CarrierRepository): DeleteCarrierDBUseCase {
         return DeleteCarrierDBUseCase(repository)
     }

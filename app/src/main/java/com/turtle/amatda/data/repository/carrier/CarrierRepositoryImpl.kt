@@ -70,6 +70,24 @@ class CarrierRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getObserveCarrierWithPocketAndItems(): Flowable<List<CarrierWithPocketAndItems>> {
+        return factory.getObserveCarrierWithPocketAndItems().map { list ->
+            list.map { carrierWithPocketAndItemsEntity ->
+                CarrierWithPocketAndItems(
+                    carrier = carrierMapper.entityToMap(carrierWithPocketAndItemsEntity.carrier),
+                    pocketAndItems = carrierWithPocketAndItemsEntity.pockets.map { pocketAndItems ->
+                        PocketAndItem(
+                            pocket = pocketMapper.entityToMap(pocketAndItems.pocket),
+                            items = pocketAndItems.items.map { itemEntity ->
+                                itemMapper.entityToMap(itemEntity)
+                            }
+                        )
+                    }
+                )
+            }
+        }
+    }
+
     override fun exportUserCarrierDbServer(userCarrier: List<CarrierWithPocketAndItems>): Completable {
         return factory.exportUserCarrierDbServer(
             userCarrier.map { carrier ->

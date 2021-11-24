@@ -39,6 +39,10 @@ class CarrierLocalDataSourceImpl @Inject constructor(
         return carrierDao.getCarrierWithPocketAndItemsData()
     }
 
+    override fun getObserveCarrierWithPocketAndItems(): Flowable<List<CarrierWithPocketAndItemsEntity>> {
+        return carrierDao.getObserveCarrierWithPocketAndItemsData()
+    }
+
     override fun initCarrierDB(): Completable {
         return carrierDao.initCarrierDB()
     }

@@ -7,7 +7,7 @@ import com.turtle.amatda.domain.model.CarrierAndPocket
 import com.turtle.amatda.domain.model.CarrierWithPocketAndItems
 import com.turtle.amatda.domain.model.Item
 import com.turtle.amatda.domain.usecases.DeleteCarrierUseCase
-import com.turtle.amatda.domain.usecases.GetAllCarrierDbUseCase
+import com.turtle.amatda.domain.usecases.GetAllCarrierUseCase
 import com.turtle.amatda.domain.usecases.GetAllItemUseCase
 import com.turtle.amatda.domain.usecases.GetPocketUseCase
 import com.turtle.amatda.presentation.view.base.BaseViewModel
@@ -18,7 +18,7 @@ class CarrierViewModel @Inject constructor(
     private val getAllItemUseCase: GetAllItemUseCase,
     private val getPocketUseCase: GetPocketUseCase,
     private val deleteCarrierUseCase: DeleteCarrierUseCase,
-    private val getAllCarrierDbUseCase: GetAllCarrierDbUseCase,
+    private val getAllCarrierUseCase: GetAllCarrierUseCase,
 ) : BaseViewModel() {
 
     private val _mCarrierWithPocketAndItems = MutableLiveData<List<CarrierWithPocketAndItems>>()
@@ -55,7 +55,7 @@ class CarrierViewModel @Inject constructor(
 
     fun getCarrierList() {
         compositeDisposable.add(
-            getAllCarrierDbUseCase.execute()
+            getAllCarrierUseCase.execute()
                 .subscribe(
                     {
                         _mCarrierWithPocketAndItems.value = it
@@ -72,7 +72,7 @@ class CarrierViewModel @Inject constructor(
             deleteCarrierUseCase.execute(carrier)
                 .subscribe(
                     {
-
+                        Timber.d("deleteCarrier is success")
                     },
                     {
                         Timber.e("deleteCarrier is Error ${it.message}")

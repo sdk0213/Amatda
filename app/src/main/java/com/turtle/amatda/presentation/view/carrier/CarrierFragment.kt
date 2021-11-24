@@ -62,7 +62,7 @@ class CarrierFragment :
 
     private fun observer() {
 
-        viewModel.mCarrierAndGetHasPocketNum.observe(this@CarrierFragment) {
+        viewModel.mCarrierWithPocketAndItems.observe(this@CarrierFragment) {
             carrierAdapter.submitList(it)
         }
 

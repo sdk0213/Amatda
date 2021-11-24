@@ -3,10 +3,11 @@ package com.turtle.amatda.presentation.view.carrier
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.turtle.amatda.domain.model.Carrier
-import com.turtle.amatda.domain.model.CarrierAndGetHasPocketNum
 import com.turtle.amatda.domain.model.CarrierAndPocket
+import com.turtle.amatda.domain.model.CarrierWithPocketAndItems
 import com.turtle.amatda.domain.model.Item
 import com.turtle.amatda.domain.usecases.DeleteCarrierUseCase
+import com.turtle.amatda.domain.usecases.GetAllCarrierDbUseCase
 import com.turtle.amatda.domain.usecases.GetAllItemUseCase
 import com.turtle.amatda.domain.usecases.GetPocketUseCase
 import com.turtle.amatda.presentation.view.base.BaseViewModel
@@ -16,20 +17,21 @@ import javax.inject.Inject
 class CarrierViewModel @Inject constructor(
     private val getAllItemUseCase: GetAllItemUseCase,
     private val getPocketUseCase: GetPocketUseCase,
-    private val deleteCarrierUseCase: DeleteCarrierUseCase
+    private val deleteCarrierUseCase: DeleteCarrierUseCase,
+    private val getAllCarrierDbUseCase: GetAllCarrierDbUseCase,
 ) : BaseViewModel() {
 
-    private val _mCarrierAndGetHasItemNum = MutableLiveData<List<CarrierAndGetHasPocketNum>>()
+    private val _mCarrierWithPocketAndItems = MutableLiveData<List<CarrierWithPocketAndItems>>()
+    val mCarrierWithPocketAndItems: LiveData<List<CarrierWithPocketAndItems>> get() = _mCarrierWithPocketAndItems
 
     private val _allCarrierPocketList = MutableLiveData<List<CarrierAndPocket>>()
     val allCarrierPocketList: LiveData<List<CarrierAndPocket>> get() = _allCarrierPocketList
+
+    // 가방의 모든 아이템
     private val _allItemList = MutableLiveData<List<Item>>()
     val allItemList: LiveData<List<Item>> get() = _allItemList
 
-    val mCarrierAndGetHasPocketNum: LiveData<List<CarrierAndGetHasPocketNum>>
-        get() = _mCarrierAndGetHasItemNum
-
-    // 모든 아이템 가져오기
+    // 검색을 위한 데이터 제공하기 위해서 모든 아이템 가져오기
     fun getAllItem() {
         compositeDisposable.add(
             getPocketUseCase.execute()
@@ -39,8 +41,8 @@ class CarrierViewModel @Inject constructor(
                         compositeDisposable.add(
                             getAllItemUseCase.execute()
                                 .subscribe(
-                                    {
-                                        _allItemList.value = it
+                                    { itemList ->
+                                        _allItemList.value = itemList
                                     },
                                     {}
                                 )
@@ -53,18 +55,10 @@ class CarrierViewModel @Inject constructor(
 
     fun getCarrierList() {
         compositeDisposable.add(
-            getPocketUseCase.execute()
-                .map { list ->
-                    list.map { carrierAndPocketEntity ->
-                        CarrierAndGetHasPocketNum(
-                            carrier = carrierAndPocketEntity.carrier,
-                            pocketSize = carrierAndPocketEntity.pockets.size
-                        )
-                    }
-                }
+            getAllCarrierDbUseCase.execute()
                 .subscribe(
                     {
-                        _mCarrierAndGetHasItemNum.value = it
+                        _mCarrierWithPocketAndItems.value = it
                     },
                     {
                         Timber.e("getCarrierList is Error ${it.message}")

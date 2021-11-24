@@ -7,13 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.turtle.amatda.databinding.ListItemCarrierBinding
 import com.turtle.amatda.domain.model.Carrier
-import com.turtle.amatda.domain.model.CarrierAndGetHasPocketNum
+import com.turtle.amatda.domain.model.CarrierWithPocketAndItems
+import com.turtle.amatda.presentation.utilities.extensions.convertToDatePretty
 
 class CarrierAdapter constructor(
-    private val clickCarrier : (Carrier) -> (Unit),
-    private val editCarrier : (Carrier) -> (Unit),
-    private val deleteCarrier : (Carrier) -> (Unit)
-) : ListAdapter<CarrierAndGetHasPocketNum, CarrierAdapter.CarrierViewHolder>(
+    private val clickCarrier: (Carrier) -> (Unit),
+    private val editCarrier: (Carrier) -> (Unit),
+    private val deleteCarrier: (Carrier) -> (Unit)
+) : ListAdapter<CarrierWithPocketAndItems, CarrierAdapter.CarrierViewHolder>(
     CarrierDiffCallback()
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarrierViewHolder {
@@ -34,17 +35,28 @@ class CarrierAdapter constructor(
         private val binding: ListItemCarrierBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(carrierAndPocket: CarrierAndGetHasPocketNum) {
+        fun bind(carrierWithPocketAndItems: CarrierWithPocketAndItems) {
             binding.apply {
-                carrierAndGetHasPocketNum = carrierAndPocket
+                binding.tvCarrierName.text = "이름 : ${carrierWithPocketAndItems.carrier.name}"
+                binding.tvCarrierType.text =
+                    "종류 : ${carrierWithPocketAndItems.carrier.type}(${carrierWithPocketAndItems.carrier.size})"
+                binding.tvCarrierDate.text =
+                    "${carrierWithPocketAndItems.carrier.date.convertToDatePretty()}"
+                binding.tvListCarrierHasPocket.text =
+                    "${carrierWithPocketAndItems.pocketAndItems.size} 개"
+                var hasPocket = 0
+                carrierWithPocketAndItems.pocketAndItems.forEach {
+                    hasPocket += it.items.size
+                }
+                binding.tvListCarrierHasItem.text = "$hasPocket 개"
                 setClickListener {
-                    clickCarrier(carrierAndPocket.carrier)
+                    clickCarrier(carrierWithPocketAndItems.carrier)
                 }
                 setEditClickListener {
-                    editCarrier(carrierAndPocket.carrier)
+                    editCarrier(carrierWithPocketAndItems.carrier)
                 }
                 setDeleteClickListener {
-                    deleteCarrier(carrierAndPocket.carrier)
+                    deleteCarrier(carrierWithPocketAndItems.carrier)
                 }
                 executePendingBindings()
             }
@@ -53,13 +65,19 @@ class CarrierAdapter constructor(
 
 }
 
-class CarrierDiffCallback : DiffUtil.ItemCallback<CarrierAndGetHasPocketNum>() {
+class CarrierDiffCallback : DiffUtil.ItemCallback<CarrierWithPocketAndItems>() {
 
-    override fun areItemsTheSame(oldPocket: CarrierAndGetHasPocketNum, newPocket: CarrierAndGetHasPocketNum): Boolean {
+    override fun areItemsTheSame(
+        oldPocket: CarrierWithPocketAndItems,
+        newPocket: CarrierWithPocketAndItems
+    ): Boolean {
         return oldPocket.carrier.id == newPocket.carrier.id
     }
 
-    override fun areContentsTheSame(oldPocket: CarrierAndGetHasPocketNum, newPocket: CarrierAndGetHasPocketNum): Boolean {
+    override fun areContentsTheSame(
+        oldPocket: CarrierWithPocketAndItems,
+        newPocket: CarrierWithPocketAndItems
+    ): Boolean {
         return oldPocket.carrier == newPocket.carrier
     }
 }

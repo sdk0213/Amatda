@@ -40,6 +40,9 @@ fun Date.convertDateToStringMMddHHmmTimeStamp(): String =
 fun Date.convertDateToStringHHmmTimeStamp(): String =
     SimpleDateFormat("HH:mm", Locale.getDefault()).format(this)
 
+fun Date.convertToDatePretty(): String =
+    SimpleDateFormat("yy/MM/dd HH:mm", Locale.getDefault()).format(this)
+
 fun Date.toCalenderDay(): CalendarDay {
     val cal = Calendar.getInstance(Locale.getDefault())
     cal.time = this

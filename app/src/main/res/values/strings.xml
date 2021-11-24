@@ -39,7 +39,7 @@
     <!-- 메뉴 -->
     <string name="menu_home">home</string>
     <string name="menu_my_carrier">my carrier</string>
-    <string name="menu_my_trip">my trip</string>
+    <string name="menu_my_trip">trip reminder</string>
     <string name="menu_my_page">my page</string>
 
     <!-- 앱 바 메뉴 -->

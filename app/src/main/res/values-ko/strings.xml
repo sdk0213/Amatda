@@ -39,7 +39,7 @@
     <!-- 메뉴 -->
     <string name="menu_home">홈</string>
     <string name="menu_my_carrier">나의 가방</string>
-    <string name="menu_my_trip">나의 여행</string>
+    <string name="menu_my_trip">여행 리마인더</string>
     <string name="menu_my_page">마이페이지</string>
 
     <!-- 앱 바 메뉴 -->

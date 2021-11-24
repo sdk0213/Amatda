@@ -7,12 +7,16 @@ import br.com.mauker.materialsearchview.MaterialSearchView
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentCarrierBinding
 import com.turtle.amatda.domain.model.Carrier
+import com.turtle.amatda.presentation.android.view_data.TextViewData
+import com.turtle.amatda.presentation.utilities.extensions.getNavigationResult
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import timber.log.Timber
 import java.util.*
 
 class CarrierFragment :
     BaseFragment<CarrierViewModel, FragmentCarrierBinding>(R.layout.fragment_carrier) {
+
+    private val returnKeyDialogDeleteCarrier = "dialogReturnKeyDeleteCarrier"
 
     private lateinit var carrierAdapter: CarrierAdapter
 
@@ -49,7 +53,24 @@ class CarrierFragment :
                 )
             },
             deleteCarrier = {
-                viewModel.deleteCarrier(it)
+                findNavController().navigate(
+                    CarrierFragmentDirections.actionGlobalShowYesOrNoDialog(
+                        TextViewData(
+                            returnKey = returnKeyDialogDeleteCarrier,
+                            text = "'${it.name}'\n${getString(R.string.dialog_message_my_carrier_delete_carrier)}"
+                        )
+                    )
+                )
+                getNavigationResult<String>(
+                    id = R.id.view_fragment_main,
+                    key = returnKeyDialogDeleteCarrier,
+                    onResult = { RETURN ->
+                        when (RETURN) {
+                            DIALOG_RETURN_VALUE_OK -> {
+                                viewModel.deleteCarrier(it)
+                            }
+                        }
+                    })
             }
         )
         binding.carrierRecyclerView.adapter = carrierAdapter

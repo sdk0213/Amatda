@@ -52,6 +52,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
             binding.constraintViewHomePermission.visibility = View.VISIBLE
         } else {
             binding.constraintViewHomePermission.visibility = View.GONE
+            viewModel.getWeather()
         }
 
 

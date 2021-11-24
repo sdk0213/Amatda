@@ -51,10 +51,6 @@ class HomeViewModel @Inject constructor(
     private var _areaCode = "1"
     private var _sigungucode = "1"
 
-    init {
-        getWeather()
-    }
-
     // 현재 위치의 주소를 사용하여 지역코드를 조회 후 받아온 지역코드를 기반으로 주변 음식점 및 주변 여행지 목록을 가져온다.
     private fun getTour() {
         _startGetTourApiCall.value = Event(true)
@@ -171,7 +167,7 @@ class HomeViewModel @Inject constructor(
 
     @SuppressLint("MissingPermission")
     // 현재 위치를 받아서 공공데이터 포털 API 의 날씨를 현재 위치를 기준으로 요청 하는 기능
-    private fun getWeather() {
+    fun getWeather() {
         showProgress()
         _startGetWeatherApiCall.value = Event(true)
         compositeDisposable.add(

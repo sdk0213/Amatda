@@ -4,6 +4,7 @@
     <!-- 공통 -->
     <string name="common_button_checked">확인</string>
     <string name="common_button_cancel">취소</string>
+    <string name="common_button_next">다음</string>
     <string name="common_delete">삭제</string>
     <string name="common_name">이름</string>
     <string name="common_type">타입</string>
@@ -87,6 +88,7 @@
     <string name="default_date_type">yyyy년-MM월-dd일</string>
 
     <!-- 가방 만들기 -->
+    <string name="carrier_make">가방 생성</string>
     <string name="question_carrier_name">가방의 이름을 정해주세요</string>
     <string name="question_carrier_name_hint">가방 이름</string>
     <string name="carrier_pocket_is_empty">현재 주머니가 없어요</string>
@@ -134,11 +136,14 @@
     <string name="question_trip_date_end_day">여행 끝</string>
     <string name="question_trip_course">방문할 여행 장소</string>
     <string name="question_trip_concept">여행의 콘셉트를 체크하세요.</string>
+    <string name="button_trip_make">여행 만들기</string>
+    <string name="button_go_back_to_home">홈으로</string>
 
     <!-- 지역 생성 -->
     <string name="question_trip_zone_ok">위치 추가</string>
     <string name="toast_message_trip_zone_success">여행지역 등록에 성공하였습니다.</string>
     <string name="toast_message_trip_zone_failed">여행지역 등록에 실패하였습니다. 다시 시도해주세요</string>
+    <string name="button_make_trip_zone_reminder">리마인더 생성</string>
 
     <!-- 다이얼로그 -->
     <string name="dialog_edit_text">변경할 값</string>

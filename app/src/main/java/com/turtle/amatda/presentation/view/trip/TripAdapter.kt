@@ -1,5 +1,6 @@
 package com.turtle.amatda.presentation.view.trip
 
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,19 +42,27 @@ class TripAdapter constructor(
             binding.apply {
                 tvTripName.text = trip.title
                 tvTripType.text = "(${trip.type.concept})"
-                tvTripDDay.text = when {
-                    Date().before(trip.date_start) -> "D-${trip.date_start.getCountDay(Date())}"
+                tvTripIsGoingOn.text = when {
+                    Date().before(trip.date_start) -> {
+                        tvTripIsGoingOn.background =
+                            GradientDrawable().apply { setColor(0xFF888888.toInt()) }
+                        ratingbarTripRating.visibility = View.GONE
+                        "D-${trip.date_start.getCountDay(Date())}"
+                    }
                     Date().after(trip.date_end) -> {
+                        tvTripIsGoingOn.background =
+                            GradientDrawable().apply { setColor(0xFF000000.toInt()) }
                         ratingbarTripRating.visibility = View.VISIBLE
                         "여행 종료됨"
                     }
-                    else -> "여행 진행중"
-                }
-                tvTripZone.text =
-                    when (trip.zoneList.size) {
-                        0 -> "방문할 장소를 추가해주세요"
-                        else -> "${trip.zoneList.size}개의 장소를 방문합니다."
+                    else -> {
+                        tvTripIsGoingOn.background =
+                            GradientDrawable().apply { setColor(0xFFFF6E40.toInt()) }
+                        ratingbarTripRating.visibility = View.GONE
+                        "여행 진행중"
                     }
+                }
+                tvListTripHasReminder.text = trip.zoneList.size.toString()
                 tvTripDate.text =
                     "${trip.date_start.convertDateToStringyyMMddTimeStampWithSlash()} ~ ${trip.date_end.convertDateToStringyyMMddTimeStampWithSlash()}"
                 ratingbarTripRating.rating = trip.rating.toFloat()

@@ -9,7 +9,7 @@ data class TripZone(
     val id: Long = 0,
     val area: String = "", // 지역명
     val addr: String = "",
-    val title: String = "", // 제목
+    val title: String = "", // 메모
     val date: Date = Date(), // 방문 날짜
     val lat: String = "0", // 위도
     val lon: String = "0", // 경도

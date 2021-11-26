@@ -76,10 +76,10 @@
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="@string/button_go_back_to_home"
-            android:textSize="@dimen/carrier_name_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            style="?attr/materialButtonOutlinedStyle"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

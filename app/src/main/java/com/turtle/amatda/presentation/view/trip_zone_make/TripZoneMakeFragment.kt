@@ -1,10 +1,8 @@
 package com.turtle.amatda.presentation.view.trip_zone_make
 
-import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -96,6 +94,7 @@ class TripZoneMakeFragment :
             viewModel.setPlaceTitle(it.title)
             binding.atvTripZoneMakeType.text = it.zoneType.zone.toEditable()
             binding.atvTripZoneMakeType.setAdapter(typeAdapter)
+            binding.btnMakeTripZoneOk.text = "리마인더 수정"
             viewModel.setPlaceType(it.zoneType.zone)
         })
     }

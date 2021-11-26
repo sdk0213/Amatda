@@ -95,7 +95,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        style="?attr/materialButtonOutlinedStyle"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -354,6 +355,8 @@
                             android:gravity="center"
                             android:includeFontPadding="false"
                             android:textSize="18sp"
+                            android:textColor="@color/amatda_main"
+
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/item_count_decrease"
                             app:layout_constraintStart_toEndOf="@id/item_count_increase"
@@ -698,7 +701,7 @@
             app:endIconDrawable="@drawable/ic_baseline_drive_file_rename_outline_24"
             app:endIconMode="custom"
             app:startIconContentDescription="주머니"
-            app:startIconDrawable="@drawable/flaticon_com_ic_book_bag_with_pockets"
+            app:startIconDrawable="@drawable/flaticon_com_ic_premium_icon_pocket"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">

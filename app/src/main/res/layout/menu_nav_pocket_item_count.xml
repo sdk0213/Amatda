@@ -9,7 +9,7 @@
         android:id="@+id/pocket_item_count"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:textColor="@color/white"
+        android:textColor="@color/amatda_main"
         android:textSize="12sp"
         android:gravity="center"
         android:shape="rectangle"

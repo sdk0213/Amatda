@@ -52,10 +52,10 @@
             android:gravity="center"
             android:onClick="@{clickListener}"
             android:text="@string/button_trip_make"
-            android:textSize="@dimen/carrier_name_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            style="?attr/materialButtonOutlinedStyle"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

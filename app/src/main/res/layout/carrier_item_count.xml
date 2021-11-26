@@ -8,5 +8,6 @@
     android:background="@drawable/item_count_oval"
     android:gravity="center"
     android:textSize="12sp"
+    android:textColor="@color/amatda_main"
     android:includeFontPadding="false"
     tools:text="1" />

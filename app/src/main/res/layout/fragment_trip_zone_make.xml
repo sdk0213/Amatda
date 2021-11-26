@@ -48,13 +48,13 @@
             android:layout_height="75dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:gravity="center"
+            android:gravity="start|center"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/img_view_trip_course_location"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/img_view_trip_course_location"
             app:layout_constraintTop_toTopOf="@id/img_view_trip_course_location"
-            tools:text="대전광역시 서구 계룡로 536번길 9 한신아파트" />
+            tools:text="한민시장상인회\n(대한민국 대전광역시 서구 괴정동 88-6)" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_trip_zone_make_type"
@@ -64,7 +64,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:hint="이곳에서 무엇을하나요?"
+            android:hint="이 곳은 어디인가요?"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/img_view_trip_course_location">
@@ -86,7 +86,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:hint="(메모)"
+            android:hint="(도착시 리마인더 메모)"
             app:endIconMode="clear_text"
             app:layout_constraintBottom_toTopOf="@id/btn_make_trip_zone_ok"
             app:layout_constraintEnd_toEndOf="parent"
@@ -108,10 +108,10 @@
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="@string/button_make_trip_zone_reminder"
-            android:textSize="@dimen/carrier_name_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            style="?attr/materialButtonOutlinedStyle"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

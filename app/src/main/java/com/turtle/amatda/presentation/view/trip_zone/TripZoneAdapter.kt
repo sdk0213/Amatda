@@ -58,9 +58,9 @@ class TripZoneAdapter constructor(
 
         fun bind(tripZone: TripZone) {
             binding.apply {
-                tvTripZoneAddr.text = tripZone.area
+                tvTripZoneAddr.text = "${tripZone.area}\n(${tripZone.addr})"
                 tvTripZoneType.text = tripZone.zoneType.zone
-                tvTripZoneTitle.text = tripZone.title
+                tvListTripZoneMemo.text = tripZone.title
                 btnTripZoneDelete.setOnClickListener {
                     deleteArea(tripZone)
                 }

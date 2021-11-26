@@ -41,12 +41,12 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/common_button_next"
-            android:textSize="@dimen/carrier_name_text_size"
             android:onClick="@{clickListener}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edt_trip_title" />
+            app:layout_constraintTop_toBottomOf="@id/edt_trip_title"
+            style="?attr/materialButtonOutlinedStyle"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

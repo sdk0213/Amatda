@@ -13,7 +13,7 @@
         android:id="@+id/item_add_carrier"
         android:title="@string/app_bar_add_carrier"
         android:contentDescription="@string/app_bar_add_carrier"
-        android:icon="@drawable/ic_add_24"
+        android:icon="@drawable/flaticon_com_ic_add_carrier"
         app:showAsAction="always" />
 
 </menu>

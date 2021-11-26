@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -52,7 +53,8 @@
             app:layout_constraintBottom_toTopOf="@id/tv_trip_date_end"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/calender_trip_date" />
+            app:layout_constraintTop_toBottomOf="@id/calender_trip_date"
+            tools:text="여행 시작 : 2021년 11월 17일"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_trip_date_end"
@@ -65,7 +67,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn_trip_title_ok"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_trip_date_start" />
+            app:layout_constraintTop_toBottomOf="@id/tv_trip_date_start"
+            tools:text="여행 시작 : 2021년 11월 17일"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_trip_title_ok"
@@ -75,11 +78,11 @@
             android:gravity="center"
             android:onClick="@{clickListener}"
             android:text="@string/common_button_next"
-            android:textSize="@dimen/carrier_name_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_trip_date_end" />
+            app:layout_constraintTop_toBottomOf="@id/tv_trip_date_end"
+            style="?attr/materialButtonOutlinedStyle"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

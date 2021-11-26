@@ -107,7 +107,7 @@ class CarrierItemFragment :
                         it.name
                     )
                     .apply {
-                        setIcon(R.drawable.flaticon_com_ic_book_bag_with_pockets)
+                        setIcon(R.drawable.flaticon_com_ic_premium_icon_pocket)
                         if (it.id == viewModel.currentPocket.id) {
                             isChecked = true
                             isCheckable = true
@@ -277,7 +277,7 @@ class CarrierItemFragment :
                         R.string.edit_pocket_delete
                     )
                 )
-                .setIcon(if (pocketDeleteClicked) R.drawable.ic_baseline_cancel_24 else R.drawable.ic_baseline_delete_24)
+                .setIcon(if (pocketDeleteClicked) R.drawable.ic_baseline_cancel_24 else R.drawable.ic_twotone_delete_24)
                 .setChecked(pocketDeleteClicked)
                 .setCheckable(pocketDeleteClicked)
         }

@@ -14,14 +14,14 @@
                 <item
                     android:id="@+id/pocket"
                     android:title="안 주머니(TEST)"
-                    android:icon="@drawable/flaticon_com_ic_book_bag_with_pockets"
+                    android:icon="@drawable/flaticon_com_ic_premium_icon_pocket"
                     app:actionLayout="@layout/menu_nav_pocket_item_count"
                     app:showAsAction="always" />
 
                 <item
                     android:id="@+id/pocket2"
                     android:title="사이드 주머니(TEST)"
-                    android:icon="@drawable/flaticon_com_ic_book_bag_with_pockets"
+                    android:icon="@drawable/flaticon_com_ic_premium_icon_pocket"
                     app:actionLayout="@layout/menu_nav_pocket_item_count"
                     app:showAsAction="always" />
 
@@ -31,7 +31,7 @@
                     android:enabled="true"
                     android:checked="true"
                     android:checkable="true"
-                    android:icon="@drawable/flaticon_com_ic_book_bag_with_pockets"
+                    android:icon="@drawable/flaticon_com_ic_premium_icon_pocket"
                     app:actionLayout="@layout/menu_nav_pocket_item_count"
                     app:showAsAction="always" />
 
@@ -59,7 +59,7 @@
                     android:title="주머니 이름바꾸기" />
                 <item
                     android:id="@+id/pocket_delete"
-                    android:icon="@drawable/ic_baseline_delete_24"
+                    android:icon="@drawable/ic_twotone_delete_24"
                     android:title="주머니 삭제하기" />
             </menu>
 
@@ -78,7 +78,7 @@
             <menu>
                 <item
                     android:id="@+id/back_to_home"
-                    android:icon="@drawable/ic_baseline_home_24"
+                    android:icon="@drawable/ic_outline_home_24"
                     android:title="홈으로" />
             </menu>
 

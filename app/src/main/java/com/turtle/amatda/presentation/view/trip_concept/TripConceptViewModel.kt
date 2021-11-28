@@ -11,6 +11,7 @@ import com.turtle.amatda.domain.model.TripZone
 import com.turtle.amatda.domain.usecases.SaveTripUseCase
 import com.turtle.amatda.domain.usecases.UpdateUserExperienceUseCase
 import com.turtle.amatda.presentation.android.workmanager.ManageTripZoneGeofenceWorker
+import com.turtle.amatda.presentation.utilities.Event
 import com.turtle.amatda.presentation.view.base.BaseViewModel
 import timber.log.Timber
 import java.util.*
@@ -27,6 +28,9 @@ class TripConceptViewModel @Inject constructor(
 
     private val _tripConcept = MutableLiveData(TripConcept.NORMAL)
     val tripConcept: LiveData<TripConcept> get() = _tripConcept
+
+    private val _editMode = MutableLiveData(Event(false))
+    val editMode: LiveData<Event<Boolean>> get() = _editMode
 
     fun setTrip(trip: Trip) {
         _argsTrip.value = trip
@@ -45,6 +49,7 @@ class TripConceptViewModel @Inject constructor(
 
     fun updateConcept(tripConcept: TripConcept) {
         _tripConcept.value = tripConcept
+        _editMode.value = Event(true)
     }
 
     fun saveTrip() {

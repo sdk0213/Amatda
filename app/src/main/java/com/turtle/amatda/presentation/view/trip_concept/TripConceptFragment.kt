@@ -5,6 +5,7 @@ import androidx.navigation.fragment.navArgs
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentTripConceptBinding
 import com.turtle.amatda.domain.model.TripConcept
+import com.turtle.amatda.presentation.utilities.EventObserver
 import com.turtle.amatda.presentation.view.base.BaseFragment
 
 class TripConceptFragment :
@@ -77,5 +78,11 @@ class TripConceptFragment :
 
             }
         }
+
+        viewModel.editMode.observe(this@TripConceptFragment, EventObserver { editMode ->
+            if (editMode) {
+                binding.btnTripTitleOk.text = "여행 수정"
+            }
+        })
     }
 }

@@ -43,10 +43,15 @@ class HomeTourAdapter constructor(
                 tvListItemHomeTourTitle.text = item.title
                 Glide.with(context)
                     .load(item.firstimage)
-                    .placeholder(R.drawable.external_image_loading)
+                    .placeholder(R.drawable.external_image_ic_external_image_loading)
                     .into(imgViewListItemHomeTourImage)
                 cardViewTour.setOnClickListener {
-                    context.startActivity(Intent(Intent.ACTION_WEB_SEARCH).putExtra(SearchManager.QUERY, item.title))
+                    context.startActivity(
+                        Intent(Intent.ACTION_WEB_SEARCH).putExtra(
+                            SearchManager.QUERY,
+                            item.title
+                        )
+                    )
                 }
                 executePendingBindings()
             }

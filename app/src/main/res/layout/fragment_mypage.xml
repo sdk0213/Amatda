@@ -86,14 +86,16 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@drawable/item_profile">
 
                     <ImageView
                         android:id="@+id/image_view_my_page_profile"
                         android:layout_width="125dp"
-                        android:layout_height="0dp"
-                        android:src="@drawable/external_image_loading"
-                        app:layout_constraintBottom_toTopOf="@+id/button_my_page_add_my_profile_image"
+                        android:layout_height="125dp"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/external_image_ic_external_image_loading"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -101,57 +103,58 @@
                         android:id="@+id/button_my_page_add_my_profile_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:text="@string/my_page_register_profile_image"
                         android:textSize="12sp"
                         app:icon="@drawable/ic_baseline_photo_camera_24"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/image_view_my_page_profile"
-                        app:layout_constraintStart_toStartOf="@id/image_view_my_page_profile"
+                        app:layout_constraintEnd_toEndOf="@+id/image_view_my_page_profile"
+                        app:layout_constraintStart_toStartOf="@+id/image_view_my_page_profile"
                         app:layout_constraintTop_toBottomOf="@id/image_view_my_page_profile" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_my_page_my_account_email"
+                    <ImageView
+                        android:id="@+id/image_view_my_page_my_account_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="@dimen/view_normal_margin_top_and_bottom"
-                        android:layout_marginBottom="@dimen/view_normal_margin_top_and_bottom"
-                        android:text="@string/my_page_email"
-                        app:layout_constraintBottom_toTopOf="@id/tv_my_page_my_nickname_nickname"
-                        app:layout_constraintStart_toEndOf="@id/image_view_my_page_profile"
-                        app:layout_constraintTop_toTopOf="@id/image_view_my_page_profile" />
+                        android:layout_marginTop="8dp"
+                        android:contentDescription="@string/my_page_email"
+                        android:src="@drawable/ic_outline_email_24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.25"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/button_my_page_add_my_profile_image" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_my_page_my_account"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:gravity="start"
                         android:text="@{viewModel.currentUser.email}"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_my_page_my_account_email"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/tv_my_page_my_account_email"
-                        app:layout_constraintTop_toTopOf="@id/tv_my_page_my_account_email"
+                        app:layout_constraintBottom_toBottomOf="@id/image_view_my_page_my_account_email"
+                        app:layout_constraintStart_toEndOf="@+id/image_view_my_page_my_account_email"
+                        app:layout_constraintTop_toTopOf="@id/image_view_my_page_my_account_email"
                         tools:text="id123456@domain.com" />
 
-                    <com.google.android.material.textview.MaterialTextView
+                    <ImageView
                         android:id="@+id/tv_my_page_my_nickname_nickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/view_normal_margin_top_and_bottom"
-                        android:layout_marginBottom="@dimen/view_normal_margin_top_and_bottom"
-                        android:text="@string/my_page_nickname"
-                        app:layout_constraintBottom_toTopOf="@id/tv_my_page_my_tier_tier"
-                        app:layout_constraintStart_toStartOf="@+id/tv_my_page_my_account_email"
-                        app:layout_constraintTop_toBottomOf="@id/tv_my_page_my_account_email" />
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@string/my_page_nickname"
+                        android:src="@drawable/ic_outline_account_circle_24"
+                        app:layout_constraintStart_toStartOf="@+id/image_view_my_page_my_account_email"
+                        app:layout_constraintTop_toBottomOf="@id/image_view_my_page_my_account_email" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_my_page_my_nickname"
+                        android:id="@+id/image_view_my_page_my_nickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:gravity="start"
                         android:text="@{viewModel.currentUser.nickName}"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_my_page_my_nickname_nickname"
-                        app:layout_constraintEnd_toStartOf="@id/btn_my_page_edit_nickname"
                         app:layout_constraintStart_toEndOf="@+id/tv_my_page_my_nickname_nickname"
                         app:layout_constraintTop_toTopOf="@+id/tv_my_page_my_nickname_nickname"
                         tools:text="sudeky" />
@@ -160,93 +163,70 @@
                         android:id="@+id/btn_my_page_edit_nickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="16dp"
                         android:background="@drawable/ic_twotone_edit_24"
                         android:backgroundTint="@color/amatda_main"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_my_page_my_nickname_nickname"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_my_page_my_nickname_nickname" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_my_page_my_tier_tier"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/view_normal_margin_top_and_bottom"
-                        android:layout_marginBottom="@dimen/view_normal_margin_top_and_bottom"
-                        android:text="@string/my_page_tier"
-                        app:layout_constraintBottom_toTopOf="@+id/tv_my_page_my_level_level"
-                        app:layout_constraintStart_toStartOf="@+id/tv_my_page_my_account_email"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_my_page_my_nickname_nickname" />
+                        app:layout_constraintBottom_toBottomOf="@+id/image_view_my_page_my_nickname"
+                        app:layout_constraintStart_toEndOf="@+id/image_view_my_page_my_nickname"
+                        app:layout_constraintTop_toTopOf="@+id/image_view_my_page_my_nickname" />
 
                     <ImageView
                         android:id="@+id/image_view_my_page_tier"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
                         android:src="@drawable/flaticon_com_ic_level_1"
-                        app:layout_constraintBottom_toTopOf="@+id/tv_my_page_my_tier"
-                        app:layout_constraintEnd_toStartOf="@+id/btn_my_page_info_level"
-                        app:layout_constraintStart_toEndOf="@+id/tv_my_page_my_tier_tier"
-                        app:layout_constraintTop_toTopOf="@+id/tv_my_page_my_tier_tier" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_my_page_my_tier"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_my_page_my_tier_tier"
-                        app:layout_constraintEnd_toEndOf="@+id/image_view_my_page_tier"
-                        app:layout_constraintStart_toStartOf="@+id/image_view_my_page_tier"
-                        app:layout_constraintTop_toBottomOf="@id/image_view_my_page_tier"
-                        tools:text="(노란색 지도)" />
+                        app:layout_constraintEnd_toEndOf="@+id/progress_my_page_my_exp"
+                        app:layout_constraintStart_toStartOf="@+id/progress_my_page_my_exp"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_my_page_my_level_level" />
 
                     <Button
                         android:id="@+id/btn_my_page_info_level"
                         style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="30dp"
-                        android:layout_height="40dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_width="24dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="8dp"
                         android:padding="0dp"
                         android:text="@string/my_page_level_question"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_my_page_my_tier"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/image_view_my_page_tier" />
+                        app:layout_constraintBottom_toBottomOf="@+id/image_view_my_page_tier"
+                        app:layout_constraintStart_toEndOf="@+id/image_view_my_page_tier" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_my_page_my_level_level"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/view_normal_margin_top_and_bottom"
-                        android:layout_marginBottom="@dimen/view_normal_margin_top_and_bottom"
-                        android:text="@string/my_page_level"
-                        app:layout_constraintBottom_toTopOf="@+id/progress_my_page_my_exp"
-                        app:layout_constraintStart_toStartOf="@+id/tv_my_page_my_account_email"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_my_page_my_tier_tier" />
+                        android:layout_marginTop="16dp"
+                        android:text="레벨: "
+                        android:textColor="@color/amatda_main"
+                        app:layout_constraintEnd_toEndOf="@+id/progress_my_page_my_exp"
+                        app:layout_constraintStart_toStartOf="@+id/progress_my_page_my_exp"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_my_page_my_nickname_nickname" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_my_page_my_level"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
+                        android:textColor="@color/amatda_main"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_my_page_my_level_level"
-                        app:layout_constraintEnd_toStartOf="@+id/btn_my_page_info_level"
-                        app:layout_constraintStart_toEndOf="@+id/tv_my_page_my_tier_tier"
+                        app:layout_constraintStart_toEndOf="@+id/tv_my_page_my_level_level"
                         app:layout_constraintTop_toTopOf="@+id/tv_my_page_my_level_level"
-                        tools:text="3" />
+                        tools:text="7" />
 
 
                     <com.google.android.material.progressindicator.LinearProgressIndicator
                         android:id="@+id/progress_my_page_my_exp"
                         android:layout_width="0dp"
                         android:layout_height="20dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="16dp"
                         app:indicatorColor="@color/amatda_main"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/image_view_my_page_profile"
-                        app:layout_constraintTop_toBottomOf="@id/tv_my_page_my_level"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/image_view_my_page_tier"
                         app:trackColor="@color/amatda_main_transparent_20"
                         app:trackCornerRadius="10dp"
                         app:trackThickness="20dp"
@@ -258,8 +238,8 @@
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@id/progress_my_page_my_exp"
-                        app:layout_constraintEnd_toEndOf="@id/progress_my_page_my_exp"
-                        app:layout_constraintStart_toStartOf="@id/progress_my_page_my_exp"
+                        app:layout_constraintEnd_toEndOf="@+id/progress_my_page_my_exp"
+                        app:layout_constraintStart_toStartOf="@+id/progress_my_page_my_exp"
                         app:layout_constraintTop_toTopOf="@id/progress_my_page_my_exp"
                         tools:text="75% (300 / 400)" />
 

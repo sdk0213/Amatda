@@ -213,7 +213,6 @@ class MyPageFragment :
 
         viewModel.currentUser.observe(this@MyPageFragment) { user ->
             val level = getLevel(user.exp)
-            binding.tvMyPageMyTier.text = "(${level.rank})"
             val myExp = user.exp - level.exp
             val upExp = level.upExp
             val percentExp = (myExp.toDouble() / upExp.toDouble() * 100).toInt()
@@ -221,7 +220,7 @@ class MyPageFragment :
             binding.progressMyPageMyExp.progress = percentExp
             Glide.with(mContext)
                 .load(user.photo)
-                .placeholder(R.drawable.external_image_loading)
+                .placeholder(R.drawable.external_image_ic_external_image_loading)
                 .into(binding.imageViewMyPageProfile)
             when (level.level) {
                 1L -> binding.imageViewMyPageTier.setImageResource(R.drawable.flaticon_com_ic_level_1)

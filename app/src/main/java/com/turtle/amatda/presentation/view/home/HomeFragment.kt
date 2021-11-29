@@ -51,8 +51,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
     private fun checkPermission() =
         if (mContext.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
             binding.constraintViewHomePermission.visibility = View.VISIBLE
+            binding.topAppBar.menu.findItem(R.id.item_refresh).isVisible = false
         } else {
             binding.constraintViewHomePermission.visibility = View.GONE
+            binding.topAppBar.menu.findItem(R.id.item_refresh).isVisible = true
             viewModel.getWeather()
         }
 
@@ -91,6 +93,19 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
     private fun listener() {
         binding.btnMyHomeActivation.setOnClickListener {
             requestPermission()
+        }
+
+        binding.topAppBar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.item_refresh -> {
+                    showToast(getString(R.string.toast_message_my_home_refresh))
+                    viewModel.getWeather(true)
+                    true
+                }
+                else -> {
+                    true
+                }
+            }
         }
     }
 

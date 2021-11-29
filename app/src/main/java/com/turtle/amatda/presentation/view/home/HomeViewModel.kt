@@ -160,8 +160,8 @@ class HomeViewModel @Inject constructor(
 
                         }
                         is Resource.Error -> {
-                            _errorMessage.value =
-                                "Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}"
+                            Timber.e("Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}")
+                            _errorMessage.value = response.message.toString()
                         }
                     }
                 }
@@ -170,8 +170,8 @@ class HomeViewModel @Inject constructor(
 
     @SuppressLint("MissingPermission")
     // 현재 위치를 받아서 공공데이터 포털 API 의 날씨를 현재 위치를 기준으로 요청 하는 기능
-    fun getWeather() {
-        if(apiCallComplete){
+    fun getWeather(refresh: Boolean = false) {
+        if (apiCallComplete && !refresh) {
             return
         }
         showProgress()
@@ -222,7 +222,7 @@ class HomeViewModel @Inject constructor(
                             }
                             is Resource.Error -> {
                                 _errorMessage.value = "날씨 가져오기를 실패하였습니다. 재시도합니다."
-                                Timber.e( "getWeather: Resource.Error -> Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}")
+                                Timber.e("getWeather: Resource.Error -> Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}")
                             }
                         }
                         dismissProgress()
@@ -232,8 +232,7 @@ class HomeViewModel @Inject constructor(
                         it.printStackTrace(PrintWriter(sw))
                         val exceptionAsString: String = sw.toString()
                         Timber.e("getWeather on Error stacktrace : $exceptionAsString")
-                        _errorMessage.value =
-                            "Api call failed in subscribe.onError\nmessage : ${it.message}"
+                        _errorMessage.value = it.message
                     }
                 )
         )

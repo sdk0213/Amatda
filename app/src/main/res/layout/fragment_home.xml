@@ -61,6 +61,7 @@
                         android:elevation="0dp"
                         app:layout_collapseMode="pin"
                         app:layout_scrollFlags="scroll|enterAlways|snap"
+                        app:menu="@menu/app_bar_home"
                         app:title="@string/menu_home" />
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>

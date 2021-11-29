@@ -50,6 +50,7 @@
     <string name="app_bar_add_trip">add Trip</string>
     <string name="app_bar_more">more</string>
     <string name="app_bar_setting">Setting</string>
+    <string name="app_bar_refresh">Refresh</string>
 
     <!-- 마이페이지 -->
     <string name="my_page_email">Email</string>
@@ -75,6 +76,9 @@
     <string name="dialog_message_my_page_export_db">Would you like to back up your current bag information to the server?</string>
     <string name="dialog_message_my_page_logout">Caution!!..When you log out, the currently saved data will be lost. Log out after backing up to the server\nDo you want to log out?</string>
     <string name="toast_message_my_page_logout_failed">logout failed</string>
+
+    <!-- 홈 화면 -->
+    <string name="toast_message_my_home_refresh">주변 정보를 다시 가져옵니다.</string>
 
     <!-- QNA -->
     <string name="toolbar_qna">Q &amp; A</string>

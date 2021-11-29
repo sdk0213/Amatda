@@ -59,6 +59,9 @@ class TripZoneMakeModule {}
 @Module
 class QNAModule {}
 
+@Module
+class PrivacyPolicyModule {}
+
 // ############################################### start Dagger Dialog Module
 @Module
 class EditTextValueModule {}

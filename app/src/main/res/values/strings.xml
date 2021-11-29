@@ -79,6 +79,9 @@
     <!-- QNA -->
     <string name="toolbar_qna">Q &amp; A</string>
 
+    <!-- 개인정보 보호정책 -->
+    <string name="toolbar_privacy_policy">Privacy Policy</string>
+
     <!-- contentDescription -->
     <string name="cttdcrp_add_carrier">add carrier</string>
     <string name="cttdcrp_carrier">carrier for adding a item</string>

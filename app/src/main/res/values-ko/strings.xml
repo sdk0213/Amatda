@@ -79,6 +79,9 @@
     <!-- QNA -->
     <string name="toolbar_qna">Q &amp; A</string>
 
+    <!-- 개인정보 보호정책 -->
+    <string name="toolbar_privacy_policy">개인정보 보호정책</string>
+
     <!-- contentDescription -->
     <string name="cttdcrp_add_carrier">가방 추가</string>
     <string name="cttdcrp_carrier">아이템을 추가할 가방</string>

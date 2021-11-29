@@ -296,6 +296,14 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.turtle.amatda.presentation.view.privacy_policy.PrivacyPolicyFragment"
+        android:label="PrivacyPolicyFragment"
+        tools:layout="@layout/fragment_privacy_policy">
+
+    </fragment>
+
     <!-- ******** End Trip 생성 및 관리 ******** -->
 
     <!-- ******** Start 다이얼로그 ******** -->
@@ -403,6 +411,14 @@
     <action
         android:id="@+id/action_global_qnaFragment"
         app:destination="@id/qnaFragment"
+        app:enterAnim="@anim/slide_up"
+        app:exitAnim="@anim/slide_down"
+        app:popEnterAnim="@anim/slide_up"
+        app:popExitAnim="@anim/slide_down" />
+
+    <action
+        android:id="@+id/action_global_privacyPolicyFragment"
+        app:destination="@id/privacyPolicyFragment"
         app:enterAnim="@anim/slide_up"
         app:exitAnim="@anim/slide_down"
         app:popEnterAnim="@anim/slide_up"

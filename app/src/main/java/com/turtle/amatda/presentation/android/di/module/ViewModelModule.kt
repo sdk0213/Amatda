@@ -16,6 +16,7 @@ import com.turtle.amatda.presentation.view.login_sign_in_with_email.LoginSignInW
 import com.turtle.amatda.presentation.view.login_sign_up.LoginSignUpViewModel
 import com.turtle.amatda.presentation.view.main.MainViewPagerModel
 import com.turtle.amatda.presentation.view.mypage.MyPageViewModel
+import com.turtle.amatda.presentation.view.privacy_policy.PrivacyPolicyViewModel
 import com.turtle.amatda.presentation.view.qna.QNAViewModel
 import com.turtle.amatda.presentation.view.trip.TripViewModel
 import com.turtle.amatda.presentation.view.trip_concept.TripConceptViewModel
@@ -121,4 +122,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(QNAViewModel::class)
     abstract fun bindsQNAViewModel(viewModel: QNAViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PrivacyPolicyViewModel::class)
+    abstract fun bindsPrivacyPolicyViewModel(viewModel: PrivacyPolicyViewModel): ViewModel
+
 }

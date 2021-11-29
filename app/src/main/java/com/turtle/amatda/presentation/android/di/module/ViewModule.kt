@@ -24,6 +24,7 @@ import com.turtle.amatda.presentation.view.login_sign_up.LoginSignUpFragment
 import com.turtle.amatda.presentation.view.main.MainActivity
 import com.turtle.amatda.presentation.view.main.MainViewPagerFragment
 import com.turtle.amatda.presentation.view.mypage.MyPageFragment
+import com.turtle.amatda.presentation.view.privacy_policy.PrivacyPolicyFragment
 import com.turtle.amatda.presentation.view.qna.QNAFragment
 import com.turtle.amatda.presentation.view.trip.TripFragment
 import com.turtle.amatda.presentation.view.trip_concept.TripConceptFragment
@@ -129,6 +130,10 @@ abstract class ViewModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = [QNAModule::class])
     abstract fun getQNAFragment(): QNAFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [QNAModule::class])
+    abstract fun getPrivacyPolicyFragment(): PrivacyPolicyFragment
 
     // ############################################### start Dagger Dialog Fragment
     @FragmentScope

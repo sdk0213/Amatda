@@ -61,6 +61,10 @@ class MyPageFragment :
 
     private fun listener() {
         binding.buttonMyPageAddMyProfileImage.setOnClickListener {
+            if (!mContext.isConnected()) {
+                showPopUpMessage(getString(R.string.common_message_required_internet_connection))
+                return@setOnClickListener
+            }
             resultActivity.launch(
                 Intent.createChooser(Intent(Intent.ACTION_GET_CONTENT).apply {
                     type = "image/*"
@@ -153,6 +157,10 @@ class MyPageFragment :
         }
 
         binding.buttonMyPagePrivacyPolicy.setOnClickListener {
+            if (!mContext.isConnected()) {
+                showPopUpMessage(getString(R.string.common_message_required_internet_connection))
+                return@setOnClickListener
+            }
             findNavController().navigate(
                 MyPageFragmentDirections.actionGlobalPrivacyPolicyFragment()
             )

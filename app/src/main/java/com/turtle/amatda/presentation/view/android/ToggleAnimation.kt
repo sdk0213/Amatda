@@ -1,4 +1,4 @@
-package com.turtle.amatda.presentation.view.animation
+package com.turtle.amatda.presentation.view.android
 
 import android.view.View
 import android.view.ViewGroup

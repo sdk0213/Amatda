@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.turtle.amatda.databinding.ListItemQnaBinding
 import com.turtle.amatda.domain.model.QnaData
-import com.turtle.amatda.presentation.view.animation.ToggleAnimation
+import com.turtle.amatda.presentation.view.android.ToggleAnimation
 
 class QNAAdapter : ListAdapter<QnaData, QNAAdapter.QNAViewHolder>(QNADiffCallback()) {
 

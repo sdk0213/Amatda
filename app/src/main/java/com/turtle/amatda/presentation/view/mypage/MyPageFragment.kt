@@ -151,6 +151,12 @@ class MyPageFragment :
                 MyPageFragmentDirections.actionGlobalQnaFragment()
             )
         }
+
+        binding.buttonMyPagePrivacyPolicy.setOnClickListener {
+            findNavController().navigate(
+                MyPageFragmentDirections.actionGlobalPrivacyPolicyFragment()
+            )
+        }
     }
 
     private fun observer() {

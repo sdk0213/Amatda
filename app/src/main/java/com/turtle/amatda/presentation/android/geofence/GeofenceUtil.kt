@@ -38,10 +38,10 @@ class GeofenceUtil @Inject constructor(
             geofencePendingIntent
         ).run {
             addOnSuccessListener {
-                Timber.d("여행 등록에 성공")
+                Timber.d("여행 리마인더 등록에 성공")
             }
             addOnFailureListener {
-                Timber.e("여행 등록에 실패")
+                Timber.e("여행 리마인더 등록에 실패")
             }
         }
 

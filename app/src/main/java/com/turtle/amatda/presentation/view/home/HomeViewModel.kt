@@ -48,6 +48,8 @@ class HomeViewModel @Inject constructor(
     private val _restaurantList = MutableLiveData<List<Tour>>()
     val restaurantList: LiveData<List<Tour>> get() = _restaurantList
 
+    private var apiCallComplete = false
+
     private var _areaCode = "1"
     private var _sigungucode = "1"
 
@@ -152,6 +154,7 @@ class HomeViewModel @Inject constructor(
                         is Resource.Success -> {
                             _restaurantList.value = response.data!!
                             _startGetTourApiCall.value = Event(false)
+                            apiCallComplete = true
                         }
                         is Resource.Loading -> {
 
@@ -168,6 +171,9 @@ class HomeViewModel @Inject constructor(
     @SuppressLint("MissingPermission")
     // 현재 위치를 받아서 공공데이터 포털 API 의 날씨를 현재 위치를 기준으로 요청 하는 기능
     fun getWeather() {
+        if(apiCallComplete){
+            return
+        }
         showProgress()
         _startGetWeatherApiCall.value = Event(true)
         compositeDisposable.add(
@@ -217,7 +223,6 @@ class HomeViewModel @Inject constructor(
                             is Resource.Error -> {
                                 _errorMessage.value = "날씨 가져오기를 실패하였습니다. 재시도합니다."
                                 Timber.e( "getWeather: Resource.Error -> Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}")
-                                getWeather()
                             }
                         }
                         dismissProgress()
@@ -229,7 +234,6 @@ class HomeViewModel @Inject constructor(
                         Timber.e("getWeather on Error stacktrace : $exceptionAsString")
                         _errorMessage.value =
                             "Api call failed in subscribe.onError\nmessage : ${it.message}"
-                        getWeather()
                     }
                 )
         )

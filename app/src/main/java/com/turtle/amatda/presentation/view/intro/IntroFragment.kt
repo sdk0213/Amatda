@@ -19,10 +19,12 @@ class IntroFragment :
     }
 
     private fun view() {
+    }
+
+    override fun onResume() {
         handler.postDelayed({
             // 로그인된 기기라면 로그인 과정 생략
-            if(sharedPrefUtil.isLoggedDevices){
-                // todo: 로그인 과정 생략 한번에 넘어가기 DeepLink
+            if (sharedPrefUtil.isLoggedDevices) {
                 findNavController().navigate(
                     IntroFragmentDirections.actionIntroFragmentToMainFragment(
                         "complete"
@@ -33,7 +35,13 @@ class IntroFragment :
                     IntroFragmentDirections.actionIntroFragmentToLoginFragment()
                 )
             }
-        }, if(sharedPrefUtil.isLoggedDevices) 1000 else 2000)
+        }, if (sharedPrefUtil.isLoggedDevices) 1000 else 2000)
+        super.onResume()
+    }
+
+    override fun onPause() {
+        handler.removeCallbacksAndMessages(null)
+        super.onPause()
     }
 
     private fun viewModel() {

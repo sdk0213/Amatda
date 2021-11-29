@@ -9,6 +9,7 @@ import com.tedpark.tedpermission.rx2.TedRxPermission
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentHomeBinding
 import com.turtle.amatda.presentation.utilities.EventObserver
+import com.turtle.amatda.presentation.view.android.PreventTouchEventOnViewPager
 import com.turtle.amatda.presentation.view.base.BaseFragment
 import io.reactivex.Single
 import java.util.*
@@ -77,6 +78,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
         binding.recyclerviewHomeWeather.adapter = homeWeatherAdapter
         binding.recyclerviewHomeTour.adapter = homeTourAdapter
         binding.recyclerviewHomeRestaurant.adapter = homeRestaurantAdapter
+        // ViewPager2 안 Recyclerview 의 횡스크롤이 Viewpager2 에의해서 막히는 현상
+        binding.recyclerviewHomeWeather.addOnItemTouchListener(PreventTouchEventOnViewPager())
+        binding.recyclerviewHomeTour.addOnItemTouchListener(PreventTouchEventOnViewPager())
+        binding.recyclerviewHomeRestaurant.addOnItemTouchListener(PreventTouchEventOnViewPager())
     }
 
     private fun viewModel() {
@@ -116,4 +121,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.f
             binding.tvHomeTourIsLoading.visibility = if (loading) View.VISIBLE else View.GONE
         })
     }
+
+
 }

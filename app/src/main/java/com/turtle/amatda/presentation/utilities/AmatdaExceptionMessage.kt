@@ -5,6 +5,8 @@ enum class AmatdaExceptionMessage(val exception: Exception) {
     EmailVerificationRequired(Exception("EmailNotVerified")),
     // 구글 로그인
     InvalidPassword(Exception("FirebaseAuthInvalidCredentialsException")),
+    // 구글 로그인
+    InvalidAuthUser(Exception("FirebaseAuthInvalidUserException")),
     // Firebase 유저 인증
     ThereIsNoCurrentUser(Exception("CurrentUser is null"))
 

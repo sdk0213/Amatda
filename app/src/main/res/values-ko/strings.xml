@@ -30,6 +30,7 @@
     <string name="login_please_check_verify_email">가입하신 이메일로 인증메일을 전송하였습니다.\n인증 메일을 확인해주세요.</string>
     <string name="login_toast_check_verify_email">이메일 인증이 되어있지 않습니다.\n이메일인증을 진행하세요.</string>
     <string name="login_toast_failed_invalid_password">비밀번호가 맞지 않습니다.</string>
+    <string name="login_toast_failed_invalid_user">등록되어 있지 않는 이메일입니다.</string>
 
     <!-- 권한 -->
     <string name="toast_cannot_get_location_no_permission">권한이 거부 되었습니다</string>

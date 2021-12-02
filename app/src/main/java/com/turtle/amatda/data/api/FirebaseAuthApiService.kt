@@ -2,6 +2,7 @@ package com.turtle.amatda.data.api
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.turtle.amatda.presentation.utilities.AmatdaExceptionMessage
 import io.reactivex.Completable
@@ -48,6 +49,8 @@ class FirebaseAuthApiService @Inject constructor(
                 }
                 .addOnFailureListener {
                     if(it is FirebaseAuthInvalidCredentialsException){
+                        emitter.onError(AmatdaExceptionMessage.InvalidPassword.exception)
+                    } else if(it is FirebaseAuthInvalidUserException){
                         emitter.onError(AmatdaExceptionMessage.InvalidPassword.exception)
                     } else {
                         emitter.onError(it)

@@ -72,6 +72,14 @@ class LoginSignInWithEmailFragment :
                     showPopUpMessage(getString(R.string.login_toast_failed_invalid_password))
                 }
             })
+
+        viewModel.signInFailedInvalidUser.observe(
+            this@LoginSignInWithEmailFragment,
+            EventObserver { failed ->
+                if (failed) {
+                    showPopUpMessage(getString(R.string.login_toast_failed_invalid_user))
+                }
+            })
     }
 
 }

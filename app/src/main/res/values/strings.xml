@@ -30,6 +30,7 @@
     <string name="login_please_check_verify_email">A verification email has been sent to your registered email address.\nPlease check your verification email.</string>
     <string name="login_toast_check_verify_email">Email is not verified.\nProceed with email verification.</string>
     <string name="login_toast_failed_invalid_password">The password is incorrect.</string>
+    <string name="login_toast_failed_invalid_user">This is an unregistered email.</string>
 
     <!-- 권한 -->
     <string name="toast_cannot_get_location_no_permission">권한이 거부 되었습니다</string>

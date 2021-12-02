@@ -47,9 +47,12 @@ class TripConceptViewModel @Inject constructor(
         )
     }
 
+    fun argsUpdate(tripConcept: TripConcept){
+        _editMode.value = Event(true)
+    }
+
     fun updateConcept(tripConcept: TripConcept) {
         _tripConcept.value = tripConcept
-        _editMode.value = Event(true)
     }
 
     fun saveTrip() {

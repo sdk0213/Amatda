@@ -22,7 +22,7 @@ class TripConceptFragment :
 
     private fun view() {
         if (args.trip.id != 0L) {
-            viewModel.updateConcept(args.trip.type)
+            viewModel.argsUpdate(args.trip.type)
         }
     }
 

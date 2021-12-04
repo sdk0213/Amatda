@@ -49,7 +49,7 @@ class NotificationUtil @Inject constructor(
         NotificationCompat.Builder(context, notificationData.id).apply {
             priority = NotificationCompat.PRIORITY_HIGH
             color = ContextCompat.getColor(context, R.color.amatda_main)
-            setSmallIcon(R.drawable.ic_launcher_foreground)
+            setSmallIcon(R.drawable.ic_launcher)
             setContentTitle(notificationData.title)
             notificationData.onGoing?.let {
                 setOngoing(notificationData.onGoing)

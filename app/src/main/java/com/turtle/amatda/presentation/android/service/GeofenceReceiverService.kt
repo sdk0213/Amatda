@@ -5,10 +5,14 @@ import android.content.Intent
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofenceStatusCodes
 import com.google.android.gms.location.GeofencingEvent
+import com.turtle.amatda.domain.model.TripZone
+import com.turtle.amatda.domain.usecases.GetAllTripZoneUseCase
 import com.turtle.amatda.presentation.android.AndroidUtil
 import com.turtle.amatda.presentation.android.notification.NotificationData
 import com.turtle.amatda.presentation.android.notification.NotificationUtil
 import com.turtle.amatda.presentation.utilities.*
+import io.reactivex.Single
+import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -22,6 +26,11 @@ class GeofenceReceiverService : BaseService() {
 
     @Inject
     lateinit var androidUtil: AndroidUtil
+
+    @Inject
+    lateinit var getAllTripzoneUseCase: GetAllTripZoneUseCase
+
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
@@ -76,24 +85,43 @@ class GeofenceReceiverService : BaseService() {
                 // todo : 다음 상태 일때 Notification 하기
                 //      1. dwell 일경우
                 //      2. exit 일경우
-                triggeringGeofences.forEach { geofence ->
-                    geofence.requestId.split(amatdaSplit).apply {
-                        Timber.d("${this[0]}${transitionMsg}")
-                        androidUtil.saveLog("${this[0]}${transitionMsg}")
-                        notificationManager.notify(
-                            notificationIdOfDefault, notificationUtil.buildNotificationView(
-                                NotificationData(
-                                    id = notificationChannelIdOfDefault,
-                                    title = "${this[0]}${transitionMsg}",
-                                    text = this[1],
-                                    onGoing = true,
-                                    isBigText = true
-                                )
-                            )
-                        )
-
+                compositeDisposable.add(getAllTripzoneUseCase.execute()
+                    .flatMapSingle {
+                        Single.create<List<TripZone>> { emitter ->
+                            emitter.onSuccess(it)
+                        }
                     }
-                }
+                    .subscribe(
+                        { tripZoneList ->
+                            triggeringGeofences.forEach { geofence ->
+                                tripZoneList.find { tripZone ->
+                                    tripZone.lat == geofence.requestId.split(amatdaSplit)[0] &&
+                                            tripZone.lon == geofence.requestId.split(amatdaSplit)[1]
+                                }?.let { tripZone ->
+                                    Timber.d("${tripZone.area}${transitionMsg}")
+                                    androidUtil.saveLog("${tripZone.area}${transitionMsg}")
+                                    notificationManager.notify(
+                                        notificationIdOfDefault,
+                                        notificationUtil.buildNotificationView(
+                                            NotificationData(
+                                                id = notificationChannelIdOfDefault,
+                                                title = "${tripZone.area}${transitionMsg}",
+                                                text = if (transitionMsg == "를 떠나셨습니다.") "" else tripZone.title,
+                                                onGoing = true,
+                                                isBigText = true
+                                            )
+                                        )
+                                    )
+                                } ?: run {
+                                    Timber.e("등록된 여행을 찾을수 없습니다")
+                                }
+                            }
+                        },
+                        { throwable ->
+                            Timber.e("getAllTripzoneUseCase is on Error : ${throwable.message}")
+                        }
+                    )
+                )
 
             } else {
                 Timber.d("GeofenceTransition : $geofenceTransition")

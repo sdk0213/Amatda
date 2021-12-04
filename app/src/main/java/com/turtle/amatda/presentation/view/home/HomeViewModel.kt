@@ -221,7 +221,7 @@ class HomeViewModel @Inject constructor(
 
                             }
                             is Resource.Error -> {
-                                _errorMessage.value = "날씨 가져오기를 실패하였습니다. 재시도합니다."
+                                _errorMessage.value = "날씨 가져오기를 실패하였습니다. 오른쪽 상단 리프레쉬 버튼을 눌러 재시도하세요."
                                 Timber.e("getWeather: Resource.Error -> Api call failed in Resource.Error\nCode : ${response.code}\nMessage : ${response.message}")
                             }
                         }

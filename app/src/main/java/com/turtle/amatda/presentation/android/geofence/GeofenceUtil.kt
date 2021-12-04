@@ -9,6 +9,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.turtle.amatda.presentation.utilities.GEOFENCE_EXPIRATION_IN_MILLISECONDS
 import com.turtle.amatda.presentation.utilities.GEOFENCE_LIOTERE_IN_MILLISECONDS
 import com.turtle.amatda.presentation.utilities.GEOFENCE_RADIUS_IN_METERS
+import com.turtle.amatda.presentation.utilities.amatdaSplit
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Named
@@ -48,12 +49,11 @@ class GeofenceUtil @Inject constructor(
     }
 
     fun buildGeofence(
-        title: String,
         latLng: LatLng,
         radius: Float = GEOFENCE_RADIUS_IN_METERS // 단위 m
     ): Geofence =
         Geofence.Builder()
-            .setRequestId(title)
+            .setRequestId("${latLng.latitude}${amatdaSplit}${latLng.longitude}")
             .setCircularRegion(latLng.latitude, latLng.longitude, radius)
             .setExpirationDuration(GEOFENCE_EXPIRATION_IN_MILLISECONDS)  // Geofence 만료 시간
             .setLoiteringDelay(GEOFENCE_LIOTERE_IN_MILLISECONDS) // 얼마나 머물면 DWELL 로 판정할지

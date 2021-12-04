@@ -41,7 +41,6 @@ class ManageTripZoneGeofenceWorker @AssistedInject constructor(
                             it.zoneList.forEach { tripZone ->
                                 geofenceList.add(
                                     geofenceUtil.buildGeofence(
-                                        "${tripZone.area}$amatdaSplit${tripZone.title}",
                                         LatLng(
                                             tripZone.lat.toDouble(),
                                             tripZone.lon.toDouble()
@@ -51,17 +50,14 @@ class ManageTripZoneGeofenceWorker @AssistedInject constructor(
                             }
                             serviceUtil.startService(
                                 cls = GeofenceReceiverService::class.java,
-                                title = "현재 진행중인 여행이 있어요",
+                                title = "진행중인 여행이 있습니다",
                                 text = "" +
-                                        "여행의 이름은 \"${it.title}\" 이에요\n" +
-                                        "${it.date_start.convertDateToStringyyMMddTimeStampWithSlash()}부터 " +
-                                        "${it.date_end.convertDateToStringyyMMddTimeStampWithSlash()} 까지 " +
-                                        "여행을 진행해요.\n" +
-                                        "이번 여행의 컨셉은 \"${it.type.concept}\"입니다.\n" +
-                                        "그리고 방문할 장소는 총 ${it.zoneList.size}개 입니다.\n" +
-                                        "아마따 여행비서가 여행 지역 방문시 작성한 메모를 알림으로 알려드려요\n" +
-                                        "즐거운 여행 되시기 바랍니다\n" +
-                                        "- 아마따 여행 비서 -"
+                                        "여행 이름 \"${it.title}\"\n" +
+                                        "여행 기간: ${it.date_start.convertDateToStringyyMMddTimeStampWithSlash()} ~ " +
+                                        "${it.date_end.convertDateToStringyyMMddTimeStampWithSlash()}\n" +
+                                        "여행 컨셉: \"${it.type.concept}\"\n" +
+                                        "방문 예정 장소: 총 ${it.zoneList.size}개의 지역\n" +
+                                        "여행 지역 방문시 작성한 메모를 리마인더 합니다."
                             )
                         } else {
                             serviceUtil.stopService(GeofenceReceiverService::class.java)

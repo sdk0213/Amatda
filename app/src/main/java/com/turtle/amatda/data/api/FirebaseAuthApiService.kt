@@ -1,6 +1,5 @@
 package com.turtle.amatda.data.api
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -30,7 +29,6 @@ class FirebaseAuthApiService @Inject constructor(
         return Completable.create { emitter ->
             firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
-                    Log.d("dksung", "addOnSuccessListener")
                     firebaseAuth.currentUser?.let {
                         it.reload() // 갱신
                         if (!it.isEmailVerified) {
@@ -49,7 +47,6 @@ class FirebaseAuthApiService @Inject constructor(
 
                 }
                 .addOnFailureListener { exception ->
-                    Log.d("dksung", "addOnFailureListener ${exception.message}")
                     when (exception) {
                         is FirebaseAuthInvalidCredentialsException -> {
                             emitter.onError(AmatdaExceptionMessage.InvalidPassword.exception)

@@ -12,12 +12,14 @@
     <string name="copyright_miricanvas">출처: 미리캠퍼스</string>
     <string name="common_message_required_internet_connection">인터넷 연결이 되어있지 않습니다</string>
     <string name="toast_message_failed_this_service_is_not_open">서비스 준비중입니다</string>
+    <string name="common_toast_message_check_internet_connection">인터넷 연결을 확인해주세요</string>
 
     <!-- 로그인 -->
     <string name="login">로그인</string>
     <string name="login_log_out">로그아웃</string>
     <string name="login_sign_up">회원가입</string>
     <string name="login_success">로그인 성공</string>
+    <string name="login_failed">로그인 실패</string>
     <string name="login_email">이메일</string>
     <string name="login_email_login">이메일로 로그인</string>
     <string name="login_sign_up_with_email">이메일로 회원가입</string>
@@ -31,6 +33,7 @@
     <string name="login_toast_check_verify_email">이메일 인증이 되어있지 않습니다.\n이메일인증을 진행하세요.</string>
     <string name="login_toast_failed_invalid_password">비밀번호가 맞지 않습니다.</string>
     <string name="login_toast_failed_invalid_user">등록되어 있지 않는 이메일입니다.</string>
+    <string name="login_dialog_failed_has_no_current_user">아마따 어플리케이션의 현재유저(CurrentUser)가 없습니다.</string>
 
     <!-- 권한 -->
     <string name="toast_cannot_get_location_no_permission">권한이 거부 되었습니다</string>
@@ -80,6 +83,18 @@
 
     <!-- 홈 화면 -->
     <string name="toast_message_my_home_refresh">주변 정보를 다시 가져옵니다.</string>
+    <string name="home_toast_message_error_get_weather">날씨 가져오기를 실패하였습니다. 오른쪽 상단 리프레쉬 버튼을 눌러 재시도하세요.</string>
+    <string name="home_restaurant_korean_food">한식</string>
+    <string name="home_restaurant_western_food">서양식</string>
+    <string name="home_restaurant_japanese_food">일식</string>
+    <string name="home_restaurant_chinenes_food">중식</string>
+    <string name="home_restaurant_asian_food">아시아식</string>
+    <string name="home_restaurant_family_restaurant">패밀리레스토랑</string>
+    <string name="home_restaurant_unique_restaurant">이색음식점</string>
+    <string name="home_restaurant_vegetarian_restaurant">채식전문점</string>
+    <string name="home_restaurant_bar_cafe">바/까페</string>
+    <string name="home_restaurant_club">클럽</string>
+    <string name="home_restaurant_restaurant">식당</string>
 
     <!-- QNA -->
     <string name="toolbar_qna">Q &amp; A</string>

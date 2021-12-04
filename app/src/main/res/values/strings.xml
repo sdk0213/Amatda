@@ -12,12 +12,14 @@
     <string name="copyright_miricanvas">source: miricanvas</string>
     <string name="common_message_required_internet_connection">Internet connection required</string>
     <string name="toast_message_failed_this_service_is_not_open">Service is being prepared</string>
+    <string name="common_toast_message_check_internet_connection">Please check your internet connection</string>
 
     <!-- 로그인 -->
     <string name="login">Login</string>
     <string name="login_log_out">Log Out</string>
     <string name="login_sign_up">Sign Up</string>
     <string name="login_success">Login Success</string>
+    <string name="login_failed">Login Failed</string>
     <string name="login_email">Email</string>
     <string name="login_email_login">Login with Email</string>
     <string name="login_sign_up_with_email">Sign Up by email</string>
@@ -31,12 +33,13 @@
     <string name="login_toast_check_verify_email">Email is not verified.\nProceed with email verification.</string>
     <string name="login_toast_failed_invalid_password">The password is incorrect.</string>
     <string name="login_toast_failed_invalid_user">This is an unregistered email.</string>
+    <string name="login_dialog_failed_has_no_current_user">There is no current user (CurrentUser) of the Amata application.</string>
 
     <!-- 권한 -->
-    <string name="toast_cannot_get_location_no_permission">권한이 거부 되었습니다</string>
-    <string name="permission_request_title">권한이 필요해요</string>
-    <string name="permission_request_denied_my_home_message">나의 홈을 사용하려면 위치 권한이 필요해요.\n[설정] > [권한] > [위치]를 [이번만 허용] 또는 [앱 사용 중에만 허용]으로 변경해주세요.</string>
-    <string name="permission_request_denied_trip_message">여행 리마인더를 사용하려면 백그라운드 위치 권한이 필요해요.\n[설정] > [권한] > [위치]를 [항상 허용]으로 변경해주세요.</string>
+    <string name="toast_cannot_get_location_no_permission">Permissions denied</string>
+    <string name="permission_request_title">Permissions required.</string>
+    <string name="permission_request_denied_my_home_message">Location permission is required to use My Home.\nChange [Settings] > [Permissions] > [Location] to [Allow this time only] or [Allow while using the app].</string>
+    <string name="permission_request_denied_trip_message">Background location permission is required to use Travel Reminder.\nChange [Settings] > [Permissions] > [Location] to [Always allow].</string>
 
     <!-- 메뉴 -->
     <string name="menu_home">home</string>
@@ -79,7 +82,20 @@
     <string name="toast_message_my_page_logout_failed">logout failed</string>
 
     <!-- 홈 화면 -->
-    <string name="toast_message_my_home_refresh">주변 정보를 다시 가져옵니다.</string>
+    <string name="toast_message_my_home_refresh">Bring back information around you.</string>
+    <string name="home_toast_message_error_get_weather">Failed to get weather. Please try again by clicking the refresh button in the upper right corner.</string>
+    <string name="home_restaurant_korean_food">Korean food</string>
+    <string name="home_restaurant_western_food">Western food</string>
+    <string name="home_restaurant_japanese_food">Japanese_food</string>
+    <string name="home_restaurant_chinenes_food">Chinenes_food</string>
+    <string name="home_restaurant_asian_food">Asian_food</string>
+    <string name="home_restaurant_family_restaurant">Family_restaurant</string>
+    <string name="home_restaurant_unique_restaurant">Unique_restaurant</string>
+    <string name="home_restaurant_vegetarian_restaurant">Vegetarian_restaurant</string>
+    <string name="home_restaurant_bar_cafe">bar/cafe</string>
+    <string name="home_restaurant_club">club</string>
+    <string name="home_restaurant_restaurant">Restaurant</string>
+
 
     <!-- QNA -->
     <string name="toolbar_qna">Q &amp; A</string>
@@ -93,32 +109,32 @@
     <string name="cttdcrp_add_item">add item</string>
 
     <!-- 날짜 형식 -->
-    <string name="default_date_type">yyyy년-MM월-dd일</string>
+    <string name="default_date_type">yyyy year-MM month-dd day</string>
 
     <!-- 가방 만들기 -->
-    <string name="carrier_make">가방 생성</string>
-    <string name="question_carrier_name">가방의 이름을 정해주세요</string>
-    <string name="question_carrier_name_hint">가방 이름</string>
-    <string name="carrier_pocket_is_empty">현재 주머니가 없어요</string>
-    <string name="carrier_pocket_count">주머니 개수</string>
+    <string name="carrier_make">Create bag</string>
+    <string name="question_carrier_name">Please name the bag</string>
+    <string name="question_carrier_name_hint">bag name</string>
+    <string name="carrier_pocket_is_empty">There are currently no pockets</string>
+    <string name="carrier_pocket_count">number of pockets</string>
     <string name="dialog_message_my_carrier_delete_carrier">Are you sure you want to delete carrier?</string>
 
     <!-- 주머니 관련 (Drawer Naviagation 포함)-->
-    <string name="add_pocket_guide_text">주머니가 없어요\n새로운 주머니 생성이 필요합니다.</string>
-    <string name="add_pocket_guide_button">주머니 추가</string>
-    <string name="edit_pocket_add">주머니 추가히기</string>
-    <string name="edit_pocket_rename">주머니 이름바꾸기</string>
-    <string name="edit_pocket_delete">주머니 삭제하기</string>
-    <string name="edit_pocket_rename_cancel">cancel (주머니 이름바꾸기)</string>
-    <string name="edit_pocket_delete_cancel">cancel (주머니 삭제하기)</string>
+    <string name="add_pocket_guide_text">No pockets.\nRequires creation of new pockets.</string>
+    <string name="add_pocket_guide_button">Add pocket</string>
+    <string name="edit_pocket_add">Add pocket</string>
+    <string name="edit_pocket_rename">Rename pockets</string>
+    <string name="edit_pocket_delete">Delete a pocket</string>
+    <string name="edit_pocket_rename_cancel">cancel (Rename pockets)</string>
+    <string name="edit_pocket_delete_cancel">cancel (Delete a pocket)</string>
     <string name="item_position_inner">inside</string>
     <string name="item_position_middle">middle</string>
     <string name="item_position_outer">outside</string>
 
     <!-- 물건 만들기 -->
     <string name="add_item_label">add item</string>
-    <string name="edit_item_label">물품 이름 바꾸기</string>
-    <string name="save_carrier_and_item">가방 저장</string>
+    <string name="edit_item_label">Rename an item</string>
+    <string name="save_carrier_and_item">Storing bag information in the cloud</string>
 
     <!-- 물건 만들기 - ToolTip -->
     <string name="item_edit_tooltip_delete">delete</string>
@@ -128,9 +144,9 @@
 
     <!-- 물건 만들기 - 가이드 설명 -->
     <string name="item_guide_text_0">lay the bag down</string>
-    <string name="item_guide_text_1">inside\n(1 층)</string>
-    <string name="item_guide_text_2">middle\n(2 층)</string>
-    <string name="item_guide_text_3">outside\n(3 층)</string>
+    <string name="item_guide_text_1">inside\n(First floor)</string>
+    <string name="item_guide_text_2">middle\n(Second floor)</string>
+    <string name="item_guide_text_3">outside\n(3rd Floor)</string>
 
     <!-- 검색 -->
     <string name="item_search_hint">Search..</string>
@@ -145,14 +161,14 @@
     <string name="question_trip_course">place to travel</string>
     <string name="question_trip_concept">Check out the travel concept.</string>
     <string name="button_trip_make">Make Trip</string>
-    <string name="button_go_back_to_home">홈으로</string>
-    <string name="dialog_message_my_carrier_delete_trip">여행을 삭제하시겠습니까?</string>
+    <string name="button_go_back_to_home">home</string>
+    <string name="dialog_message_my_carrier_delete_trip">Are you sure you want to delete your trip?</string>
 
     <!-- 지역 생성 -->
     <string name="question_trip_zone_ok">Add location</string>
     <string name="toast_message_trip_zone_success">TripZone registration was successful.</string>
     <string name="toast_message_trip_zone_failed">TripZone registration failed. please try again</string>
-    <string name="button_make_trip_zone_reminder">리마인더 생성</string>
+    <string name="button_make_trip_zone_reminder">Create reminders</string>
 
     <!-- 다이얼로그 -->
     <string name="dialog_edit_text">Value to change</string>

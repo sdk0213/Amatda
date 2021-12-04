@@ -25,7 +25,7 @@ class LoginSignInFragment :
                     viewModel.googleLogin(intent)
                 }
             } else if (result?.resultCode == Activity.RESULT_CANCELED) {
-                showToast("로그인 실패")
+                showToast(getString(R.string.login_failed))
             }
         }
 

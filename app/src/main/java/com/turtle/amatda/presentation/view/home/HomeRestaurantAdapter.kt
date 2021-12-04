@@ -5,18 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.ListItemHomeRestaurantBinding
-import com.turtle.amatda.databinding.ListItemHomeTourBinding
-import com.turtle.amatda.databinding.ListItemHomeWeatherBinding
 import com.turtle.amatda.domain.model.Tour
-import com.turtle.amatda.domain.model.Weather
-import com.turtle.amatda.presentation.utilities.extensions.convertDateToStringMMddHHmmTimeStamp
-import javax.inject.Inject
 
 class HomeRestaurantAdapter constructor(
     private val context: Context
@@ -48,22 +41,22 @@ class HomeRestaurantAdapter constructor(
                 tvListItemHomeRestaurantTitle.text = item.title
                 tvListItemHomeRestaurantAddr.text = item.addr1
                 tvListItemHomeRestaurantType.text = item.cat3.let {
-                    when(it){
-                        "A05020100" -> "한식"
-                        "A05020200" -> "서양식"
-                        "A05020300" -> "일식"
-                        "A05020400" -> "중식"
-                        "A05020500" -> "아시아식"
-                        "A05020600" -> "패밀리레스토랑"
-                        "A05020700" -> "이색음식점"
-                        "A05020800" -> "채식전문점"
-                        "A05020900" -> "바/까페"
-                        "A05021000" -> "클럽"
-                        else -> "식당"
+                    when (it) {
+                        "A05020100" -> context.getString(R.string.home_restaurant_korean_food)
+                        "A05020200" -> context.getString(R.string.home_restaurant_western_food)
+                        "A05020300" -> context.getString(R.string.home_restaurant_japanese_food)
+                        "A05020400" -> context.getString(R.string.home_restaurant_chinenes_food)
+                        "A05020500" -> context.getString(R.string.home_restaurant_asian_food)
+                        "A05020600" -> context.getString(R.string.home_restaurant_family_restaurant)
+                        "A05020700" -> context.getString(R.string.home_restaurant_unique_restaurant)
+                        "A05020800" -> context.getString(R.string.home_restaurant_vegetarian_restaurant)
+                        "A05020900" -> context.getString(R.string.home_restaurant_bar_cafe)
+                        "A05021000" -> context.getString(R.string.home_restaurant_club)
+                        else -> context.getString(R.string.home_restaurant_restaurant)
                     }
                 }
                 imageViewHomeRestaurantFood.setImageResource(
-                    when(item.cat3){
+                    when (item.cat3) {
                         "A05020100" -> R.drawable.flaticon_com_ic_a05020100
                         "A05020200" -> R.drawable.flaticon_com_ic_a05020200
                         "A05020300" -> R.drawable.flaticon_com_ic_a05020300
@@ -78,7 +71,12 @@ class HomeRestaurantAdapter constructor(
                     }
                 )
                 cardViewRestaurant.setOnClickListener {
-                    context.startActivity(Intent(Intent.ACTION_WEB_SEARCH).putExtra(SearchManager.QUERY, item.title))
+                    context.startActivity(
+                        Intent(Intent.ACTION_WEB_SEARCH).putExtra(
+                            SearchManager.QUERY,
+                            item.title
+                        )
+                    )
                 }
                 executePendingBindings()
             }

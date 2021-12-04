@@ -85,7 +85,7 @@ class LoginSignInWithEmailFragment :
             this@LoginSignInWithEmailFragment,
             EventObserver { failed ->
                 if (failed) {
-                    showPopUpMessage("아마따 어플리케이션의 현재유저(CurrentUser)가 없습니다.")
+                    showPopUpMessage(getString(R.string.login_dialog_failed_has_no_current_user))
                 }
             }
         )

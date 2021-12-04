@@ -1,6 +1,7 @@
 package com.turtle.amatda.presentation.view.login_sign_in
 
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -45,6 +46,7 @@ class LoginSignInViewModel @Inject constructor(
                         },
                         { throwable ->
                             // 로그인 실패 - 기타 에러 발생
+                            Log.i("dksung", "${throwable.message}")
                             if (throwable is FirebaseNetworkException) {
                                 // 인터넷 연결필요
                                 _needInternetConnection.value = Event(true)

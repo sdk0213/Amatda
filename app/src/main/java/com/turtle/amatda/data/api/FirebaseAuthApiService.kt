@@ -1,5 +1,6 @@
 package com.turtle.amatda.data.api
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -25,35 +26,40 @@ class FirebaseAuthApiService @Inject constructor(
         }
     }
 
-    fun signInWithEmail(email: String, password: String) : Completable {
+    fun signInWithEmail(email: String, password: String): Completable {
         return Completable.create { emitter ->
             firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        firebaseAuth.currentUser?.let {
-                            it.reload() // 갱신
-                            if (!it.isEmailVerified) {
-                                firebaseAuth.currentUser?.let { currentUser ->
-                                    firebaseAuth.useAppLanguage()
-                                    currentUser.sendEmailVerification()
-                                }
-                                emitter.onError(AmatdaExceptionMessage.EmailVerificationRequired.exception)
-                                return@addOnCompleteListener
-                            } else {
-                                emitter.onComplete()
+                .addOnSuccessListener {
+                    Log.d("dksung", "addOnSuccessListener")
+                    firebaseAuth.currentUser?.let {
+                        it.reload() // 갱신
+                        if (!it.isEmailVerified) {
+                            firebaseAuth.currentUser?.let { currentUser ->
+                                firebaseAuth.useAppLanguage()
+                                currentUser.sendEmailVerification()
                             }
-                        } ?: run {
-                            emitter.onError(AmatdaExceptionMessage.ThereIsNoCurrentUser.exception)
+                            emitter.onError(AmatdaExceptionMessage.EmailVerificationRequired.exception)
+                            return@addOnSuccessListener
+                        } else {
+                            emitter.onComplete()
                         }
+                    } ?: run {
+                        emitter.onError(AmatdaExceptionMessage.ThereIsNoCurrentUser.exception)
                     }
+
                 }
-                .addOnFailureListener {
-                    if(it is FirebaseAuthInvalidCredentialsException){
-                        emitter.onError(AmatdaExceptionMessage.InvalidPassword.exception)
-                    } else if(it is FirebaseAuthInvalidUserException){
-                        emitter.onError(AmatdaExceptionMessage.InvalidPassword.exception)
-                    } else {
-                        emitter.onError(it)
+                .addOnFailureListener { exception ->
+                    Log.d("dksung", "addOnFailureListener ${exception.message}")
+                    when (exception) {
+                        is FirebaseAuthInvalidCredentialsException -> {
+                            emitter.onError(AmatdaExceptionMessage.InvalidPassword.exception)
+                        }
+                        is FirebaseAuthInvalidUserException -> {
+                            emitter.onError(AmatdaExceptionMessage.InvalidPassword.exception)
+                        }
+                        else -> {
+                            emitter.onError(exception)
+                        }
                     }
                 }
         }
@@ -63,20 +69,16 @@ class FirebaseAuthApiService @Inject constructor(
     fun signUpWithEmail(email: String, password: String): Completable {
         return Completable.create { emitter ->
             firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        firebaseAuth.currentUser?.let { currentUser ->
-                            firebaseAuth.useAppLanguage()
-                            currentUser.sendEmailVerification()
-                                .addOnCompleteListener {
-                                    emitter.onComplete()
-                                }
-                                .addOnFailureListener { exception ->
-                                    emitter.onError(exception)
-                                }
-                        }
-                    } else {
-                        emitter.onError(Exception())
+                .addOnSuccessListener {
+                    firebaseAuth.currentUser?.let { currentUser ->
+                        firebaseAuth.useAppLanguage()
+                        currentUser.sendEmailVerification()
+                            .addOnCompleteListener {
+                                emitter.onComplete()
+                            }
+                            .addOnFailureListener { exception ->
+                                emitter.onError(exception)
+                            }
                     }
                 }
                 .addOnFailureListener {

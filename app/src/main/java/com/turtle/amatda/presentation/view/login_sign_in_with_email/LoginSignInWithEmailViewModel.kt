@@ -26,6 +26,9 @@ class LoginSignInWithEmailViewModel @Inject constructor(
     private val _signInFailedInvalidUser = MutableLiveData<Event<Boolean>>()
     val signInFailedInvalidUser: LiveData<Event<Boolean>> get() = _signInFailedInvalidUser
 
+    private val _signInFailedCurrentIsNull = MutableLiveData<Event<Boolean>>()
+    val signInFailedCurrentIsNull: LiveData<Event<Boolean>> get() = _signInFailedCurrentIsNull
+
     fun signInWithEmail(email: String, password: String) {
         compositeDisposable.add(
             signInWithEmailUseCase.execute(
@@ -43,7 +46,7 @@ class LoginSignInWithEmailViewModel @Inject constructor(
                             AmatdaExceptionMessage.EmailVerificationRequired.exception.message -> _signInFailedNeedEmailVerified.value = Event(true)
                             AmatdaExceptionMessage.InvalidPassword.exception.message -> _signInFailedInvalidPassword.value = Event(true)
                             AmatdaExceptionMessage.InvalidAuthUser.exception.message -> _signInFailedInvalidUser.value = Event(true)
-                            AmatdaExceptionMessage.ThereIsNoCurrentUser.exception.message -> Timber.e("아마따 어플리케이션의 현재유저(CurrentUser)가 없습니다.")
+                            AmatdaExceptionMessage.ThereIsNoCurrentUser.exception.message -> _signInFailedCurrentIsNull.value = Event(true)
                             else -> Timber.e(it)
                         }
                     }

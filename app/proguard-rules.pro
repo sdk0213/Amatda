@@ -130,6 +130,6 @@
 -keepnames class * extends java.io.Serializable
 
 -keep class com.turtle.amatda.domain.model.* { *; }
-
 -keep class com.turtle.amatda.data.model.* { *; }
+-keep class com.turtle.amatda.presentation.utilities.AmatdaExceptionMessage { *; }
 ## ------------ End: didn't find class Error 로 인한 추가 ------------

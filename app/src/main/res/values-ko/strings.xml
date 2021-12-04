@@ -146,6 +146,7 @@
     <string name="question_trip_concept">여행의 콘셉트를 체크하세요.</string>
     <string name="button_trip_make">여행 만들기</string>
     <string name="button_go_back_to_home">홈으로</string>
+    <string name="dialog_message_my_carrier_delete_trip">여행을 삭제하시겠습니까?</string>
 
     <!-- 지역 생성 -->
     <string name="question_trip_zone_ok">위치 추가</string>

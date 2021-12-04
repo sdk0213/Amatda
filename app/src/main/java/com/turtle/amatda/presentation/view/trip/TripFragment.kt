@@ -11,12 +11,17 @@ import com.tedpark.tedpermission.rx2.TedRxPermission
 import com.turtle.amatda.R
 import com.turtle.amatda.databinding.FragmentTripBinding
 import com.turtle.amatda.domain.model.Trip
+import com.turtle.amatda.presentation.android.view_data.TextViewData
+import com.turtle.amatda.presentation.utilities.extensions.getNavigationResult
 import com.turtle.amatda.presentation.view.base.BaseFragment
+import com.turtle.amatda.presentation.view.carrier.CarrierFragmentDirections
 import io.reactivex.Single
 
 class TripFragment : BaseFragment<TripViewModel, FragmentTripBinding>(R.layout.fragment_trip) {
 
     private lateinit var tripAdapter: TripAdapter
+
+    private val returnKeyDialogDeleteTrip = "dialogReturnKeyDeleteTrip"
 
     private val permissionRx: Single<TedPermissionResult> by lazy {
         TedRxPermission.create().apply {
@@ -98,7 +103,25 @@ class TripFragment : BaseFragment<TripViewModel, FragmentTripBinding>(R.layout.f
                 )
             },
             deleteTrip = { trip ->
-                viewModel.deleteTrip(trip)
+
+                findNavController().navigate(
+                    CarrierFragmentDirections.actionGlobalShowYesOrNoDialog(
+                        TextViewData(
+                            returnKey = returnKeyDialogDeleteTrip,
+                            text = "'${trip.title}'\n${getString(R.string.dialog_message_my_carrier_delete_trip)}"
+                        )
+                    )
+                )
+                getNavigationResult<String>(
+                    id = R.id.view_fragment_main,
+                    key = returnKeyDialogDeleteTrip,
+                    onResult = { RETURN ->
+                        when (RETURN) {
+                            DIALOG_RETURN_VALUE_OK -> {
+                                viewModel.deleteTrip(trip)
+                            }
+                        }
+                    })
             },
             editTrip = { trip ->
                 findNavController().navigate(

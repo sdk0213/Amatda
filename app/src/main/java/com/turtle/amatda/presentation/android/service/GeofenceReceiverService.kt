@@ -108,7 +108,7 @@ class GeofenceReceiverService : BaseService() {
                                                 title = "${tripZone.area}${transitionMsg}",
                                                 text = if (transitionMsg == "를 떠나셨습니다.") "" else tripZone.title,
                                                 onGoing = true,
-                                                isBigText = true
+                                                isBigText = transitionMsg != "를 떠나셨습니다."
                                             )
                                         )
                                     )

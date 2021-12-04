@@ -49,9 +49,9 @@ class LoginSignUpViewModel @Inject constructor(
                                         id = user.uid,
                                         email = email,
                                         password = password,
-                                        nickName = "헬로아마따",
+                                        nickName = email.split("@")?.get(0) ?: "닉네임",
                                         photo = "",
-                                        exp = 999
+                                        exp = 0
                                     )
                                 )
                                     .subscribe(

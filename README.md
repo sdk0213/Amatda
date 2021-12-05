@@ -38,10 +38,14 @@
     * Google Map
     * Google Place
     * Google Geofence
-    * FireBase 인증 (적용 필요)
+    * FireBase 인증
+    * FireStroe
+    * FireAuthentication
+      * 이메일 인증
+      * 구글 계저 로그인
     * 카카오톡 이메일 로그인 (적용 필요)
   * 테스트 
-    * ~~mockito~~ (적용되지 않음)
+    * ~~mockito~~ (적용 필요)
   * FireBase
     * FCM
     * 서버

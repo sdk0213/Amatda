@@ -107,14 +107,14 @@ class TripFragment : BaseFragment<TripViewModel, FragmentTripBinding>(R.layout.f
                 findNavController().navigate(
                     CarrierFragmentDirections.actionGlobalShowYesOrNoDialog(
                         TextViewData(
-                            returnKey = returnKeyDialogDeleteTrip,
+                            returnKey = trip.id.toString(),
                             text = "'${trip.title}'\n${getString(R.string.dialog_message_my_carrier_delete_trip)}"
                         )
                     )
                 )
                 getNavigationResult<String>(
                     id = R.id.view_fragment_main,
-                    key = returnKeyDialogDeleteTrip,
+                    key = trip.id.toString(),
                     onResult = { RETURN ->
                         when (RETURN) {
                             DIALOG_RETURN_VALUE_OK -> {

@@ -52,22 +52,22 @@ class CarrierFragment :
                     )
                 )
             },
-            deleteCarrier = {
+            deleteCarrier = { carrier ->
                 findNavController().navigate(
                     CarrierFragmentDirections.actionGlobalShowYesOrNoDialog(
                         TextViewData(
-                            returnKey = returnKeyDialogDeleteCarrier,
-                            text = "'${it.name}'\n${getString(R.string.dialog_message_my_carrier_delete_carrier)}"
+                            returnKey = carrier.id.toString(),
+                            text = "'${carrier.name}'\n${getString(R.string.dialog_message_my_carrier_delete_carrier)}"
                         )
                     )
                 )
                 getNavigationResult<String>(
                     id = R.id.view_fragment_main,
-                    key = returnKeyDialogDeleteCarrier,
+                    key = carrier.id.toString(),
                     onResult = { RETURN ->
                         when (RETURN) {
                             DIALOG_RETURN_VALUE_OK -> {
-                                viewModel.deleteCarrier(it)
+                                viewModel.deleteCarrier(carrier)
                             }
                         }
                     })

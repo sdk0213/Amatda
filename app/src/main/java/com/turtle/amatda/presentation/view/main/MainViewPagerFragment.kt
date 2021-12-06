@@ -32,13 +32,19 @@ class MainViewPagerFragment :
     }
 
     override fun init() {
-
         binding.viewPager.adapter = mainFragmentStateAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = tabTextList[position]
         }.attach()
         if (args.loginComplete != "complete") {
-            // todo: 왜 해당 코드를 사용하지 않으면 MainViewPagerFragment 가 하나 더 띄어지는지 확인이 필요함
+            // navigateUp() 사용이유 :
+            // navigation component 으로 main 으로 다시 돌아왔을때 기존것 위에 새로운 Fragment 가 생성되는문제로 navigateUp() 진행
+            // (기존 fragment 를 재활용하지 않고 새롭게 생성되어 발생하는 문제)
+            // single top 으로 진행할경우에는 기존 fragment 의 viewpager2 가 초기화되는 문제가 있어서 사용자 경험이 떨어지기에 사용하지 않음
+            // 그러므로 위에 동일한 main 프래그먼트를 더 띄우게끔 view 가 생성될때마다 navigateUp 을 사용하여 항상 이전의 사용했던 Fragment 를 사용하게끔 변경
+            // 그래서 위와 같이 main 을 구성하기 위해서는 main 을 목적지로한 action 이 있을경우에 항상 main 이전의 백스택이 없도록 구성
+            // todo: Navigation Component 를 사용하고 Action 을 사용하여 이동시 기존 Fragment 가 있다면 새로운 Fragment 를 만들지 않고 기존 Fragment 를 재활용할수 있는 방법 연구 필요
+            //          1. singleTop -> 불가능 (기존것 삭제됨)
             findNavController().navigateUp()
         } else {
             sharedPrefUtil.isLoggedDevices = true

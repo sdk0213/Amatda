@@ -345,6 +345,7 @@
     <!-- todo : Global 사용하지 않고서 ViewPager2 에서 Fragment를 호출할수 있는 방법 찾기 -->
 
     <!-- To Main -->
+    <!--  main 을 목적지로한 action 이 있을경우에는 항상 이전 백스택을 전부 삭제하도록 코드를 구성해야함 -->
     <action
         android:id="@+id/action_global_view_fragment"
         app:destination="@id/view_fragment_main"

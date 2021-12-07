@@ -11,6 +11,6 @@ object ApiClient {
     const val TOUR_BASE_URL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/"
 
     // 개인정보 보호정책
-    const val PRIVACY_POLICY_URL = "https://spotty-okra-e49.notion.site/046cb3815ae841e39dfa2a5ed6b1d74c"
+    const val PRIVACY_POLICY_URL = "https://spotty-okra-e49.notion.site/Amatda-331350f45b924e68b35027ba8c337645"
 
 }

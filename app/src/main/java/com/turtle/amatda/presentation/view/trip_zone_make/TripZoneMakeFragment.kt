@@ -97,6 +97,12 @@ class TripZoneMakeFragment :
             binding.btnMakeTripZoneOk.text = "리마인더 수정"
             viewModel.setPlaceType(it.zoneType.zone)
         })
+
+        viewModel.complete.observe(this@TripZoneMakeFragment, EventObserver{ done ->
+            if(done){
+                findNavController().navigateUp()
+            }
+        })
     }
 
     private fun listener() {
@@ -116,7 +122,6 @@ class TripZoneMakeFragment :
         binding.btnMakeTripZoneOk.setOnClickListener {
             mContext.hideKeyboard(it.windowToken)
             viewModel.saveTripZone()
-            findNavController().navigateUp()
         }
 
         binding.atvTripZoneMakeType.setOnItemClickListener { _, _, position, _ ->

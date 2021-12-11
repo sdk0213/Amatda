@@ -46,6 +46,9 @@ class TripZoneMakeViewModel @Inject constructor(
     private val _editMode = MutableLiveData<Event<TripZone>>()
     val editMode: LiveData<Event<TripZone>> get() = _editMode
 
+    private val _complete = MutableLiveData<Event<Boolean>>()
+    val complete: LiveData<Event<Boolean>> get() = _complete
+
     fun initPlaceAndTrip(placeAndTrip: PlaceAndTrip) {
         // 넘겨받은 Trip 안 zoneList 목록에 넘겨받은 Place 와 같은 위도, 경도를 가졌다면 이는 기존 TripZone 을 수정하는 모드로 취급함
         //  -> 수정모드일경우에는 Place 에 선택한 TripZone 을 넣어서 넘겨주기 때문
@@ -147,6 +150,8 @@ class TripZoneMakeViewModel @Inject constructor(
                         workManager.enqueue(
                             OneTimeWorkRequestBuilder<ManageTripZoneGeofenceWorker>().build()
                         )
+
+                        _complete.value = Event(true)
                     },
                     {
                         Timber.e("saveTripZone is failed : ${it.message}")

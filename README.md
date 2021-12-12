@@ -114,9 +114,12 @@
 </details>
 
 ---
-##### 릴리즈
+# Release - [구글플레이스토 링크](https://play.google.com/store/apps/details?id=com.turtle.amatda)
+* 구글플레이스토어 '아마따' 
+
 
 ![amatda_graphics_image_1024_500](https://user-images.githubusercontent.com/51182964/144740598-85896050-efbf-46d8-8908-81e607b95ee0.png)
+* 자신의 가방속 물품을 검색하여 위치를 파악
 
 <img src="https://user-images.githubusercontent.com/51182964/144740534-5f8d4fcc-e707-4705-8704-944a8f2385c6.png" width="30%" height="30%"> <img src="https://user-images.githubusercontent.com/51182964/144740537-f4ece8cb-d83f-47fe-a92c-6f14b6532bb1.png" width="30%" height="30%"> <img src="https://user-images.githubusercontent.com/51182964/144740536-80782ca9-4164-48d8-be5f-cea1c0650ebb.png" width="30%" height="30%"> 
 
